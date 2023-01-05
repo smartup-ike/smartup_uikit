@@ -38,44 +38,74 @@ class _ButtonWithLeadingOrTrailingIconState
 
   @override
   void initState() {
-    state = UIKitState.defaultState;
+    state = widget.onTap == null
+        ? UIKitState.disabledState
+        : UIKitState.defaultState;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Color? backgroundColor;
+    Color? contentColor;
+    Color? borderColor;
+
+    switch (state) {
+      case UIKitState.defaultState:
+        backgroundColor = widget.colorScheme?.defaultBackgroundColor;
+        contentColor = widget.colorScheme?.defaultContentColor;
+        borderColor = widget.colorScheme?.defaultBorderColor;
+        break;
+      case UIKitState.hoverState:
+        backgroundColor = widget.colorScheme?.hoverBackgroundColor;
+        contentColor = widget.colorScheme?.hoverContentColor;
+        borderColor = widget.colorScheme?.hoverBorderColor;
+        break;
+      case UIKitState.focusedState:
+        backgroundColor = widget.colorScheme?.focusedBackgroundColor;
+        contentColor = widget.colorScheme?.focusedContentColor;
+        borderColor = widget.colorScheme?.focusedBorderColor;
+        break;
+      case UIKitState.activeState:
+        backgroundColor = widget.colorScheme?.activeBackgroundColor;
+        contentColor = widget.colorScheme?.activeContentColor;
+        borderColor = widget.colorScheme?.activeBorderColor;
+        break;
+      case UIKitState.disabledState:
+        backgroundColor = widget.colorScheme?.disabledBackgroundColor;
+        contentColor = widget.colorScheme?.disabledContentColor;
+        borderColor = widget.colorScheme?.disabledBorderColor;
+        break;
+      default:
+        break;
+    }
+
     return MouseRegion(
-      onEnter: (_) => setState(
-        () => state = widget.onTap == null
-            ? UIKitState.disabledState
-            : UIKitState.hoverState,
-      ),
-      onExit: (_) => setState(
-        () => state = widget.onTap == null
-            ? UIKitState.disabledState
-            : UIKitState.defaultState,
-      ),
+      onEnter: (_) {
+        if (widget.onTap != null) {
+          setState(() => state = UIKitState.hoverState);
+        }
+      },
+      onExit: (_) {
+        if (widget.onTap != null) {
+          setState(() => state = UIKitState.defaultState);
+        }
+      },
       child: GestureDetector(
         onTap: widget.onTap,
         onTapDown: (_) {
           if (widget.onTap != null) {
-            setState(() {
-              isPressed = true;
-            });
+            setState(() => state = UIKitState.focusedState);
           }
         },
         onTapUp: (_) {
           if (widget.onTap != null) {
-            setState(() {
-              isPressed = false;
-            });
+            setState(() => state = UIKitState.defaultState);
           }
         },
         onTapCancel: () {
           if (widget.onTap != null) {
-            setState(() {
-              isPressed = false;
-            });
+            setState(() => state = UIKitState.defaultState);
           }
         },
         child: AnimatedContainer(
@@ -85,23 +115,23 @@ class _ButtonWithLeadingOrTrailingIconState
             border: Border.all(
               strokeAlign: StrokeAlign.outside,
               width: 2,
-              color: isPressed ? Colors.white : Colors.transparent,
+              color: borderColor ?? Colors.transparent,
             ),
           ),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isPressed ? Colors.white : Colors.transparent,
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 strokeAlign: StrokeAlign.outside,
                 width: 1,
-                color: isPressed ? Colors.white : Colors.transparent,
+                color: borderColor ?? Colors.transparent,
               ),
               boxShadow: widget.onTap == null || !(widget.hasShadow ?? true)
                   ? []
-                  : isPressed
+                  : state == UIKitState.focusedState
                       ? [
                           BoxShadow(
                             offset: const Offset(0, 0),
@@ -130,38 +160,27 @@ class _ButtonWithLeadingOrTrailingIconState
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (!widget.removePadding!)
-                  const SizedBox(
-                    width: 10,
-                  ),
+                if (!widget.removePadding!) const SizedBox(width: 10),
                 if (widget.leading != null) ...[
                   UIKitIconTheme(
-                    color: Colors.black,
+                    color: contentColor,
                     size: widget.sizeScheme?.height,
-                    child: widget.leading ?? Container(),
+                    child: widget.leading!,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                 ],
                 DefaultTextStyle(
-                    style:
-                        widget.sizeScheme?.labelTextStyle ?? const TextStyle(),
-                    child: widget.labelText ?? const Text('Button')),
-                if (!widget.removePadding!)
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  style: widget.sizeScheme?.labelTextStyle ?? const TextStyle(),
+                  child: widget.labelText ?? const Text('Button'),
+                ),
+                if (!widget.removePadding!) const SizedBox(width: 10),
                 if (widget.trailing != null) ...[
                   UIKitIconTheme(
-                    color: Colors.black,
+                    color: contentColor,
                     size: widget.sizeScheme?.height,
                     child: widget.trailing!,
                   ),
-                  if (!widget.removePadding!)
-                    const SizedBox(
-                      width: 10,
-                    ),
+                  if (!widget.removePadding!) const SizedBox(width: 10),
                 ],
               ],
             ),
