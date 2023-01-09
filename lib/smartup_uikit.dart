@@ -1,16 +1,9 @@
 library smartup_uikit;
 
-import 'package:smartup_uikit/src/button_with_leading_or_trailing_icon.dart';
+export 'package:smartup_uikit/src/button_with_leading_or_trailing_icon.dart'
+    show ButtonWithLeadingOrTrailingIcon;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:smartup_uikit/src/helpers/uikit_color_scheme.dart'
+    show UIKitColorScheme;
 
-class SmartupUIKit {
-  ButtonWithLeadingOrTrailingIcon button =
-      const ButtonWithLeadingOrTrailingIcon(
-    onTap: null,
-  );
-}
+export 'package:smartup_uikit/src/helpers/size_scheme.dart' show SizeScheme;
