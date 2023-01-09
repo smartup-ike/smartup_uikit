@@ -71,40 +71,40 @@ class UIKitButton extends HookWidget {
     Color? contentColor;
     Color? borderColor;
 
-    if (onTap != null) {
-      switch (state$.value) {
-        case UIKitState.defaultState:
-          backgroundColor = colorScheme?.defaultBackgroundColor;
-          contentColor = colorScheme?.defaultContentColor;
-          borderColor = colorScheme?.defaultBorderColor;
-          break;
-        case UIKitState.hover:
-          backgroundColor = colorScheme?.hoverBackgroundColor;
-          contentColor = colorScheme?.hoverContentColor;
-          borderColor = colorScheme?.hoverBorderColor;
-          break;
-        case UIKitState.focused:
-          backgroundColor = colorScheme?.focusedBackgroundColor;
-          contentColor = colorScheme?.focusedContentColor;
-          borderColor = colorScheme?.focusedBorderColor;
-          break;
-        case UIKitState.active:
-          backgroundColor = colorScheme?.activeBackgroundColor;
-          contentColor = colorScheme?.activeContentColor;
-          borderColor = colorScheme?.activeBorderColor;
-          break;
-        case UIKitState.disabled:
-          backgroundColor = colorScheme?.disabledBackgroundColor;
-          contentColor = colorScheme?.disabledContentColor;
-          borderColor = colorScheme?.disabledBorderColor;
-          break;
-        default:
-          break;
-      }
+    switch (state$.value) {
+      case UIKitState.defaultState:
+        backgroundColor = colorScheme?.defaultBackgroundColor;
+        contentColor = colorScheme?.defaultContentColor;
+        borderColor = colorScheme?.defaultBorderColor;
+        break;
+      case UIKitState.hover:
+        backgroundColor = colorScheme?.hoverBackgroundColor;
+        contentColor = colorScheme?.hoverContentColor;
+        borderColor = colorScheme?.hoverBorderColor;
+        break;
+      case UIKitState.focused:
+        backgroundColor = colorScheme?.focusedBackgroundColor;
+        contentColor = colorScheme?.focusedContentColor;
+        borderColor = colorScheme?.focusedBorderColor;
+        break;
+      case UIKitState.active:
+        backgroundColor = colorScheme?.activeBackgroundColor;
+        contentColor = colorScheme?.activeContentColor;
+        borderColor = colorScheme?.activeBorderColor;
+        break;
+      case UIKitState.disabled:
+        backgroundColor = colorScheme?.disabledBackgroundColor;
+        contentColor = colorScheme?.disabledContentColor;
+        borderColor = colorScheme?.disabledBorderColor;
+        break;
+      default:
+        break;
     }
 
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
+      cursor: state$.value == UIKitState.disabled
+          ? SystemMouseCursors.basic
+          : SystemMouseCursors.click,
       onHover: (_) {
         if (onTap != null) {
           state$.value = UIKitState.hover;
