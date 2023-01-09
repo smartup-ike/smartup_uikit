@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/size_scheme.dart';
@@ -6,7 +7,7 @@ import 'uikit_icon_theme.dart';
 
 /// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
 /// and a label [Widget].
-class UIKitButton extends StatefulWidget {
+class UIKitButton extends HookWidget {
   const UIKitButton({
     super.key,
     this.onTap,
@@ -52,95 +53,87 @@ class UIKitButton extends StatefulWidget {
   final bool? removePadding;
 
   @override
-  State<UIKitButton> createState() => _UIKitButtonState();
-}
-
-class _UIKitButtonState extends State<UIKitButton> {
-  late UIKitState state;
-  bool isHovering = false;
-
-  @override
-  void initState() {
-    state =
-        widget.onTap == null ? UIKitState.disabled : UIKitState.defaultState;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final state$ = useState<UIKitState>(
+        onTap == null ? UIKitState.disabled : UIKitState.defaultState);
+    final isHovered$ = useState(false);
+
+    useEffect(() {
+      if (onTap == null) {
+        state$.value = UIKitState.disabled;
+      } else {
+        state$.value = UIKitState.defaultState;
+      }
+      return null;
+    }, [onTap == null]);
+
     Color? backgroundColor;
     Color? contentColor;
     Color? borderColor;
 
-    switch (state) {
-      case UIKitState.defaultState:
-        backgroundColor = widget.colorScheme?.defaultBackgroundColor;
-        contentColor = widget.colorScheme?.defaultContentColor;
-        borderColor = widget.colorScheme?.defaultBorderColor;
-        break;
-      case UIKitState.hover:
-        backgroundColor = widget.colorScheme?.hoverBackgroundColor;
-        contentColor = widget.colorScheme?.hoverContentColor;
-        borderColor = widget.colorScheme?.hoverBorderColor;
-        break;
-      case UIKitState.focused:
-        backgroundColor = widget.colorScheme?.focusedBackgroundColor;
-        contentColor = widget.colorScheme?.focusedContentColor;
-        borderColor = widget.colorScheme?.focusedBorderColor;
-        break;
-      case UIKitState.active:
-        backgroundColor = widget.colorScheme?.activeBackgroundColor;
-        contentColor = widget.colorScheme?.activeContentColor;
-        borderColor = widget.colorScheme?.activeBorderColor;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = widget.colorScheme?.disabledBackgroundColor;
-        contentColor = widget.colorScheme?.disabledContentColor;
-        borderColor = widget.colorScheme?.disabledBorderColor;
-        break;
-      default:
-        break;
+    if (onTap != null) {
+      switch (state$.value) {
+        case UIKitState.defaultState:
+          backgroundColor = colorScheme?.defaultBackgroundColor;
+          contentColor = colorScheme?.defaultContentColor;
+          borderColor = colorScheme?.defaultBorderColor;
+          break;
+        case UIKitState.hover:
+          backgroundColor = colorScheme?.hoverBackgroundColor;
+          contentColor = colorScheme?.hoverContentColor;
+          borderColor = colorScheme?.hoverBorderColor;
+          break;
+        case UIKitState.focused:
+          backgroundColor = colorScheme?.focusedBackgroundColor;
+          contentColor = colorScheme?.focusedContentColor;
+          borderColor = colorScheme?.focusedBorderColor;
+          break;
+        case UIKitState.active:
+          backgroundColor = colorScheme?.activeBackgroundColor;
+          contentColor = colorScheme?.activeContentColor;
+          borderColor = colorScheme?.activeBorderColor;
+          break;
+        case UIKitState.disabled:
+          backgroundColor = colorScheme?.disabledBackgroundColor;
+          contentColor = colorScheme?.disabledContentColor;
+          borderColor = colorScheme?.disabledBorderColor;
+          break;
+        default:
+          break;
+      }
     }
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onHover: (_) {
-        if (widget.onTap != null) {
-          setState(() {
-            state = UIKitState.hover;
-            isHovering = true;
-          });
+        if (onTap != null) {
+          state$.value = UIKitState.hover;
+          isHovered$.value = true;
         }
       },
       onExit: (_) {
-        if (widget.onTap != null) {
-          setState(() {
-            state = UIKitState.defaultState;
-            isHovering = false;
-          });
+        if (onTap != null) {
+          state$.value = UIKitState.defaultState;
+          isHovered$.value = false;
         }
       },
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: onTap,
         onTapDown: (_) {
-          if (widget.onTap != null) {
-            setState(() => state = UIKitState.focused);
+          if (onTap != null) {
+            state$.value = UIKitState.focused;
           }
         },
         onTapUp: (_) {
-          if (widget.onTap != null) {
-            setState(
-              () => state =
-                  isHovering ? UIKitState.hover : UIKitState.defaultState,
-            );
+          if (onTap != null) {
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
-          if (widget.onTap != null) {
-            setState(
-              () => state =
-                  isHovering ? UIKitState.hover : UIKitState.defaultState,
-            );
+          if (onTap != null) {
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         child: AnimatedContainer(
@@ -164,9 +157,9 @@ class _UIKitButtonState extends State<UIKitButton> {
                 width: 1,
                 color: borderColor ?? Colors.transparent,
               ),
-              boxShadow: widget.onTap == null || !(widget.hasShadow ?? true)
+              boxShadow: onTap == null || !(hasShadow ?? true)
                   ? []
-                  : state == UIKitState.focused
+                  : state$.value == UIKitState.focused
                       ? [
                           BoxShadow(
                             offset: const Offset(0, 0),
@@ -190,32 +183,32 @@ class _UIKitButtonState extends State<UIKitButton> {
                           ),
                         ],
             ),
-            height: widget.sizeScheme?.height,
+            height: sizeScheme?.height,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (!widget.removePadding!) const SizedBox(width: 10),
-                if (widget.leading != null) ...[
+                if (!removePadding!) const SizedBox(width: 10),
+                if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: widget.sizeScheme?.height,
-                    child: widget.leading!,
+                    size: sizeScheme?.height,
+                    child: leading!,
                   ),
                   const SizedBox(width: 10),
                 ],
                 DefaultTextStyle(
-                  style: widget.sizeScheme?.labelTextStyle ?? const TextStyle(),
-                  child: widget.labelText ?? const Text('Button'),
+                  style: sizeScheme?.labelTextStyle ?? const TextStyle(),
+                  child: labelText ?? const Text('Button'),
                 ),
-                if (!widget.removePadding!) const SizedBox(width: 10),
-                if (widget.trailing != null) ...[
+                if (!removePadding!) const SizedBox(width: 10),
+                if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: widget.sizeScheme?.height,
-                    child: widget.trailing!,
+                    size: sizeScheme?.height,
+                    child: trailing!,
                   ),
-                  if (!widget.removePadding!) const SizedBox(width: 10),
+                  if (!removePadding!) const SizedBox(width: 10),
                 ],
               ],
             ),
