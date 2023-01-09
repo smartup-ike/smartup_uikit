@@ -37,7 +37,31 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(),
+      body: ListView(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonWithLeadingOrTrailingIcon(
+                onTap: () {},
+                hasShadow: true,
+                removePadding: false,
+                colorScheme: UIKitColorScheme(
+                  defaultBackgroundColor: Colors.white,
+                  hoverBackgroundColor: Colors.green,
+                  focusedBackgroundColor: Colors.red,
+                  activeBackgroundColor: Colors.orange,
+                  disabledBackgroundColor: Colors.grey,
+                ),
+                sizeScheme: SizeScheme(
+                  height: 40,
+                  iconSize: 24,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
