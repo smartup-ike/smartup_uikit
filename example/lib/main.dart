@@ -66,14 +66,14 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               UIKitRadioButton(
-                isSelected: true,
-                isDisabled: false,
+                isSelected: false,
+                onTap: () {},
                 colorScheme: UIKitColorScheme(
-                  defaultBackgroundColor: Colors.black,
-                  hoverBackgroundColor: Colors.green,
-                  focusedBackgroundColor: Colors.red,
-                  activeBackgroundColor: Colors.orange,
-                  disabledBackgroundColor: Colors.grey,
+                  defaultBackgroundColor: Colors.white,
+                  hoverBackgroundColor: Colors.white,
+                  focusedBackgroundColor: Colors.white,
+                  activeBackgroundColor: Colors.white,
+                  disabledBackgroundColor: Colors.white,
                   defaultContentColor: Colors.black,
                   hoverContentColor: Colors.green,
                   focusedContentColor: Colors.red,

@@ -7,28 +7,28 @@ class UIKitRadioButton extends HookWidget {
   const UIKitRadioButton({
     super.key,
     required this.isSelected,
-    required this.isDisabled,
+    this.onTap,
     this.colorScheme,
   });
 
-  final bool isDisabled;
+  final VoidCallback? onTap;
   final bool isSelected;
   final UIKitColorScheme? colorScheme;
 
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
-        isDisabled ? UIKitState.disabled : UIKitState.defaultState);
+        onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
 
     useEffect(() {
-      if (isDisabled) {
+      if (onTap == null) {
         state$.value = UIKitState.disabled;
       } else {
         state$.value = UIKitState.defaultState;
       }
       return null;
-    }, [isDisabled]);
+    }, [onTap == null]);
 
     Color? backgroundColor;
     Color? contentColor;
@@ -69,31 +69,31 @@ class UIKitRadioButton extends HookWidget {
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
       onHover: (_) {
-        if (!isDisabled) {
+        if (onTap != null) {
           state$.value = UIKitState.hover;
           isHovered$.value = true;
         }
       },
       onExit: (_) {
-        if (!isDisabled) {
+        if (onTap != null) {
           state$.value = UIKitState.defaultState;
           isHovered$.value = false;
         }
       },
       child: GestureDetector(
         onTapDown: (_) {
-          if (!isDisabled) {
+          if (onTap != null) {
             state$.value = UIKitState.focused;
           }
         },
         onTapUp: (_) {
-          if (!isDisabled) {
+          if (onTap != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
-          if (!isDisabled) {
+          if (onTap != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
@@ -109,7 +109,7 @@ class UIKitRadioButton extends HookWidget {
             ),
             color: backgroundColor ?? Colors.transparent,
             borderRadius: BorderRadius.circular(50),
-            boxShadow: isDisabled
+            boxShadow: onTap == null
                 ? []
                 : state$.value == UIKitState.focused
                     ? [
