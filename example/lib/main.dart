@@ -33,34 +33,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: ListView(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ButtonWithLeadingOrTrailingIcon(
-                onTap: () {},
-                hasShadow: true,
-                removePadding: false,
-                colorScheme: UIKitColorScheme(
-                  defaultBackgroundColor: Colors.white,
-                  hoverBackgroundColor: Colors.green,
-                  focusedBackgroundColor: Colors.red,
-                  activeBackgroundColor: Colors.orange,
-                  disabledBackgroundColor: Colors.grey,
+    return SUTheme(
+      data: SUThemeData(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ButtonWithLeadingOrTrailingIcon(
+                  onTap: () {},
+                  hasShadow: true,
+                  removePadding: false,
+                  colorScheme: UIKitColorScheme(
+                    defaultBackgroundColor: Colors.white,
+                    hoverBackgroundColor: Colors.green,
+                    focusedBackgroundColor: Colors.red,
+                    activeBackgroundColor: Colors.orange,
+                    disabledBackgroundColor: Colors.grey,
+                  ),
+                  sizeScheme: SizeScheme(
+                    height: 40,
+                    iconSize: 24,
+                  ),
                 ),
-                sizeScheme: SizeScheme(
-                  height: 40,
-                  iconSize: 24,
-                ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

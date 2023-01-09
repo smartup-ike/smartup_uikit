@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../smartup_uikit.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/size_scheme.dart';
@@ -46,13 +47,15 @@ class _ButtonWithLeadingOrTrailingIconState
 
   @override
   Widget build(BuildContext context) {
+    final customTheme = SUTheme.of(context);
     Color? backgroundColor;
     Color? contentColor;
     Color? borderColor;
 
     switch (state) {
       case UIKitState.defaultState:
-        backgroundColor = widget.colorScheme?.defaultBackgroundColor;
+        // backgroundColor = widget.colorScheme?.defaultBackgroundColor;
+        backgroundColor = customTheme.testColor;
         contentColor = widget.colorScheme?.defaultContentColor;
         borderColor = widget.colorScheme?.defaultBorderColor;
         break;
