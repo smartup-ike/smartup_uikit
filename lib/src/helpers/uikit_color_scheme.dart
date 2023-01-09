@@ -1,6 +1,24 @@
 import 'package:flutter/material.dart';
 
 class UIKitColorScheme {
+  UIKitColorScheme({
+    this.defaultBackgroundColor,
+    this.hoverBackgroundColor,
+    this.focusedBackgroundColor,
+    this.activeBackgroundColor,
+    this.disabledBackgroundColor,
+    this.defaultContentColor,
+    this.hoverContentColor,
+    this.focusedContentColor,
+    this.activeContentColor,
+    this.disabledContentColor,
+    this.defaultBorderColor,
+    this.hoverBorderColor,
+    this.focusedBorderColor,
+    this.activeBorderColor,
+    this.disabledBorderColor,
+  });
+
   // Background
   Color? defaultBackgroundColor;
   Color? hoverBackgroundColor;
