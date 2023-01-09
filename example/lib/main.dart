@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonWithLeadingOrTrailingIcon(
+              UIKitButton(
                 onTap: () {},
                 hasShadow: true,
                 removePadding: false,
