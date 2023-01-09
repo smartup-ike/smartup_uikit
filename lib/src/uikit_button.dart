@@ -4,8 +4,10 @@ import 'helpers/uikit_states.dart';
 import 'helpers/size_scheme.dart';
 import 'uikit_icon_theme.dart';
 
-class ButtonWithLeadingOrTrailingIcon extends StatefulWidget {
-  const ButtonWithLeadingOrTrailingIcon({
+/// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
+/// and a label [Widget].
+class UIKitButton extends StatefulWidget {
+  const UIKitButton({
     super.key,
     this.onTap,
     this.labelText,
@@ -17,30 +19,50 @@ class ButtonWithLeadingOrTrailingIcon extends StatefulWidget {
     this.removePadding,
   });
 
+  /// Function that is called on button tap.
+  ///
+  /// Set onTap = null if the button is disabled
   final VoidCallback? onTap;
+
+  /// [Widget] for the label text.
+  ///
+  /// If the widget contains [Text], the style changes automatically.
   final Widget? labelText;
+
+  /// [Widget] for the leading icon.
+  ///
+  /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? leading;
+
+  /// [Widget] for the trailing icon.
+  ///
+  /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? trailing;
+
+  /// [SizeScheme] an object containing info for the button's height, icon size and text style
   final SizeScheme? sizeScheme;
+
+  /// [UIKitColorScheme] an object containing different colors for all the button's states
   final UIKitColorScheme? colorScheme;
+
+  /// Boolean indicating wether the button has shadow
   final bool? hasShadow;
+
+  /// Boolean of the button to remove initial padding.
   final bool? removePadding;
 
   @override
-  State<ButtonWithLeadingOrTrailingIcon> createState() =>
-      _ButtonWithLeadingOrTrailingIconState();
+  State<UIKitButton> createState() => _UIKitButtonState();
 }
 
-class _ButtonWithLeadingOrTrailingIconState
-    extends State<ButtonWithLeadingOrTrailingIcon> {
-  bool isPressed = false;
+class _UIKitButtonState extends State<UIKitButton> {
   late UIKitState state;
+  bool isHovering = false;
 
   @override
   void initState() {
-    state = widget.onTap == null
-        ? UIKitState.disabledState
-        : UIKitState.defaultState;
+    state =
+        widget.onTap == null ? UIKitState.disabled : UIKitState.defaultState;
     super.initState();
   }
 
@@ -56,22 +78,22 @@ class _ButtonWithLeadingOrTrailingIconState
         contentColor = widget.colorScheme?.defaultContentColor;
         borderColor = widget.colorScheme?.defaultBorderColor;
         break;
-      case UIKitState.hoverState:
+      case UIKitState.hover:
         backgroundColor = widget.colorScheme?.hoverBackgroundColor;
         contentColor = widget.colorScheme?.hoverContentColor;
         borderColor = widget.colorScheme?.hoverBorderColor;
         break;
-      case UIKitState.focusedState:
+      case UIKitState.focused:
         backgroundColor = widget.colorScheme?.focusedBackgroundColor;
         contentColor = widget.colorScheme?.focusedContentColor;
         borderColor = widget.colorScheme?.focusedBorderColor;
         break;
-      case UIKitState.activeState:
+      case UIKitState.active:
         backgroundColor = widget.colorScheme?.activeBackgroundColor;
         contentColor = widget.colorScheme?.activeContentColor;
         borderColor = widget.colorScheme?.activeBorderColor;
         break;
-      case UIKitState.disabledState:
+      case UIKitState.disabled:
         backgroundColor = widget.colorScheme?.disabledBackgroundColor;
         contentColor = widget.colorScheme?.disabledContentColor;
         borderColor = widget.colorScheme?.disabledBorderColor;
@@ -81,31 +103,44 @@ class _ButtonWithLeadingOrTrailingIconState
     }
 
     return MouseRegion(
-      onEnter: (_) {
+      cursor: SystemMouseCursors.click,
+      onHover: (_) {
         if (widget.onTap != null) {
-          setState(() => state = UIKitState.hoverState);
+          setState(() {
+            state = UIKitState.hover;
+            isHovering = true;
+          });
         }
       },
       onExit: (_) {
         if (widget.onTap != null) {
-          setState(() => state = UIKitState.defaultState);
+          setState(() {
+            state = UIKitState.defaultState;
+            isHovering = false;
+          });
         }
       },
       child: GestureDetector(
         onTap: widget.onTap,
         onTapDown: (_) {
           if (widget.onTap != null) {
-            setState(() => state = UIKitState.focusedState);
+            setState(() => state = UIKitState.focused);
           }
         },
         onTapUp: (_) {
           if (widget.onTap != null) {
-            setState(() => state = UIKitState.defaultState);
+            setState(
+              () => state =
+                  isHovering ? UIKitState.hover : UIKitState.defaultState,
+            );
           }
         },
         onTapCancel: () {
           if (widget.onTap != null) {
-            setState(() => state = UIKitState.defaultState);
+            setState(
+              () => state =
+                  isHovering ? UIKitState.hover : UIKitState.defaultState,
+            );
           }
         },
         child: AnimatedContainer(
@@ -131,7 +166,7 @@ class _ButtonWithLeadingOrTrailingIconState
               ),
               boxShadow: widget.onTap == null || !(widget.hasShadow ?? true)
                   ? []
-                  : state == UIKitState.focusedState
+                  : state == UIKitState.focused
                       ? [
                           BoxShadow(
                             offset: const Offset(0, 0),
