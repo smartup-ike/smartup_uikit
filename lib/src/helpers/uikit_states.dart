@@ -1,8 +1,8 @@
 enum UIKitState {
   defaultState,
-  hoverState,
-  focusedState,
-  activeState,
-  errorState,
-  disabledState,
+  hover,
+  focused,
+  active,
+  error,
+  disabled,
 }
