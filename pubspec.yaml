@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.5+1
   provider: ^6.0.5
 
 dev_dependencies:

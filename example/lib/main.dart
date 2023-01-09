@@ -38,11 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonWithLeadingOrTrailingIcon(
+              UIKitButton(
                 onTap: () {},
                 hasShadow: true,
                 removePadding: false,
