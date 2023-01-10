@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isToggleActive = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   activeBackgroundColor: Colors.orange,
                   disabledBackgroundColor: Colors.grey,
                 ),
-                sizeScheme: SizeScheme(
+                sizeScheme: UIKitSizeScheme(
                   height: 40,
                   iconSize: 24,
                 ),
@@ -110,6 +112,29 @@ class _MyHomePageState extends State<MyHomePage> {
               focusedContentColor: Colors.red,
               activeContentColor: Colors.orange,
               disabledContentColor: Colors.grey,
+              defaultBorderColor: Colors.black,
+              hoverBorderColor: Colors.green,
+              focusedBorderColor: Colors.red,
+              activeBorderColor: Colors.orange,
+              disabledBorderColor: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 8),
+          UIKitToggleSwitch(
+            hasIcon: true,
+            isActive: _isToggleActive,
+            onTap: () => setState(() => _isToggleActive = !_isToggleActive),
+            colorScheme: UIKitColorScheme(
+              defaultBackgroundColor: Colors.black,
+              hoverBackgroundColor: Colors.green,
+              focusedBackgroundColor: Colors.red,
+              activeBackgroundColor: Colors.orange,
+              disabledBackgroundColor: Colors.grey,
+              defaultContentColor: Colors.white,
+              hoverContentColor: Colors.white,
+              focusedContentColor: Colors.white,
+              activeContentColor: Colors.white,
+              disabledContentColor: Colors.white,
               defaultBorderColor: Colors.black,
               hoverBorderColor: Colors.green,
               focusedBorderColor: Colors.red,
