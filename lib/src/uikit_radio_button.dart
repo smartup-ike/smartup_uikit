@@ -11,8 +11,15 @@ class UIKitRadioButton extends HookWidget {
     this.colorScheme,
   });
 
+  /// [VoidCallback] that will be called when this button is tapped.
+  /// Set to null to make this button disabled;
   final VoidCallback? onTap;
+
+  /// [bool] indicating if this radio button is currently selected.
   final bool isSelected;
+
+  /// [UIKitColorScheme] determining the value of different color
+  /// attributes of this radio button.
   final UIKitColorScheme? colorScheme;
 
   @override
