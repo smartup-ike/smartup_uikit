@@ -19,6 +19,24 @@ class UIKitColorScheme {
     this.disabledBorderColor,
   });
 
+  UIKitColorScheme.defaultScheme() {
+    defaultBackgroundColor = const Color(0xFF000000);
+    hoverBackgroundColor = const Color(0xFF000000);
+    focusedBackgroundColor = const Color(0xFF000000);
+    activeBackgroundColor = const Color(0xFF000000);
+    disabledBackgroundColor = const Color(0xFF000000);
+    defaultContentColor = const Color(0xFF000000);
+    hoverContentColor = const Color(0xFF000000);
+    focusedContentColor = const Color(0xFF000000);
+    activeContentColor = const Color(0xFF000000);
+    disabledContentColor = const Color(0xFF000000);
+    defaultBorderColor = const Color(0xFF000000);
+    hoverBorderColor = const Color(0xFF000000);
+    focusedBorderColor = const Color(0xFF000000);
+    activeBorderColor = const Color(0xFF000000);
+    disabledBorderColor = const Color(0xFF000000);
+  }
+
   // Background
   Color? defaultBackgroundColor;
   Color? hoverBackgroundColor;
