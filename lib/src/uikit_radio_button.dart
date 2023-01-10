@@ -81,6 +81,7 @@ class UIKitRadioButton extends HookWidget {
         }
       },
       child: GestureDetector(
+        onTap: onTap,
         onTapDown: (_) {
           if (onTap != null) {
             state$.value = UIKitState.focused;
