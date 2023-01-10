@@ -90,7 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           const SizedBox(height: 8),
           UIKitRadioGroup(
+            isVertical: false,
             label: const Text('Label'),
+            assistiveText: const Text('Assistive text'),
             optionLabels: const [
               Text('Test for testing'),
               Text('Test for testing'),
