@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               UIKitRadioButton(
-                isSelected: false,
+                isSelected: true,
                 onTap: () {},
                 colorScheme: UIKitColorScheme(
                   defaultBackgroundColor: Colors.white,
@@ -87,6 +87,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 8),
+          UIKitRadioGroup(
+            label: const Text('Label'),
+            optionLabels: const [
+              Text('Test for testing'),
+              Text('Test for testing'),
+              Text('Test for testing'),
+              Text('Test for testing'),
+            ],
+            colorScheme: UIKitColorScheme(
+              defaultBackgroundColor: Colors.white,
+              hoverBackgroundColor: Colors.white,
+              focusedBackgroundColor: Colors.white,
+              activeBackgroundColor: Colors.white,
+              disabledBackgroundColor: Colors.white,
+              defaultContentColor: Colors.black,
+              hoverContentColor: Colors.green,
+              focusedContentColor: Colors.red,
+              activeContentColor: Colors.orange,
+              disabledContentColor: Colors.grey,
+              defaultBorderColor: Colors.black,
+              hoverBorderColor: Colors.green,
+              focusedBorderColor: Colors.red,
+              activeBorderColor: Colors.orange,
+              disabledBorderColor: Colors.grey,
+            ),
           ),
         ],
       ),
