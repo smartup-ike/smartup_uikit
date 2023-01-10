@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/smartup_uikit.dart';
+import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/size_scheme.dart';
@@ -57,6 +59,9 @@ class UIKitButton extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
+    final buttonTheme = SUTheme.of(context).buttonThemeData;
+
+    UIKitColorScheme buttonColors = colorScheme ?? buttonTheme.colorScheme;
 
     useEffect(() {
       if (onTap == null) {
@@ -74,29 +79,29 @@ class UIKitButton extends HookWidget {
     if (onTap != null) {
       switch (state$.value) {
         case UIKitState.defaultState:
-          backgroundColor = colorScheme?.defaultBackgroundColor;
-          contentColor = colorScheme?.defaultContentColor;
-          borderColor = colorScheme?.defaultBorderColor;
+          backgroundColor = buttonColors.defaultBackgroundColor;
+          contentColor = buttonColors.defaultContentColor;
+          borderColor = buttonColors.defaultBorderColor;
           break;
         case UIKitState.hover:
-          backgroundColor = colorScheme?.hoverBackgroundColor;
-          contentColor = colorScheme?.hoverContentColor;
-          borderColor = colorScheme?.hoverBorderColor;
+          backgroundColor = buttonColors.hoverBackgroundColor;
+          contentColor = buttonColors.hoverContentColor;
+          borderColor = buttonColors.hoverBorderColor;
           break;
         case UIKitState.focused:
-          backgroundColor = colorScheme?.focusedBackgroundColor;
-          contentColor = colorScheme?.focusedContentColor;
-          borderColor = colorScheme?.focusedBorderColor;
+          backgroundColor = buttonColors.focusedBackgroundColor;
+          contentColor = buttonColors.focusedContentColor;
+          borderColor = buttonColors.focusedBorderColor;
           break;
         case UIKitState.active:
-          backgroundColor = colorScheme?.activeBackgroundColor;
-          contentColor = colorScheme?.activeContentColor;
-          borderColor = colorScheme?.activeBorderColor;
+          backgroundColor = buttonColors.activeBackgroundColor;
+          contentColor = buttonColors.activeContentColor;
+          borderColor = buttonColors.activeBorderColor;
           break;
         case UIKitState.disabled:
-          backgroundColor = colorScheme?.disabledBackgroundColor;
-          contentColor = colorScheme?.disabledContentColor;
-          borderColor = colorScheme?.disabledBorderColor;
+          backgroundColor = buttonColors.disabledBackgroundColor;
+          contentColor = buttonColors.disabledContentColor;
+          borderColor = buttonColors.disabledBorderColor;
           break;
         default:
           break;

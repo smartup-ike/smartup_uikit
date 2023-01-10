@@ -8,3 +8,4 @@ export 'package:smartup_uikit/src/helpers/uikit_color_scheme.dart'
 export 'package:smartup_uikit/src/helpers/size_scheme.dart' show SizeScheme;
 
 export 'package:smartup_uikit/src/theme/su_theme.dart';
+export 'package:smartup_uikit/src/theme/su_button_theme_data.dart';

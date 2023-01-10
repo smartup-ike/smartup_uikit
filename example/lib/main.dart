@@ -34,7 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SUTheme(
-      data: SUThemeData(),
+      data: SUThemeData(
+          buttonThemeData: SUButtonThemeData(
+              colorScheme:
+                  UIKitColorScheme(defaultBackgroundColor: Colors.red))),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -44,17 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ButtonWithLeadingOrTrailingIcon(
+                UIKitButton(
                   onTap: () {},
                   hasShadow: true,
                   removePadding: false,
-                  colorScheme: UIKitColorScheme(
-                    defaultBackgroundColor: Colors.white,
-                    hoverBackgroundColor: Colors.green,
-                    focusedBackgroundColor: Colors.red,
-                    activeBackgroundColor: Colors.orange,
-                    disabledBackgroundColor: Colors.grey,
-                  ),
                   sizeScheme: SizeScheme(
                     height: 40,
                     iconSize: 24,

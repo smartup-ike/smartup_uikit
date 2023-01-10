@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
 
 class SUTheme extends StatelessWidget {
   const SUTheme({
@@ -53,49 +54,27 @@ class _SUTheme extends InheritedTheme {
 
 @immutable
 class SUThemeData {
-  final Typography typography;
-  final Color activeColor;
-  final Color testColor;
+  final SUButtonThemeData buttonThemeData;
 
   const SUThemeData.raw({
-    required this.typography,
-    required this.activeColor,
-    required this.testColor,
+    required this.buttonThemeData,
   });
 
   factory SUThemeData({
-    Typography? typography,
-    Color? activeColor,
-    Color? testColor,
+    SUButtonThemeData? buttonThemeData,
   }) {
-    activeColor ??= Colors.white;
-    testColor ??= Colors.blue;
-    typography ??= Typography();
+    buttonThemeData ??= SUButtonThemeData();
 
     return SUThemeData.raw(
-      activeColor: activeColor,
-      testColor: testColor,
-      typography: typography,
-    );
-  }
-
-  static SUThemeData lerp(SUThemeData a, SUThemeData b, double t) {
-    return SUThemeData.raw(
-      testColor: Color.lerp(a.activeColor, b.activeColor, t)!,
-      typography: Typography.lerp(a.typography, b.typography, t),
-      activeColor: Color.lerp(a.activeColor, b.activeColor, t)!,
+      buttonThemeData: buttonThemeData,
     );
   }
 
   SUThemeData copyWith({
-    Typography? typography,
-    Color? activeColor,
-    Color? testColor,
+    SUButtonThemeData? buttonThemeData,
   }) {
     return SUThemeData.raw(
-      typography: this.typography,
-      testColor: this.testColor,
-      activeColor: activeColor ?? this.activeColor,
+      buttonThemeData: buttonThemeData ?? this.buttonThemeData,
     );
   }
 }
