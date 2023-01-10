@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
-import 'helpers/size_scheme.dart';
+import 'helpers/uikit_size_scheme.dart';
 import 'uikit_icon_theme.dart';
 
 /// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
@@ -40,8 +40,8 @@ class UIKitButton extends HookWidget {
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? trailing;
 
-  /// [SizeScheme] an object containing info for the button's height, icon size and text style
-  final SizeScheme? sizeScheme;
+  /// [UIKitSizeScheme] an object containing info for the button's height, icon size and text style
+  final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitColorScheme] an object containing different colors for all the button's states
   final UIKitColorScheme? colorScheme;

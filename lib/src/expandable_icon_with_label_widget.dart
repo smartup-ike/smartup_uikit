@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'helpers/uikit_color_scheme.dart';
-import 'helpers/size_scheme.dart';
+import 'helpers/uikit_size_scheme.dart';
 import 'uikit_icon_theme.dart';
 
 class ExpandableIconWithLabelWidget extends StatelessWidget {
@@ -18,7 +18,7 @@ class ExpandableIconWithLabelWidget extends StatelessWidget {
   final Widget? label;
   final bool isExpanded;
   final bool isActive;
-  final SizeScheme sizeScheme;
+  final UIKitSizeScheme sizeScheme;
   final UIKitColorScheme colorScheme;
 
   @override
