@@ -142,6 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
               disabledBorderColor: Colors.grey,
             ),
           ),
+          const SizedBox(height: 8),
+          UIKitCheckbox(),
         ],
       ),
     );
