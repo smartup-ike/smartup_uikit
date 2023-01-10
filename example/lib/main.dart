@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isToggleActive = false;
+
   @override
   Widget build(BuildContext context) {
     return SUTheme(
@@ -44,6 +46,33 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: ListView(
           children: [
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                UIKitRadioButton(
+                  isSelected: true,
+                  onTap: () {},
+                  colorScheme: UIKitColorScheme(
+                    defaultBackgroundColor: Colors.white,
+                    hoverBackgroundColor: Colors.white,
+                    focusedBackgroundColor: Colors.white,
+                    activeBackgroundColor: Colors.white,
+                    disabledBackgroundColor: Colors.white,
+                    defaultContentColor: Colors.black,
+                    hoverContentColor: Colors.green,
+                    focusedContentColor: Colors.red,
+                    activeContentColor: Colors.orange,
+                    disabledContentColor: Colors.grey,
+                    defaultBorderColor: Colors.black,
+                    hoverBorderColor: Colors.green,
+                    focusedBorderColor: Colors.red,
+                    activeBorderColor: Colors.orange,
+                    disabledBorderColor: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,6 +122,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 focusedContentColor: Colors.red,
                 activeContentColor: Colors.orange,
                 disabledContentColor: Colors.grey,
+                defaultBorderColor: Colors.black,
+                hoverBorderColor: Colors.green,
+                focusedBorderColor: Colors.red,
+                activeBorderColor: Colors.orange,
+                disabledBorderColor: Colors.grey,
+              ),
+            ),
+            const SizedBox(height: 8),
+            UIKitToggleSwitch(
+              hasIcon: true,
+              isActive: _isToggleActive,
+              onTap: () => setState(() => _isToggleActive = !_isToggleActive),
+              colorScheme: UIKitColorScheme(
+                defaultBackgroundColor: Colors.black,
+                hoverBackgroundColor: Colors.green,
+                focusedBackgroundColor: Colors.red,
+                activeBackgroundColor: Colors.orange,
+                disabledBackgroundColor: Colors.grey,
+                defaultContentColor: Colors.white,
+                hoverContentColor: Colors.white,
+                focusedContentColor: Colors.white,
+                activeContentColor: Colors.white,
+                disabledContentColor: Colors.white,
                 defaultBorderColor: Colors.black,
                 hoverBorderColor: Colors.green,
                 focusedBorderColor: Colors.red,

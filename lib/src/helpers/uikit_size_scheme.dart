@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SizeScheme {
-  SizeScheme({
+class UIKitSizeScheme {
+  UIKitSizeScheme({
     this.height,
     this.iconSize,
     this.labelTextStyle,
