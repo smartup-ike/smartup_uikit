@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
+import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
 
 class SUTheme extends StatelessWidget {
   const SUTheme({
@@ -55,26 +56,33 @@ class _SUTheme extends InheritedTheme {
 @immutable
 class SUThemeData {
   final SUButtonThemeData buttonThemeData;
+  final SURadioButtonThemeData radioButtonThemeData;
 
   const SUThemeData.raw({
     required this.buttonThemeData,
+    required this.radioButtonThemeData,
   });
 
   factory SUThemeData({
     SUButtonThemeData? buttonThemeData,
+    SURadioButtonThemeData? radioButtonThemeData,
   }) {
     buttonThemeData ??= SUButtonThemeData();
+    radioButtonThemeData ??= SURadioButtonThemeData();
 
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData,
+      radioButtonThemeData: radioButtonThemeData,
     );
   }
 
   SUThemeData copyWith({
     SUButtonThemeData? buttonThemeData,
+    SURadioButtonThemeData? radioButtonThemeData,
   }) {
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
+      radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
     );
   }
 }
