@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'uikit_radio_button.dart';
-import 'helpers/size_scheme.dart';
+import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_color_scheme.dart';
 
 class UIKitRadioGroup extends HookWidget {
@@ -23,9 +23,9 @@ class UIKitRadioGroup extends HookWidget {
   /// Should contain information about what this radio button group is for.
   final Widget? assistiveText;
 
-  /// [SizeScheme] determining the value of different attributes of this
+  /// [UIKitSizeScheme] determining the value of different attributes of this
   /// radio button group.
-  final SizeScheme? sizeScheme;
+  final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitColorScheme] determining the value of different color
   /// attributes of this radio button group.
