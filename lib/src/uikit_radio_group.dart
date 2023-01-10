@@ -15,11 +15,27 @@ class UIKitRadioGroup extends HookWidget {
     this.isVertical,
   });
 
+  /// [Widget] that is displayed at the top.
+  /// Should contain some indication about the content of this radio button group.
   final Widget? label;
+
+  /// [Widget] that is displayed on the bottom.
+  /// Should contain information about what this radio button group is for.
   final Widget? assistiveText;
+
+  /// [SizeScheme] determining the value of different attributes of this
+  /// radio button group.
   final SizeScheme? sizeScheme;
+
+  /// [UIKitColorScheme] determining the value of different color
+  /// attributes of this radio button group.
   final UIKitColorScheme? colorScheme;
+
+  /// [List] containing [Widget] that will be used as labels for the
+  /// different radio buttons of this group.
   final List<Widget>? optionLabels;
+
+  /// [bool] indicating the layout of this radio button group.
   final bool? isVertical;
 
   @override
