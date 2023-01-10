@@ -8,6 +8,7 @@ class UIKitRadioGroup extends HookWidget {
   const UIKitRadioGroup({
     super.key,
     this.label,
+    this.assistiveText,
     this.sizeScheme,
     this.colorScheme,
     this.optionLabels,
@@ -15,6 +16,7 @@ class UIKitRadioGroup extends HookWidget {
   });
 
   final Widget? label;
+  final Widget? assistiveText;
   final SizeScheme? sizeScheme;
   final UIKitColorScheme? colorScheme;
   final List<Widget>? optionLabels;
@@ -25,12 +27,21 @@ class UIKitRadioGroup extends HookWidget {
     final selectedIndex$ = useState<int?>(null);
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label ?? const SizedBox(),
+        if (label != null) ...[
+          label!,
+          const SizedBox(height: 8),
+        ],
         Wrap(
+          spacing: 26,
+          runSpacing: 12,
           children: [
             for (Widget element in optionLabels ?? []) ...[
               Row(
+                mainAxisSize:
+                    isVertical ?? false ? MainAxisSize.max : MainAxisSize.min,
                 children: [
                   UIKitRadioButton(
                     isSelected:
@@ -46,7 +57,11 @@ class UIKitRadioGroup extends HookWidget {
               ),
             ],
           ],
-        )
+        ),
+        if (assistiveText != null) ...[
+          const SizedBox(height: 8),
+          assistiveText!
+        ],
       ],
     );
   }
