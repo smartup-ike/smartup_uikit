@@ -76,40 +76,40 @@ class UIKitButton extends HookWidget {
     Color? contentColor;
     Color? borderColor;
 
-    if (onTap != null) {
-      switch (state$.value) {
-        case UIKitState.defaultState:
-          backgroundColor = buttonColors.defaultBackgroundColor;
-          contentColor = buttonColors.defaultContentColor;
-          borderColor = buttonColors.defaultBorderColor;
-          break;
-        case UIKitState.hover:
-          backgroundColor = buttonColors.hoverBackgroundColor;
-          contentColor = buttonColors.hoverContentColor;
-          borderColor = buttonColors.hoverBorderColor;
-          break;
-        case UIKitState.focused:
-          backgroundColor = buttonColors.focusedBackgroundColor;
-          contentColor = buttonColors.focusedContentColor;
-          borderColor = buttonColors.focusedBorderColor;
-          break;
-        case UIKitState.active:
-          backgroundColor = buttonColors.activeBackgroundColor;
-          contentColor = buttonColors.activeContentColor;
-          borderColor = buttonColors.activeBorderColor;
-          break;
-        case UIKitState.disabled:
-          backgroundColor = buttonColors.disabledBackgroundColor;
-          contentColor = buttonColors.disabledContentColor;
-          borderColor = buttonColors.disabledBorderColor;
-          break;
-        default:
-          break;
-      }
+    switch (state$.value) {
+      case UIKitState.defaultState:
+        backgroundColor = buttonColors.defaultBackgroundColor;
+        contentColor = buttonColors.defaultContentColor;
+        borderColor = buttonColors.defaultBorderColor;
+        break;
+      case UIKitState.hover:
+        backgroundColor = buttonColors.hoverBackgroundColor;
+        contentColor = buttonColors.hoverContentColor;
+        borderColor = buttonColors.hoverBorderColor;
+        break;
+      case UIKitState.focused:
+        backgroundColor = buttonColors.focusedBackgroundColor;
+        contentColor = buttonColors.focusedContentColor;
+        borderColor = buttonColors.focusedBorderColor;
+        break;
+      case UIKitState.active:
+        backgroundColor = buttonColors.activeBackgroundColor;
+        contentColor = buttonColors.activeContentColor;
+        borderColor = buttonColors.activeBorderColor;
+        break;
+      case UIKitState.disabled:
+        backgroundColor = buttonColors.disabledBackgroundColor;
+        contentColor = buttonColors.disabledContentColor;
+        borderColor = buttonColors.disabledBorderColor;
+        break;
+      default:
+        break;
     }
 
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
+      cursor: state$.value == UIKitState.disabled
+          ? SystemMouseCursors.basic
+          : SystemMouseCursors.click,
       onHover: (_) {
         if (onTap != null) {
           state$.value = UIKitState.hover;
