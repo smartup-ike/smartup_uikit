@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/smartup_uikit.dart';
-import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_size_scheme.dart';
+import 'theme/su_theme.dart';
 import 'uikit_icon_theme.dart';
 
 /// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
@@ -19,7 +18,7 @@ class UIKitButton extends HookWidget {
     this.sizeScheme,
     this.hasShadow,
     this.colorScheme,
-    this.removePadding,
+    required this.removePadding,
   });
 
   /// Function that is called on button tap.
@@ -203,7 +202,9 @@ class UIKitButton extends HookWidget {
                   const SizedBox(width: 10),
                 ],
                 DefaultTextStyle(
-                  style: sizeScheme?.labelTextStyle ?? const TextStyle(),
+                  style: sizeScheme?.labelTextStyle
+                          ?.copyWith(color: contentColor) ??
+                      TextStyle(color: contentColor),
                   child: labelText ?? const Text('Button'),
                 ),
                 if (!removePadding!) const SizedBox(width: 10),
