@@ -116,7 +116,7 @@ class UIKitRadioButton extends HookWidget {
               color: borderColor ?? Colors.transparent,
             ),
             color: backgroundColor ?? Colors.transparent,
-            borderRadius: BorderRadius.circular(50),
+            shape: BoxShape.circle,
             boxShadow: onTap == null
                 ? []
                 : state$.value == UIKitState.focused
@@ -137,7 +137,7 @@ class UIKitRadioButton extends HookWidget {
               width: 8,
               height: 8,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
+                shape: BoxShape.circle,
                 color: isSelected ? contentColor : Colors.transparent,
               ),
             ),
