@@ -18,7 +18,7 @@ class UIKitColorScheme {
     Color? activeBorderColor,
     Color? disabledBorderColor,
   }) {
-    var temp = UIKitColorScheme().copyWith(
+    var temp = UIKitColorScheme.defaultScheme().copyWith(
       defaultBackgroundColor: defaultBackgroundColor,
       hoverBackgroundColor: hoverBackgroundColor,
       focusedBackgroundColor: focusedBackgroundColor,
