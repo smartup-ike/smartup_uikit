@@ -13,6 +13,7 @@ class UIKitRadioGroup extends HookWidget {
     this.colorScheme,
     this.optionLabels,
     this.isVertical,
+    required this.onSelect,
   });
 
   /// [Widget] that is displayed at the top.
@@ -37,6 +38,12 @@ class UIKitRadioGroup extends HookWidget {
 
   /// [bool] indicating the layout of this radio button group.
   final bool? isVertical;
+
+  /// [Function]
+  /// Set it to (index) => setState(() => _selectedRadioItem = index)
+  /// in order to get the index of the selected radio item that you need
+  /// in your logic.
+  final void Function(int?) onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +71,7 @@ class UIKitRadioGroup extends HookWidget {
                         selectedIndex$.value == optionLabels?.indexOf(element),
                     onTap: () {
                       selectedIndex$.value = optionLabels?.indexOf(element);
+                      onSelect.call(selectedIndex$.value);
                     },
                     colorScheme: colorScheme,
                   ),
