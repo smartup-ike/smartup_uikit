@@ -1,7 +1,8 @@
 library smartup_uikit;
 
-export 'package:smartup_uikit/src/helpers/uikit_color_scheme.dart'
-    show UIKitColorScheme;
+export 'package:smartup_uikit/src/uikit_button.dart' show UIKitButton;
+
+export 'package:smartup_uikit/src/helpers/uikit_color_scheme.dart';
 
 export 'package:smartup_uikit/src/helpers/uikit_size_scheme.dart'
     show UIKitSizeScheme;
