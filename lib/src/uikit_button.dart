@@ -192,7 +192,7 @@ class UIKitButton extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (!removePadding) const SizedBox(width: 10),
+                if (!removePadding!) const SizedBox(width: 10),
                 if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
@@ -207,14 +207,14 @@ class UIKitButton extends HookWidget {
                       TextStyle(color: contentColor),
                   child: labelText ?? const Text('Button'),
                 ),
-                if (!removePadding) const SizedBox(width: 10),
+                if (!removePadding!) const SizedBox(width: 10),
                 if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
                     size: sizeScheme?.height,
                     child: trailing!,
                   ),
-                  if (!removePadding) const SizedBox(width: 10),
+                  if (!removePadding!) const SizedBox(width: 10),
                 ],
               ],
             ),
