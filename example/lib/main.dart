@@ -132,7 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 activeBorderColor: Colors.orange,
                 disabledBorderColor: Colors.grey,
               ),
-              onSelect: (index) => setState(() => _selectedRadioItem = index),
+              getSelected: (index) =>
+                  setState(() => _selectedRadioItem = index),
             ),
             const SizedBox(height: 8),
             UIKitToggleSwitch(
