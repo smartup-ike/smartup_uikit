@@ -161,8 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 8),
             UIKitCheckbox(
               isChecked: _isCheckBoxChecked,
-              onTap: () =>
-                  setState(() => _isCheckBoxChecked = !_isCheckBoxChecked),
+              onChanged: (value) =>
+                  setState(() => _isCheckBoxChecked = value ?? false),
               sizeScheme: UIKitSizeScheme(
                 height: 16,
               ),

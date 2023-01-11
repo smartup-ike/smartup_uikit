@@ -8,14 +8,14 @@ class UIKitCheckbox extends HookWidget {
   const UIKitCheckbox({
     super.key,
     this.icon,
-    this.onTap,
+    this.onChanged,
     this.isChecked,
     this.colorScheme,
     this.sizeScheme,
   });
 
   final Widget? icon;
-  final VoidCallback? onTap;
+  final ValueChanged<bool?>? onChanged;
   final bool? isChecked;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
@@ -23,7 +23,7 @@ class UIKitCheckbox extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
-        onTap == null ? UIKitState.disabled : UIKitState.defaultState);
+        onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
 
     Color? backgroundColor;
@@ -66,32 +66,34 @@ class UIKitCheckbox extends HookWidget {
             ? SystemMouseCursors.basic
             : SystemMouseCursors.click,
         onHover: (_) {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value = UIKitState.hover;
             isHovered$.value = true;
           }
         },
         onExit: (_) {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value = UIKitState.defaultState;
             isHovered$.value = false;
           }
         },
         child: GestureDetector(
-          onTap: onTap,
+          onTap: () {
+            onChanged?.call(!(isChecked ?? false));
+          },
           onTapDown: (_) {
-            if (onTap != null) {
+            if (onChanged != null) {
               state$.value = UIKitState.focused;
             }
           },
           onTapUp: (_) {
-            if (onTap != null) {
+            if (onChanged != null) {
               state$.value =
                   isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
             }
           },
           onTapCancel: () {
-            if (onTap != null) {
+            if (onChanged != null) {
               state$.value =
                   isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
             }
