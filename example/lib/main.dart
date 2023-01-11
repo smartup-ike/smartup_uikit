@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UIKitButton(
+                UIKitButton.primary(
                   labelText: const Text('Button'),
                   removePadding: false,
                   onTap: () {},

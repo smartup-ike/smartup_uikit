@@ -6,6 +6,15 @@ import 'helpers/uikit_size_scheme.dart';
 import 'theme/su_theme.dart';
 import 'uikit_icon_theme.dart';
 
+enum UIKitButtonType {
+  primary,
+  secondary,
+  secondaryWhite,
+  tertiary,
+  outline,
+  ghost,
+}
+
 /// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
 /// and a label [Widget].
 class UIKitButton extends HookWidget {
@@ -19,7 +28,81 @@ class UIKitButton extends HookWidget {
     this.hasShadow,
     this.colorScheme,
     this.removePadding = false,
-  });
+    this.buttonType,
+  }) : assert(buttonType == null,
+            'buttonType has to be null on default constructor. Use one of the named constructors instead e.g.: UIKitButton.primary()');
+
+  const UIKitButton.primary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.primary;
+
+  const UIKitButton.secondary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.secondary;
+
+  const UIKitButton.secondaryWhite({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.secondaryWhite;
+
+  const UIKitButton.tertiary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.tertiary;
+
+  const UIKitButton.outline({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.outline;
+
+  const UIKitButton.ghost({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.ghost;
 
   /// Function that is called on button tap.
   ///
@@ -52,6 +135,8 @@ class UIKitButton extends HookWidget {
 
   /// Boolean of the button to remove initial padding.
   final bool? removePadding;
+
+  final UIKitButtonType? buttonType;
 
   @override
   Widget build(BuildContext context) {
