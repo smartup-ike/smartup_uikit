@@ -143,9 +143,40 @@ class UIKitButton extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
+
+    // Handles button colors according to buttonType.
     final buttonTheme = SUTheme.of(context).buttonThemeData;
-    UIKitColorScheme buttonColors =
-        buttonTheme.primaryColorScheme.copyWithScheme(newScheme: colorScheme);
+    UIKitColorScheme buttonColors;
+    switch (buttonType) {
+      case UIKitButtonType.primary:
+        buttonColors = buttonTheme.primaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.secondary:
+        buttonColors = buttonTheme.secondaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.secondaryWhite:
+        buttonColors = buttonTheme.secondaryWhiteColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.tertiary:
+        buttonColors = buttonTheme.tertiaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.outline:
+        buttonColors = buttonTheme.outlineColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.ghost:
+        buttonColors =
+            buttonTheme.ghostColorScheme.copyWithScheme(newScheme: colorScheme);
+        break;
+      default:
+        buttonColors = buttonTheme.primaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+    }
 
     useEffect(() {
       if (onTap == null) {
