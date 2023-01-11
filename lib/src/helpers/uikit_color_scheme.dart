@@ -131,6 +131,44 @@ class UIKitColorScheme {
     );
   }
 
+  UIKitColorScheme copyWithScheme({
+    UIKitColorScheme? newScheme,
+  }) {
+    UIKitColorScheme toCopy = UIKitColorScheme.defaultScheme();
+
+    return UIKitColorScheme._(
+      defaultBackgroundColor:
+          newScheme?.defaultBackgroundColor ?? toCopy.defaultBackgroundColor,
+      hoverBackgroundColor:
+          newScheme?.hoverBackgroundColor ?? toCopy.hoverBackgroundColor,
+      focusedBackgroundColor:
+          newScheme?.focusedBackgroundColor ?? toCopy.focusedBackgroundColor,
+      activeBackgroundColor:
+          newScheme?.activeBackgroundColor ?? toCopy.activeBackgroundColor,
+      disabledBackgroundColor:
+          newScheme?.disabledBackgroundColor ?? toCopy.disabledBackgroundColor,
+      defaultContentColor:
+          newScheme?.defaultContentColor ?? toCopy.defaultContentColor,
+      hoverContentColor:
+          newScheme?.hoverContentColor ?? toCopy.hoverContentColor,
+      focusedContentColor:
+          newScheme?.focusedContentColor ?? toCopy.focusedContentColor,
+      activeContentColor:
+          newScheme?.activeContentColor ?? toCopy.activeContentColor,
+      disabledContentColor:
+          newScheme?.disabledContentColor ?? toCopy.disabledContentColor,
+      defaultBorderColor:
+          newScheme?.defaultBorderColor ?? toCopy.defaultBorderColor,
+      hoverBorderColor: newScheme?.hoverBorderColor ?? toCopy.hoverBorderColor,
+      focusedBorderColor:
+          newScheme?.focusedBorderColor ?? toCopy.focusedBorderColor,
+      activeBorderColor:
+          newScheme?.activeBorderColor ?? toCopy.activeBorderColor,
+      disabledBorderColor:
+          newScheme?.disabledBorderColor ?? toCopy.disabledBorderColor,
+    );
+  }
+
   // Background
   Color? defaultBackgroundColor;
   Color? hoverBackgroundColor;
