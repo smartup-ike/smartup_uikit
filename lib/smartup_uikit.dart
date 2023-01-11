@@ -8,6 +8,8 @@ export 'package:smartup_uikit/src/helpers/uikit_color_scheme.dart'
 export 'package:smartup_uikit/src/helpers/uikit_size_scheme.dart'
     show UIKitSizeScheme;
 
+export 'package:smartup_uikit/src/uikit_icon_theme.dart' show UIKitIcon;
+
 // Themes
 export 'package:smartup_uikit/src/theme/su_theme.dart';
 export 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
