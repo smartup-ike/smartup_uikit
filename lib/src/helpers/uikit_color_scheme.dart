@@ -2,6 +2,58 @@ import 'package:flutter/material.dart';
 
 class UIKitColorScheme {
   UIKitColorScheme({
+    Color? defaultBackgroundColor,
+    Color? hoverBackgroundColor,
+    Color? focusedBackgroundColor,
+    Color? activeBackgroundColor,
+    Color? disabledBackgroundColor,
+    Color? defaultContentColor,
+    Color? hoverContentColor,
+    Color? focusedContentColor,
+    Color? activeContentColor,
+    Color? disabledContentColor,
+    Color? defaultBorderColor,
+    Color? hoverBorderColor,
+    Color? focusedBorderColor,
+    Color? activeBorderColor,
+    Color? disabledBorderColor,
+  }) {
+    var temp = UIKitColorScheme().copyWith(
+      defaultBackgroundColor: defaultBackgroundColor,
+      hoverBackgroundColor: hoverBackgroundColor,
+      focusedBackgroundColor: focusedBackgroundColor,
+      activeBackgroundColor: activeBackgroundColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      defaultContentColor: defaultContentColor,
+      hoverContentColor: hoverContentColor,
+      focusedContentColor: focusedContentColor,
+      activeContentColor: activeContentColor,
+      disabledContentColor: disabledContentColor,
+      defaultBorderColor: defaultBorderColor,
+      hoverBorderColor: hoverBorderColor,
+      focusedBorderColor: focusedBorderColor,
+      activeBorderColor: activeBorderColor,
+      disabledBorderColor: disabledBorderColor,
+    );
+
+    this.defaultBackgroundColor = temp.defaultBackgroundColor;
+    this.hoverBackgroundColor = temp.hoverBackgroundColor;
+    this.focusedBackgroundColor = temp.focusedBackgroundColor;
+    this.activeBackgroundColor = temp.activeBackgroundColor;
+    this.disabledBackgroundColor = temp.disabledBackgroundColor;
+    this.defaultContentColor = temp.defaultContentColor;
+    this.hoverContentColor = temp.hoverContentColor;
+    this.focusedContentColor = temp.focusedContentColor;
+    this.activeContentColor = temp.activeContentColor;
+    this.disabledContentColor = temp.disabledContentColor;
+    this.defaultBorderColor = temp.defaultBorderColor;
+    this.hoverBorderColor = temp.hoverBorderColor;
+    this.focusedBorderColor = temp.focusedBorderColor;
+    this.activeBorderColor = temp.activeBorderColor;
+    this.disabledBorderColor = temp.disabledBorderColor;
+  }
+
+  UIKitColorScheme._({
     this.defaultBackgroundColor,
     this.hoverBackgroundColor,
     this.focusedBackgroundColor,
@@ -35,6 +87,48 @@ class UIKitColorScheme {
     focusedBorderColor = const Color(0xFF000000);
     activeBorderColor = const Color(0xFF000000);
     disabledBorderColor = const Color(0xFF000000);
+  }
+
+  UIKitColorScheme copyWith({
+    Color? defaultBackgroundColor,
+    Color? hoverBackgroundColor,
+    Color? focusedBackgroundColor,
+    Color? activeBackgroundColor,
+    Color? disabledBackgroundColor,
+    Color? defaultContentColor,
+    Color? hoverContentColor,
+    Color? focusedContentColor,
+    Color? activeContentColor,
+    Color? disabledContentColor,
+    Color? defaultBorderColor,
+    Color? hoverBorderColor,
+    Color? focusedBorderColor,
+    Color? activeBorderColor,
+    Color? disabledBorderColor,
+  }) {
+    UIKitColorScheme toCopy = UIKitColorScheme.defaultScheme();
+
+    return UIKitColorScheme._(
+      defaultBackgroundColor:
+          defaultBackgroundColor ?? toCopy.defaultBackgroundColor,
+      hoverBackgroundColor: hoverBackgroundColor ?? toCopy.hoverBackgroundColor,
+      focusedBackgroundColor:
+          focusedBackgroundColor ?? toCopy.focusedBackgroundColor,
+      activeBackgroundColor:
+          activeBackgroundColor ?? toCopy.activeBackgroundColor,
+      disabledBackgroundColor:
+          disabledBackgroundColor ?? toCopy.disabledBackgroundColor,
+      defaultContentColor: defaultContentColor ?? toCopy.defaultContentColor,
+      hoverContentColor: hoverContentColor ?? toCopy.hoverContentColor,
+      focusedContentColor: focusedContentColor ?? toCopy.focusedContentColor,
+      activeContentColor: activeContentColor ?? toCopy.activeContentColor,
+      disabledContentColor: disabledContentColor ?? toCopy.disabledContentColor,
+      defaultBorderColor: defaultBorderColor ?? toCopy.defaultBorderColor,
+      hoverBorderColor: hoverBorderColor ?? toCopy.hoverBorderColor,
+      focusedBorderColor: focusedBorderColor ?? toCopy.focusedBorderColor,
+      activeBorderColor: activeBorderColor ?? toCopy.activeBorderColor,
+      disabledBorderColor: disabledBorderColor ?? toCopy.disabledBorderColor,
+    );
   }
 
   // Background
