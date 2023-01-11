@@ -60,42 +60,42 @@ class UIKitToggleSwitch extends HookWidget {
         break;
     }
 
-    return MouseRegion(
-      cursor: state$.value == UIKitState.disabled
-          ? SystemMouseCursors.basic
-          : SystemMouseCursors.click,
-      onHover: (_) {
-        if (onTap != null) {
-          state$.value = UIKitState.hover;
-          isHovered$.value = true;
-        }
-      },
-      onExit: (_) {
-        if (onTap != null) {
-          state$.value = UIKitState.defaultState;
-          isHovered$.value = false;
-        }
-      },
-      child: GestureDetector(
-        onTap: onTap,
-        onTapDown: (_) {
+    return Center(
+      child: MouseRegion(
+        cursor: state$.value == UIKitState.disabled
+            ? SystemMouseCursors.basic
+            : SystemMouseCursors.click,
+        onHover: (_) {
           if (onTap != null) {
-            state$.value = UIKitState.focused;
+            state$.value = UIKitState.hover;
+            isHovered$.value = true;
           }
         },
-        onTapUp: (_) {
+        onExit: (_) {
           if (onTap != null) {
-            state$.value =
-                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+            state$.value = UIKitState.defaultState;
+            isHovered$.value = false;
           }
         },
-        onTapCancel: () {
-          if (onTap != null) {
-            state$.value =
-                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
-          }
-        },
-        child: Center(
+        child: GestureDetector(
+          onTap: onTap,
+          onTapDown: (_) {
+            if (onTap != null) {
+              state$.value = UIKitState.focused;
+            }
+          },
+          onTapUp: (_) {
+            if (onTap != null) {
+              state$.value =
+                  isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+            }
+          },
+          onTapCancel: () {
+            if (onTap != null) {
+              state$.value =
+                  isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+            }
+          },
           child: SizedBox(
             height: 24,
             width: 40,
