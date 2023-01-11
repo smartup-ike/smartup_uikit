@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SUTheme(
       data: SUThemeData(
         buttonThemeData: SUButtonThemeData(
-          colorScheme: UIKitColorScheme(
+          primaryColorScheme: UIKitColorScheme(
             defaultBackgroundColor: Colors.black,
             hoverBackgroundColor: Colors.blue,
             focusedBackgroundColor: Colors.purple,

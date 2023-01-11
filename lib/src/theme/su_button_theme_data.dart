@@ -3,34 +3,34 @@ import 'package:smartup_uikit/smartup_uikit.dart';
 
 @immutable
 class SUButtonThemeData {
-  final UIKitColorScheme colorScheme;
+  final UIKitColorScheme primaryColorScheme;
   final Typography typography;
 
   const SUButtonThemeData.raw({
-    required this.colorScheme,
+    required this.primaryColorScheme,
     required this.typography,
   });
 
   factory SUButtonThemeData({
-    UIKitColorScheme? colorScheme,
+    UIKitColorScheme? primaryColorScheme,
     Typography? typography,
   }) {
-    colorScheme ??= UIKitColorScheme.defaultScheme();
+    primaryColorScheme ??= UIKitColorScheme.defaultScheme();
     typography ??= Typography();
 
     return SUButtonThemeData.raw(
-      colorScheme: colorScheme,
+      primaryColorScheme: primaryColorScheme,
       typography: typography,
     );
   }
 
   SUButtonThemeData copyWith({
     Typography? typography,
-    UIKitColorScheme? colorScheme,
+    UIKitColorScheme? primaryColorScheme,
   }) {
     return SUButtonThemeData.raw(
       typography: this.typography,
-      colorScheme: colorScheme ?? this.colorScheme,
+      primaryColorScheme: primaryColorScheme ?? this.primaryColorScheme,
     );
   }
 }

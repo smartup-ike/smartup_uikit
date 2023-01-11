@@ -60,7 +60,7 @@ class UIKitButton extends HookWidget {
     final isHovered$ = useState(false);
     final buttonTheme = SUTheme.of(context).buttonThemeData;
     UIKitColorScheme buttonColors =
-        buttonTheme.colorScheme.copyWithScheme(newScheme: colorScheme);
+        buttonTheme.primaryColorScheme.copyWithScheme(newScheme: colorScheme);
 
     useEffect(() {
       if (onTap == null) {
