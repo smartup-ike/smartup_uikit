@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SUTheme(
-      data: SUThemeData(
+      theme: SUThemeData(
         buttonThemeData: SUButtonThemeData(
           primaryColorScheme: UIKitColorScheme(
             defaultBackgroundColor: Colors.red,

@@ -50,6 +50,8 @@ class SUButtonThemeData {
     );
   }
 
+  /// Creates a copy of this [SUButtonThemeData] but with the given fields replaced with
+  /// the new values.
   SUButtonThemeData copyWith({
     UIKitColorScheme? primaryColorScheme,
     UIKitColorScheme? secondaryColorScheme,
