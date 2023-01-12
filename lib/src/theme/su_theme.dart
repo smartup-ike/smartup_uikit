@@ -5,12 +5,12 @@ import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
 class SUTheme extends StatelessWidget {
   const SUTheme({
     Key? key,
-    required this.data,
+    required this.theme,
     required this.child,
   }) : super(key: key);
 
   /// Specifies the color and typography values for descendant widgets.
-  final SUThemeData data;
+  final SUThemeData theme;
 
   /// The widget below this widget in the tree.
   final Widget child;
@@ -28,7 +28,7 @@ class SUTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SUTheme(
-      data: data,
+      data: theme,
       child: child,
     );
   }

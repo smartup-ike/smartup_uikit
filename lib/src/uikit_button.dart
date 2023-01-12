@@ -6,8 +6,21 @@ import 'helpers/uikit_size_scheme.dart';
 import 'theme/su_theme.dart';
 import 'uikit_icon_theme.dart';
 
+enum UIKitButtonType {
+  primary,
+  secondary,
+  secondaryWhite,
+  tertiary,
+  outline,
+  ghost,
+}
+
 /// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
 /// and a label [Widget].
+/// * Recommended type for label [Text]
+/// * Recommended type for leading and trailing [UIKitIcon]
+///
+/// buttonType has to be null.
 class UIKitButton extends HookWidget {
   const UIKitButton({
     super.key,
@@ -19,7 +32,81 @@ class UIKitButton extends HookWidget {
     this.hasShadow,
     this.colorScheme,
     this.removePadding = false,
-  });
+    this.buttonType,
+  }) : assert(buttonType == null,
+            'buttonType has to be null on default constructor. Use one of the named constructors instead e.g.: UIKitButton.primary()');
+
+  const UIKitButton.primary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.primary;
+
+  const UIKitButton.secondary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.secondary;
+
+  const UIKitButton.secondaryWhite({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.secondaryWhite;
+
+  const UIKitButton.tertiary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.tertiary;
+
+  const UIKitButton.outline({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.outline;
+
+  const UIKitButton.ghost({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.sizeScheme,
+    this.hasShadow,
+    this.colorScheme,
+    this.removePadding = false,
+  }) : buttonType = UIKitButtonType.ghost;
 
   /// Function that is called on button tap.
   ///
@@ -53,14 +140,56 @@ class UIKitButton extends HookWidget {
   /// Boolean of the button to remove initial padding.
   final bool? removePadding;
 
+  /// Type of the button [UIKitButtonType]
+  ///
+  /// Use those named constructors to change the buttonType
+  /// * primary
+  /// * secondary
+  /// * secondaryWhite
+  /// * tertiary
+  /// * outline
+  /// * ghost
+  final UIKitButtonType? buttonType;
+
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
+
+    // Handles button colors according to buttonType.
     final buttonTheme = SUTheme.of(context).buttonThemeData;
-    UIKitColorScheme buttonColors =
-        buttonTheme.colorScheme.copyWithScheme(newScheme: colorScheme);
+    UIKitColorScheme buttonColors;
+    switch (buttonType) {
+      case UIKitButtonType.primary:
+        buttonColors = buttonTheme.primaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.secondary:
+        buttonColors = buttonTheme.secondaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.secondaryWhite:
+        buttonColors = buttonTheme.secondaryWhiteColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.tertiary:
+        buttonColors = buttonTheme.tertiaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.outline:
+        buttonColors = buttonTheme.outlineColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.ghost:
+        buttonColors =
+            buttonTheme.ghostColorScheme.copyWithScheme(newScheme: colorScheme);
+        break;
+      default:
+        buttonColors = buttonTheme.primaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+    }
 
     useEffect(() {
       if (onTap == null) {
@@ -75,6 +204,7 @@ class UIKitButton extends HookWidget {
     Color? contentColor;
     Color? borderColor;
 
+    // Change the color of the button according to state
     switch (state$.value) {
       case UIKitState.defaultState:
         backgroundColor = buttonColors.defaultBackgroundColor;

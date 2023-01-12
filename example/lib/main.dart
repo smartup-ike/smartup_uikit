@@ -38,10 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SUTheme(
-      data: SUThemeData(
+      theme: SUThemeData(
         buttonThemeData: SUButtonThemeData(
-          colorScheme: UIKitColorScheme(
-            defaultBackgroundColor: Colors.black,
+          primaryColorScheme: UIKitColorScheme(
+            defaultBackgroundColor: Colors.red,
             hoverBackgroundColor: Colors.blue,
             focusedBackgroundColor: Colors.purple,
             activeBackgroundColor: Colors.teal,
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UIKitButton(
+                UIKitButton.primary(
                   labelText: const Text('Button'),
                   removePadding: false,
                   onTap: () {},
