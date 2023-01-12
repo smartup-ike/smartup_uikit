@@ -92,7 +92,8 @@ class UIKitColorScheme {
     disabledBorderColor = const Color(0xFF000000);
   }
 
-  ///
+  /// Creates a copy of this UIKitColorScheme but with the given fields replaced with
+  /// the new values.
   UIKitColorScheme copyWith({
     Color? defaultBackgroundColor,
     Color? hoverBackgroundColor,
@@ -133,9 +134,9 @@ class UIKitColorScheme {
     );
   }
 
-  /// Returns a [UIKitColorScheme] with newScheme values.
+  /// Creates a copy of this UIKitColorScheme but with newScheme values.
   ///
-  /// Null values from newScheme set as defaultScheme.
+  /// Null values of newScheme sets as defaultScheme.
   UIKitColorScheme copyWithScheme({
     UIKitColorScheme? newScheme,
   }) {
