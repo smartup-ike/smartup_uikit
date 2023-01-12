@@ -128,7 +128,7 @@ class UIKitButton extends HookWidget {
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? trailing;
 
-  /// [UIKitSizeScheme] an object containing info for the button's height, icon size and text style
+  /// [UIKitSizeScheme] an object containing info for the button's height, border size, icon size and text style
   final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitColorScheme] an object containing different colors for all the button's states
@@ -276,7 +276,9 @@ class UIKitButton extends HookWidget {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               strokeAlign: StrokeAlign.outside,
-              width: 2,
+              width: sizeScheme?.borderSize ??
+                  buttonTheme.sizeScheme.borderSize ??
+                  0,
               color: borderColor ?? Colors.transparent,
             ),
           ),
@@ -334,7 +336,8 @@ class UIKitButton extends HookWidget {
                 DefaultTextStyle(
                   style: sizeScheme?.labelTextStyle
                           ?.copyWith(color: contentColor) ??
-                      TextStyle(color: contentColor),
+                      buttonTheme.sizeScheme.labelTextStyle!
+                          .copyWith(color: contentColor),
                   child: labelText ?? const Text('Button'),
                 ),
                 if (!removePadding!) const SizedBox(width: 10),
