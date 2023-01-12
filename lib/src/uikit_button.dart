@@ -17,6 +17,10 @@ enum UIKitButtonType {
 
 /// [UIKitButton] is a button that can have a leading [Widget], a trailing [Widget]
 /// and a label [Widget].
+/// * Recommended type for label [Text]
+/// * Recommended type for leading and trailing [UIKitIcon]
+///
+/// buttonType has to be null.
 class UIKitButton extends HookWidget {
   const UIKitButton({
     super.key,
@@ -136,6 +140,15 @@ class UIKitButton extends HookWidget {
   /// Boolean of the button to remove initial padding.
   final bool? removePadding;
 
+  /// Type of the button [UIKitButtonType]
+  ///
+  /// Use those named constructors to change the buttonType
+  /// * primary
+  /// * secondary
+  /// * secondaryWhite
+  /// * tertiary
+  /// * outline
+  /// * ghost
   final UIKitButtonType? buttonType;
 
   @override
@@ -191,6 +204,7 @@ class UIKitButton extends HookWidget {
     Color? contentColor;
     Color? borderColor;
 
+    // Change the color of the button according to state
     switch (state$.value) {
       case UIKitState.defaultState:
         backgroundColor = buttonColors.defaultBackgroundColor;
