@@ -30,6 +30,7 @@ class SUButtonThemeData {
     UIKitColorScheme? ghostColorScheme,
     Typography? typography,
   }) {
+    // Sets default color schemes.
     primaryColorScheme ??= UIKitColorScheme.defaultScheme();
     secondaryColorScheme ??= UIKitColorScheme.defaultScheme();
     secondaryWhiteColorScheme ??= UIKitColorScheme.defaultScheme();
