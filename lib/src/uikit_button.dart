@@ -290,7 +290,9 @@ class UIKitButton extends HookWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 strokeAlign: StrokeAlign.outside,
-                width: 1,
+                width: sizeScheme?.borderSize ??
+                    buttonTheme.sizeScheme.borderSize ??
+                    0,
                 color: borderColor ?? Colors.transparent,
               ),
               boxShadow: onTap == null || !(hasShadow ?? true)
@@ -319,7 +321,7 @@ class UIKitButton extends HookWidget {
                           ),
                         ],
             ),
-            height: sizeScheme?.height,
+            height: sizeScheme?.height ?? buttonTheme.sizeScheme.height,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -328,7 +330,7 @@ class UIKitButton extends HookWidget {
                 if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height,
+                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
                     child: leading!,
                   ),
                   const SizedBox(width: 10),
@@ -344,7 +346,7 @@ class UIKitButton extends HookWidget {
                 if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height,
+                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
                     child: trailing!,
                   ),
                   if (!removePadding!) const SizedBox(width: 10),
