@@ -9,7 +9,7 @@ class SUButtonThemeData {
   final UIKitColorScheme tertiaryColorScheme;
   final UIKitColorScheme outlineColorScheme;
   final UIKitColorScheme ghostColorScheme;
-  final Typography typography;
+  final UIKitSizeScheme sizeScheme;
 
   const SUButtonThemeData.raw({
     required this.primaryColorScheme,
@@ -18,7 +18,7 @@ class SUButtonThemeData {
     required this.tertiaryColorScheme,
     required this.outlineColorScheme,
     required this.ghostColorScheme,
-    required this.typography,
+    required this.sizeScheme,
   });
 
   factory SUButtonThemeData({
@@ -28,7 +28,7 @@ class SUButtonThemeData {
     UIKitColorScheme? tertiaryColorScheme,
     UIKitColorScheme? outlineColorScheme,
     UIKitColorScheme? ghostColorScheme,
-    Typography? typography,
+    UIKitSizeScheme? typography,
   }) {
     // Sets default color schemes.
     primaryColorScheme ??= UIKitColorScheme.defaultScheme();
@@ -37,7 +37,7 @@ class SUButtonThemeData {
     tertiaryColorScheme ??= UIKitColorScheme.defaultScheme();
     outlineColorScheme ??= UIKitColorScheme.defaultScheme();
     ghostColorScheme ??= UIKitColorScheme.defaultScheme();
-    typography ??= Typography();
+    typography ??= UIKitSizeScheme.defaultScheme();
 
     return SUButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme,
@@ -46,7 +46,7 @@ class SUButtonThemeData {
       tertiaryColorScheme: tertiaryColorScheme,
       outlineColorScheme: outlineColorScheme,
       ghostColorScheme: ghostColorScheme,
-      typography: typography,
+      sizeScheme: typography,
     );
   }
 
@@ -59,7 +59,7 @@ class SUButtonThemeData {
     UIKitColorScheme? tertiaryColorScheme,
     UIKitColorScheme? outlineColorScheme,
     UIKitColorScheme? ghostColorScheme,
-    Typography? typography,
+    UIKitSizeScheme? typography,
   }) {
     return SUButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme ?? this.primaryColorScheme,
@@ -69,7 +69,7 @@ class SUButtonThemeData {
       tertiaryColorScheme: tertiaryColorScheme ?? this.tertiaryColorScheme,
       outlineColorScheme: outlineColorScheme ?? this.outlineColorScheme,
       ghostColorScheme: ghostColorScheme ?? this.ghostColorScheme,
-      typography: this.typography,
+      sizeScheme: this.sizeScheme,
     );
   }
 }

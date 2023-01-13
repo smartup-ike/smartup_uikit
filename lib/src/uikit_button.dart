@@ -128,7 +128,7 @@ class UIKitButton extends HookWidget {
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? trailing;
 
-  /// [UIKitSizeScheme] an object containing info for the button's height, icon size and text style
+  /// [UIKitSizeScheme] an object containing info for the button's height, border size, icon size and text style
   final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitColorScheme] an object containing different colors for all the button's states
@@ -276,8 +276,12 @@ class UIKitButton extends HookWidget {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               strokeAlign: StrokeAlign.outside,
-              width: 2,
-              color: borderColor ?? Colors.transparent,
+              width: sizeScheme?.pressedBorderSize ??
+                  buttonTheme.sizeScheme.pressedBorderSize ??
+                  0,
+              color: (state$.value == UIKitState.focused)
+                  ? (borderColor ?? Colors.transparent)
+                  : Colors.transparent,
             ),
           ),
           child: AnimatedContainer(
@@ -288,8 +292,12 @@ class UIKitButton extends HookWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 strokeAlign: StrokeAlign.outside,
-                width: 1,
-                color: borderColor ?? Colors.transparent,
+                width: sizeScheme?.borderSize ??
+                    buttonTheme.sizeScheme.borderSize ??
+                    0,
+                color: (state$.value == UIKitState.focused)
+                    ? Colors.transparent
+                    : (borderColor ?? Colors.transparent),
               ),
               boxShadow: onTap == null || !(hasShadow ?? true)
                   ? []
@@ -317,7 +325,7 @@ class UIKitButton extends HookWidget {
                           ),
                         ],
             ),
-            height: sizeScheme?.height,
+            height: sizeScheme?.height ?? buttonTheme.sizeScheme.height,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -326,7 +334,7 @@ class UIKitButton extends HookWidget {
                 if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height,
+                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
                     child: leading!,
                   ),
                   const SizedBox(width: 10),
@@ -334,14 +342,15 @@ class UIKitButton extends HookWidget {
                 DefaultTextStyle(
                   style: sizeScheme?.labelTextStyle
                           ?.copyWith(color: contentColor) ??
-                      TextStyle(color: contentColor),
+                      buttonTheme.sizeScheme.labelTextStyle!
+                          .copyWith(color: contentColor),
                   child: labelText ?? const Text('Button'),
                 ),
                 if (!removePadding!) const SizedBox(width: 10),
                 if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height,
+                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
                     child: trailing!,
                   ),
                   if (!removePadding!) const SizedBox(width: 10),
