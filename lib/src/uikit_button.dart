@@ -276,10 +276,12 @@ class UIKitButton extends HookWidget {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               strokeAlign: StrokeAlign.outside,
-              width: sizeScheme?.borderSize ??
-                  buttonTheme.sizeScheme.borderSize ??
+              width: sizeScheme?.pressedBorderSize ??
+                  buttonTheme.sizeScheme.pressedBorderSize ??
                   0,
-              color: borderColor ?? Colors.transparent,
+              color: (state$.value == UIKitState.focused)
+                  ? (borderColor ?? Colors.transparent)
+                  : Colors.transparent,
             ),
           ),
           child: AnimatedContainer(
@@ -293,7 +295,9 @@ class UIKitButton extends HookWidget {
                 width: sizeScheme?.borderSize ??
                     buttonTheme.sizeScheme.borderSize ??
                     0,
-                color: borderColor ?? Colors.transparent,
+                color: (state$.value == UIKitState.focused)
+                    ? Colors.transparent
+                    : (borderColor ?? Colors.transparent),
               ),
               boxShadow: onTap == null || !(hasShadow ?? true)
                   ? []
