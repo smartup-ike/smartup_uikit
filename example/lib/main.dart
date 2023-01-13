@@ -31,9 +31,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isToggleActive = false;
-  bool _isCheckBoxChecked = false;
-  int? _selectedRadioItem;
+  bool isToggleActive = false;
+  bool isCheckBoxChecked = false;
+  bool isDropdownExpanded = false;
+  int? selectedRadioItem;
+  Set<int?>? selectedDropdownIndexes;
+  Set<int?>? innerSelectedDropdownIndexes;
+  Set<int?>? innermostSelectedDropdownIndexes;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDropdownIndexes = {};
+    innerSelectedDropdownIndexes = {};
+    innermostSelectedDropdownIndexes = {};
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 8),
             UIKitRadioGroup(
-              isVertical: false,
+              isVertical: true,
               label: const Text('Label'),
               assistiveText: const Text('Assistive text'),
               optionLabels: const [
@@ -132,14 +144,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 activeBorderColor: Colors.orange,
                 disabledBorderColor: Colors.grey,
               ),
-              getSelected: (index) =>
-                  setState(() => _selectedRadioItem = index),
+              getSelected: (index) => setState(() => selectedRadioItem = index),
             ),
             const SizedBox(height: 8),
             UIKitToggleSwitch(
               hasIcon: true,
-              isActive: _isToggleActive,
-              onTap: () => setState(() => _isToggleActive = !_isToggleActive),
+              isActive: isToggleActive,
+              onTap: () => setState(() => isToggleActive = !isToggleActive),
               colorScheme: UIKitColorScheme(
                 defaultBackgroundColor: Colors.black,
                 hoverBackgroundColor: Colors.green,
@@ -160,9 +171,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 8),
             UIKitCheckbox(
-              isChecked: _isCheckBoxChecked,
+              isChecked: isCheckBoxChecked,
               onChanged: (value) =>
-                  setState(() => _isCheckBoxChecked = value ?? false),
+                  setState(() => isCheckBoxChecked = value ?? false),
               sizeScheme: UIKitSizeScheme(
                 height: 16,
               ),
@@ -186,6 +197,108 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(
                 Icons.check,
                 size: 12,
+              ),
+            ),
+            const SizedBox(height: 8),
+            UIKitDropdown(
+              multiselect: false,
+              isExpanded: isDropdownExpanded,
+              expand: (value) => setState(() => isDropdownExpanded = value),
+              label: const Text('Label'),
+              optionLabels: [
+                const Text('Option 1'),
+                const Text('Option 2'),
+                const Text('Option 3'),
+                UIKitDropdown(
+                  isExpanded: isDropdownExpanded,
+                  expand: (value) => setState(() => isDropdownExpanded = value),
+                  label: const Text('Inner Label'),
+                  optionLabels: [
+                    const Text('Inner option 1'),
+                    const Text('Inner option 2'),
+                    UIKitDropdown(
+                      isExpanded: isDropdownExpanded,
+                      expand: (value) =>
+                          setState(() => isDropdownExpanded = value),
+                      label: const Text('Innermost Label'),
+                      optionLabels: const [
+                        Text('Innermost option 1'),
+                        Text('Innermost option 2'),
+                        Text('Innermost option 3'),
+                      ],
+                      getSelected: (set) => setState(
+                        () => innermostSelectedDropdownIndexes = set,
+                      ),
+                      sizeScheme: UIKitSizeScheme(
+                        height: 16,
+                      ),
+                      colorScheme: UIKitColorScheme(
+                        defaultBackgroundColor: Colors.tealAccent,
+                        hoverBackgroundColor: Colors.green,
+                        focusedBackgroundColor: Colors.red,
+                        activeBackgroundColor: Colors.orange,
+                        disabledBackgroundColor: Colors.grey,
+                        defaultContentColor: Colors.white,
+                        hoverContentColor: Colors.white,
+                        focusedContentColor: Colors.white,
+                        activeContentColor: Colors.white,
+                        disabledContentColor: Colors.white,
+                        defaultBorderColor: Colors.black,
+                        hoverBorderColor: Colors.green,
+                        focusedBorderColor: Colors.red,
+                        activeBorderColor: Colors.orange,
+                        disabledBorderColor: Colors.grey,
+                      ),
+                    ),
+                    const Text('Inner option 3'),
+                  ],
+                  getSelected: (set) => setState(
+                    () => innerSelectedDropdownIndexes = set,
+                  ),
+                  sizeScheme: UIKitSizeScheme(
+                    height: 16,
+                  ),
+                  colorScheme: UIKitColorScheme(
+                    defaultBackgroundColor: Colors.tealAccent,
+                    hoverBackgroundColor: Colors.green,
+                    focusedBackgroundColor: Colors.red,
+                    activeBackgroundColor: Colors.orange,
+                    disabledBackgroundColor: Colors.grey,
+                    defaultContentColor: Colors.white,
+                    hoverContentColor: Colors.white,
+                    focusedContentColor: Colors.white,
+                    activeContentColor: Colors.white,
+                    disabledContentColor: Colors.white,
+                    defaultBorderColor: Colors.black,
+                    hoverBorderColor: Colors.green,
+                    focusedBorderColor: Colors.red,
+                    activeBorderColor: Colors.orange,
+                    disabledBorderColor: Colors.grey,
+                  ),
+                ),
+                const Text('Option 5'),
+              ],
+              getSelected: (set) =>
+                  setState(() => selectedDropdownIndexes = set),
+              sizeScheme: UIKitSizeScheme(
+                height: 16,
+              ),
+              colorScheme: UIKitColorScheme(
+                defaultBackgroundColor: Colors.tealAccent,
+                hoverBackgroundColor: Colors.green,
+                focusedBackgroundColor: Colors.red,
+                activeBackgroundColor: Colors.orange,
+                disabledBackgroundColor: Colors.grey,
+                defaultContentColor: Colors.white,
+                hoverContentColor: Colors.white,
+                focusedContentColor: Colors.white,
+                activeContentColor: Colors.white,
+                disabledContentColor: Colors.white,
+                defaultBorderColor: Colors.black,
+                hoverBorderColor: Colors.green,
+                focusedBorderColor: Colors.red,
+                activeBorderColor: Colors.orange,
+                disabledBorderColor: Colors.grey,
               ),
             ),
           ],

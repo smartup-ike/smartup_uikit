@@ -25,3 +25,5 @@ export 'package:smartup_uikit/src/uikit_toggle_switch.dart'
     show UIKitToggleSwitch;
 
 export 'package:smartup_uikit/src/uikit_checkbox.dart' show UIKitCheckbox;
+
+export 'package:smartup_uikit/src/uikit_dropdown.dart' show UIKitDropdown;
