@@ -8,6 +8,7 @@ class UIKitSizeScheme {
     double? iconSize,
     double? borderSize,
     double? pressedBorderSize,
+    double? borderRadiusSize,
     TextStyle? labelTextStyle,
   }) {
     return UIKitSizeScheme._(
@@ -15,6 +16,7 @@ class UIKitSizeScheme {
       iconSize: iconSize,
       borderSize: borderSize,
       pressedBorderSize: pressedBorderSize,
+      borderRadiusSize: borderRadiusSize,
       labelTextStyle: labelTextStyle,
     );
   }
@@ -24,6 +26,7 @@ class UIKitSizeScheme {
     this.iconSize,
     this.borderSize,
     this.pressedBorderSize,
+    this.borderRadiusSize,
     this.labelTextStyle,
   });
 
@@ -32,6 +35,7 @@ class UIKitSizeScheme {
     iconSize = UIKitIconSize.size16;
     borderSize = 1;
     pressedBorderSize = 2;
+    borderRadiusSize = 8;
     labelTextStyle = GoogleFonts.getFont(
       'Open Sans',
       color: Colors.white,
@@ -47,6 +51,7 @@ class UIKitSizeScheme {
     double? iconSize,
     double? borderSize,
     double? pressedBorderSize,
+    double? borderRadiusSize,
     TextStyle? labelTextStyle,
   }) {
     return UIKitSizeScheme._(
@@ -54,6 +59,7 @@ class UIKitSizeScheme {
       iconSize: iconSize ?? this.iconSize,
       borderSize: borderSize ?? this.borderSize,
       pressedBorderSize: pressedBorderSize ?? this.pressedBorderSize,
+      borderRadiusSize: borderRadiusSize ?? this.borderRadiusSize,
       labelTextStyle: labelTextStyle ?? this.labelTextStyle,
     );
   }
@@ -62,5 +68,6 @@ class UIKitSizeScheme {
   double? iconSize;
   double? borderSize;
   double? pressedBorderSize;
+  double? borderRadiusSize;
   TextStyle? labelTextStyle;
 }
