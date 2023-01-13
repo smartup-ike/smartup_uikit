@@ -1,7 +1,61 @@
 import 'package:flutter/material.dart';
 
 class UIKitColorScheme {
-  UIKitColorScheme({
+  factory UIKitColorScheme({
+    Color? defaultBackgroundColor,
+    Color? hoverBackgroundColor,
+    Color? focusedBackgroundColor,
+    Color? activeBackgroundColor,
+    Color? disabledBackgroundColor,
+    Color? defaultContentColor,
+    Color? hoverContentColor,
+    Color? focusedContentColor,
+    Color? activeContentColor,
+    Color? disabledContentColor,
+    Color? defaultBorderColor,
+    Color? hoverBorderColor,
+    Color? focusedBorderColor,
+    Color? activeBorderColor,
+    Color? disabledBorderColor,
+  }) {
+    var temp = UIKitColorScheme.defaultScheme().copyWith(
+      defaultBackgroundColor: defaultBackgroundColor,
+      hoverBackgroundColor: hoverBackgroundColor,
+      focusedBackgroundColor: focusedBackgroundColor,
+      activeBackgroundColor: activeBackgroundColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      defaultContentColor: defaultContentColor,
+      hoverContentColor: hoverContentColor,
+      focusedContentColor: focusedContentColor,
+      activeContentColor: activeContentColor,
+      disabledContentColor: disabledContentColor,
+      defaultBorderColor: defaultBorderColor,
+      hoverBorderColor: hoverBorderColor,
+      focusedBorderColor: focusedBorderColor,
+      activeBorderColor: activeBorderColor,
+      disabledBorderColor: disabledBorderColor,
+    );
+
+    return UIKitColorScheme._(
+      defaultBackgroundColor: temp.defaultBackgroundColor,
+      hoverBackgroundColor: temp.hoverBackgroundColor,
+      focusedBackgroundColor: temp.focusedBackgroundColor,
+      activeBackgroundColor: temp.activeBackgroundColor,
+      disabledBackgroundColor: temp.disabledBackgroundColor,
+      defaultContentColor: temp.defaultContentColor,
+      hoverContentColor: temp.hoverContentColor,
+      focusedContentColor: temp.focusedContentColor,
+      activeContentColor: temp.activeContentColor,
+      disabledContentColor: temp.disabledContentColor,
+      defaultBorderColor: temp.defaultBorderColor,
+      hoverBorderColor: temp.hoverBorderColor,
+      focusedBorderColor: temp.focusedBorderColor,
+      activeBorderColor: temp.activeBorderColor,
+      disabledBorderColor: temp.disabledBorderColor,
+    );
+  }
+
+  UIKitColorScheme._({
     this.defaultBackgroundColor,
     this.hoverBackgroundColor,
     this.focusedBackgroundColor,
@@ -19,6 +73,7 @@ class UIKitColorScheme {
     this.disabledBorderColor,
   });
 
+  /// Default color scheme. (All black for now)
   UIKitColorScheme.defaultScheme() {
     defaultBackgroundColor = const Color(0xFF000000);
     hoverBackgroundColor = const Color(0xFF000000);
@@ -35,6 +90,73 @@ class UIKitColorScheme {
     focusedBorderColor = const Color(0xFF000000);
     activeBorderColor = const Color(0xFF000000);
     disabledBorderColor = const Color(0xFF000000);
+  }
+
+  /// Creates a copy of this UIKitColorScheme but with the given fields replaced with
+  /// the new values.
+  UIKitColorScheme copyWith({
+    Color? defaultBackgroundColor,
+    Color? hoverBackgroundColor,
+    Color? focusedBackgroundColor,
+    Color? activeBackgroundColor,
+    Color? disabledBackgroundColor,
+    Color? defaultContentColor,
+    Color? hoverContentColor,
+    Color? focusedContentColor,
+    Color? activeContentColor,
+    Color? disabledContentColor,
+    Color? defaultBorderColor,
+    Color? hoverBorderColor,
+    Color? focusedBorderColor,
+    Color? activeBorderColor,
+    Color? disabledBorderColor,
+  }) {
+    return UIKitColorScheme._(
+      defaultBackgroundColor:
+          defaultBackgroundColor ?? this.defaultBackgroundColor,
+      hoverBackgroundColor: hoverBackgroundColor ?? this.hoverBackgroundColor,
+      focusedBackgroundColor:
+          focusedBackgroundColor ?? this.focusedBackgroundColor,
+      activeBackgroundColor:
+          activeBackgroundColor ?? this.activeBackgroundColor,
+      disabledBackgroundColor:
+          disabledBackgroundColor ?? this.disabledBackgroundColor,
+      defaultContentColor: defaultContentColor ?? this.defaultContentColor,
+      hoverContentColor: hoverContentColor ?? this.hoverContentColor,
+      focusedContentColor: focusedContentColor ?? this.focusedContentColor,
+      activeContentColor: activeContentColor ?? this.activeContentColor,
+      disabledContentColor: disabledContentColor ?? this.disabledContentColor,
+      defaultBorderColor: defaultBorderColor ?? this.defaultBorderColor,
+      hoverBorderColor: hoverBorderColor ?? this.hoverBorderColor,
+      focusedBorderColor: focusedBorderColor ?? this.focusedBorderColor,
+      activeBorderColor: activeBorderColor ?? this.activeBorderColor,
+      disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
+    );
+  }
+
+  /// Creates a copy of this UIKitColorScheme but with newScheme values.
+  ///
+  /// Null values of newScheme sets as defaultScheme.
+  UIKitColorScheme copyWithScheme({
+    UIKitColorScheme? newScheme,
+  }) {
+    return copyWith(
+      defaultBackgroundColor: newScheme?.defaultBackgroundColor,
+      hoverBackgroundColor: newScheme?.hoverBackgroundColor,
+      focusedBackgroundColor: newScheme?.focusedBackgroundColor,
+      activeBackgroundColor: newScheme?.activeBackgroundColor,
+      disabledBackgroundColor: newScheme?.disabledBackgroundColor,
+      defaultContentColor: newScheme?.defaultContentColor,
+      hoverContentColor: newScheme?.hoverContentColor,
+      focusedContentColor: newScheme?.focusedContentColor,
+      activeContentColor: newScheme?.activeContentColor,
+      disabledContentColor: newScheme?.disabledContentColor,
+      defaultBorderColor: newScheme?.defaultBorderColor,
+      hoverBorderColor: newScheme?.hoverBorderColor,
+      focusedBorderColor: newScheme?.focusedBorderColor,
+      activeBorderColor: newScheme?.activeBorderColor,
+      disabledBorderColor: newScheme?.disabledBorderColor,
+    );
   }
 
   // Background
