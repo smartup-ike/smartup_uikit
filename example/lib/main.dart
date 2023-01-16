@@ -114,6 +114,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     activeBorderColor: Colors.orange,
                     disabledBorderColor: Colors.grey,
                   ),
+                  sizeScheme: UIKitSizeScheme(
+                    borderSize: 1.6,
+                    height: 16,
+                    width: 16,
+                    spacing: 8,
+                  ),
                 ),
               ],
             ),
@@ -128,6 +134,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text('Test 3'),
                 Text('Test 4'),
               ],
+              sizeScheme: UIKitSizeScheme(
+                borderSize: 1.6,
+                height: 16,
+                width: 16,
+                spacing: 8,
+              ),
               colorScheme: UIKitColorScheme(
                 defaultBackgroundColor: Colors.white,
                 hoverBackgroundColor: Colors.white,
