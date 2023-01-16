@@ -128,7 +128,8 @@ class UIKitTab extends HookWidget {
       },
       onExit: (_) {
         if (onTap != null) {
-          state$.value = UIKitState.defaultState;
+          state$.value =
+              isActive ?? false ? UIKitState.active : UIKitState.defaultState;
           isHovered$.value = false;
         }
       },
@@ -141,14 +142,20 @@ class UIKitTab extends HookWidget {
         },
         onTapUp: (_) {
           if (onTap != null) {
-            state$.value =
-                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+            state$.value = isHovered$.value
+                ? UIKitState.hover
+                : isActive ?? false
+                    ? UIKitState.active
+                    : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
           if (onTap != null) {
-            state$.value =
-                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+            state$.value = isHovered$.value
+                ? UIKitState.hover
+                : isActive ?? false
+                    ? UIKitState.active
+                    : UIKitState.defaultState;
           }
         },
         child: AnimatedContainer(
@@ -159,17 +166,19 @@ class UIKitTab extends HookWidget {
             color: backgroundColor,
             borderRadius: tabType == UIKitTabType.page
                 ? BorderRadius.circular(tabSize.borderRadius ?? 8)
-                : BorderRadius.only(
-                    topLeft: Radius.circular(tabSize.borderRadius ?? 8),
-                    topRight: Radius.circular(tabSize.borderRadius ?? 8),
-                  ),
+                : state$.value == UIKitState.focused
+                    ? BorderRadius.only(
+                        topLeft: Radius.circular(tabSize.borderRadius ?? 8),
+                        topRight: Radius.circular(tabSize.borderRadius ?? 8),
+                      )
+                    : null,
             boxShadow: shadows,
             border: tabType == UIKitTabType.page
                 ? Border.all(
                     color: borderColor ?? Colors.transparent,
                     width: tabSize.borderSize ?? 1,
                   )
-                : state$.value == UIKitState.active
+                : state$.value == UIKitState.focused
                     ? Border.all(
                         color: borderColor ?? Colors.transparent,
                         width: tabSize.borderSize ?? 1,
@@ -183,12 +192,19 @@ class UIKitTab extends HookWidget {
           ),
           child: Row(
             children: [
-              leading ?? const SizedBox(),
+              if (leading != null) ...[
+                leading!,
+                SizedBox(width: tabSize.spacing),
+              ],
               DefaultTextStyle(
-                style: tabSize.labelTextStyle ?? const TextStyle(),
+                style: tabSize.labelTextStyle?.copyWith(color: contentColor) ??
+                    TextStyle(color: contentColor ?? Colors.transparent),
                 child: label ?? const SizedBox(),
               ),
-              trailing ?? const SizedBox(),
+              if (trailing != null) ...[
+                SizedBox(width: tabSize.spacing),
+                trailing!,
+              ],
             ],
           ),
         ),
