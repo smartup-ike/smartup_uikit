@@ -226,20 +226,20 @@ class UIKitTab extends HookWidget {
 
   UIKitColorScheme _defineColors(
     BuildContext context,
-    UIKitTabThemeData tabThemeData,
+    UIKitTabThemeData themeData,
   ) {
     UIKitColorScheme tabColors;
 
     if (colorScheme == null) {
       switch (tabType) {
         case UIKitTabType.page:
-          tabColors = tabThemeData.pageTabColorScheme;
+          tabColors = themeData.pageTabColorScheme;
           break;
         case UIKitTabType.line:
-          tabColors = tabThemeData.lineTabColorScheme;
+          tabColors = themeData.lineTabColorScheme;
           break;
         default:
-          tabColors = tabThemeData.pageTabColorScheme;
+          tabColors = themeData.pageTabColorScheme;
           break;
       }
     } else {
@@ -251,12 +251,12 @@ class UIKitTab extends HookWidget {
 
   UIKitSizeScheme _defineSize(
     BuildContext context,
-    UIKitTabThemeData tabThemeData,
+    UIKitTabThemeData themeData,
   ) {
     UIKitSizeScheme tabSize;
 
     if (sizeScheme == null) {
-      tabSize = tabThemeData.sizeScheme;
+      tabSize = themeData.sizeScheme;
     } else {
       tabSize = sizeScheme!;
     }
@@ -265,12 +265,12 @@ class UIKitTab extends HookWidget {
 
   UIKitShadowScheme _defineShadow(
     BuildContext context,
-    UIKitTabThemeData tabThemeData,
+    UIKitTabThemeData themeData,
   ) {
     UIKitShadowScheme tabShadow;
 
     if (shadowScheme == null) {
-      tabShadow = tabThemeData.shadowScheme;
+      tabShadow = themeData.shadowScheme;
     } else {
       tabShadow = shadowScheme!;
     }

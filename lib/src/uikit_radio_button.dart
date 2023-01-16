@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/theme/su_theme.dart';
+import 'helpers/uikit_shadow_scheme.dart';
+import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
+import 'theme/su_radio_button_theme_data.dart';
 
 class UIKitRadioButton extends HookWidget {
   const UIKitRadioButton({
@@ -9,6 +13,8 @@ class UIKitRadioButton extends HookWidget {
     required this.isSelected,
     this.onTap,
     this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
   });
 
   /// [VoidCallback] that will be called when this button is tapped.
@@ -22,11 +28,20 @@ class UIKitRadioButton extends HookWidget {
   /// attributes of this radio button.
   final UIKitColorScheme? colorScheme;
 
+  /// [UIKitSizeScheme] determining the value of different size attributes
+  /// of this radio button.
+  final UIKitSizeScheme? sizeScheme;
+
+  /// [UIKitShadowScheme] determining the value of different shadow attributes
+  /// of this radio button.
+  final UIKitShadowScheme? shadowScheme;
+
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
+    final themeData = SUTheme.of(context).radioButtonThemeData;
 
     useEffect(() {
       if (onTap == null) {
@@ -37,35 +52,45 @@ class UIKitRadioButton extends HookWidget {
       return null;
     }, [onTap == null]);
 
+    UIKitColorScheme radioColors = _defineColors(context, themeData);
+    UIKitSizeScheme radioSize = _defineSize(context, themeData);
+    UIKitShadowScheme radioShadows = _defineShadow(context, themeData);
+
     Color? backgroundColor;
     Color? contentColor;
     Color? borderColor;
+    List<BoxShadow>? shadows;
 
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = colorScheme?.defaultBackgroundColor;
-        contentColor = colorScheme?.defaultContentColor;
-        borderColor = colorScheme?.defaultBorderColor;
+        backgroundColor = radioColors.defaultBackgroundColor;
+        contentColor = radioColors.defaultContentColor;
+        borderColor = radioColors.defaultBorderColor;
+        shadows = radioShadows.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = colorScheme?.hoverBackgroundColor;
-        contentColor = colorScheme?.hoverContentColor;
-        borderColor = colorScheme?.hoverBorderColor;
+        backgroundColor = radioColors.hoverBackgroundColor;
+        contentColor = radioColors.hoverContentColor;
+        borderColor = radioColors.hoverBorderColor;
+        shadows = radioShadows.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = colorScheme?.focusedBackgroundColor;
-        contentColor = colorScheme?.focusedContentColor;
-        borderColor = colorScheme?.focusedBorderColor;
+        backgroundColor = radioColors.focusedBackgroundColor;
+        contentColor = radioColors.focusedContentColor;
+        borderColor = radioColors.focusedBorderColor;
+        shadows = radioShadows.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = colorScheme?.activeBackgroundColor;
-        contentColor = colorScheme?.activeContentColor;
-        borderColor = colorScheme?.activeBorderColor;
+        backgroundColor = radioColors.activeBackgroundColor;
+        contentColor = radioColors.activeContentColor;
+        borderColor = radioColors.activeBorderColor;
+        shadows = radioShadows.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = colorScheme?.disabledBackgroundColor;
-        contentColor = colorScheme?.disabledContentColor;
-        borderColor = colorScheme?.disabledBorderColor;
+        backgroundColor = radioColors.disabledBackgroundColor;
+        contentColor = radioColors.disabledContentColor;
+        borderColor = radioColors.disabledBorderColor;
+        shadows = radioShadows.disabledShadow;
         break;
       default:
         break;
@@ -108,34 +133,22 @@ class UIKitRadioButton extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          width: 16,
-          height: 16,
+          width: radioSize.width,
+          height: radioSize.height,
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 1.6,
-              color: borderColor ?? Colors.transparent,
-            ),
-            color: backgroundColor ?? Colors.transparent,
-            shape: BoxShape.circle,
-            boxShadow: onTap == null
-                ? []
-                : state$.value == UIKitState.focused
-                    ? [
-                        BoxShadow(
-                          offset: const Offset(0, 0),
-                          blurRadius: 2,
-                          spreadRadius: 0,
-                          color: const Color(0xFF690A10).withOpacity(.70),
-                        ),
-                      ]
-                    : [],
-          ),
+              border: Border.all(
+                width: radioSize.borderSize ?? 1,
+                color: borderColor ?? Colors.transparent,
+              ),
+              color: backgroundColor ?? Colors.transparent,
+              shape: BoxShape.circle,
+              boxShadow: shadows),
           child: Padding(
-            padding: const EdgeInsets.all(2),
+            padding: radioSize.padding ?? const EdgeInsets.all(2),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: 8,
-              height: 8,
+              width: radioSize.spacing,
+              height: radioSize.spacing,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: isSelected ? contentColor : Colors.transparent,
@@ -145,5 +158,48 @@ class UIKitRadioButton extends HookWidget {
         ),
       ),
     );
+  }
+
+  UIKitColorScheme _defineColors(
+    BuildContext context,
+    SURadioButtonThemeData themeData,
+  ) {
+    UIKitColorScheme radioColors;
+
+    if (colorScheme == null) {
+      radioColors = themeData.colorScheme;
+    } else {
+      radioColors = colorScheme!;
+    }
+
+    return radioColors;
+  }
+
+  UIKitSizeScheme _defineSize(
+    BuildContext context,
+    SURadioButtonThemeData themeData,
+  ) {
+    UIKitSizeScheme radioSize;
+
+    if (sizeScheme == null) {
+      radioSize = themeData.sizeScheme;
+    } else {
+      radioSize = sizeScheme!;
+    }
+    return radioSize;
+  }
+
+  UIKitShadowScheme _defineShadow(
+    BuildContext context,
+    SURadioButtonThemeData themeData,
+  ) {
+    UIKitShadowScheme radioShadow;
+
+    if (shadowScheme == null) {
+      radioShadow = themeData.shadowScheme;
+    } else {
+      radioShadow = shadowScheme!;
+    }
+    return radioShadow;
   }
 }

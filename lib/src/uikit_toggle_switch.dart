@@ -171,12 +171,12 @@ class UIKitToggleSwitch extends HookWidget {
 
   UIKitColorScheme _defineColors(
     BuildContext context,
-    UIKitToggleSwitchThemeData tabThemeData,
+    UIKitToggleSwitchThemeData themeData,
   ) {
     UIKitColorScheme toggleSwitchColors;
 
     if (colorScheme == null) {
-      toggleSwitchColors = tabThemeData.colorScheme;
+      toggleSwitchColors = themeData.colorScheme;
     } else {
       toggleSwitchColors = colorScheme!;
     }
@@ -186,12 +186,12 @@ class UIKitToggleSwitch extends HookWidget {
 
   UIKitSizeScheme _defineSize(
     BuildContext context,
-    UIKitToggleSwitchThemeData tabThemeData,
+    UIKitToggleSwitchThemeData themeData,
   ) {
     UIKitSizeScheme toggleSwitchSize;
 
     if (sizeScheme == null) {
-      toggleSwitchSize = tabThemeData.sizeScheme;
+      toggleSwitchSize = themeData.sizeScheme;
     } else {
       toggleSwitchSize = sizeScheme!;
     }
@@ -200,12 +200,12 @@ class UIKitToggleSwitch extends HookWidget {
 
   UIKitShadowScheme _defineShadow(
     BuildContext context,
-    UIKitToggleSwitchThemeData tabThemeData,
+    UIKitToggleSwitchThemeData themeData,
   ) {
     UIKitShadowScheme toggleSwitchShadow;
 
     if (shadowScheme == null) {
-      toggleSwitchShadow = tabThemeData.shadowScheme;
+      toggleSwitchShadow = themeData.shadowScheme;
     } else {
       toggleSwitchShadow = shadowScheme!;
     }

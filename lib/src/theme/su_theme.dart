@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
 import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
+import 'package:smartup_uikit/src/theme/uikit_radio_group_theme_data.dart';
 import 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
 import 'package:smartup_uikit/src/theme/uikit_toggle_switch_theme_data.dart';
 
@@ -61,12 +62,14 @@ class SUThemeData {
   final SURadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
   final UIKitToggleSwitchThemeData toggleSwitchThemeData;
+  final UIKitRadioGroupThemeData radioGroupThemeData;
 
   const SUThemeData.raw({
     required this.buttonThemeData,
     required this.radioButtonThemeData,
     required this.tabThemeData,
     required this.toggleSwitchThemeData,
+    required this.radioGroupThemeData,
   });
 
   factory SUThemeData({
@@ -74,17 +77,20 @@ class SUThemeData {
     SURadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
     UIKitToggleSwitchThemeData? toggleSwitchThemeData,
+    UIKitRadioGroupThemeData? radioGroupThemeData,
   }) {
     buttonThemeData ??= SUButtonThemeData();
     radioButtonThemeData ??= SURadioButtonThemeData();
     tabThemeData ??= UIKitTabThemeData();
     toggleSwitchThemeData ??= UIKitToggleSwitchThemeData();
+    radioGroupThemeData ??= UIKitRadioGroupThemeData();
 
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
       tabThemeData: tabThemeData,
       toggleSwitchThemeData: toggleSwitchThemeData,
+      radioGroupThemeData: radioGroupThemeData,
     );
   }
 
@@ -93,6 +99,7 @@ class SUThemeData {
     SURadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
     UIKitToggleSwitchThemeData? toggleSwitchThemeData,
+    UIKitRadioGroupThemeData? radioGroupThemeData,
   }) {
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
@@ -100,6 +107,7 @@ class SUThemeData {
       tabThemeData: tabThemeData ?? this.tabThemeData,
       toggleSwitchThemeData:
           toggleSwitchThemeData ?? this.toggleSwitchThemeData,
+      radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
     );
   }
 }
