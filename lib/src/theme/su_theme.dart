@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
 import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
 import 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
+import 'package:smartup_uikit/src/theme/uikit_toggle_switch_theme_data.dart';
 
 class SUTheme extends StatelessWidget {
   const SUTheme({
@@ -59,26 +60,31 @@ class SUThemeData {
   final SUButtonThemeData buttonThemeData;
   final SURadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
+  final UIKitToggleSwitchThemeData toggleSwitchThemeData;
 
   const SUThemeData.raw({
     required this.buttonThemeData,
     required this.radioButtonThemeData,
     required this.tabThemeData,
+    required this.toggleSwitchThemeData,
   });
 
   factory SUThemeData({
     SUButtonThemeData? buttonThemeData,
     SURadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
+    UIKitToggleSwitchThemeData? toggleSwitchThemeData,
   }) {
     buttonThemeData ??= SUButtonThemeData();
     radioButtonThemeData ??= SURadioButtonThemeData();
     tabThemeData ??= UIKitTabThemeData();
+    toggleSwitchThemeData ??= UIKitToggleSwitchThemeData();
 
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
       tabThemeData: tabThemeData,
+      toggleSwitchThemeData: toggleSwitchThemeData,
     );
   }
 
@@ -86,11 +92,14 @@ class SUThemeData {
     SUButtonThemeData? buttonThemeData,
     SURadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
+    UIKitToggleSwitchThemeData? toggleSwitchThemeData,
   }) {
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
       radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
       tabThemeData: tabThemeData ?? this.tabThemeData,
+      toggleSwitchThemeData:
+          toggleSwitchThemeData ?? this.toggleSwitchThemeData,
     );
   }
 }
