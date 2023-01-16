@@ -83,8 +83,8 @@ class UIKitIconButton extends StatelessWidget {
     }
     UIKitSizeScheme? temp = sizeScheme;
     if (isCircle) {
-      temp = sizeScheme?.copyWith(
-          borderRadiusSize: ((sizeScheme?.height ?? 0) * 2));
+      temp =
+          sizeScheme?.copyWith(borderRadius: ((sizeScheme?.height ?? 0) * 2));
     }
     return SizedBox(
       height: temp?.height,

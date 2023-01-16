@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 40,
                     iconSize: 24,
                     borderSize: 1,
-                    borderRadiusSize: 8,
+                    borderRadius: 8,
                     pressedBorderSize: 1,
                   ),
                   isCircle: true,
