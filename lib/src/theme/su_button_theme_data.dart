@@ -9,6 +9,8 @@ class SUButtonThemeData {
   final UIKitColorScheme tertiaryColorScheme;
   final UIKitColorScheme outlineColorScheme;
   final UIKitColorScheme ghostColorScheme;
+  final UIKitColorScheme solidIconColorScheme;
+  final UIKitColorScheme ghostIconColorScheme;
   final UIKitSizeScheme sizeScheme;
 
   const SUButtonThemeData.raw({
@@ -18,6 +20,8 @@ class SUButtonThemeData {
     required this.tertiaryColorScheme,
     required this.outlineColorScheme,
     required this.ghostColorScheme,
+    required this.solidIconColorScheme,
+    required this.ghostIconColorScheme,
     required this.sizeScheme,
   });
 
@@ -28,6 +32,8 @@ class SUButtonThemeData {
     UIKitColorScheme? tertiaryColorScheme,
     UIKitColorScheme? outlineColorScheme,
     UIKitColorScheme? ghostColorScheme,
+    UIKitColorScheme? solidIconColorScheme,
+    UIKitColorScheme? ghostIconColorScheme,
     UIKitSizeScheme? typography,
   }) {
     // Sets default color schemes.
@@ -37,6 +43,8 @@ class SUButtonThemeData {
     tertiaryColorScheme ??= UIKitColorScheme.defaultScheme();
     outlineColorScheme ??= UIKitColorScheme.defaultScheme();
     ghostColorScheme ??= UIKitColorScheme.defaultScheme();
+    solidIconColorScheme ??= UIKitColorScheme.defaultScheme();
+    ghostIconColorScheme ??= UIKitColorScheme.defaultScheme();
     typography ??= UIKitSizeScheme.defaultScheme();
 
     return SUButtonThemeData.raw(
@@ -46,6 +54,8 @@ class SUButtonThemeData {
       tertiaryColorScheme: tertiaryColorScheme,
       outlineColorScheme: outlineColorScheme,
       ghostColorScheme: ghostColorScheme,
+      solidIconColorScheme: solidIconColorScheme,
+      ghostIconColorScheme: ghostIconColorScheme,
       sizeScheme: typography,
     );
   }
@@ -59,7 +69,9 @@ class SUButtonThemeData {
     UIKitColorScheme? tertiaryColorScheme,
     UIKitColorScheme? outlineColorScheme,
     UIKitColorScheme? ghostColorScheme,
-    UIKitSizeScheme? typography,
+    UIKitColorScheme? solidIconColorScheme,
+    UIKitColorScheme? ghostIconColorScheme,
+    UIKitSizeScheme? sizeScheme,
   }) {
     return SUButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme ?? this.primaryColorScheme,
@@ -69,7 +81,9 @@ class SUButtonThemeData {
       tertiaryColorScheme: tertiaryColorScheme ?? this.tertiaryColorScheme,
       outlineColorScheme: outlineColorScheme ?? this.outlineColorScheme,
       ghostColorScheme: ghostColorScheme ?? this.ghostColorScheme,
-      sizeScheme: this.sizeScheme,
+      solidIconColorScheme: solidIconColorScheme ?? this.solidIconColorScheme,
+      ghostIconColorScheme: ghostIconColorScheme ?? this.ghostIconColorScheme,
+      sizeScheme: sizeScheme ?? this.sizeScheme,
     );
   }
 }
