@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
 import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
+import 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
 
 class SUTheme extends StatelessWidget {
   const SUTheme({
@@ -57,32 +58,39 @@ class _SUTheme extends InheritedTheme {
 class SUThemeData {
   final SUButtonThemeData buttonThemeData;
   final SURadioButtonThemeData radioButtonThemeData;
+  final UIKitTabThemeData tabThemeData;
 
   const SUThemeData.raw({
     required this.buttonThemeData,
     required this.radioButtonThemeData,
+    required this.tabThemeData,
   });
 
   factory SUThemeData({
     SUButtonThemeData? buttonThemeData,
     SURadioButtonThemeData? radioButtonThemeData,
+    UIKitTabThemeData? tabThemeData,
   }) {
     buttonThemeData ??= SUButtonThemeData();
     radioButtonThemeData ??= SURadioButtonThemeData();
+    tabThemeData ??= UIKitTabThemeData();
 
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
+      tabThemeData: tabThemeData,
     );
   }
 
   SUThemeData copyWith({
     SUButtonThemeData? buttonThemeData,
     SURadioButtonThemeData? radioButtonThemeData,
+    UIKitTabThemeData? tabThemeData,
   }) {
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
       radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
+      tabThemeData: tabThemeData ?? this.tabThemeData,
     );
   }
 }
