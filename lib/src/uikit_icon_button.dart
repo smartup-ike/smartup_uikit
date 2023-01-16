@@ -59,6 +59,7 @@ class UIKitIconButton extends StatelessWidget {
   /// * ghost
   final UIKitButtonType? buttonType;
 
+  /// Makes the icon button circular.
   final bool isCircle;
 
   @override
@@ -80,14 +81,11 @@ class UIKitIconButton extends StatelessWidget {
             .copyWithScheme(newScheme: colorScheme);
         break;
     }
-    print(sizeScheme?.borderRadiusSize);
-    print(sizeScheme?.height);
     UIKitSizeScheme? temp = sizeScheme;
     if (isCircle) {
       temp = sizeScheme?.copyWith(
           borderRadiusSize: ((sizeScheme?.height ?? 0) * 2));
     }
-    print(temp?.borderRadiusSize);
     return SizedBox(
       height: temp?.height,
       width: temp?.height,
