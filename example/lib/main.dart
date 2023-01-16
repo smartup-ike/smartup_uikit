@@ -171,6 +171,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 activeBorderColor: Colors.orange,
                 disabledBorderColor: Colors.grey,
               ),
+              sizeScheme: UIKitSizeScheme(
+                height: 24,
+                spacing: 20,
+                borderRadius: 10,
+                width: 48,
+              ),
             ),
             const SizedBox(height: 8),
             UIKitCheckbox(
