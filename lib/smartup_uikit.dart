@@ -15,6 +15,8 @@ export 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
 // UI Elements
 export 'package:smartup_uikit/src/uikit_button.dart';
 
+export 'package:smartup_uikit/src/uikit_icon_button.dart' show UIKitIconButton;
+
 export 'package:smartup_uikit/src/uikit_radio_button.dart'
     show UIKitRadioButton;
 

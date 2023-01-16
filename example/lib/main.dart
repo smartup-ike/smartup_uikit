@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 void main() {
@@ -73,6 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 UIKitButton.primary(
                   labelText: const Text('Button'),
                   removePadding: false,
+                  onTap: () {},
+                ),
+                UIKitIconButton.primary(
+                  icon: const UIKitIcon.asset('assets/images/url.svg'),
+                  sizeScheme: UIKitSizeScheme(
+                    height: 40,
+                    iconSize: 24,
+                    borderSize: 1,
+                    borderRadiusSize: 8,
+                    pressedBorderSize: 1,
+                  ),
+                  isCircle: true,
                   onTap: () {},
                 ),
               ],
