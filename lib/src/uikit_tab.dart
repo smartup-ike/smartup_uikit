@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart';
-import 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
+import 'helpers/uikit_shadow_scheme.dart';
+import 'theme/uikit_tab_theme_data.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
@@ -116,96 +116,99 @@ class UIKitTab extends HookWidget {
         break;
     }
 
-    return MouseRegion(
-      cursor: state$.value == UIKitState.disabled
-          ? SystemMouseCursors.basic
-          : SystemMouseCursors.click,
-      onHover: (_) {
-        if (onTap != null) {
-          state$.value = UIKitState.hover;
-          isHovered$.value = true;
-        }
-      },
-      onExit: (_) {
-        if (onTap != null) {
-          state$.value =
-              isActive ?? false ? UIKitState.active : UIKitState.defaultState;
-          isHovered$.value = false;
-        }
-      },
-      child: GestureDetector(
-        onTap: onTap,
-        onTapDown: (_) {
+    return Center(
+      child: MouseRegion(
+        cursor: state$.value == UIKitState.disabled
+            ? SystemMouseCursors.basic
+            : SystemMouseCursors.click,
+        onHover: (_) {
           if (onTap != null) {
-            state$.value = UIKitState.focused;
+            state$.value = UIKitState.hover;
+            isHovered$.value = true;
           }
         },
-        onTapUp: (_) {
+        onExit: (_) {
           if (onTap != null) {
-            state$.value = isHovered$.value
-                ? UIKitState.hover
-                : isActive ?? false
-                    ? UIKitState.active
-                    : UIKitState.defaultState;
+            state$.value =
+                isActive ?? false ? UIKitState.active : UIKitState.defaultState;
+            isHovered$.value = false;
           }
         },
-        onTapCancel: () {
-          if (onTap != null) {
-            state$.value = isHovered$.value
-                ? UIKitState.hover
-                : isActive ?? false
-                    ? UIKitState.active
-                    : UIKitState.defaultState;
-          }
-        },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: tabSize.padding,
-          height: tabSize.height,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: tabType == UIKitTabType.page
-                ? BorderRadius.circular(tabSize.borderRadius ?? 8)
-                : state$.value == UIKitState.focused
-                    ? BorderRadius.only(
-                        topLeft: Radius.circular(tabSize.borderRadius ?? 8),
-                        topRight: Radius.circular(tabSize.borderRadius ?? 8),
-                      )
-                    : null,
-            boxShadow: shadows,
-            border: tabType == UIKitTabType.page
-                ? Border.all(
-                    color: borderColor ?? Colors.transparent,
-                    width: tabSize.borderSize ?? 1,
-                  )
-                : state$.value == UIKitState.focused
-                    ? Border.all(
-                        color: borderColor ?? Colors.transparent,
-                        width: tabSize.borderSize ?? 1,
-                      )
-                    : Border(
-                        bottom: BorderSide(
+        child: GestureDetector(
+          onTap: onTap,
+          onTapDown: (_) {
+            if (onTap != null) {
+              state$.value = UIKitState.focused;
+            }
+          },
+          onTapUp: (_) {
+            if (onTap != null) {
+              state$.value = isHovered$.value
+                  ? UIKitState.hover
+                  : isActive ?? false
+                      ? UIKitState.active
+                      : UIKitState.defaultState;
+            }
+          },
+          onTapCancel: () {
+            if (onTap != null) {
+              state$.value = isHovered$.value
+                  ? UIKitState.hover
+                  : isActive ?? false
+                      ? UIKitState.active
+                      : UIKitState.defaultState;
+            }
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: tabSize.padding,
+            height: tabSize.height,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: tabType == UIKitTabType.page
+                  ? BorderRadius.circular(tabSize.borderRadius ?? 8)
+                  : state$.value == UIKitState.focused
+                      ? BorderRadius.only(
+                          topLeft: Radius.circular(tabSize.borderRadius ?? 8),
+                          topRight: Radius.circular(tabSize.borderRadius ?? 8),
+                        )
+                      : null,
+              boxShadow: shadows,
+              border: tabType == UIKitTabType.page
+                  ? Border.all(
+                      color: borderColor ?? Colors.transparent,
+                      width: tabSize.borderSize ?? 1,
+                    )
+                  : state$.value == UIKitState.focused
+                      ? Border.all(
                           color: borderColor ?? Colors.transparent,
                           width: tabSize.borderSize ?? 1,
+                        )
+                      : Border(
+                          bottom: BorderSide(
+                            color: borderColor ?? Colors.transparent,
+                            width: tabSize.borderSize ?? 1,
+                          ),
                         ),
-                      ),
-          ),
-          child: Row(
-            children: [
-              if (leading != null) ...[
-                leading!,
-                SizedBox(width: tabSize.spacing),
+            ),
+            child: Row(
+              children: [
+                if (leading != null) ...[
+                  leading!,
+                  SizedBox(width: tabSize.spacing),
+                ],
+                DefaultTextStyle(
+                  style:
+                      tabSize.labelTextStyle?.copyWith(color: contentColor) ??
+                          TextStyle(color: contentColor ?? Colors.transparent),
+                  child: label ?? const SizedBox(),
+                ),
+                if (trailing != null) ...[
+                  SizedBox(width: tabSize.spacing),
+                  trailing!,
+                ],
               ],
-              DefaultTextStyle(
-                style: tabSize.labelTextStyle?.copyWith(color: contentColor) ??
-                    TextStyle(color: contentColor ?? Colors.transparent),
-                child: label ?? const SizedBox(),
-              ),
-              if (trailing != null) ...[
-                SizedBox(width: tabSize.spacing),
-                trailing!,
-              ],
-            ],
+            ),
           ),
         ),
       ),
