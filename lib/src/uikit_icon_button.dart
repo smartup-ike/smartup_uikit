@@ -4,13 +4,34 @@ import 'package:smartup_uikit/smartup_uikit.dart';
 class UIKitIconButton extends StatelessWidget {
   const UIKitIconButton({
     Key? key,
+    required this.icon,
     this.onTap,
     this.sizeScheme,
     this.colorScheme,
-    required this.icon,
     this.hasShadow,
     this.buttonType,
+    this.isCircle = false,
   }) : super(key: key);
+
+  const UIKitIconButton.primary({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.sizeScheme,
+    this.colorScheme,
+    this.hasShadow,
+    this.isCircle = false,
+  }) : buttonType = UIKitButtonType.primary;
+
+  const UIKitIconButton.ghost({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.sizeScheme,
+    this.colorScheme,
+    this.hasShadow,
+    this.isCircle = false,
+  }) : buttonType = UIKitButtonType.ghost;
 
   /// Function that is called on button tap.
   ///
@@ -28,7 +49,7 @@ class UIKitIconButton extends StatelessWidget {
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget icon;
 
-  /// Boolean indicating wether the button has shadow
+  /// Boolean indicating whether the button has shadow
   final bool? hasShadow;
 
   /// Type of the button [UIKitButtonType]
@@ -38,9 +59,47 @@ class UIKitIconButton extends StatelessWidget {
   /// * ghost
   final UIKitButtonType? buttonType;
 
+  final bool isCircle;
+
   @override
   Widget build(BuildContext context) {
+    // Handles button colors according to buttonType.
     final buttonTheme = SUTheme.of(context).buttonThemeData;
-    return UIKitButton();
+    UIKitColorScheme buttonColors;
+    switch (buttonType) {
+      case UIKitButtonType.primary:
+        buttonColors = buttonTheme.primaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+      case UIKitButtonType.ghost:
+        buttonColors =
+            buttonTheme.ghostColorScheme.copyWithScheme(newScheme: colorScheme);
+        break;
+      default:
+        buttonColors = buttonTheme.primaryColorScheme
+            .copyWithScheme(newScheme: colorScheme);
+        break;
+    }
+    print(sizeScheme?.borderRadiusSize);
+    print(sizeScheme?.height);
+    UIKitSizeScheme? temp = sizeScheme;
+    if (isCircle) {
+      temp = sizeScheme?.copyWith(
+          borderRadiusSize: ((sizeScheme?.height ?? 0) * 2));
+    }
+    print(temp?.borderRadiusSize);
+    return SizedBox(
+      height: temp?.height,
+      width: temp?.height,
+      child: UIKitButton(
+        onTap: onTap,
+        trailing: icon,
+        labelText: const Text(''),
+        sizeScheme: temp,
+        colorScheme: buttonColors,
+        hasShadow: hasShadow,
+        removePadding: true,
+      ),
+    );
   }
 }

@@ -134,7 +134,7 @@ class UIKitButton extends HookWidget {
   /// [UIKitColorScheme] an object containing different colors for all the button's states
   final UIKitColorScheme? colorScheme;
 
-  /// Boolean indicating wether the button has shadow
+  /// Boolean indicating whether the button has shadow
   final bool? hasShadow;
 
   /// Boolean of the button to remove initial padding.
@@ -339,7 +339,8 @@ class UIKitButton extends HookWidget {
                 if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
+                    size:
+                        sizeScheme?.iconSize ?? buttonTheme.sizeScheme.iconSize,
                     child: leading!,
                   ),
                   const SizedBox(width: 10),
@@ -355,7 +356,8 @@ class UIKitButton extends HookWidget {
                 if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
+                    size:
+                        sizeScheme?.iconSize ?? buttonTheme.sizeScheme.iconSize,
                     child: trailing!,
                   ),
                   if (!removePadding!) const SizedBox(width: 10),
