@@ -72,6 +72,15 @@ class UIKitTab extends HookWidget {
     final isHovered$ = useState(false);
     final tabTheme = SUTheme.of(context).tabThemeData;
 
+    useEffect(() {
+      if (onTap == null) {
+        state$.value = UIKitState.disabled;
+      } else {
+        state$.value = UIKitState.defaultState;
+      }
+      return null;
+    }, [onTap == null]);
+
     UIKitColorScheme tabColors = _defineColors(context, tabTheme);
     UIKitSizeScheme tabSize = _defineSize(context, tabTheme);
     UIKitShadowScheme tabShadow = _defineShadow(context, tabTheme);
