@@ -18,11 +18,26 @@ class UIKitToggleSwitch extends HookWidget {
     this.shadowScheme,
   });
 
+  /// [bool] that dictates whether the switch is on or off.
   final bool? isActive;
+
+  /// [bool] that dictates whether the switch has an [Icon] at the center of
+  /// the button.
   final bool? hasIcon;
+
+  /// [VoidCallback] that is called when the switch is pressed.
   final VoidCallback? onTap;
+
+  /// [UIKitColorScheme] determining the value of different color
+  /// attributes of this switch.
   final UIKitColorScheme? colorScheme;
+
+  /// [UIKitSizeScheme] determining the value of different size
+  /// attributes of this switch.
   final UIKitSizeScheme? sizeScheme;
+
+  /// [UIKitShadowScheme] determining the value of different shadow
+  /// attributes of this switch.
   final UIKitShadowScheme? shadowScheme;
 
   @override
