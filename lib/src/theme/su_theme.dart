@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
-import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
-import 'package:smartup_uikit/src/theme/uikit_radio_group_theme_data.dart';
-import 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
-import 'package:smartup_uikit/src/theme/uikit_toggle_switch_theme_data.dart';
+import 'su_button_theme_data.dart';
+import 'su_radio_button_theme_data.dart';
+import 'uikit_radio_group_theme_data.dart';
+import 'uikit_tab_theme_data.dart';
+import 'uikit_toggle_switch_theme_data.dart';
 
 class SUTheme extends StatelessWidget {
   const SUTheme({

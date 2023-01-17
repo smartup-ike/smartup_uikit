@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/smartup_uikit.dart';
+import '../helpers/uikit_color_scheme.dart';
+import '../helpers/uikit_size_scheme.dart';
 
 @immutable
 class SUButtonThemeData {

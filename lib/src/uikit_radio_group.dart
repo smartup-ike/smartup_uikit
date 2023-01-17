@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart';
-import 'package:smartup_uikit/src/theme/su_theme.dart';
+import 'helpers/uikit_shadow_scheme.dart';
+import 'theme/su_theme.dart';
 import 'theme/uikit_radio_group_theme_data.dart';
 import 'uikit_radio_button.dart';
 import 'helpers/uikit_size_scheme.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/smartup_uikit.dart';
-import 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart';
+import '../helpers/uikit_color_scheme.dart';
+import '../helpers/uikit_shadow_scheme.dart';
+import '../helpers/uikit_size_scheme.dart';
 
 @immutable
 class SURadioButtonThemeData {
