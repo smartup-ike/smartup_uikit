@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/src/theme/su_button_theme_data.dart';
-import 'package:smartup_uikit/src/theme/su_radio_button_theme_data.dart';
+import 'uikit_text_input_theme_data.dart';
+import 'su_button_theme_data.dart';
+import 'su_radio_button_theme_data.dart';
+import 'uikit_radio_group_theme_data.dart';
+import 'uikit_tab_theme_data.dart';
+import 'uikit_toggle_switch_theme_data.dart';
 
 class SUTheme extends StatelessWidget {
   const SUTheme({
@@ -57,32 +61,60 @@ class _SUTheme extends InheritedTheme {
 class SUThemeData {
   final SUButtonThemeData buttonThemeData;
   final SURadioButtonThemeData radioButtonThemeData;
+  final UIKitTabThemeData tabThemeData;
+  final UIKitToggleSwitchThemeData toggleSwitchThemeData;
+  final UIKitRadioGroupThemeData radioGroupThemeData;
+  final UIKitTextInputThemeData textInputThemeData;
 
   const SUThemeData.raw({
     required this.buttonThemeData,
     required this.radioButtonThemeData,
+    required this.tabThemeData,
+    required this.toggleSwitchThemeData,
+    required this.radioGroupThemeData,
+    required this.textInputThemeData,
   });
 
-  factory SUThemeData({
-    SUButtonThemeData? buttonThemeData,
-    SURadioButtonThemeData? radioButtonThemeData,
-  }) {
+  factory SUThemeData(
+      {SUButtonThemeData? buttonThemeData,
+      SURadioButtonThemeData? radioButtonThemeData,
+      UIKitTabThemeData? tabThemeData,
+      UIKitToggleSwitchThemeData? toggleSwitchThemeData,
+      UIKitRadioGroupThemeData? radioGroupThemeData,
+      UIKitTextInputThemeData? textInputThemeData}) {
     buttonThemeData ??= SUButtonThemeData();
     radioButtonThemeData ??= SURadioButtonThemeData();
+    tabThemeData ??= UIKitTabThemeData();
+    toggleSwitchThemeData ??= UIKitToggleSwitchThemeData();
+    radioGroupThemeData ??= UIKitRadioGroupThemeData();
+    textInputThemeData ??= UIKitTextInputThemeData();
 
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
+      tabThemeData: tabThemeData,
+      toggleSwitchThemeData: toggleSwitchThemeData,
+      radioGroupThemeData: radioGroupThemeData,
+      textInputThemeData: textInputThemeData,
     );
   }
 
   SUThemeData copyWith({
     SUButtonThemeData? buttonThemeData,
     SURadioButtonThemeData? radioButtonThemeData,
+    UIKitTabThemeData? tabThemeData,
+    UIKitToggleSwitchThemeData? toggleSwitchThemeData,
+    UIKitRadioGroupThemeData? radioGroupThemeData,
+    UIKitTextInputThemeData? textInputThemeData,
   }) {
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
       radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
+      tabThemeData: tabThemeData ?? this.tabThemeData,
+      toggleSwitchThemeData:
+          toggleSwitchThemeData ?? this.toggleSwitchThemeData,
+      radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
+      textInputThemeData: textInputThemeData ?? this.textInputThemeData,
     );
   }
 }

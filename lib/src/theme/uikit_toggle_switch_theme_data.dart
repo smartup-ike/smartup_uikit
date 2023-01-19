@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import '../helpers/uikit_color_scheme.dart';
 import '../helpers/uikit_shadow_scheme.dart';
 import '../helpers/uikit_size_scheme.dart';
+import '../helpers/uikit_color_scheme.dart';
 
 @immutable
-class SURadioButtonThemeData {
+class UIKitToggleSwitchThemeData {
   final UIKitColorScheme colorScheme;
   final UIKitSizeScheme sizeScheme;
   final UIKitShadowScheme shadowScheme;
 
-  const SURadioButtonThemeData.raw({
+  const UIKitToggleSwitchThemeData.raw({
     required this.colorScheme,
     required this.sizeScheme,
     required this.shadowScheme,
   });
 
-  factory SURadioButtonThemeData({
+  factory UIKitToggleSwitchThemeData({
     UIKitColorScheme? colorScheme,
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
@@ -24,22 +24,21 @@ class SURadioButtonThemeData {
     sizeScheme ??= UIKitSizeScheme.defaultScheme();
     shadowScheme ??= UIKitShadowScheme.defaultScheme();
 
-    return SURadioButtonThemeData.raw(
+    return UIKitToggleSwitchThemeData.raw(
       colorScheme: colorScheme,
       sizeScheme: sizeScheme,
       shadowScheme: shadowScheme,
     );
   }
 
-  SURadioButtonThemeData copyWith({
+  UIKitToggleSwitchThemeData copyWith({
     UIKitColorScheme? colorScheme,
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
   }) {
-    return SURadioButtonThemeData.raw(
-      colorScheme: colorScheme ?? this.colorScheme,
-      sizeScheme: sizeScheme ?? this.sizeScheme,
-      shadowScheme: shadowScheme ?? this.shadowScheme,
-    );
+    return UIKitToggleSwitchThemeData.raw(
+        colorScheme: colorScheme ?? this.colorScheme,
+        sizeScheme: sizeScheme ?? this.sizeScheme,
+        shadowScheme: shadowScheme ?? this.shadowScheme);
   }
 }

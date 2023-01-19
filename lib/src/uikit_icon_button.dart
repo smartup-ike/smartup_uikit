@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/smartup_uikit.dart';
+import 'helpers/uikit_color_scheme.dart';
+import 'helpers/uikit_size_scheme.dart';
+import 'theme/su_theme.dart';
+import 'uikit_button.dart';
 
 class UIKitIconButton extends StatelessWidget {
   const UIKitIconButton({
@@ -83,8 +86,8 @@ class UIKitIconButton extends StatelessWidget {
     }
     UIKitSizeScheme? temp = sizeScheme;
     if (isCircle) {
-      temp = sizeScheme?.copyWith(
-          borderRadiusSize: ((sizeScheme?.height ?? 0) * 2));
+      temp =
+          sizeScheme?.copyWith(borderRadius: ((sizeScheme?.height ?? 0) * 2));
     }
     return SizedBox(
       height: temp?.height,

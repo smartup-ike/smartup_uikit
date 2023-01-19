@@ -273,8 +273,8 @@ class UIKitButton extends HookWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(sizeScheme?.borderRadiusSize ??
-                buttonTheme.sizeScheme.borderRadiusSize ??
+            borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ??
+                buttonTheme.sizeScheme.borderRadius ??
                 8),
             border: Border.all(
               strokeAlign: StrokeAlign.outside,
@@ -291,10 +291,9 @@ class UIKitButton extends HookWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: backgroundColor,
-              borderRadius: BorderRadius.circular(
-                  sizeScheme?.borderRadiusSize ??
-                      buttonTheme.sizeScheme.borderRadiusSize ??
-                      8),
+              borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ??
+                  buttonTheme.sizeScheme.borderRadius ??
+                  8),
               border: Border.all(
                 strokeAlign: StrokeAlign.outside,
                 width: sizeScheme?.borderSize ??
