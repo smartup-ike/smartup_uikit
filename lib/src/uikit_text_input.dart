@@ -214,7 +214,6 @@ class UIKitTextInput extends HookWidget {
           child: GestureDetector(
             onTap: () {
               if (!(isDisabled ?? false)) {
-                print('isFocused\$.value went from: ${isFocused$.value}');
                 if (isFocused$.value) {
                   state$.value = controller.text.isEmpty
                       ? UIKitState.defaultState
@@ -222,9 +221,7 @@ class UIKitTextInput extends HookWidget {
                 } else {
                   state$.value = UIKitState.focused;
                 }
-
                 isFocused$.value = !isFocused$.value;
-                print('to: ${isFocused$.value}');
               }
             },
             onTapDown: (_) {
