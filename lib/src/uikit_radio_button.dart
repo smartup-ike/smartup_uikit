@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
-import 'theme/su_radio_button_theme_data.dart';
+import 'theme/uikit_radio_button_theme_data.dart';
 
 class UIKitRadioButton extends HookWidget {
   const UIKitRadioButton({
@@ -41,7 +41,7 @@ class UIKitRadioButton extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final themeData = SUTheme.of(context).radioButtonThemeData;
+    final themeData = UIKitTheme.of(context).radioButtonThemeData;
 
     useEffect(() {
       if (onTap == null) {
@@ -162,7 +162,7 @@ class UIKitRadioButton extends HookWidget {
 
   UIKitColorScheme _defineColors(
     BuildContext context,
-    SURadioButtonThemeData themeData,
+    UIKitRadioButtonThemeData themeData,
   ) {
     UIKitColorScheme radioColors;
 
@@ -177,7 +177,7 @@ class UIKitRadioButton extends HookWidget {
 
   UIKitSizeScheme _defineSize(
     BuildContext context,
-    SURadioButtonThemeData themeData,
+    UIKitRadioButtonThemeData themeData,
   ) {
     UIKitSizeScheme radioSize;
 
@@ -191,7 +191,7 @@ class UIKitRadioButton extends HookWidget {
 
   UIKitShadowScheme _defineShadow(
     BuildContext context,
-    SURadioButtonThemeData themeData,
+    UIKitRadioButtonThemeData themeData,
   ) {
     UIKitShadowScheme radioShadow;
 

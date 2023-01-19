@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'uikit_text_input_theme_data.dart';
-import 'su_button_theme_data.dart';
-import 'su_radio_button_theme_data.dart';
+import 'uikit_button_theme_data.dart';
+import 'uikit_radio_button_theme_data.dart';
 import 'uikit_radio_group_theme_data.dart';
 import 'uikit_tab_theme_data.dart';
 import 'uikit_toggle_switch_theme_data.dart';
 
-class SUTheme extends StatelessWidget {
-  const SUTheme({
+class UIKitTheme extends StatelessWidget {
+  const UIKitTheme({
     Key? key,
     required this.theme,
     required this.child,
@@ -59,8 +59,8 @@ class _SUTheme extends InheritedTheme {
 
 @immutable
 class SUThemeData {
-  final SUButtonThemeData buttonThemeData;
-  final SURadioButtonThemeData radioButtonThemeData;
+  final UIKitButtonThemeData buttonThemeData;
+  final UIKitRadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
   final UIKitToggleSwitchThemeData toggleSwitchThemeData;
   final UIKitRadioGroupThemeData radioGroupThemeData;
@@ -76,14 +76,14 @@ class SUThemeData {
   });
 
   factory SUThemeData(
-      {SUButtonThemeData? buttonThemeData,
-      SURadioButtonThemeData? radioButtonThemeData,
+      {UIKitButtonThemeData? buttonThemeData,
+      UIKitRadioButtonThemeData? radioButtonThemeData,
       UIKitTabThemeData? tabThemeData,
       UIKitToggleSwitchThemeData? toggleSwitchThemeData,
       UIKitRadioGroupThemeData? radioGroupThemeData,
       UIKitTextInputThemeData? textInputThemeData}) {
-    buttonThemeData ??= SUButtonThemeData();
-    radioButtonThemeData ??= SURadioButtonThemeData();
+    buttonThemeData ??= UIKitButtonThemeData();
+    radioButtonThemeData ??= UIKitRadioButtonThemeData();
     tabThemeData ??= UIKitTabThemeData();
     toggleSwitchThemeData ??= UIKitToggleSwitchThemeData();
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
@@ -100,8 +100,8 @@ class SUThemeData {
   }
 
   SUThemeData copyWith({
-    SUButtonThemeData? buttonThemeData,
-    SURadioButtonThemeData? radioButtonThemeData,
+    UIKitButtonThemeData? buttonThemeData,
+    UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
     UIKitToggleSwitchThemeData? toggleSwitchThemeData,
     UIKitRadioGroupThemeData? radioGroupThemeData,

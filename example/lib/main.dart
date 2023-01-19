@@ -51,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SUTheme(
+    return UIKitTheme(
       theme: SUThemeData(
-        buttonThemeData: SUButtonThemeData(
+        buttonThemeData: UIKitButtonThemeData(
           primaryColorScheme: UIKitColorScheme(
             defaultBackgroundColor: Colors.red,
             hoverBackgroundColor: Colors.blue,

@@ -5,7 +5,7 @@ import 'theme/uikit_tab_theme_data.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 
 enum UIKitTabType { page, line }
 
@@ -70,7 +70,7 @@ class UIKitTab extends HookWidget {
               : UIKitState.defaultState,
     );
     final isHovered$ = useState(false);
-    final tabTheme = SUTheme.of(context).tabThemeData;
+    final tabTheme = UIKitTheme.of(context).tabThemeData;
 
     useEffect(() {
       if (onTap == null) {

@@ -4,18 +4,18 @@ import '../helpers/uikit_shadow_scheme.dart';
 import '../helpers/uikit_size_scheme.dart';
 
 @immutable
-class SURadioButtonThemeData {
+class UIKitRadioButtonThemeData {
   final UIKitColorScheme colorScheme;
   final UIKitSizeScheme sizeScheme;
   final UIKitShadowScheme shadowScheme;
 
-  const SURadioButtonThemeData.raw({
+  const UIKitRadioButtonThemeData.raw({
     required this.colorScheme,
     required this.sizeScheme,
     required this.shadowScheme,
   });
 
-  factory SURadioButtonThemeData({
+  factory UIKitRadioButtonThemeData({
     UIKitColorScheme? colorScheme,
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
@@ -24,19 +24,19 @@ class SURadioButtonThemeData {
     sizeScheme ??= UIKitSizeScheme.defaultScheme();
     shadowScheme ??= UIKitShadowScheme.defaultScheme();
 
-    return SURadioButtonThemeData.raw(
+    return UIKitRadioButtonThemeData.raw(
       colorScheme: colorScheme,
       sizeScheme: sizeScheme,
       shadowScheme: shadowScheme,
     );
   }
 
-  SURadioButtonThemeData copyWith({
+  UIKitRadioButtonThemeData copyWith({
     UIKitColorScheme? colorScheme,
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
   }) {
-    return SURadioButtonThemeData.raw(
+    return UIKitRadioButtonThemeData.raw(
       colorScheme: colorScheme ?? this.colorScheme,
       sizeScheme: sizeScheme ?? this.sizeScheme,
       shadowScheme: shadowScheme ?? this.shadowScheme,

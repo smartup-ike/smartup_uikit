@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_size_scheme.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 import 'uikit_icon_theme.dart';
 
 enum UIKitButtonType {
@@ -158,7 +158,7 @@ class UIKitButton extends HookWidget {
     final isHovered$ = useState(false);
 
     // Handles button colors according to buttonType.
-    final buttonTheme = SUTheme.of(context).buttonThemeData;
+    final buttonTheme = UIKitTheme.of(context).buttonThemeData;
     UIKitColorScheme buttonColors;
     switch (buttonType) {
       case UIKitButtonType.primary:

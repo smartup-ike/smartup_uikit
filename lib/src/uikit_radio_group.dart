@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_shadow_scheme.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 import 'theme/uikit_radio_group_theme_data.dart';
 import 'uikit_radio_button.dart';
 import 'helpers/uikit_size_scheme.dart';
@@ -63,7 +63,7 @@ class UIKitRadioGroup extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final selectedIndex$ = useState<int?>(null);
-    final themeData = SUTheme.of(context).radioGroupThemeData;
+    final themeData = UIKitTheme.of(context).radioGroupThemeData;
 
     UIKitColorScheme colorScheme = _defineColors(context, themeData);
     UIKitSizeScheme sizeScheme = _defineSize(context, themeData);
