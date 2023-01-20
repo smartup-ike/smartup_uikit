@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/theme/uikit_text_input_theme_data.dart';
+import 'theme/uikit_text_input_theme_data.dart';
+import 'uikit_icon_theme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
@@ -96,18 +97,49 @@ class UIKitTextInput extends HookWidget {
         errorIcon = null,
         assistiveText = null;
 
+  /// [Widget] that appears on the left side.
   final Widget? leading;
+
+  /// [Widget] that appears on the right side.
   final Widget? trailing;
+
+  /// [Widget] that appears right before [trailing] when in error state.
   final Widget? errorIcon;
+
+  /// [Widget] that appears right after [leading].
   final Widget? label;
+
+  /// [Widget] that is on the bottom of this widget, under the input text field.
   final Widget? assistiveText;
+
+  /// [bool] indicating whether this widget is disabled.
   final bool? isDisabled;
+
+  /// [TextEditingController] that handles the input text.
   final TextEditingController controller;
+
+  /// [FocusNode] that handles focus events.
   final FocusNode focusNode;
+
+  /// [UIKitColorScheme]
+  /// If given, overwrites the apps theme.
   final UIKitColorScheme? colorScheme;
+
+  /// [UIKitSizeScheme]
+  /// If given, overwrites the apps theme.
   final UIKitSizeScheme? sizeScheme;
+
+  /// [UIKitShadowScheme]
+  /// If given, overwrites the apps theme.
   final UIKitShadowScheme? shadowScheme;
+
+  /// [TextInputStyleType]
+  /// Must be null. Use named constructors to set the style to either filled
+  /// or line.
   final TextInputStyleType? styleType;
+
+  /// Must be null. Use named constructors to set the inputType to either
+  /// filled or line.
   final TextInputType? inputType;
 
   @override
@@ -146,9 +178,9 @@ class UIKitTextInput extends HookWidget {
 
     final themeData = UIKitTheme.of(context).textInputThemeData;
 
-    UIKitColorScheme colors = _defineColors(context, themeData);
-    UIKitSizeScheme size = _defineSize(context, themeData);
-    UIKitShadowScheme shadows = _defineShadows(context, themeData);
+    UIKitColorScheme colors = _defineColors(themeData);
+    UIKitSizeScheme size = _defineSize(themeData);
+    UIKitShadowScheme shadows = _defineShadows(themeData);
 
     Color? backgroundColor;
     Color? contentColor;
@@ -272,7 +304,11 @@ class UIKitTextInput extends HookWidget {
                 children: [
                   const SizedBox(width: 16),
                   if (leading != null) ...[
-                    leading!,
+                    UIKitIconTheme(
+                      color: contentColor,
+                      size: size.iconSize,
+                      child: leading!,
+                    ),
                     const SizedBox(width: 6),
                   ],
                   Expanded(
@@ -292,10 +328,21 @@ class UIKitTextInput extends HookWidget {
                     ),
                   ),
                   if (errorIcon != null) ...[
-                    errorIcon!,
+                    UIKitIconTheme(
+                      color: contentColor,
+                      size: size.iconSize,
+                      child: errorIcon!,
+                    ),
                     const SizedBox(width: 10),
                   ],
-                  trailing ?? const SizedBox(),
+                  if (trailing != null) ...[
+                    UIKitIconTheme(
+                      color: contentColor,
+                      size: size.iconSize,
+                      child: trailing!,
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                 ],
               ),
             ),
@@ -311,15 +358,12 @@ class UIKitTextInput extends HookWidget {
         if (assistiveText != null) ...[
           const SizedBox(height: 8),
           assistiveText!
-        ]
+        ],
       ],
     );
   }
 
-  UIKitColorScheme _defineColors(
-    BuildContext context,
-    UIKitTextInputThemeData themeData,
-  ) {
+  UIKitColorScheme _defineColors(UIKitTextInputThemeData themeData) {
     UIKitColorScheme colorScheme;
 
     if (this.colorScheme == null) {
@@ -344,10 +388,7 @@ class UIKitTextInput extends HookWidget {
     return colorScheme;
   }
 
-  UIKitSizeScheme _defineSize(
-    BuildContext context,
-    UIKitTextInputThemeData themeData,
-  ) {
+  UIKitSizeScheme _defineSize(UIKitTextInputThemeData themeData) {
     UIKitSizeScheme sizeScheme;
 
     if (this.sizeScheme == null) {
@@ -362,10 +403,7 @@ class UIKitTextInput extends HookWidget {
     return sizeScheme;
   }
 
-  UIKitShadowScheme _defineShadows(
-    BuildContext context,
-    UIKitTextInputThemeData themeData,
-  ) {
+  UIKitShadowScheme _defineShadows(UIKitTextInputThemeData themeData) {
     UIKitShadowScheme shadowScheme;
 
     if (this.shadowScheme == null) {

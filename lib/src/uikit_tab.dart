@@ -6,6 +6,7 @@ import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'theme/uikit_theme.dart';
+import 'uikit_icon_theme.dart';
 
 enum UIKitTabType { page, line }
 
@@ -50,14 +51,40 @@ class UIKitTab extends HookWidget {
     this.shadowScheme,
   }) : tabType = UIKitTabType.line;
 
+  /// [Widget]
+  /// Leftmost widget of this tab.
   final Widget? leading;
+
+  /// [Widget]
+  /// Middle widget of this tab.
   final Widget? label;
+
+  /// [Widget]
+  /// Rightmost widget of this tab.
   final Widget? trailing;
+
+  /// [VoidCallback] that is called when widget is tapped.
   final VoidCallback? onTap;
+
+  /// [bool] indicating whether this tab is active. In most cases, only one tab
+  /// is active at a time. Handle the logic of which tab is active in your code.
   final bool? isActive;
+
+  /// [UIKitColorScheme]
+  /// If given, overwrites the apps theme.
   final UIKitColorScheme? colorScheme;
+
+  /// [UIKitSizeScheme]
+  /// If given, overwrites the apps theme.
   final UIKitSizeScheme? sizeScheme;
+
+  /// [UIKitShadowScheme]
+  /// If given, overwrites the apps theme.
   final UIKitShadowScheme? shadowScheme;
+
+  /// [UIKitTabType]
+  /// Must be null. Use one of the named constructors to set it to either
+  /// page or line for the corresponding look.
   final UIKitTabType? tabType;
 
   @override
@@ -203,7 +230,14 @@ class UIKitTab extends HookWidget {
             child: Row(
               children: [
                 if (leading != null) ...[
-                  leading!,
+                  if (leading != null) ...[
+                    UIKitIconTheme(
+                      color: contentColor,
+                      size: tabSize.iconSize,
+                      child: leading!,
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                   SizedBox(width: tabSize.spacing),
                 ],
                 DefaultTextStyle(
@@ -214,7 +248,14 @@ class UIKitTab extends HookWidget {
                 ),
                 if (trailing != null) ...[
                   SizedBox(width: tabSize.spacing),
-                  trailing!,
+                  if (trailing != null) ...[
+                    UIKitIconTheme(
+                      color: contentColor,
+                      size: tabSize.iconSize,
+                      child: trailing!,
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                 ],
               ],
             ),
