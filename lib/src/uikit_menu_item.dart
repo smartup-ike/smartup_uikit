@@ -21,20 +21,42 @@ class UIKitMenuItem extends HookWidget {
     this.shadowScheme,
   });
 
+  /// [Widget] that is displayed first.
+  /// If it is an SVG then it takes its properties from the theme.
   final Widget? icon;
+
+  /// [Widget] that is displayed second and only if the item is expanded.
+  /// If it contains [Text] then its properties are set by the theme.
   final Widget? label;
+
+  /// [VoidCallback] that is called when the widget is tapped.
+  /// Handle the logic of which item is active in your code.
   final VoidCallback? onTap;
+
+  /// [bool] indicating if this item is expanded.
+  /// If it is, then [label] is showed.
   final bool isExpanded;
+
+  /// [bool] indicating if this item is active.
+  /// Usually only one menu item should be active at a time.
   final bool isActive;
+
+  /// [UIKitSizeScheme]
+  /// If given, overwrites the apps theme.
   final UIKitSizeScheme? sizeScheme;
+
+  /// [UIKitColorScheme]
+  /// If given, verwrites the apps theme.
   final UIKitColorScheme? colorScheme;
+
+  /// [UIKitShadowScheme]
+  /// If given, verwrites the apps theme.
   final UIKitShadowScheme? shadowScheme;
 
   @override
   Widget build(BuildContext context) {
     final state$ =
         useState(isActive ? UIKitState.active : UIKitState.defaultState);
-    final isHovered$ = useState(false);
 
     final themeData = UIKitTheme.of(context).menuItemThemeData;
 
