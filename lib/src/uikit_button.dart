@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_size_scheme.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 import 'uikit_icon_theme.dart';
 
 enum UIKitButtonType {
@@ -128,13 +128,13 @@ class UIKitButton extends HookWidget {
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? trailing;
 
-  /// [UIKitSizeScheme] an object containing info for the button's height, border size, icon size and text style
+  /// [UIKitSizeScheme] an object containing info for the button's height, border size, border radius size, icon size and text style
   final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitColorScheme] an object containing different colors for all the button's states
   final UIKitColorScheme? colorScheme;
 
-  /// Boolean indicating wether the button has shadow
+  /// Boolean indicating whether the button has shadow
   final bool? hasShadow;
 
   /// Boolean of the button to remove initial padding.
@@ -158,7 +158,7 @@ class UIKitButton extends HookWidget {
     final isHovered$ = useState(false);
 
     // Handles button colors according to buttonType.
-    final buttonTheme = SUTheme.of(context).buttonThemeData;
+    final buttonTheme = UIKitTheme.of(context).buttonThemeData;
     UIKitColorScheme buttonColors;
     switch (buttonType) {
       case UIKitButtonType.primary:
@@ -273,7 +273,9 @@ class UIKitButton extends HookWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ??
+                buttonTheme.sizeScheme.borderRadius ??
+                8),
             border: Border.all(
               strokeAlign: StrokeAlign.outside,
               width: sizeScheme?.pressedBorderSize ??
@@ -289,7 +291,9 @@ class UIKitButton extends HookWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: backgroundColor,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ??
+                  buttonTheme.sizeScheme.borderRadius ??
+                  8),
               border: Border.all(
                 strokeAlign: StrokeAlign.outside,
                 width: sizeScheme?.borderSize ??
@@ -334,7 +338,8 @@ class UIKitButton extends HookWidget {
                 if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
+                    size:
+                        sizeScheme?.iconSize ?? buttonTheme.sizeScheme.iconSize,
                     child: leading!,
                   ),
                   const SizedBox(width: 10),
@@ -350,7 +355,8 @@ class UIKitButton extends HookWidget {
                 if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: sizeScheme?.height ?? buttonTheme.sizeScheme.iconSize,
+                    size:
+                        sizeScheme?.iconSize ?? buttonTheme.sizeScheme.iconSize,
                     child: trailing!,
                   ),
                   if (!removePadding!) const SizedBox(width: 10),

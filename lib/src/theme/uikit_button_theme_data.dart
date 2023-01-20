@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/smartup_uikit.dart';
+import '../helpers/uikit_color_scheme.dart';
+import '../helpers/uikit_size_scheme.dart';
 
 @immutable
-class SUButtonThemeData {
+class UIKitButtonThemeData {
   final UIKitColorScheme primaryColorScheme;
   final UIKitColorScheme secondaryColorScheme;
   final UIKitColorScheme secondaryWhiteColorScheme;
   final UIKitColorScheme tertiaryColorScheme;
   final UIKitColorScheme outlineColorScheme;
   final UIKitColorScheme ghostColorScheme;
+  final UIKitColorScheme solidIconColorScheme;
+  final UIKitColorScheme ghostIconColorScheme;
   final UIKitSizeScheme sizeScheme;
 
-  const SUButtonThemeData.raw({
+  const UIKitButtonThemeData.raw({
     required this.primaryColorScheme,
     required this.secondaryColorScheme,
     required this.secondaryWhiteColorScheme,
     required this.tertiaryColorScheme,
     required this.outlineColorScheme,
     required this.ghostColorScheme,
+    required this.solidIconColorScheme,
+    required this.ghostIconColorScheme,
     required this.sizeScheme,
   });
 
-  factory SUButtonThemeData({
+  factory UIKitButtonThemeData({
     UIKitColorScheme? primaryColorScheme,
     UIKitColorScheme? secondaryColorScheme,
     UIKitColorScheme? secondaryWhiteColorScheme,
     UIKitColorScheme? tertiaryColorScheme,
     UIKitColorScheme? outlineColorScheme,
     UIKitColorScheme? ghostColorScheme,
+    UIKitColorScheme? solidIconColorScheme,
+    UIKitColorScheme? ghostIconColorScheme,
     UIKitSizeScheme? typography,
   }) {
     // Sets default color schemes.
@@ -37,31 +44,37 @@ class SUButtonThemeData {
     tertiaryColorScheme ??= UIKitColorScheme.defaultScheme();
     outlineColorScheme ??= UIKitColorScheme.defaultScheme();
     ghostColorScheme ??= UIKitColorScheme.defaultScheme();
+    solidIconColorScheme ??= UIKitColorScheme.defaultScheme();
+    ghostIconColorScheme ??= UIKitColorScheme.defaultScheme();
     typography ??= UIKitSizeScheme.defaultScheme();
 
-    return SUButtonThemeData.raw(
+    return UIKitButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme,
       secondaryColorScheme: secondaryColorScheme,
       secondaryWhiteColorScheme: secondaryWhiteColorScheme,
       tertiaryColorScheme: tertiaryColorScheme,
       outlineColorScheme: outlineColorScheme,
       ghostColorScheme: ghostColorScheme,
+      solidIconColorScheme: solidIconColorScheme,
+      ghostIconColorScheme: ghostIconColorScheme,
       sizeScheme: typography,
     );
   }
 
-  /// Creates a copy of this [SUButtonThemeData] but with the given fields replaced with
+  /// Creates a copy of this [UIKitButtonThemeData] but with the given fields replaced with
   /// the new values.
-  SUButtonThemeData copyWith({
+  UIKitButtonThemeData copyWith({
     UIKitColorScheme? primaryColorScheme,
     UIKitColorScheme? secondaryColorScheme,
     UIKitColorScheme? secondaryWhiteColorScheme,
     UIKitColorScheme? tertiaryColorScheme,
     UIKitColorScheme? outlineColorScheme,
     UIKitColorScheme? ghostColorScheme,
-    UIKitSizeScheme? typography,
+    UIKitColorScheme? solidIconColorScheme,
+    UIKitColorScheme? ghostIconColorScheme,
+    UIKitSizeScheme? sizeScheme,
   }) {
-    return SUButtonThemeData.raw(
+    return UIKitButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme ?? this.primaryColorScheme,
       secondaryColorScheme: secondaryColorScheme ?? this.secondaryColorScheme,
       secondaryWhiteColorScheme:
@@ -69,7 +82,9 @@ class SUButtonThemeData {
       tertiaryColorScheme: tertiaryColorScheme ?? this.tertiaryColorScheme,
       outlineColorScheme: outlineColorScheme ?? this.outlineColorScheme,
       ghostColorScheme: ghostColorScheme ?? this.ghostColorScheme,
-      sizeScheme: this.sizeScheme,
+      solidIconColorScheme: solidIconColorScheme ?? this.solidIconColorScheme,
+      ghostIconColorScheme: ghostIconColorScheme ?? this.ghostIconColorScheme,
+      sizeScheme: sizeScheme ?? this.sizeScheme,
     );
   }
 }
