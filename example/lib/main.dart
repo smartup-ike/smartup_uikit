@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 void main() {
@@ -33,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool _isToggleActive = false;
   bool _isCheckBoxChecked = false;
+  bool _isMenuItemActive = false;
   int? _selectedRadioItem;
   TextEditingController controller = TextEditingController();
   late FocusNode focusNode;
@@ -335,6 +337,37 @@ class _MyHomePageState extends State<MyHomePage> {
                   disabledBorderColor: Colors.grey,
                 ),
               ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  UIKitMenuItem(
+                    label: const Text('Label'),
+                    icon: const UIKitIcon.asset('assets/images/url.svg'),
+                    isActive: false,
+                    isExpanded: _isMenuItemActive,
+                    onTap: () => setState(
+                      () => _isMenuItemActive = !_isMenuItemActive,
+                    ),
+                    colorScheme: UIKitColorScheme(
+                      defaultBackgroundColor: Colors.tealAccent,
+                      hoverBackgroundColor: Colors.green,
+                      focusedBackgroundColor: Colors.red,
+                      activeBackgroundColor: Colors.orange,
+                      disabledBackgroundColor: Colors.grey,
+                      defaultContentColor: Colors.redAccent,
+                      hoverContentColor: Colors.black,
+                      focusedContentColor: Colors.black,
+                      activeContentColor: Colors.black,
+                      disabledContentColor: Colors.black,
+                      defaultBorderColor: Colors.black,
+                      hoverBorderColor: Colors.green,
+                      focusedBorderColor: Colors.deepPurpleAccent,
+                      activeBorderColor: Colors.orange,
+                      disabledBorderColor: Colors.grey,
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

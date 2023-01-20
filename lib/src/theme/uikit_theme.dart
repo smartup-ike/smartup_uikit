@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartup_uikit/src/theme/uikit_menu_item_theme_data.dart';
 import 'uikit_text_input_theme_data.dart';
 import 'uikit_button_theme_data.dart';
 import 'uikit_radio_button_theme_data.dart';
@@ -65,6 +66,7 @@ class SUThemeData {
   final UIKitToggleSwitchThemeData toggleSwitchThemeData;
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
+  final UIKitMenuItemThemeData menuItemThemeData;
 
   const SUThemeData.raw({
     required this.buttonThemeData,
@@ -73,21 +75,25 @@ class SUThemeData {
     required this.toggleSwitchThemeData,
     required this.radioGroupThemeData,
     required this.textInputThemeData,
+    required this.menuItemThemeData,
   });
 
-  factory SUThemeData(
-      {UIKitButtonThemeData? buttonThemeData,
-      UIKitRadioButtonThemeData? radioButtonThemeData,
-      UIKitTabThemeData? tabThemeData,
-      UIKitToggleSwitchThemeData? toggleSwitchThemeData,
-      UIKitRadioGroupThemeData? radioGroupThemeData,
-      UIKitTextInputThemeData? textInputThemeData}) {
+  factory SUThemeData({
+    UIKitButtonThemeData? buttonThemeData,
+    UIKitRadioButtonThemeData? radioButtonThemeData,
+    UIKitTabThemeData? tabThemeData,
+    UIKitToggleSwitchThemeData? toggleSwitchThemeData,
+    UIKitRadioGroupThemeData? radioGroupThemeData,
+    UIKitTextInputThemeData? textInputThemeData,
+    UIKitMenuItemThemeData? menuItemThemeData,
+  }) {
     buttonThemeData ??= UIKitButtonThemeData();
     radioButtonThemeData ??= UIKitRadioButtonThemeData();
     tabThemeData ??= UIKitTabThemeData();
     toggleSwitchThemeData ??= UIKitToggleSwitchThemeData();
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
     textInputThemeData ??= UIKitTextInputThemeData();
+    menuItemThemeData ??= UIKitMenuItemThemeData();
 
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData,
@@ -96,6 +102,7 @@ class SUThemeData {
       toggleSwitchThemeData: toggleSwitchThemeData,
       radioGroupThemeData: radioGroupThemeData,
       textInputThemeData: textInputThemeData,
+      menuItemThemeData: menuItemThemeData,
     );
   }
 
@@ -106,6 +113,7 @@ class SUThemeData {
     UIKitToggleSwitchThemeData? toggleSwitchThemeData,
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
+    UIKitMenuItemThemeData? menuItemThemeData,
   }) {
     return SUThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
@@ -115,6 +123,7 @@ class SUThemeData {
           toggleSwitchThemeData ?? this.toggleSwitchThemeData,
       radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
+      menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
     );
   }
 }
