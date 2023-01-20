@@ -106,6 +106,7 @@ class UIKitMenuItem extends HookWidget {
               color: borderColor ?? Colors.transparent,
               width: itemSize.borderSize ?? 0,
             ),
+            boxShadow: shadows,
           ),
           child: Row(
             children: [
