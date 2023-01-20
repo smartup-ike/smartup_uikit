@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 import 'uikit_button.dart';
 
 class UIKitIconButton extends StatelessWidget {
@@ -68,7 +68,7 @@ class UIKitIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Handles button colors according to buttonType.
-    final buttonTheme = SUTheme.of(context).buttonThemeData;
+    final buttonTheme = UIKitTheme.of(context).buttonThemeData;
     UIKitColorScheme buttonColors;
     switch (buttonType) {
       case UIKitButtonType.primary:

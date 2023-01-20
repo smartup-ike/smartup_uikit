@@ -5,7 +5,7 @@ import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
-import 'theme/su_theme.dart';
+import 'theme/uikit_theme.dart';
 
 enum TextInputStyleType { filled, line }
 
@@ -144,7 +144,7 @@ class UIKitTextInput extends HookWidget {
       return;
     }, [focusNode.hasFocus]);
 
-    final themeData = SUTheme.of(context).textInputThemeData;
+    final themeData = UIKitTheme.of(context).textInputThemeData;
 
     UIKitColorScheme colors = _defineColors(context, themeData);
     UIKitSizeScheme size = _defineSize(context, themeData);

@@ -3,7 +3,7 @@ import '../helpers/uikit_color_scheme.dart';
 import '../helpers/uikit_size_scheme.dart';
 
 @immutable
-class SUButtonThemeData {
+class UIKitButtonThemeData {
   final UIKitColorScheme primaryColorScheme;
   final UIKitColorScheme secondaryColorScheme;
   final UIKitColorScheme secondaryWhiteColorScheme;
@@ -14,7 +14,7 @@ class SUButtonThemeData {
   final UIKitColorScheme ghostIconColorScheme;
   final UIKitSizeScheme sizeScheme;
 
-  const SUButtonThemeData.raw({
+  const UIKitButtonThemeData.raw({
     required this.primaryColorScheme,
     required this.secondaryColorScheme,
     required this.secondaryWhiteColorScheme,
@@ -26,7 +26,7 @@ class SUButtonThemeData {
     required this.sizeScheme,
   });
 
-  factory SUButtonThemeData({
+  factory UIKitButtonThemeData({
     UIKitColorScheme? primaryColorScheme,
     UIKitColorScheme? secondaryColorScheme,
     UIKitColorScheme? secondaryWhiteColorScheme,
@@ -48,7 +48,7 @@ class SUButtonThemeData {
     ghostIconColorScheme ??= UIKitColorScheme.defaultScheme();
     typography ??= UIKitSizeScheme.defaultScheme();
 
-    return SUButtonThemeData.raw(
+    return UIKitButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme,
       secondaryColorScheme: secondaryColorScheme,
       secondaryWhiteColorScheme: secondaryWhiteColorScheme,
@@ -61,9 +61,9 @@ class SUButtonThemeData {
     );
   }
 
-  /// Creates a copy of this [SUButtonThemeData] but with the given fields replaced with
+  /// Creates a copy of this [UIKitButtonThemeData] but with the given fields replaced with
   /// the new values.
-  SUButtonThemeData copyWith({
+  UIKitButtonThemeData copyWith({
     UIKitColorScheme? primaryColorScheme,
     UIKitColorScheme? secondaryColorScheme,
     UIKitColorScheme? secondaryWhiteColorScheme,
@@ -74,7 +74,7 @@ class SUButtonThemeData {
     UIKitColorScheme? ghostIconColorScheme,
     UIKitSizeScheme? sizeScheme,
   }) {
-    return SUButtonThemeData.raw(
+    return UIKitButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme ?? this.primaryColorScheme,
       secondaryColorScheme: secondaryColorScheme ?? this.secondaryColorScheme,
       secondaryWhiteColorScheme:
