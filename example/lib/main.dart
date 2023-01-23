@@ -81,6 +81,20 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             title: Text(widget.title),
           ),
+          // body: Center(
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       UIDropdownButton(
+          //         child: Container(
+          //           color: Colors.red,
+          //           height: 200,
+          //           width: 200,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           body: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -367,7 +381,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 8),
+                  UIKitDropdownButton(
+                    child: Container(
+                      color: Colors.red,
+                      height: 200,
+                      width: 200,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

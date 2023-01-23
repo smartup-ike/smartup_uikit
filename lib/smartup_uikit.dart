@@ -32,3 +32,6 @@ export 'package:smartup_uikit/src/uikit_tab.dart' show UIKitTab;
 export 'package:smartup_uikit/src/uikit_text_input.dart' show UIKitTextInput;
 
 export 'package:smartup_uikit/src/uikit_menu_item.dart' show UIKitMenuItem;
+
+export 'package:smartup_uikit/src/uikit_dropdown.dart'
+    show UIKitDropdown, UIKitDropdownButton;

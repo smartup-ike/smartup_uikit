@@ -1,151 +1,218 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
+import 'uikit_button.dart';
 import 'uikit_checkbox.dart';
 
-class UIKitDropdown extends HookWidget {
-  const UIKitDropdown({
-    super.key,
-    this.label,
-    this.optionLabels,
-    this.checkboxIcon,
-    this.isExpanded,
-    this.isDisabled,
-    this.multiselect,
-    this.sizeScheme,
-    this.colorScheme,
-    required this.getSelected,
-    required this.expand,
-  });
+class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
+  final RelativeRect position;
 
-  final Widget? label;
-  final List<Widget>? optionLabels;
-  final Widget? checkboxIcon;
-  final bool? isExpanded;
-  final bool? isDisabled;
-  final bool? multiselect;
-  final UIKitSizeScheme? sizeScheme;
-  final UIKitColorScheme? colorScheme;
-  final void Function(Set<int?>?) getSelected;
-  final ValueChanged<bool> expand;
+  _DropdownRouteChildDelegate(this.position);
 
   @override
-  Widget build(BuildContext context) {
-    final selectedIndexes$ = useState<Set<int?>?>({});
-    final state$ = useState<UIKitState>(
-        isDisabled ?? true ? UIKitState.disabled : UIKitState.defaultState);
-    final isHovered$ = useState(false);
+  Offset getPositionForChild(Size size, Size childSize) {
+    // size: The size of the overlay.
+    // childSize: The size of the menu, when fully open, as determined by
+    // getConstraintsForChild.
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MouseRegion(
-          cursor: state$.value == UIKitState.disabled
-              ? SystemMouseCursors.basic
-              : SystemMouseCursors.click,
-          onHover: (_) {
-            if (isDisabled ?? true) {
-              state$.value = UIKitState.hover;
-              isHovered$.value = true;
-            }
-          },
-          onExit: (_) {
-            if (isDisabled ?? true) {
-              state$.value = UIKitState.defaultState;
-              isHovered$.value = false;
-            }
-          },
-          child: Row(
-            children: [
-              const SizedBox(width: 10),
-              if (multiselect ?? false)
-                UIKitCheckbox(
-                  icon: checkboxIcon,
-                  colorScheme: colorScheme,
-                  sizeScheme: sizeScheme,
-                  isChecked:
-                      selectedIndexes$.value?.length == optionLabels?.length,
-                  onChanged: (value) {
-                    value ?? false
-                        ? selectedIndexes$.value?.addAll(List.generate(
-                            optionLabels?.length ?? 0, (index) => index))
-                        : selectedIndexes$.value
-                            ?.removeWhere((element) => true);
-                    getSelected.call(selectedIndexes$.value);
-                  },
-                ),
-              const SizedBox(width: 10),
-              IconButton(
-                onPressed: () => expand.call(!(isExpanded ?? false)),
-                icon: Icon(
-                  isExpanded ?? false
-                      ? Icons.arrow_drop_up
-                      : Icons.arrow_drop_down,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(width: 10),
-              label!,
-            ],
-          ),
-        ),
-        if (isExpanded ?? false)
-          for (Widget element in optionLabels ?? []) ...[
-            ..._buildElement(element, selectedIndexes$.value),
-            if (element.runtimeType != UIKitDropdown)
-              const SizedBox(height: 18),
-          ],
-      ],
+    final double buttonHeight = size.height - position.top - position.bottom;
+    // Find the ideal vertical position.
+    double y = position.top;
+    y = y + buttonHeight;
+    if (position.top > position.bottom) {
+      // Menu button is closer to the bottom edge, so grow to the top, aligned to the top edge.
+      y = position.top - childSize.height;
+    } else {
+      // Menu button is closer to the top edge, so grow to the bottom, aligned to the bottom edge.
+      y = position.top + buttonHeight;
+    }
+    // Find the ideal horizontal position.
+    double x;
+    if (position.left >= position.right) {
+      // Menu button is closer to the right edge, so grow to the left, aligned to the right edge.
+      x = size.width - position.right - childSize.width;
+    } else {
+      // Menu button is closer to the left edge, so grow to the right, aligned to the left edge.
+      x = position.left;
+    }
+    final Offset wantedPosition = Offset(x, y);
+    final Offset originCenter = position.toRect(Offset.zero & size).center;
+    final Iterable<Rect> subScreens =
+        DisplayFeatureSubScreen.subScreensInBounds(Offset.zero & size, []);
+    final Rect subScreen = _closestScreen(subScreens, originCenter);
+    return _fitInsideScreen(subScreen, childSize, wantedPosition);
+  }
+
+  Rect _closestScreen(Iterable<Rect> screens, Offset point) {
+    Rect closest = screens.first;
+    for (final Rect screen in screens) {
+      if ((screen.center - point).distance <
+          (closest.center - point).distance) {
+        closest = screen;
+      }
+    }
+    return closest;
+  }
+
+  Offset _fitInsideScreen(Rect screen, Size childSize, Offset wantedPosition) {
+    double x = wantedPosition.dx;
+    double y = wantedPosition.dy;
+    // Avoid going outside an area defined as the rectangle 8.0 pixels from the
+    // edge of the screen in every direction.
+    if (x < screen.left) {
+      x = screen.left;
+    } else if (x + childSize.width > screen.right) {
+      x = screen.right - childSize.width;
+    }
+    if (y < screen.top) {
+      y = screen.top - 8;
+    } else if (y + childSize.height > screen.bottom) {
+      y = screen.bottom - childSize.height;
+    }
+
+    return Offset(x, y);
+  }
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
+    return BoxConstraints.loose(constraints.biggest).deflate(
+      const EdgeInsets.all(16),
     );
   }
 
-  List<Widget> _buildElement(Widget element, Set<int?>? selectedIndexes) {
-    List<Widget> list = [];
-    if (element.runtimeType == UIKitDropdown) {
-      list.add(
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: element,
-            ),
-          ],
-        ),
-      );
+  @override
+  bool shouldRelayout(covariant _DropdownRouteChildDelegate oldDelegate) {
+    return position != oldDelegate.position;
+  }
+}
+
+class _DropdownRoute<T> extends PopupRoute<T> {
+  final Widget child;
+  final RelativeRect position;
+
+  _DropdownRoute({
+    required this.child,
+    required this.position,
+  });
+  @override
+  Color? get barrierColor => Colors.transparent;
+
+  @override
+  bool get barrierDismissible => false;
+
+  @override
+  String? get barrierLabel => 'Click to dismiss';
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    Alignment alignment;
+    if (position.left < position.right) {
+      if (position.top > position.bottom) {
+        alignment = Alignment.bottomLeft;
+      } else {
+        alignment = Alignment.topLeft;
+      }
     } else {
-      list.add(
-        MouseRegion(
-          child: Row(
-            children: [
-              const SizedBox(width: 10),
-              if (multiselect ?? false)
-                UIKitCheckbox(
-                  icon: checkboxIcon,
-                  colorScheme: colorScheme,
-                  sizeScheme: sizeScheme,
-                  isChecked: selectedIndexes?.contains(
-                    optionLabels?.indexOf(element),
-                  ),
-                  onChanged: (value) {
-                    value ?? false
-                        ? selectedIndexes?.add(
-                            optionLabels?.indexOf(element),
-                          )
-                        : selectedIndexes?.remove(
-                            optionLabels?.indexOf(element),
-                          );
-                    getSelected.call(selectedIndexes);
-                  },
-                ),
-              const SizedBox(width: 10),
-              element,
-            ],
-          ),
-        ),
-      );
+      if (position.top > position.bottom) {
+        alignment = Alignment.bottomRight;
+      } else {
+        alignment = Alignment.topRight;
+      }
     }
-    return list;
+    return CustomSingleChildLayout(
+      delegate: _DropdownRouteChildDelegate(position),
+      child: ScaleTransition(
+        alignment: alignment,
+        scale: animation,
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 200);
+}
+
+class UIKitDropdownButton extends StatelessWidget {
+  const UIKitDropdownButton({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return UIKitButton.primary(
+      labelText: const Text("Open me"),
+      onTap: () {
+        final box = context.findRenderObject()! as RenderBox;
+        final RenderBox overlay = Navigator.of(context)
+            .overlay!
+            .context
+            .findRenderObject()! as RenderBox;
+        const offset = Offset.zero;
+        final RelativeRect position = RelativeRect.fromRect(
+          Rect.fromPoints(
+            box.localToGlobal(offset, ancestor: overlay),
+            box.localToGlobal(
+              box.size.bottomRight(Offset.zero) + offset,
+              ancestor: overlay,
+            ),
+          ),
+          Offset.zero & overlay.size,
+        );
+        Navigator.of(context).push(
+          _DropdownRoute(child: child, position: position),
+        );
+      },
+    );
+  }
+}
+
+/// ```dart
+///   Dropdown(
+///     child: Text(),
+///     builder: (context) => UIKitDropdown(...),
+///   )
+/// ```
+
+/// ```dart
+/// UIKitDropdown(
+///   value: '',
+///   onChange: (List<String> newValue) {
+///
+///   }
+///   children: [
+///     DropdownOption<String>(
+///       value: 'option_1',
+///       label: Text('kati'),
+///       trailing: FlutterLogo(),
+///       selectable: false,
+///       disabled: false,
+///       children: [
+///         DropdownOption(
+///           value: 'value_1_1',
+///         ),
+///       ],
+///     ),
+///     DropdownOption(
+///       label: Text('kati allo'),
+///     ),
+///   ],
+/// ),
+/// ```
+class UIKitDropdown extends HookWidget {
+  const UIKitDropdown({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
