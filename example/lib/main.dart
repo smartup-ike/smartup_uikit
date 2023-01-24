@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isCheckBoxChecked = false;
   bool _isMenuItemActive = false;
   int? _selectedRadioItem;
+  String? _selectedDropdownItem;
   TextEditingController controller = TextEditingController();
   late FocusNode focusNode;
 
@@ -382,16 +383,87 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 275),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(width: 8),
                   UIKitDropdownButton(
-                    child: Container(
-                      color: Colors.red,
-                      height: 200,
-                      width: 200,
+                    child: UIKitDropdownMenu<String>(
+                      multiselect: true,
+                      value: 'one',
+                      onChange: (value) => _selectedDropdownItem = value,
+                      children: [
+                        UIKitDropdownMenuItem(
+                          sizeScheme: UIKitSizeScheme(
+                            height: 16,
+                            width: 16,
+                          ),
+                          colorScheme: UIKitColorScheme(
+                            defaultBackgroundColor: Colors.tealAccent,
+                            hoverBackgroundColor: Colors.green,
+                            focusedBackgroundColor: Colors.red,
+                            activeBackgroundColor: Colors.orange,
+                            disabledBackgroundColor: Colors.grey,
+                            defaultContentColor: Colors.redAccent,
+                            hoverContentColor: Colors.black,
+                            focusedContentColor: Colors.black,
+                            activeContentColor: Colors.black,
+                            disabledContentColor: Colors.black,
+                            defaultBorderColor: Colors.black,
+                            hoverBorderColor: Colors.green,
+                            focusedBorderColor: Colors.deepPurpleAccent,
+                            activeBorderColor: Colors.orange,
+                            disabledBorderColor: Colors.grey,
+                          ),
+                          value: 'one',
+                          selectable: true,
+                          label: Text('one'),
+                          trailing: Icon(
+                            Icons.check_circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                        UIKitDropdownMenuItem(
+                          sizeScheme: UIKitSizeScheme(
+                            height: 16,
+                            width: 16,
+                          ),
+                          value: 'two',
+                          selectable: true,
+                          label: Text('two'),
+                          trailing: Icon(
+                            Icons.check_circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                        UIKitDropdownMenuItem(
+                          sizeScheme: UIKitSizeScheme(
+                            height: 16,
+                            width: 16,
+                          ),
+                          value: 'three',
+                          selectable: true,
+                          label: Text('three'),
+                          trailing: Icon(
+                            Icons.check_circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                        UIKitDropdownMenuItem(
+                          sizeScheme: UIKitSizeScheme(
+                            height: 16,
+                            width: 16,
+                          ),
+                          value: 'four',
+                          selectable: true,
+                          label: Text('four'),
+                          trailing: Icon(
+                            Icons.check_circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

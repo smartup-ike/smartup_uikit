@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
+import 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
@@ -20,12 +19,19 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
     // getConstraintsForChild.
 
     final double buttonHeight = size.height - position.top - position.bottom;
+    print('Top: ${position.top}, Bot: ${position.bottom}');
+    print('Height: ${childSize.height}');
     // Find the ideal vertical position.
-    double y = position.top;
-    y = y + buttonHeight;
+    double y;
     if (position.top > position.bottom) {
-      // Menu button is closer to the bottom edge, so grow to the top, aligned to the top edge.
-      y = position.top - childSize.height;
+      // Menu button is closer to the bottom edge
+      if (childSize.height > position.bottom) {
+        // Child can not fit to the bottom, so grow to the top, aligned to the top edge.
+        y = position.top - childSize.height;
+      } else {
+        // Child can fit to the bottom, so grow to the bottom, aligned to the bottom edge.
+        y = position.top + buttonHeight;
+      }
     } else {
       // Menu button is closer to the top edge, so grow to the bottom, aligned to the bottom edge.
       y = position.top + buttonHeight;
@@ -102,23 +108,30 @@ class _DropdownRoute<T> extends PopupRoute<T> {
   Color? get barrierColor => Colors.transparent;
 
   @override
-  bool get barrierDismissible => false;
+  bool get barrierDismissible => true;
 
   @override
   String? get barrierLabel => 'Click to dismiss';
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     Alignment alignment;
+    Size? size = Size.zero;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      size = context.size;
+    });
     if (position.left < position.right) {
-      if (position.top > position.bottom) {
-        alignment = Alignment.bottomLeft;
-      } else {
+      if (size!.height > position.bottom) {
         alignment = Alignment.topLeft;
+      } else {
+        alignment = Alignment.bottomLeft;
       }
     } else {
-      if (position.top > position.bottom) {
+      if (size!.height > position.bottom) {
         alignment = Alignment.bottomRight;
       } else {
         alignment = Alignment.topRight;
@@ -206,13 +219,89 @@ class UIKitDropdownButton extends StatelessWidget {
 ///   ],
 /// ),
 /// ```
-class UIKitDropdown extends HookWidget {
-  const UIKitDropdown({
+
+class UIKitDropdownMenu<T> extends HookWidget {
+  const UIKitDropdownMenu({
     super.key,
+    this.value,
+    required this.onChange,
+    this.children = const [],
+    required this.multiselect,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
   });
+
+  final T? value;
+  final ValueChanged<T> onChange;
+  final List<UIKitDropdownMenuItem<T>> children;
+  final bool multiselect;
+  final UIKitColorScheme? colorScheme;
+  final UIKitSizeScheme? sizeScheme;
+  final UIKitShadowScheme? shadowScheme;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      width: 200,
+      height: 200,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(),
+      ),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return children[index];
+        },
+        itemCount: children.length,
+      ),
+    );
+  }
+}
+
+class UIKitDropdownMenuItem<T> extends HookWidget {
+  const UIKitDropdownMenuItem({
+    super.key,
+    required this.value,
+    this.label,
+    this.trailing,
+    this.children,
+    required this.selectable,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  });
+
+  final T value;
+  final Widget? label;
+  final Widget? trailing;
+  final List<UIKitDropdownMenuItem<T>>? children;
+  final bool selectable;
+  final UIKitColorScheme? colorScheme;
+  final UIKitSizeScheme? sizeScheme;
+  final UIKitShadowScheme? shadowScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        if (selectable) ...[
+          UIKitCheckbox(
+            icon: Icon(Icons.abc),
+            colorScheme: colorScheme,
+            sizeScheme: sizeScheme,
+          ),
+          const SizedBox(width: 8),
+        ],
+        DefaultTextStyle(
+          style: sizeScheme?.labelTextStyle ?? TextStyle(),
+          child: label ?? const SizedBox(),
+        ),
+        if (trailing != null) ...[
+          const SizedBox(width: 8),
+          trailing!,
+        ],
+      ],
+    );
   }
 }
