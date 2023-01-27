@@ -103,7 +103,7 @@ class UIKitCheckbox extends HookWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                strokeAlign: StrokeAlign.outside,
+                strokeAlign: BorderSide.strokeAlignOutside,
                 width: 1,
                 color: borderColor ?? Colors.transparent,
               ),
