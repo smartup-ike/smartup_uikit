@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/src/theme/uikit_menu_item_theme_data.dart';
+import 'uikit_menu_item_theme_data.dart';
 import 'uikit_text_input_theme_data.dart';
 import 'uikit_button_theme_data.dart';
 import 'uikit_radio_button_theme_data.dart';
