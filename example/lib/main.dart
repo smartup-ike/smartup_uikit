@@ -417,6 +417,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         disabledBorderColor: Colors.grey,
                       ),
                       child: UIKitDropdownMenu<String>(
+                        onChange: (value) => _selectedDropdownItem = value,
                         themeData: theme,
                         actions: [
                           UIKitButton.primary(
@@ -436,30 +437,29 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 300,
                         multiselect: true,
                         value: _selectedDropdownItem,
-                        onChange: (value) => _selectedDropdownItem = value,
                         children: [
                           UIKitDropdownMenuItem(
                             sizeScheme: UIKitSizeScheme(
                               height: 16,
                               width: 16,
                             ),
-                            colorScheme: UIKitColorScheme(
-                              defaultBackgroundColor: Colors.tealAccent,
-                              hoverBackgroundColor: Colors.green,
-                              focusedBackgroundColor: Colors.red,
-                              activeBackgroundColor: Colors.orange,
-                              disabledBackgroundColor: Colors.grey,
-                              defaultContentColor: Colors.redAccent,
-                              hoverContentColor: Colors.black,
-                              focusedContentColor: Colors.black,
-                              activeContentColor: Colors.black,
-                              disabledContentColor: Colors.black,
-                              defaultBorderColor: Colors.black,
-                              hoverBorderColor: Colors.green,
-                              focusedBorderColor: Colors.deepPurpleAccent,
-                              activeBorderColor: Colors.orange,
-                              disabledBorderColor: Colors.grey,
-                            ),
+                            // colorScheme: UIKitColorScheme(
+                            //   defaultBackgroundColor: Colors.tealAccent,
+                            //   hoverBackgroundColor: Colors.green,
+                            //   focusedBackgroundColor: Colors.red,
+                            //   activeBackgroundColor: Colors.orange,
+                            //   disabledBackgroundColor: Colors.grey,
+                            //   defaultContentColor: Colors.redAccent,
+                            //   hoverContentColor: Colors.black,
+                            //   focusedContentColor: Colors.black,
+                            //   activeContentColor: Colors.black,
+                            //   disabledContentColor: Colors.black,
+                            //   defaultBorderColor: Colors.black,
+                            //   hoverBorderColor: Colors.green,
+                            //   focusedBorderColor: Colors.deepPurpleAccent,
+                            //   activeBorderColor: Colors.orange,
+                            //   disabledBorderColor: Colors.grey,
+                            // ),
                             onTap: () =>
                                 setState(() => _selectedDropdownItem = 'one'),
                             isSelected: _selectedDropdownItem == 'one',
