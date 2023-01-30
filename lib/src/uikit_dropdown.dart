@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart';
+import 'helpers/uikit_shadow_scheme.dart';
+import 'theme/uikit_text_input_theme_data.dart';
+import 'theme/uikit_theme.dart';
+import 'uikit_icon_theme.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
-import 'uikit_button.dart';
 import 'uikit_checkbox.dart';
 
 class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
@@ -19,8 +21,6 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
     // getConstraintsForChild.
 
     final double buttonHeight = size.height - position.top - position.bottom;
-    print('Top: ${position.top}, Bot: ${position.bottom}');
-    print('Height: ${childSize.height}');
     // Find the ideal vertical position.
     double y;
     if (position.top > position.bottom) {
@@ -99,10 +99,12 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
 class _DropdownRoute<T> extends PopupRoute<T> {
   final Widget child;
   final RelativeRect position;
+  final BoxConstraints constraints;
 
   _DropdownRoute({
     required this.child,
     required this.position,
+    required this.constraints,
   });
   @override
   Color? get barrierColor => Colors.transparent;
@@ -120,29 +122,28 @@ class _DropdownRoute<T> extends PopupRoute<T> {
     Animation<double> secondaryAnimation,
   ) {
     Alignment alignment;
-    Size? size = Size.zero;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      size = context.size;
-    });
     if (position.left < position.right) {
-      if (size!.height > position.bottom) {
-        alignment = Alignment.topLeft;
-      } else {
+      if (position.top > position.bottom) {
         alignment = Alignment.bottomLeft;
+      } else {
+        alignment = Alignment.topLeft;
       }
     } else {
-      if (size!.height > position.bottom) {
+      if (position.top > position.bottom) {
         alignment = Alignment.bottomRight;
       } else {
         alignment = Alignment.topRight;
       }
     }
-    return CustomSingleChildLayout(
-      delegate: _DropdownRouteChildDelegate(position),
-      child: ScaleTransition(
-        alignment: alignment,
-        scale: animation,
-        child: child,
+    return ConstrainedBox(
+      constraints: constraints,
+      child: CustomSingleChildLayout(
+        delegate: _DropdownRouteChildDelegate(position),
+        child: ScaleTransition(
+          alignment: alignment,
+          scale: animation,
+          child: child,
+        ),
       ),
     );
   }
@@ -151,39 +152,226 @@ class _DropdownRoute<T> extends PopupRoute<T> {
   Duration get transitionDuration => const Duration(milliseconds: 200);
 }
 
-class UIKitDropdownButton extends StatelessWidget {
+class UIKitDropdownButton extends HookWidget {
   const UIKitDropdownButton({
     Key? key,
     required this.child,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
   }) : super(key: key);
+
   final Widget child;
+  final UIKitColorScheme? colorScheme;
+  final UIKitSizeScheme? sizeScheme;
+  final UIKitShadowScheme? shadowScheme;
+  final bool isDisabled;
+  final Widget trailing;
+  final Widget? label;
+  final Widget? input;
 
   @override
   Widget build(BuildContext context) {
-    return UIKitButton.primary(
-      labelText: const Text("Open me"),
-      onTap: () {
-        final box = context.findRenderObject()! as RenderBox;
-        final RenderBox overlay = Navigator.of(context)
-            .overlay!
-            .context
-            .findRenderObject()! as RenderBox;
-        const offset = Offset.zero;
-        final RelativeRect position = RelativeRect.fromRect(
-          Rect.fromPoints(
-            box.localToGlobal(offset, ancestor: overlay),
-            box.localToGlobal(
-              box.size.bottomRight(Offset.zero) + offset,
-              ancestor: overlay,
+    final state$ = useState(
+      isDisabled ? UIKitState.disabled : UIKitState.defaultState,
+    );
+    final isHovered$ = useState(false);
+
+    final themeData = UIKitTheme.of(context).textInputThemeData;
+
+    UIKitColorScheme colors = _defineColors(themeData);
+    UIKitSizeScheme size = _defineSize(themeData);
+    UIKitShadowScheme shadows = _defineShadows(themeData);
+
+    Color? backgroundColor;
+    Color? contentColor;
+    Color? borderColor;
+    List<BoxShadow>? currentShadows;
+
+    switch (state$.value) {
+      case UIKitState.defaultState:
+        backgroundColor = colors.defaultBackgroundColor;
+        contentColor = colors.defaultContentColor;
+        borderColor = colors.defaultBorderColor;
+        currentShadows = shadows.defaultShadow;
+        break;
+      case UIKitState.hover:
+        backgroundColor = colors.hoverBackgroundColor;
+        contentColor = colors.hoverContentColor;
+        borderColor = colors.hoverBorderColor;
+        currentShadows = shadows.hoverShadow;
+        break;
+      case UIKitState.focused:
+        backgroundColor = colors.focusedBackgroundColor;
+        contentColor = colors.focusedContentColor;
+        borderColor = colors.focusedBorderColor;
+        currentShadows = shadows.focusedShadow;
+        break;
+      case UIKitState.active:
+        backgroundColor = colors.activeBackgroundColor;
+        contentColor = colors.activeContentColor;
+        borderColor = colors.activeBorderColor;
+        currentShadows = shadows.activeShadow;
+        break;
+      case UIKitState.disabled:
+        backgroundColor = colors.disabledBackgroundColor;
+        contentColor = colors.disabledContentColor;
+        borderColor = colors.disabledBorderColor;
+        currentShadows = shadows.disabledShadow;
+        break;
+      default:
+        break;
+    }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return MouseRegion(
+          cursor: state$.value == UIKitState.disabled
+              ? SystemMouseCursors.basic
+              : SystemMouseCursors.click,
+          onHover: (_) {
+            if (!isDisabled) {
+              state$.value = UIKitState.hover;
+              isHovered$.value = true;
+            }
+          },
+          onExit: (_) {
+            if (!isDisabled) {
+              state$.value = UIKitState.defaultState;
+              isHovered$.value = false;
+            }
+          },
+          child: GestureDetector(
+            onTap: isDisabled
+                ? () {}
+                : () {
+                    final box = context.findRenderObject()! as RenderBox;
+                    final RenderBox overlay = Navigator.of(context)
+                        .overlay!
+                        .context
+                        .findRenderObject()! as RenderBox;
+                    const offset = Offset.zero;
+                    final RelativeRect position = RelativeRect.fromRect(
+                      Rect.fromPoints(
+                        box.localToGlobal(offset, ancestor: overlay),
+                        box.localToGlobal(
+                          box.size.bottomRight(Offset.zero) + offset,
+                          ancestor: overlay,
+                        ),
+                      ),
+                      Offset.zero & overlay.size,
+                    );
+                    Navigator.of(context).push(
+                      _DropdownRoute(
+                        child: child,
+                        position: position,
+                        constraints: constraints,
+                      ),
+                    );
+                  },
+            onTapDown: (_) {
+              if (!isDisabled) {
+                state$.value = UIKitState.focused;
+              }
+            },
+            onTapUp: (_) {
+              if (!isDisabled) {
+                state$.value = isHovered$.value
+                    ? UIKitState.hover
+                    : UIKitState.defaultState;
+              }
+            },
+            onTapCancel: () {
+              if (!isDisabled) {
+                state$.value = isHovered$.value
+                    ? UIKitState.hover
+                    : UIKitState.defaultState;
+              }
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: size.height,
+              width: size.width,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
+                border: Border.all(
+                  color: borderColor ?? Colors.transparent,
+                  width: size.borderSize ?? 1,
+                ),
+                boxShadow: currentShadows,
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DefaultTextStyle(
+                          style: size.labelTextStyle
+                                  ?.copyWith(color: contentColor) ??
+                              const TextStyle().copyWith(color: contentColor),
+                          child: label ?? const SizedBox(),
+                        ),
+                        DefaultTextStyle(
+                          style: size.labelTextStyle
+                                  ?.copyWith(color: contentColor) ??
+                              const TextStyle().copyWith(color: contentColor),
+                          child: input ?? const SizedBox(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  UIKitIconTheme(
+                    color: contentColor,
+                    size: size.iconSize,
+                    child: trailing,
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              ),
             ),
           ),
-          Offset.zero & overlay.size,
-        );
-        Navigator.of(context).push(
-          _DropdownRoute(child: child, position: position),
         );
       },
     );
+  }
+
+  UIKitColorScheme _defineColors(UIKitTextInputThemeData themeData) {
+    UIKitColorScheme colorScheme;
+
+    if (this.colorScheme == null) {
+      colorScheme = themeData.filledInputcolorScheme;
+    } else {
+      colorScheme = this.colorScheme!;
+    }
+    return colorScheme;
+  }
+
+  UIKitSizeScheme _defineSize(UIKitTextInputThemeData themeData) {
+    UIKitSizeScheme sizeScheme;
+
+    if (this.sizeScheme == null) {
+      sizeScheme = themeData.inputSizeScheme;
+    } else {
+      sizeScheme = this.sizeScheme!;
+    }
+    return sizeScheme;
+  }
+
+  UIKitShadowScheme _defineShadows(UIKitTextInputThemeData themeData) {
+    UIKitShadowScheme shadowScheme;
+
+    if (this.shadowScheme == null) {
+      shadowScheme = themeData.shadowScheme;
+    } else {
+      shadowScheme = this.shadowScheme!;
+    }
+    return shadowScheme;
   }
 }
 
@@ -223,37 +411,63 @@ class UIKitDropdownButton extends StatelessWidget {
 class UIKitDropdownMenu<T> extends HookWidget {
   const UIKitDropdownMenu({
     super.key,
+    required this.themeData,
     this.value,
     required this.onChange,
     this.children = const [],
+    this.actions = const [],
     required this.multiselect,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    required this.width,
+    required this.height,
   });
 
+  final SUThemeData themeData;
   final T? value;
   final ValueChanged<T> onChange;
   final List<UIKitDropdownMenuItem<T>> children;
+  final List<Widget> actions;
   final bool multiselect;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(),
-      ),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return children[index];
-        },
-        itemCount: children.length,
+    return UIKitTheme(
+      theme: themeData,
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(),
+              borderRadius:
+                  BorderRadius.circular(sizeScheme?.borderRadius ?? 8),
+            ),
+            child: ListView.builder(
+              padding: sizeScheme?.padding,
+              itemBuilder: (context, index) {
+                return children[index];
+              },
+              itemCount: children.length,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: actions,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -263,45 +477,67 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
   const UIKitDropdownMenuItem({
     super.key,
     required this.value,
+    required this.onTap,
     this.label,
     this.trailing,
     this.children,
     required this.selectable,
+    required this.isSelected,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  });
+  }) : assert(
+          selectable ^ (trailing != null),
+          'Either \'selectable\' is true and the widget has a checkbox or it has a trailing widget, not both.',
+        );
 
   final T value;
+  final VoidCallback onTap;
   final Widget? label;
   final Widget? trailing;
   final List<UIKitDropdownMenuItem<T>>? children;
   final bool selectable;
+  final bool isSelected;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (selectable) ...[
-          UIKitCheckbox(
-            icon: Icon(Icons.abc),
-            colorScheme: colorScheme,
-            sizeScheme: sizeScheme,
+    final isHovered$ = useState(false);
+    return MouseRegion(
+      onHover: (_) => isHovered$.value = true,
+      onExit: (_) => isHovered$.value = false,
+      child: GestureDetector(
+        onTap: onTap,
+        child: ColoredBox(
+          color: colorScheme?.defaultBackgroundColor ?? Colors.transparent,
+          child: Row(
+            children: [
+              if (selectable) ...[
+                UIKitCheckbox(
+                  isChecked: isSelected,
+                  icon: const Icon(
+                    Icons.check,
+                    size: 12,
+                  ),
+                  colorScheme: colorScheme,
+                  sizeScheme: sizeScheme,
+                ),
+                const SizedBox(width: 8),
+              ],
+              DefaultTextStyle(
+                style: sizeScheme?.labelTextStyle ?? const TextStyle(),
+                child: label ?? const SizedBox(),
+              ),
+              if (trailing != null) ...[
+                const SizedBox(width: 8),
+                trailing!,
+              ],
+            ],
           ),
-          const SizedBox(width: 8),
-        ],
-        DefaultTextStyle(
-          style: sizeScheme?.labelTextStyle ?? TextStyle(),
-          child: label ?? const SizedBox(),
         ),
-        if (trailing != null) ...[
-          const SizedBox(width: 8),
-          trailing!,
-        ],
-      ],
+      ),
     );
   }
 }

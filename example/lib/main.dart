@@ -37,8 +37,47 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isMenuItemActive = false;
   int? _selectedRadioItem;
   String? _selectedDropdownItem;
+  String? dropdownValue;
   TextEditingController controller = TextEditingController();
   late FocusNode focusNode;
+  static final theme = SUThemeData(
+    buttonThemeData: UIKitButtonThemeData(
+      primaryColorScheme: UIKitColorScheme(
+        defaultBackgroundColor: Colors.red,
+        hoverBackgroundColor: Colors.blue,
+        focusedBackgroundColor: Colors.purple,
+        activeBackgroundColor: Colors.teal,
+        disabledBackgroundColor: Colors.grey,
+        defaultContentColor: Colors.white,
+        hoverContentColor: Colors.green,
+        focusedContentColor: Colors.red,
+        activeContentColor: Colors.orange,
+        disabledContentColor: Colors.grey,
+        defaultBorderColor: Colors.black,
+        hoverBorderColor: Colors.black,
+        focusedBorderColor: Colors.black,
+        activeBorderColor: Colors.black,
+        disabledBorderColor: Colors.black,
+      ),
+      ghostColorScheme: UIKitColorScheme(
+        defaultBackgroundColor: Colors.red,
+        hoverBackgroundColor: Colors.blue,
+        focusedBackgroundColor: Colors.purple,
+        activeBackgroundColor: Colors.teal,
+        disabledBackgroundColor: Colors.grey,
+        defaultContentColor: Colors.white,
+        hoverContentColor: Colors.green,
+        focusedContentColor: Colors.red,
+        activeContentColor: Colors.orange,
+        disabledContentColor: Colors.grey,
+        defaultBorderColor: Colors.black,
+        hoverBorderColor: Colors.black,
+        focusedBorderColor: Colors.black,
+        activeBorderColor: Colors.black,
+        disabledBorderColor: Colors.black,
+      ),
+    ),
+  );
 
   @override
   void initState() {
@@ -55,47 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return UIKitTheme(
-      theme: SUThemeData(
-        buttonThemeData: UIKitButtonThemeData(
-          primaryColorScheme: UIKitColorScheme(
-            defaultBackgroundColor: Colors.red,
-            hoverBackgroundColor: Colors.blue,
-            focusedBackgroundColor: Colors.purple,
-            activeBackgroundColor: Colors.teal,
-            disabledBackgroundColor: Colors.grey,
-            defaultContentColor: Colors.white,
-            hoverContentColor: Colors.green,
-            focusedContentColor: Colors.red,
-            activeContentColor: Colors.orange,
-            disabledContentColor: Colors.grey,
-            defaultBorderColor: Colors.black,
-            hoverBorderColor: Colors.black,
-            focusedBorderColor: Colors.black,
-            activeBorderColor: Colors.black,
-            disabledBorderColor: Colors.black,
-          ),
-        ),
-      ),
+      theme: theme,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
           ),
-          // body: Center(
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       UIDropdownButton(
-          //         child: Container(
-          //           color: Colors.red,
-          //           height: 200,
-          //           width: 200,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           body: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -383,87 +388,123 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 275),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(width: 8),
-                  UIKitDropdownButton(
-                    child: UIKitDropdownMenu<String>(
-                      multiselect: true,
-                      value: 'one',
-                      onChange: (value) => _selectedDropdownItem = value,
-                      children: [
-                        UIKitDropdownMenuItem(
-                          sizeScheme: UIKitSizeScheme(
-                            height: 16,
-                            width: 16,
+                  Expanded(
+                    child: UIKitDropdownButton(
+                      label: Text('Number'),
+                      input: Text(_selectedDropdownItem ?? ''),
+                      trailing: Icon(Icons.arrow_drop_down_rounded),
+                      isDisabled: false,
+                      colorScheme: UIKitColorScheme(
+                        defaultBackgroundColor: Colors.tealAccent,
+                        hoverBackgroundColor: Colors.green,
+                        focusedBackgroundColor: Colors.red,
+                        activeBackgroundColor: Colors.orange,
+                        disabledBackgroundColor: Colors.grey,
+                        defaultContentColor: Colors.redAccent,
+                        hoverContentColor: Colors.black,
+                        focusedContentColor: Colors.black,
+                        activeContentColor: Colors.black,
+                        disabledContentColor: Colors.black,
+                        defaultBorderColor: Colors.black,
+                        hoverBorderColor: Colors.green,
+                        focusedBorderColor: Colors.deepPurpleAccent,
+                        activeBorderColor: Colors.orange,
+                        disabledBorderColor: Colors.grey,
+                      ),
+                      child: UIKitDropdownMenu<String>(
+                        themeData: theme,
+                        actions: [
+                          UIKitButton.primary(
+                            labelText: Text('Cancel'),
+                            onTap: () => Navigator.of(context).pop(),
                           ),
-                          colorScheme: UIKitColorScheme(
-                            defaultBackgroundColor: Colors.tealAccent,
-                            hoverBackgroundColor: Colors.green,
-                            focusedBackgroundColor: Colors.red,
-                            activeBackgroundColor: Colors.orange,
-                            disabledBackgroundColor: Colors.grey,
-                            defaultContentColor: Colors.redAccent,
-                            hoverContentColor: Colors.black,
-                            focusedContentColor: Colors.black,
-                            activeContentColor: Colors.black,
-                            disabledContentColor: Colors.black,
-                            defaultBorderColor: Colors.black,
-                            hoverBorderColor: Colors.green,
-                            focusedBorderColor: Colors.deepPurpleAccent,
-                            activeBorderColor: Colors.orange,
-                            disabledBorderColor: Colors.grey,
+                          const SizedBox(width: 4),
+                          UIKitButton.primary(
+                            labelText: Text('Ok'),
+                            onTap: () {},
                           ),
-                          value: 'one',
-                          selectable: true,
-                          label: Text('one'),
-                          trailing: Icon(
-                            Icons.check_circle,
-                            color: Colors.red,
-                          ),
+                        ],
+                        sizeScheme: UIKitSizeScheme(
+                          padding: const EdgeInsets.all(8),
                         ),
-                        UIKitDropdownMenuItem(
-                          sizeScheme: UIKitSizeScheme(
-                            height: 16,
-                            width: 16,
+                        width: double.infinity,
+                        height: 300,
+                        multiselect: true,
+                        value: _selectedDropdownItem,
+                        onChange: (value) => _selectedDropdownItem = value,
+                        children: [
+                          UIKitDropdownMenuItem(
+                            sizeScheme: UIKitSizeScheme(
+                              height: 16,
+                              width: 16,
+                            ),
+                            colorScheme: UIKitColorScheme(
+                              defaultBackgroundColor: Colors.tealAccent,
+                              hoverBackgroundColor: Colors.green,
+                              focusedBackgroundColor: Colors.red,
+                              activeBackgroundColor: Colors.orange,
+                              disabledBackgroundColor: Colors.grey,
+                              defaultContentColor: Colors.redAccent,
+                              hoverContentColor: Colors.black,
+                              focusedContentColor: Colors.black,
+                              activeContentColor: Colors.black,
+                              disabledContentColor: Colors.black,
+                              defaultBorderColor: Colors.black,
+                              hoverBorderColor: Colors.green,
+                              focusedBorderColor: Colors.deepPurpleAccent,
+                              activeBorderColor: Colors.orange,
+                              disabledBorderColor: Colors.grey,
+                            ),
+                            onTap: () =>
+                                setState(() => _selectedDropdownItem = 'one'),
+                            isSelected: _selectedDropdownItem == 'one',
+                            value: 'one',
+                            selectable: true,
+                            label: Text('one'),
                           ),
-                          value: 'two',
-                          selectable: true,
-                          label: Text('two'),
-                          trailing: Icon(
-                            Icons.check_circle,
-                            color: Colors.red,
+                          UIKitDropdownMenuItem(
+                            sizeScheme: UIKitSizeScheme(
+                              height: 16,
+                              width: 16,
+                            ),
+                            onTap: () =>
+                                setState(() => _selectedDropdownItem = 'two'),
+                            isSelected: _selectedDropdownItem == 'two',
+                            value: 'two',
+                            selectable: true,
+                            label: Text('two'),
                           ),
-                        ),
-                        UIKitDropdownMenuItem(
-                          sizeScheme: UIKitSizeScheme(
-                            height: 16,
-                            width: 16,
+                          UIKitDropdownMenuItem(
+                            sizeScheme: UIKitSizeScheme(
+                              height: 16,
+                              width: 16,
+                            ),
+                            onTap: () =>
+                                setState(() => _selectedDropdownItem = 'three'),
+                            isSelected: _selectedDropdownItem == 'three',
+                            value: 'three',
+                            selectable: true,
+                            label: Text('three'),
                           ),
-                          value: 'three',
-                          selectable: true,
-                          label: Text('three'),
-                          trailing: Icon(
-                            Icons.check_circle,
-                            color: Colors.red,
+                          UIKitDropdownMenuItem(
+                            sizeScheme: UIKitSizeScheme(
+                              height: 16,
+                              width: 16,
+                            ),
+                            onTap: () =>
+                                setState(() => _selectedDropdownItem = 'four'),
+                            isSelected: _selectedDropdownItem == 'four',
+                            value: 'four',
+                            selectable: true,
+                            label: Text('four'),
                           ),
-                        ),
-                        UIKitDropdownMenuItem(
-                          sizeScheme: UIKitSizeScheme(
-                            height: 16,
-                            width: 16,
-                          ),
-                          value: 'four',
-                          selectable: true,
-                          label: Text('four'),
-                          trailing: Icon(
-                            Icons.check_circle,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
