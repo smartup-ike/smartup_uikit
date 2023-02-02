@@ -133,10 +133,11 @@ class _DropdownRoute<T> extends PopupRoute<T> {
   Duration get transitionDuration => const Duration(milliseconds: 200);
 }
 
-class UIKitDropdownButton extends HookWidget {
+class UIKitDropdownButton<T> extends HookWidget {
   const UIKitDropdownButton({
     Key? key,
     required this.child,
+    this.onTap,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
@@ -147,6 +148,7 @@ class UIKitDropdownButton extends HookWidget {
   }) : super(key: key);
 
   final Widget child;
+  final T? Function(RelativeRect position)? onTap;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
@@ -227,28 +229,29 @@ class UIKitDropdownButton extends HookWidget {
         onTap: isDisabled
             ? () {}
             : () async {
+                const offset = Offset.zero;
                 final box = context.findRenderObject()! as RenderBox;
                 final RenderBox overlay = Navigator.of(context)
                     .overlay!
                     .context
                     .findRenderObject()! as RenderBox;
-                const offset = Offset.zero;
                 final RelativeRect position = RelativeRect.fromRect(
                   Rect.fromPoints(
                     box.localToGlobal(offset, ancestor: overlay),
                     box.localToGlobal(
-                      box.size.bottomRight(Offset.zero) + offset,
+                      box.size.bottomRight(offset) + offset,
                       ancestor: overlay,
                     ),
                   ),
-                  Offset.zero & overlay.size,
+                  offset & overlay.size,
                 );
-                Navigator.of(context).push(
-                  _DropdownRoute(
-                    child: child,
-                    position: position,
-                  ),
-                );
+                onTap?.call(position);
+                // Navigator.of(context).push<T>(
+                //   _DropdownRoute<T>(
+                //     child: child,
+                //     position: position,
+                //   ),
+                // );
               },
         onTapDown: (_) {
           if (!isDisabled) {
