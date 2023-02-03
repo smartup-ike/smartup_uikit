@@ -353,8 +353,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             const SizedBox(height: 8),
-            const LeaveTypeSelector(),
-            const SizedBox(height: 8),
             UIKitTextInput.filledInput(
               controller: controller,
               focusNode: focusNode,
@@ -412,6 +410,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             const SizedBox(height: 8),
+            Row(
+              children: const [
+                SizedBox(width: 50),
+                Expanded(child: LeaveTypeSelector()),
+              ],
+            ),
           ],
         ),
       ),

@@ -53,8 +53,8 @@ class UIKitDropdownMenu<T> extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    required this.width,
-    required this.height,
+    this.width,
+    this.height,
   }) : assert(
           options.length == labels.length,
           'There must be exactly one label for each option!',
@@ -70,8 +70,8 @@ class UIKitDropdownMenu<T> extends HookWidget {
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

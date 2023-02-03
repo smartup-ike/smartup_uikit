@@ -11,8 +11,9 @@ import 'uikit_icon_theme.dart';
 
 class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
   final RelativeRect position;
+  final Size size;
 
-  _DropdownRouteChildDelegate(this.position);
+  _DropdownRouteChildDelegate(this.position, this.size);
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
@@ -85,8 +86,10 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return BoxConstraints.loose(constraints.biggest).deflate(
-      const EdgeInsets.all(16),
+    return BoxConstraints(
+      maxWidth: size.width,
+      maxHeight:
+          position.top > position.bottom ? position.top : position.bottom,
     );
   }
 
@@ -99,10 +102,12 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
 class DropdownRoute<T> extends PopupRoute<T> {
   final Widget child;
   final RelativeRect position;
+  final Size size;
 
   DropdownRoute({
     required this.child,
     required this.position,
+    required this.size,
   });
   @override
   Color? get barrierColor => Colors.transparent;
@@ -120,7 +125,7 @@ class DropdownRoute<T> extends PopupRoute<T> {
     Animation<double> secondaryAnimation,
   ) {
     return CustomSingleChildLayout(
-      delegate: _DropdownRouteChildDelegate(position),
+      delegate: _DropdownRouteChildDelegate(position, size),
       child: ScaleTransition(
         alignment: Alignment.topCenter,
         scale: animation,
@@ -148,7 +153,7 @@ class UIKitDropdownButton<T> extends HookWidget {
   }) : super(key: key);
 
   final Widget child;
-  final Future<T?> Function(RelativeRect position)? onTap;
+  final Future<T?> Function(RelativeRect position, Size size)? onTap;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
@@ -245,13 +250,8 @@ class UIKitDropdownButton<T> extends HookWidget {
                   ),
                   offset & overlay.size,
                 );
-                onTap?.call(position);
-                // Navigator.of(context).push<T>(
-                //   _DropdownRoute<T>(
-                //     child: child,
-                //     position: position,
-                //   ),
-                // );
+                final size = box.size;
+                onTap?.call(position, size);
               },
         onTapDown: (_) {
           if (!isDisabled) {
