@@ -9,24 +9,31 @@ class LeaveTypeSelector extends StatefulWidget {
 }
 
 class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
-  String? _selectedValue;
+  late List<String?> _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = [];
+  }
 
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownButton<String?>(
-      label: Text(_selectedValue.toString()),
+      label: Text(_selectedValue.join(', ')),
       isDisabled: false,
       trailing: const Icon(Icons.report_gmailerrorred),
       child: SelectionDialog(
         initialValue: _selectedValue,
       ),
       onTap: (position) async {
-        _selectedValue = await Navigator.of(context).push<String?>(
+        _selectedValue = (await Navigator.of(context).push<List<String?>>(
           DropdownRoute(
             child: SelectionDialog(initialValue: _selectedValue),
             position: position,
           ),
-        );
+        ))!;
+        print(_selectedValue.toString());
         setState(() {});
         return;
       },
@@ -35,15 +42,15 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
 }
 
 class SelectionDialog extends StatefulWidget {
-  const SelectionDialog({super.key, this.initialValue});
-  final String? initialValue;
+  const SelectionDialog({super.key, this.initialValue = const []});
+  final List<String?> initialValue;
 
   @override
   State<SelectionDialog> createState() => _SelectionDialogState();
 }
 
 class _SelectionDialogState extends State<SelectionDialog> {
-  late String? _value;
+  late List<String?> _value;
 
   @override
   void initState() {
@@ -67,6 +74,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
           labelText: const Text('Cancel'),
           onTap: () => Navigator.of(context).pop(widget.initialValue),
         ),
+        const SizedBox(width: 8),
         UIKitButton.ghost(
           labelText: const Text('Ok'),
           onTap: () => Navigator.of(context).pop(_value),
