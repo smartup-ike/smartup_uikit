@@ -96,11 +96,11 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
   }
 }
 
-class _DropdownRoute<T> extends PopupRoute<T> {
+class DropdownRoute<T> extends PopupRoute<T> {
   final Widget child;
   final RelativeRect position;
 
-  _DropdownRoute({
+  DropdownRoute({
     required this.child,
     required this.position,
   });
@@ -148,7 +148,7 @@ class UIKitDropdownButton<T> extends HookWidget {
   }) : super(key: key);
 
   final Widget child;
-  final T? Function(RelativeRect position)? onTap;
+  final Future<T?> Function(RelativeRect position)? onTap;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;

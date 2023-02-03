@@ -38,4 +38,4 @@ export 'package:smartup_uikit/src/uikit_dropdown_menu.dart'
     show UIKitDropdownMenu, UIKitDropdownMenuItem;
 
 export 'package:smartup_uikit/src/uikit_dropdown_button.dart'
-    show UIKitDropdownButton;
+    show UIKitDropdownButton, DropdownRoute;

@@ -44,21 +44,28 @@ class UIKitDropdownMenu<T> extends HookWidget {
     super.key,
     this.value,
     required this.onChange,
-    this.children = const [],
+    this.options = const [],
+    this.labels = const [],
     this.actions = const [],
     required this.multiselect,
+    this.itemTrailing,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
     required this.width,
     required this.height,
-  });
+  }) : assert(
+          options.length == labels.length,
+          'There must be exactly one label for each option!',
+        );
 
   final T? value;
   final ValueChanged<T?> onChange;
-  final List<UIKitDropdownMenuItem<T>> children;
+  final List<T> options;
+  final List<Widget> labels;
   final List<Widget> actions;
   final bool multiselect;
+  final Widget? itemTrailing;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
@@ -67,6 +74,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentValue$ = useState(value);
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
@@ -78,12 +86,40 @@ class UIKitDropdownMenu<T> extends HookWidget {
             border: Border.all(),
             borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ?? 8),
           ),
-          child: ListView.builder(
+          child: ListView(
             padding: sizeScheme?.padding,
-            itemBuilder: (context, index) {
-              return children[index];
-            },
-            itemCount: children.length,
+            children: [
+              for (int i = 0; i < options.length; i++) ...[
+                UIKitDropdownMenuItem<T>(
+                  label: labels[i],
+                  value: options[i],
+                  onTap: () {
+                    currentValue$.value = options[i];
+                    onChange.call(options[i]);
+                  },
+                  multiselect: multiselect,
+                  isSelected: currentValue$.value == options[i],
+                  trailing: multiselect ? null : itemTrailing,
+                  colorScheme: UIKitColorScheme(
+                    defaultBackgroundColor: Colors.red,
+                    hoverBackgroundColor: Colors.blue,
+                    focusedBackgroundColor: Colors.purple,
+                    activeBackgroundColor: Colors.teal,
+                    disabledBackgroundColor: Colors.grey,
+                    defaultContentColor: Colors.white,
+                    hoverContentColor: Colors.green,
+                    focusedContentColor: Colors.red,
+                    activeContentColor: Colors.orange,
+                    disabledContentColor: Colors.grey,
+                    defaultBorderColor: Colors.black,
+                    hoverBorderColor: Colors.black,
+                    focusedBorderColor: Colors.black,
+                    activeBorderColor: Colors.black,
+                    disabledBorderColor: Colors.black,
+                  ),
+                ),
+              ]
+            ],
           ),
         ),
         Padding(
@@ -106,13 +142,13 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     this.label,
     this.trailing,
     this.children,
-    required this.selectable,
+    required this.multiselect,
     required this.isSelected,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
   }) : assert(
-          selectable ^ (trailing != null),
+          multiselect ^ (trailing != null),
           'Either \'selectable\' is true and the widget has a checkbox or it has a trailing widget, not both.',
         );
 
@@ -121,7 +157,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
   final Widget? label;
   final Widget? trailing;
   final List<UIKitDropdownMenuItem<T>>? children;
-  final bool selectable;
+  final bool multiselect;
   final bool isSelected;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
@@ -136,10 +172,14 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
       child: GestureDetector(
         onTap: onTap,
         child: ColoredBox(
-          color: colorScheme?.defaultBackgroundColor ?? Colors.transparent,
+          color: isHovered$.value
+              ? colorScheme?.hoverBackgroundColor ?? Colors.transparent
+              : isSelected
+                  ? colorScheme?.activeBackgroundColor ?? Colors.transparent
+                  : colorScheme?.defaultBackgroundColor ?? Colors.transparent,
           child: Row(
             children: [
-              if (selectable) ...[
+              if (multiselect) ...[
                 UIKitCheckbox(
                   isChecked: isSelected,
                   icon: const Icon(
