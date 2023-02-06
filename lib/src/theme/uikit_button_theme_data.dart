@@ -35,7 +35,7 @@ class UIKitButtonThemeData {
     UIKitColorScheme? ghostColorScheme,
     UIKitColorScheme? solidIconColorScheme,
     UIKitColorScheme? ghostIconColorScheme,
-    UIKitSizeScheme? typography,
+    UIKitSizeScheme? sizeScheme,
   }) {
     // Sets default color schemes.
     primaryColorScheme ??= UIKitColorScheme.defaultScheme();
@@ -46,7 +46,7 @@ class UIKitButtonThemeData {
     ghostColorScheme ??= UIKitColorScheme.defaultScheme();
     solidIconColorScheme ??= UIKitColorScheme.defaultScheme();
     ghostIconColorScheme ??= UIKitColorScheme.defaultScheme();
-    typography ??= UIKitSizeScheme.defaultScheme();
+    sizeScheme ??= UIKitSizeScheme.defaultScheme();
 
     return UIKitButtonThemeData.raw(
       primaryColorScheme: primaryColorScheme,
@@ -57,7 +57,7 @@ class UIKitButtonThemeData {
       ghostColorScheme: ghostColorScheme,
       solidIconColorScheme: solidIconColorScheme,
       ghostIconColorScheme: ghostIconColorScheme,
-      sizeScheme: typography,
+      sizeScheme: sizeScheme,
     );
   }
 

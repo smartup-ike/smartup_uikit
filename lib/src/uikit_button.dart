@@ -277,7 +277,7 @@ class UIKitButton extends HookWidget {
                 buttonTheme.sizeScheme.borderRadius ??
                 8),
             border: Border.all(
-              strokeAlign: StrokeAlign.outside,
+              strokeAlign: BorderSide.strokeAlignOutside,
               width: sizeScheme?.pressedBorderSize ??
                   buttonTheme.sizeScheme.pressedBorderSize ??
                   0,
@@ -295,7 +295,7 @@ class UIKitButton extends HookWidget {
                   buttonTheme.sizeScheme.borderRadius ??
                   8),
               border: Border.all(
-                strokeAlign: StrokeAlign.outside,
+                strokeAlign: BorderSide.strokeAlignOutside,
                 width: sizeScheme?.borderSize ??
                     buttonTheme.sizeScheme.borderSize ??
                     0,
