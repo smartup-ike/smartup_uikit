@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+
+class ExampleColors {
+  static Color get primary30 => const Color(0xFFFFF7F7);
+  static Color get primary50 => const Color(0xFFFFF0F1);
+  static Color get primary100 => const Color(0xFFFFE1E3);
+  static Color get primary200 => const Color(0xFFFDB0B5);
+  static Color get primary300 => const Color(0xFFFA959C);
+  static Color get primary400 => const Color(0xFFF5757D);
+  static Color get primary500 => const Color(0xFFF07087);
+  static Color get primary600 => const Color(0xFFE9405E);
+  static Color get primary700 => const Color(0xFFD81A3C);
+  static Color get primary800 => const Color(0xFFC00E2E);
+  static Color get primary900 => const Color(0xFFA0031F);
+  static Color get primaryK => const Color(0xFF640012);
+  static Color get secondaryW => const Color(0xFFFFFFFF);
+  static Color get secondary30 => const Color(0xFFF5F5FF);
+  static Color get secondary50 => const Color(0xFFF1F1FB);
+  static Color get secondary100 => const Color(0xFFE8E8F3);
+  static Color get secondary200 => const Color(0xFFD5D5E6);
+  static Color get secondary300 => const Color(0xFFB1B1BF);
+  static Color get secondary400 => const Color(0xFF83838D);
+  static Color get secondary500 => const Color(0xFF6B6B75);
+  static Color get secondary600 => const Color(0xFF575760);
+  static Color get secondary700 => const Color(0xFF3F3F47);
+  static Color get secondary800 => const Color(0xFF2F2F37);
+  static Color get secondary900 => const Color(0xFF212126);
+  static Color get secondaryK => const Color(0xFF121214);
+  static Color get success50 => const Color(0xFFF0FCF9);
+  static Color get success100 => const Color(0xFFC5EFE6);
+  static Color get success300 => const Color(0xFF66EBCE);
+  static Color get success500 => const Color(0xFF4EDBB9);
+  static Color get success700 => const Color(0xFF0ECB9D);
+  static Color get success800 => const Color(0xFF0CB089);
+  static Color get warning50 => const Color(0xFFFBF0EA);
+  static Color get warning100 => const Color(0xFFFEE8DB);
+  static Color get warning300 => const Color(0xFFFFCDB0);
+  static Color get warning500 => const Color(0xFFF89F6D);
+  static Color get warning700 => const Color(0xFFE7702D);
+  static Color get warning800 => const Color(0xFFCF530D);
+}
