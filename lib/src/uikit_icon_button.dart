@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'helpers/uikit_sizes.dart';
+import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'theme/uikit_theme.dart';
@@ -11,30 +13,77 @@ class UIKitIconButton extends StatelessWidget {
     this.onTap,
     this.sizeScheme,
     this.colorScheme,
-    this.hasShadow,
+    this.shadowScheme,
     this.buttonType,
+    this.buttonSize,
     this.isCircle = false,
   }) : super(key: key);
 
-  const UIKitIconButton.primary({
+  const UIKitIconButton.smallSolid({
     super.key,
     required this.icon,
     this.onTap,
     this.sizeScheme,
     this.colorScheme,
-    this.hasShadow,
+    this.shadowScheme,
     this.isCircle = false,
-  }) : buttonType = UIKitButtonType.primary;
+  })  : buttonType = UIKitButtonType.primary,
+        buttonSize = UIKitSizes.small;
 
-  const UIKitIconButton.ghost({
+  const UIKitIconButton.smallGhost({
     super.key,
     required this.icon,
     this.onTap,
     this.sizeScheme,
     this.colorScheme,
-    this.hasShadow,
+    this.shadowScheme,
     this.isCircle = false,
-  }) : buttonType = UIKitButtonType.ghost;
+  })  : buttonType = UIKitButtonType.ghost,
+        buttonSize = UIKitSizes.small;
+
+  const UIKitIconButton.mediumSolid({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.isCircle = false,
+  })  : buttonType = UIKitButtonType.primary,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitIconButton.mediumGhost({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.isCircle = false,
+  })  : buttonType = UIKitButtonType.ghost,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitIconButton.largeSolid({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.isCircle = false,
+  })  : buttonType = UIKitButtonType.primary,
+        buttonSize = UIKitSizes.large;
+
+  const UIKitIconButton.largeGhost({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.isCircle = false,
+  })  : buttonType = UIKitButtonType.ghost,
+        buttonSize = UIKitSizes.large;
 
   /// Function that is called on button tap.
   ///
@@ -47,13 +96,13 @@ class UIKitIconButton extends StatelessWidget {
   /// [UIKitColorScheme] an object containing different colors for all the button's states
   final UIKitColorScheme? colorScheme;
 
+  /// [UIKitShadowScheme] an object containing different shadows for all the button's states
+  final UIKitShadowScheme? shadowScheme;
+
   /// [Widget] for the icon.
   ///
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget icon;
-
-  /// Boolean indicating whether the button has shadow
-  final bool? hasShadow;
 
   /// Type of the button [UIKitButtonType]
   ///
@@ -62,6 +111,11 @@ class UIKitIconButton extends StatelessWidget {
   /// * ghost
   final UIKitButtonType? buttonType;
 
+  /// [UIKitSizes]
+  /// Must be null by default.
+  /// Use named constructors to change the value.
+  final UIKitSizes? buttonSize;
+
   /// Makes the icon button circular.
   final bool isCircle;
 
@@ -69,36 +123,63 @@ class UIKitIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // Handles button colors according to buttonType.
     final buttonTheme = UIKitTheme.of(context).buttonThemeData;
-    UIKitColorScheme buttonColors;
-    switch (buttonType) {
-      case UIKitButtonType.primary:
-        buttonColors = buttonTheme.primaryColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-      case UIKitButtonType.ghost:
-        buttonColors =
-            buttonTheme.ghostColorScheme.copyWithScheme(newScheme: colorScheme);
-        break;
-      default:
-        buttonColors = buttonTheme.primaryColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
+    UIKitColorScheme colors;
+    UIKitShadowScheme shadows;
+    UIKitSizeScheme size;
+    if (colorScheme != null) {
+      colors = colorScheme!;
+    } else {
+      switch (buttonType) {
+        case UIKitButtonType.ghost:
+          colors = buttonTheme.ghostIconColors;
+
+          break;
+        default:
+          colors = buttonTheme.solidIconColors;
+
+          break;
+      }
     }
-    UIKitSizeScheme? temp = sizeScheme;
-    if (isCircle) {
-      temp =
-          sizeScheme?.copyWith(borderRadius: ((sizeScheme?.height ?? 0) * 2));
+    if (shadowScheme != null) {
+      shadows = shadowScheme!;
+    } else {
+      switch (buttonType) {
+        case UIKitButtonType.ghost:
+          shadows = buttonTheme.ghostIconShadows;
+          break;
+        default:
+          shadows = buttonTheme.solidIconShadows;
+          break;
+      }
     }
+    if (sizeScheme != null) {
+      size = sizeScheme!;
+    } else {
+      switch (buttonSize) {
+        case UIKitSizes.small:
+          size = buttonTheme.smallIconSize;
+          break;
+        case UIKitSizes.large:
+          size = buttonTheme.largeIconSize;
+          break;
+        default:
+          size = buttonTheme.mediumIconSize;
+          break;
+      }
+    }
+
     return SizedBox(
-      height: temp?.height,
-      width: temp?.height,
+      height: size.height,
+      width: size.height,
       child: UIKitButton(
         onTap: onTap,
         trailing: icon,
         labelText: const Text(''),
-        sizeScheme: temp,
-        colorScheme: buttonColors,
-        hasShadow: hasShadow,
+        sizeScheme: isCircle
+            ? size.copyWith(borderRadius: (size.height ?? 0) * 2)
+            : size,
+        colorScheme: colors,
+        shadowScheme: shadows,
         removePadding: true,
       ),
     );

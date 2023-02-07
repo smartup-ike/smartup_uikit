@@ -2,8 +2,9 @@ import 'package:example/constants/example_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
-UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
-  primaryColorScheme: UIKitColorScheme(
+UIKitThemeData kitThemeData = UIKitThemeData(
+    buttonThemeData: UIKitButtonThemeData(
+  primaryColors: UIKitColorScheme(
     defaultBackgroundColor: ExampleColors.primary700,
     hoverBackgroundColor: ExampleColors.primary800,
     focusedBackgroundColor: ExampleColors.primary800,
@@ -20,7 +21,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.secondaryW,
     disabledContentColor: ExampleColors.secondary300,
   ),
-  secondaryColorScheme: UIKitColorScheme(
+  secondaryColors: UIKitColorScheme(
     defaultBackgroundColor: ExampleColors.primary50,
     hoverBackgroundColor: ExampleColors.primary100,
     focusedBackgroundColor: ExampleColors.primary100,
@@ -37,7 +38,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.primary900,
     disabledContentColor: ExampleColors.primary700,
   ),
-  secondaryWhiteColorScheme: UIKitColorScheme(
+  secondaryWhiteColors: UIKitColorScheme(
     defaultBackgroundColor: ExampleColors.secondaryW,
     hoverBackgroundColor: ExampleColors.secondaryW,
     focusedBackgroundColor: ExampleColors.secondaryW,
@@ -54,7 +55,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.primary900,
     disabledContentColor: ExampleColors.primary700,
   ),
-  tertiaryColorScheme: UIKitColorScheme(
+  tertiaryColors: UIKitColorScheme(
     defaultBackgroundColor: ExampleColors.secondary50,
     hoverBackgroundColor: ExampleColors.secondary50,
     focusedBackgroundColor: ExampleColors.secondary200,
@@ -71,7 +72,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.secondaryK,
     disabledContentColor: ExampleColors.secondary700,
   ),
-  outlineColorScheme: UIKitColorScheme(
+  outlineColors: UIKitColorScheme(
     defaultBackgroundColor: ExampleColors.secondaryW,
     hoverBackgroundColor: ExampleColors.secondaryW,
     focusedBackgroundColor: ExampleColors.primary50,
@@ -88,7 +89,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.primary800,
     disabledContentColor: ExampleColors.primary700.withOpacity(0.3),
   ),
-  ghostColorScheme: UIKitColorScheme(
+  ghostColors: UIKitColorScheme(
     defaultBackgroundColor: Colors.transparent,
     hoverBackgroundColor: Colors.transparent,
     focusedBackgroundColor: Colors.transparent,
@@ -105,7 +106,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.primary900,
     disabledContentColor: ExampleColors.primary700.withOpacity(0.3),
   ),
-  solidIconColorScheme: UIKitColorScheme(
+  solidIconColors: UIKitColorScheme(
     defaultBackgroundColor: ExampleColors.primary700,
     hoverBackgroundColor: ExampleColors.primary800,
     focusedBackgroundColor: ExampleColors.primary800,
@@ -122,7 +123,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.secondaryW,
     disabledContentColor: ExampleColors.secondaryW.withOpacity(0.3),
   ),
-  ghostIconColorScheme: UIKitColorScheme(
+  ghostIconColors: UIKitColorScheme(
     defaultBackgroundColor: Colors.transparent,
     hoverBackgroundColor: ExampleColors.primary50,
     focusedBackgroundColor: ExampleColors.primary100,
@@ -139,8 +140,7 @@ UIKitButtonThemeData kButtonThemeData = UIKitButtonThemeData(
     activeContentColor: ExampleColors.primary900,
     disabledContentColor: ExampleColors.primary700.withOpacity(0.3),
   ),
-  sizeScheme: UIKitSizeScheme(),
-);
+));
 
 UIKitTextInputThemeData kitTextInputThemeData = UIKitTextInputThemeData(
   filledInputcolorScheme: UIKitColorScheme(

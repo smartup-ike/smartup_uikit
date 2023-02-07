@@ -1,6 +1,6 @@
-import 'package:example/leave_type_selector.dart';
+import 'constants/theme/example_theme_data_constants.dart';
+import 'leave_type_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UIKitTheme(
-      theme: _MyHomePageState.theme,
+      theme: kitThemeData,
       child: MaterialApp(
         title: 'Smartup UI Kit Example',
         theme: ThemeData(
@@ -44,63 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String? dropdownValue;
   TextEditingController controller = TextEditingController();
   late FocusNode focusNode;
-  static final theme = SUThemeData(
-    buttonThemeData: UIKitButtonThemeData(
-      primaryColorScheme: UIKitColorScheme(
-        defaultBackgroundColor: Colors.red,
-        hoverBackgroundColor: Colors.blue,
-        focusedBackgroundColor: Colors.purple,
-        activeBackgroundColor: Colors.teal,
-        disabledBackgroundColor: Colors.grey,
-        defaultContentColor: Colors.white,
-        hoverContentColor: Colors.green,
-        focusedContentColor: Colors.red,
-        activeContentColor: Colors.orange,
-        disabledContentColor: Colors.grey,
-        defaultBorderColor: Colors.black,
-        hoverBorderColor: Colors.black,
-        focusedBorderColor: Colors.black,
-        activeBorderColor: Colors.black,
-        disabledBorderColor: Colors.black,
-      ),
-      ghostColorScheme: UIKitColorScheme(
-        defaultBackgroundColor: Colors.red,
-        hoverBackgroundColor: Colors.blue,
-        focusedBackgroundColor: Colors.purple,
-        activeBackgroundColor: Colors.teal,
-        disabledBackgroundColor: Colors.grey,
-        defaultContentColor: Colors.white,
-        hoverContentColor: Colors.green,
-        focusedContentColor: Colors.red,
-        activeContentColor: Colors.orange,
-        disabledContentColor: Colors.grey,
-        defaultBorderColor: Colors.black,
-        hoverBorderColor: Colors.black,
-        focusedBorderColor: Colors.black,
-        activeBorderColor: Colors.black,
-        disabledBorderColor: Colors.black,
-      ),
-    ),
-    textInputThemeData: UIKitTextInputThemeData(
-      filledInputcolorScheme: UIKitColorScheme(
-        defaultBackgroundColor: Colors.red,
-        hoverBackgroundColor: Colors.blue,
-        focusedBackgroundColor: Colors.purple,
-        activeBackgroundColor: Colors.teal,
-        disabledBackgroundColor: Colors.grey,
-        defaultContentColor: Colors.white,
-        hoverContentColor: Colors.green,
-        focusedContentColor: Colors.red,
-        activeContentColor: Colors.orange,
-        disabledContentColor: Colors.grey,
-        defaultBorderColor: Colors.black,
-        hoverBorderColor: Colors.black,
-        focusedBorderColor: Colors.black,
-        activeBorderColor: Colors.black,
-        disabledBorderColor: Colors.black,
-      ),
-    ),
-  );
 
   @override
   void initState() {
@@ -129,13 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UIKitButton.primary(
+                UIKitButton.mediumPrimary(
                   labelText: const Text('Button'),
                   removePadding: false,
                   onTap: () {},
                 ),
                 const SizedBox(width: 12),
-                UIKitIconButton.primary(
+                UIKitIconButton.largeSolid(
                   icon: const UIKitIcon.asset('assets/images/url.svg'),
                   sizeScheme: UIKitSizeScheme(
                     height: 40,

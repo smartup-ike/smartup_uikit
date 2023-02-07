@@ -70,12 +70,12 @@ class _SelectionDialogState extends State<SelectionDialog> {
       multiselect: false,
       itemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
       actions: [
-        UIKitButton.ghost(
+        UIKitButton.smallGhost(
           labelText: const Text('Cancel'),
           onTap: () => Navigator.of(context).pop(widget.initialValue),
         ),
         const SizedBox(width: 8),
-        UIKitButton.ghost(
+        UIKitButton.smallGhost(
           labelText: const Text('Ok'),
           onTap: () => Navigator.of(context).pop(_value),
         ),

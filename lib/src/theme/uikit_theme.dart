@@ -15,51 +15,51 @@ class UIKitTheme extends StatelessWidget {
   }) : super(key: key);
 
   /// Specifies the color and typography values for descendant widgets.
-  final SUThemeData theme;
+  final UIKitThemeData theme;
 
   /// The widget below this widget in the tree.
   final Widget child;
 
-  static SUThemeData of(BuildContext context) {
-    final SUThemeData? result = maybeOf(context);
+  static UIKitThemeData of(BuildContext context) {
+    final UIKitThemeData? result = maybeOf(context);
     assert(result != null, 'No ThemeData found in context');
     return result!;
   }
 
-  static SUThemeData? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_SUTheme>()?.data;
+  static UIKitThemeData? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_UIKitTheme>()?.data;
   }
 
   @override
   Widget build(BuildContext context) {
-    return _SUTheme(
+    return _UIKitTheme(
       data: theme,
       child: child,
     );
   }
 }
 
-class _SUTheme extends InheritedTheme {
-  const _SUTheme({
+class _UIKitTheme extends InheritedTheme {
+  const _UIKitTheme({
     Key? key,
     required this.data,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final SUThemeData data;
+  final UIKitThemeData data;
 
   @override
-  bool updateShouldNotify(covariant _SUTheme oldWidget) =>
+  bool updateShouldNotify(covariant _UIKitTheme oldWidget) =>
       oldWidget.data != data;
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    return _SUTheme(data: data, child: child);
+    return _UIKitTheme(data: data, child: child);
   }
 }
 
 @immutable
-class SUThemeData {
+class UIKitThemeData {
   final UIKitButtonThemeData buttonThemeData;
   final UIKitRadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
@@ -68,7 +68,7 @@ class SUThemeData {
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
 
-  const SUThemeData.raw({
+  const UIKitThemeData.raw({
     required this.buttonThemeData,
     required this.radioButtonThemeData,
     required this.tabThemeData,
@@ -78,7 +78,7 @@ class SUThemeData {
     required this.menuItemThemeData,
   });
 
-  factory SUThemeData({
+  factory UIKitThemeData({
     UIKitButtonThemeData? buttonThemeData,
     UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
@@ -95,7 +95,7 @@ class SUThemeData {
     textInputThemeData ??= UIKitTextInputThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
 
-    return SUThemeData.raw(
+    return UIKitThemeData.raw(
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
       tabThemeData: tabThemeData,
@@ -106,7 +106,7 @@ class SUThemeData {
     );
   }
 
-  SUThemeData copyWith({
+  UIKitThemeData copyWith({
     UIKitButtonThemeData? buttonThemeData,
     UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
@@ -115,7 +115,7 @@ class SUThemeData {
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
   }) {
-    return SUThemeData.raw(
+    return UIKitThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
       radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
       tabThemeData: tabThemeData ?? this.tabThemeData,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smartup_uikit/src/uikit_icon_theme.dart';
 
 class UIKitSizeScheme {
   factory UIKitSizeScheme({
@@ -41,7 +40,7 @@ class UIKitSizeScheme {
 
   UIKitSizeScheme.defaultScheme() {
     height = 40;
-    iconSize = UIKitIconSize.size16;
+    iconSize = 16;
     spacing = 8;
     borderSize = 1;
     borderRadius = 4;
