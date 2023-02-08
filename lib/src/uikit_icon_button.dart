@@ -132,11 +132,9 @@ class UIKitIconButton extends StatelessWidget {
       switch (buttonType) {
         case UIKitButtonType.ghost:
           colors = buttonTheme.ghostIconColors;
-
           break;
         default:
           colors = buttonTheme.solidIconColors;
-
           break;
       }
     }
@@ -168,19 +166,15 @@ class UIKitIconButton extends StatelessWidget {
       }
     }
 
-    return SizedBox(
-      height: size.height,
-      width: size.height,
-      child: UIKitButton(
-        onTap: onTap,
-        trailing: icon,
-        labelText: const Text(''),
-        sizeScheme: isCircle
-            ? size.copyWith(borderRadius: (size.height ?? 0) * 2)
-            : size,
-        colorScheme: colors,
-        shadowScheme: shadows,
-      ),
+    return UIKitButton(
+      onTap: onTap,
+      trailing: icon,
+      labelText: const Text(''),
+      sizeScheme: isCircle ? size.copyWith(borderRadius: 50) : size,
+      colorScheme: colors,
+      shadowScheme: shadows,
     );
   }
+
+  // TODO: Find problem with hovering
 }
