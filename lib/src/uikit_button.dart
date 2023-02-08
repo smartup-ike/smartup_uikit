@@ -35,7 +35,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
     this.buttonType,
     this.buttonSize,
   })  : assert(
@@ -56,7 +55,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.primary,
         buttonSize = UIKitSizes.small;
 
@@ -69,7 +67,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.secondary,
         buttonSize = UIKitSizes.small;
 
@@ -82,7 +79,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.secondaryWhite,
         buttonSize = UIKitSizes.small;
 
@@ -95,7 +91,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.tertiary,
         buttonSize = UIKitSizes.small;
 
@@ -108,7 +103,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.outline,
         buttonSize = UIKitSizes.small;
 
@@ -121,7 +115,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.ghost,
         buttonSize = UIKitSizes.small;
 
@@ -134,7 +127,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.primary,
         buttonSize = UIKitSizes.medium;
 
@@ -147,7 +139,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.secondary,
         buttonSize = UIKitSizes.medium;
 
@@ -160,7 +151,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.secondaryWhite,
         buttonSize = UIKitSizes.medium;
 
@@ -173,7 +163,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.tertiary,
         buttonSize = UIKitSizes.medium;
 
@@ -186,7 +175,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.outline,
         buttonSize = UIKitSizes.medium;
 
@@ -199,7 +187,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.ghost,
         buttonSize = UIKitSizes.medium;
 
@@ -212,7 +199,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.primary,
         buttonSize = UIKitSizes.large;
 
@@ -225,7 +211,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.secondary,
         buttonSize = UIKitSizes.large;
 
@@ -238,7 +223,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.secondaryWhite,
         buttonSize = UIKitSizes.large;
 
@@ -251,7 +235,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.tertiary,
         buttonSize = UIKitSizes.large;
 
@@ -264,7 +247,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.outline,
         buttonSize = UIKitSizes.large;
 
@@ -277,7 +259,6 @@ class UIKitButton extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.removePadding = false,
   })  : buttonType = UIKitButtonType.ghost,
         buttonSize = UIKitSizes.large;
 
@@ -312,9 +293,6 @@ class UIKitButton extends HookWidget {
   /// [UIKitShadowScheme] containing information about the shadows for all the
   /// different states.
   final UIKitShadowScheme? shadowScheme;
-
-  /// Boolean of the button to remove initial padding.
-  final bool? removePadding;
 
   /// Type of the button [UIKitButtonType]
   ///
@@ -359,7 +337,7 @@ class UIKitButton extends HookWidget {
     Color? borderColor;
     List<BoxShadow>? shadows;
 
-    // Change the color of the button according to state
+    // Change color and shadow according to state
     switch (state$.value) {
       case UIKitState.defaultState:
         backgroundColor = colors$.value.defaultBackgroundColor;
@@ -432,59 +410,47 @@ class UIKitButton extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          padding: size$.value.padding,
           decoration: BoxDecoration(
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
-              strokeAlign: BorderSide.strokeAlignOutside,
+              strokeAlign: BorderSide.strokeAlignInside,
               width: size$.value.borderSize ?? 0,
               color: borderColor ?? Colors.transparent,
             ),
+            boxShadow: shadows,
           ),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius:
-                  BorderRadius.circular(size$.value.borderRadius ?? 8),
-              border: Border.all(
-                strokeAlign: BorderSide.strokeAlignOutside,
-                width: size$.value.borderSize ?? 0,
-                color: borderColor ?? Colors.transparent,
-              ),
-              boxShadow: shadows,
-            ),
-            height: size$.value.height,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!removePadding!) const SizedBox(width: 10),
-                if (leading != null) ...[
-                  UIKitIconTheme(
-                    color: contentColor,
-                    size: size$.value.leadingSize,
-                    child: leading!,
-                  ),
-                  const SizedBox(width: 10),
-                ],
-                DefaultTextStyle(
-                  style:
-                      size$.value.labelStyle?.copyWith(color: contentColor) ??
-                          TextStyle(color: contentColor),
-                  child: labelText ?? const Text('Button'),
+          height: size$.value.height,
+          width: size$.value.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (leading != null) ...[
+                UIKitIconTheme(
+                  color: contentColor,
+                  size: size$.value.leadingSize,
+                  child: leading!,
                 ),
-                if (!removePadding!) const SizedBox(width: 10),
-                if (trailing != null) ...[
-                  UIKitIconTheme(
-                    color: contentColor,
-                    size: size$.value.leadingSize,
-                    child: trailing!,
-                  ),
-                  if (!removePadding!) const SizedBox(width: 10),
-                ],
+                SizedBox(width: size$.value.spacing),
               ],
-            ),
+              DefaultTextStyle(
+                style: size$.value.labelStyle?.copyWith(color: contentColor) ??
+                    TextStyle(color: contentColor),
+                child: labelText ?? const Text('Button'),
+              ),
+              if (trailing != null) ...[
+                SizedBox(width: size$.value.spacing),
+                UIKitIconTheme(
+                  color: contentColor,
+                  size: size$.value.trailingSize,
+                  child: trailing!,
+                ),
+              ],
+            ],
           ),
         ),
       ),

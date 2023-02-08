@@ -72,9 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UIKitButton.mediumPrimary(
+                UIKitButton.largeOutline(
                   labelText: const Text('Button'),
-                  removePadding: false,
+                  leading: UIKitIcon.asset('assets/images/url.svg'),
                   onTap: () {},
                 ),
                 const SizedBox(width: 12),
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderSize: 1,
                     borderRadius: 8,
                   ),
-                  isCircle: true,
+                  isCircle: false,
                   onTap: () {},
                 ),
               ],

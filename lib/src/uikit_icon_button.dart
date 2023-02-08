@@ -180,7 +180,6 @@ class UIKitIconButton extends StatelessWidget {
             : size,
         colorScheme: colors,
         shadowScheme: shadows,
-        removePadding: true,
       ),
     );
   }

@@ -11,7 +11,7 @@ class UIKitSizeScheme {
   double? secondarySpacing;
   double? borderSize;
   double? borderRadius;
-  EdgeInsets? padding;
+  EdgeInsetsGeometry? padding;
   TextStyle? labelStyle;
   TextStyle? focusedLabelStyle;
   TextStyle? inputStyle;
