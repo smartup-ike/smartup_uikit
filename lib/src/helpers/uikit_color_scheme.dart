@@ -7,16 +7,25 @@ class UIKitColorScheme {
     Color? focusedBackgroundColor,
     Color? activeBackgroundColor,
     Color? disabledBackgroundColor,
+    Color? errorBackgroundColor,
     Color? defaultContentColor,
     Color? hoverContentColor,
     Color? focusedContentColor,
     Color? activeContentColor,
     Color? disabledContentColor,
+    Color? errorContentColor,
+    Color? defaultSecondaryContentColor,
+    Color? hoverSecondaryContentColor,
+    Color? focusedSecondaryContentColor,
+    Color? activeSecondaryContentColor,
+    Color? disabledSecondaryContentColor,
+    Color? errorSecondaryContentColor,
     Color? defaultBorderColor,
     Color? hoverBorderColor,
     Color? focusedBorderColor,
     Color? activeBorderColor,
     Color? disabledBorderColor,
+    Color? errorBorderColor,
   }) {
     var temp = UIKitColorScheme.defaultScheme().copyWith(
       defaultBackgroundColor: defaultBackgroundColor,
@@ -24,16 +33,25 @@ class UIKitColorScheme {
       focusedBackgroundColor: focusedBackgroundColor,
       activeBackgroundColor: activeBackgroundColor,
       disabledBackgroundColor: disabledBackgroundColor,
+      errorBackgroundColor: errorBackgroundColor,
       defaultContentColor: defaultContentColor,
       hoverContentColor: hoverContentColor,
       focusedContentColor: focusedContentColor,
       activeContentColor: activeContentColor,
       disabledContentColor: disabledContentColor,
+      errorContentColor: errorContentColor,
+      defaultSecondaryContentColor: defaultSecondaryContentColor,
+      hoverSecondaryContentColor: hoverSecondaryContentColor,
+      focusedSecondaryContentColor: focusedSecondaryContentColor,
+      activeSecondaryContentColor: activeSecondaryContentColor,
+      disabledSecondaryContentColor: disabledSecondaryContentColor,
+      errorSecondaryContentColor: errorSecondaryContentColor,
       defaultBorderColor: defaultBorderColor,
       hoverBorderColor: hoverBorderColor,
       focusedBorderColor: focusedBorderColor,
       activeBorderColor: activeBorderColor,
       disabledBorderColor: disabledBorderColor,
+      errorBorderColor: errorBorderColor,
     );
 
     return UIKitColorScheme._(
@@ -42,16 +60,25 @@ class UIKitColorScheme {
       focusedBackgroundColor: temp.focusedBackgroundColor,
       activeBackgroundColor: temp.activeBackgroundColor,
       disabledBackgroundColor: temp.disabledBackgroundColor,
+      errorBackgroundColor: temp.errorBackgroundColor,
       defaultContentColor: temp.defaultContentColor,
       hoverContentColor: temp.hoverContentColor,
       focusedContentColor: temp.focusedContentColor,
       activeContentColor: temp.activeContentColor,
       disabledContentColor: temp.disabledContentColor,
+      errorContentColor: temp.errorContentColor,
+      defaultSecondaryContentColor: temp.defaultSecondaryContentColor,
+      hoverSecondaryContentColor: temp.hoverSecondaryContentColor,
+      focusedSecondaryContentColor: temp.focusedSecondaryContentColor,
+      activeSecondaryContentColor: temp.activeSecondaryContentColor,
+      disabledSecondaryContentColor: temp.disabledSecondaryContentColor,
+      errorSecondaryContentColor: temp.errorSecondaryContentColor,
       defaultBorderColor: temp.defaultBorderColor,
       hoverBorderColor: temp.hoverBorderColor,
       focusedBorderColor: temp.focusedBorderColor,
       activeBorderColor: temp.activeBorderColor,
       disabledBorderColor: temp.disabledBorderColor,
+      errorBorderColor: temp.errorBorderColor,
     );
   }
 
@@ -61,16 +88,25 @@ class UIKitColorScheme {
     this.focusedBackgroundColor,
     this.activeBackgroundColor,
     this.disabledBackgroundColor,
+    this.errorBackgroundColor,
     this.defaultContentColor,
     this.hoverContentColor,
     this.focusedContentColor,
     this.activeContentColor,
     this.disabledContentColor,
+    this.errorContentColor,
+    this.defaultSecondaryContentColor,
+    this.hoverSecondaryContentColor,
+    this.focusedSecondaryContentColor,
+    this.activeSecondaryContentColor,
+    this.disabledSecondaryContentColor,
+    this.errorSecondaryContentColor,
     this.defaultBorderColor,
     this.hoverBorderColor,
     this.focusedBorderColor,
     this.activeBorderColor,
     this.disabledBorderColor,
+    this.errorBorderColor,
   });
 
   /// Default color scheme. (All black for now)
@@ -100,16 +136,25 @@ class UIKitColorScheme {
     Color? focusedBackgroundColor,
     Color? activeBackgroundColor,
     Color? disabledBackgroundColor,
+    Color? errorBackgroundColor,
     Color? defaultContentColor,
     Color? hoverContentColor,
     Color? focusedContentColor,
     Color? activeContentColor,
     Color? disabledContentColor,
+    Color? errorContentColor,
+    Color? defaultSecondaryContentColor,
+    Color? hoverSecondaryContentColor,
+    Color? focusedSecondaryContentColor,
+    Color? activeSecondaryContentColor,
+    Color? disabledSecondaryContentColor,
+    Color? errorSecondaryContentColor,
     Color? defaultBorderColor,
     Color? hoverBorderColor,
     Color? focusedBorderColor,
     Color? activeBorderColor,
     Color? disabledBorderColor,
+    Color? errorBorderColor,
   }) {
     return UIKitColorScheme._(
       defaultBackgroundColor:
@@ -121,16 +166,31 @@ class UIKitColorScheme {
           activeBackgroundColor ?? this.activeBackgroundColor,
       disabledBackgroundColor:
           disabledBackgroundColor ?? this.disabledBackgroundColor,
+      errorBackgroundColor: errorBackgroundColor ?? this.errorBackgroundColor,
       defaultContentColor: defaultContentColor ?? this.defaultContentColor,
       hoverContentColor: hoverContentColor ?? this.hoverContentColor,
       focusedContentColor: focusedContentColor ?? this.focusedContentColor,
       activeContentColor: activeContentColor ?? this.activeContentColor,
       disabledContentColor: disabledContentColor ?? this.disabledContentColor,
+      errorContentColor: errorContentColor ?? this.errorContentColor,
+      defaultSecondaryContentColor:
+          defaultSecondaryContentColor ?? this.defaultSecondaryContentColor,
+      hoverSecondaryContentColor:
+          hoverSecondaryContentColor ?? this.hoverSecondaryContentColor,
+      focusedSecondaryContentColor:
+          focusedSecondaryContentColor ?? this.focusedSecondaryContentColor,
+      activeSecondaryContentColor:
+          activeSecondaryContentColor ?? this.activeSecondaryContentColor,
+      disabledSecondaryContentColor:
+          disabledSecondaryContentColor ?? this.disabledSecondaryContentColor,
+      errorSecondaryContentColor:
+          errorSecondaryContentColor ?? this.errorSecondaryContentColor,
       defaultBorderColor: defaultBorderColor ?? this.defaultBorderColor,
       hoverBorderColor: hoverBorderColor ?? this.hoverBorderColor,
       focusedBorderColor: focusedBorderColor ?? this.focusedBorderColor,
       activeBorderColor: activeBorderColor ?? this.activeBorderColor,
       disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
+      errorBorderColor: errorBorderColor ?? this.errorBorderColor,
     );
   }
 
@@ -146,16 +206,25 @@ class UIKitColorScheme {
       focusedBackgroundColor: newScheme?.focusedBackgroundColor,
       activeBackgroundColor: newScheme?.activeBackgroundColor,
       disabledBackgroundColor: newScheme?.disabledBackgroundColor,
+      errorBackgroundColor: newScheme?.errorBackgroundColor,
       defaultContentColor: newScheme?.defaultContentColor,
       hoverContentColor: newScheme?.hoverContentColor,
       focusedContentColor: newScheme?.focusedContentColor,
       activeContentColor: newScheme?.activeContentColor,
       disabledContentColor: newScheme?.disabledContentColor,
+      errorContentColor: newScheme?.errorContentColor,
+      defaultSecondaryContentColor: newScheme?.defaultSecondaryContentColor,
+      hoverSecondaryContentColor: newScheme?.hoverSecondaryContentColor,
+      focusedSecondaryContentColor: newScheme?.focusedSecondaryContentColor,
+      activeSecondaryContentColor: newScheme?.activeSecondaryContentColor,
+      disabledSecondaryContentColor: newScheme?.disabledSecondaryContentColor,
+      errorSecondaryContentColor: newScheme?.errorSecondaryContentColor,
       defaultBorderColor: newScheme?.defaultBorderColor,
       hoverBorderColor: newScheme?.hoverBorderColor,
       focusedBorderColor: newScheme?.focusedBorderColor,
       activeBorderColor: newScheme?.activeBorderColor,
       disabledBorderColor: newScheme?.disabledBorderColor,
+      errorBorderColor: newScheme?.errorBorderColor,
     );
   }
 
@@ -165,6 +234,7 @@ class UIKitColorScheme {
   Color? focusedBackgroundColor;
   Color? activeBackgroundColor;
   Color? disabledBackgroundColor;
+  Color? errorBackgroundColor;
 
   // Content
   Color? defaultContentColor;
@@ -172,6 +242,15 @@ class UIKitColorScheme {
   Color? focusedContentColor;
   Color? activeContentColor;
   Color? disabledContentColor;
+  Color? errorContentColor;
+
+  // Secondary content
+  Color? defaultSecondaryContentColor;
+  Color? hoverSecondaryContentColor;
+  Color? focusedSecondaryContentColor;
+  Color? activeSecondaryContentColor;
+  Color? disabledSecondaryContentColor;
+  Color? errorSecondaryContentColor;
 
   // Border
   Color? defaultBorderColor;
@@ -179,4 +258,5 @@ class UIKitColorScheme {
   Color? focusedBorderColor;
   Color? activeBorderColor;
   Color? disabledBorderColor;
+  Color? errorBorderColor;
 }
