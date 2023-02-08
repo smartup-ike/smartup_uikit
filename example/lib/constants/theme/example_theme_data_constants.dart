@@ -226,6 +226,25 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       borderRadius: 8,
     ),
   ),
+  menuItemThemeData: UIKitMenuItemThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      defaultBorderColor: Colors.transparent,
+      defaultContentColor: ExampleColors.secondary500,
+      hoverBackgroundColor: ExampleColors.primary500,
+      hoverBorderColor: Colors.transparent,
+      hoverContentColor: ExampleColors.secondaryW,
+      activeBackgroundColor: ExampleColors.primary700,
+      activeBorderColor: Colors.transparent,
+      activeContentColor: ExampleColors.secondaryW,
+    ),
+    sizeScheme: UIKitSizeScheme(
+      padding: const EdgeInsets.all(8),
+      spacing: 8,
+      leadingSize: 24,
+      labelStyle: ExampleTypography.body2SemiBold,
+    ),
+  ),
 );
 
 UIKitTextInputThemeData kitTextInputThemeData = UIKitTextInputThemeData(

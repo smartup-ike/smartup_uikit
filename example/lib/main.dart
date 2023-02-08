@@ -65,6 +65,19 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
+        drawer: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [
+              UIKitMenuItem(
+                isActive: false,
+                isExpanded: true,
+                label: Text('Buttons'),
+                icon: const UIKitIcon.asset('assets/images/url.svg'),
+              )
+            ]),
+          ),
+        ),
         body: ListView(
           padding: const EdgeInsets.all(16),
           children: [

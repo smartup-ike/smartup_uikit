@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'theme/uikit_menu_item_theme_data.dart';
@@ -58,11 +59,11 @@ class UIKitMenuItem extends HookWidget {
     final state$ =
         useState(isActive ? UIKitState.active : UIKitState.defaultState);
 
-    final themeData = UIKitTheme.of(context).menuItemThemeData;
-
-    UIKitColorScheme itemColors = _defineColors(themeData);
-    UIKitSizeScheme itemSize = _defineSize(themeData);
-    UIKitShadowScheme itemShadow = _defineShadows(themeData);
+    final themeData$ = useState(UIKitTheme.of(context).menuItemThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
 
     Color? backgroundColor;
     Color? contentColor;
@@ -71,34 +72,34 @@ class UIKitMenuItem extends HookWidget {
 
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = itemColors.defaultBackgroundColor;
-        contentColor = itemColors.defaultContentColor;
-        borderColor = itemColors.defaultBorderColor;
-        shadows = itemShadow.defaultShadow;
+        backgroundColor = colors$.value.defaultBackgroundColor;
+        contentColor = colors$.value.defaultContentColor;
+        borderColor = colors$.value.defaultBorderColor;
+        shadows = shadows$.value.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = itemColors.hoverBackgroundColor;
-        contentColor = itemColors.hoverContentColor;
-        borderColor = itemColors.hoverBorderColor;
-        shadows = itemShadow.hoverShadow;
+        backgroundColor = colors$.value.hoverBackgroundColor;
+        contentColor = colors$.value.hoverContentColor;
+        borderColor = colors$.value.hoverBorderColor;
+        shadows = shadows$.value.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = itemColors.focusedBackgroundColor;
-        contentColor = itemColors.focusedContentColor;
-        borderColor = itemColors.focusedBorderColor;
-        shadows = itemShadow.focusedShadow;
+        backgroundColor = colors$.value.focusedBackgroundColor;
+        contentColor = colors$.value.focusedContentColor;
+        borderColor = colors$.value.focusedBorderColor;
+        shadows = shadows$.value.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = itemColors.activeBackgroundColor;
-        contentColor = itemColors.activeContentColor;
-        borderColor = itemColors.activeBorderColor;
-        shadows = itemShadow.activeShadow;
+        backgroundColor = colors$.value.activeBackgroundColor;
+        contentColor = colors$.value.activeContentColor;
+        borderColor = colors$.value.activeBorderColor;
+        shadows = shadows$.value.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = itemColors.disabledBackgroundColor;
-        contentColor = itemColors.disabledContentColor;
-        borderColor = itemColors.disabledBorderColor;
-        shadows = itemShadow.disabledShadow;
+        backgroundColor = colors$.value.disabledBackgroundColor;
+        contentColor = colors$.value.disabledContentColor;
+        borderColor = colors$.value.disabledBorderColor;
+        shadows = shadows$.value.disabledShadow;
         break;
       default:
         break;
@@ -119,14 +120,15 @@ class UIKitMenuItem extends HookWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
+          height: size$.value.height,
           duration: const Duration(milliseconds: 200),
-          padding: itemSize.padding ?? const EdgeInsets.all(8),
+          padding: size$.value.padding,
           decoration: BoxDecoration(
-            color: backgroundColor ?? Colors.transparent,
-            borderRadius: BorderRadius.circular(itemSize.borderRadius ?? 8),
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
               color: borderColor ?? Colors.transparent,
-              width: itemSize.borderSize ?? 0,
+              width: size$.value.borderSize ?? 0,
             ),
             boxShadow: shadows,
           ),
@@ -134,15 +136,16 @@ class UIKitMenuItem extends HookWidget {
             children: [
               UIKitIconTheme(
                 color: contentColor,
-                size: sizeScheme?.leadingSize,
+                size: size$.value.leadingSize,
                 child: icon ?? const SizedBox(),
               ),
               if (isExpanded) ...[
-                const SizedBox(width: 8),
+                SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
-                  style: itemSize.labelStyle?.copyWith(color: contentColor) ??
-                      TextStyle(color: contentColor),
-                  child: label ?? const SizedBox(),
+                  style:
+                      size$.value.labelStyle?.copyWith(color: contentColor) ??
+                          TextStyle(color: contentColor),
+                  child: label ?? const Text('Label'),
                 ),
               ],
             ],
@@ -150,38 +153,5 @@ class UIKitMenuItem extends HookWidget {
         ),
       ),
     );
-  }
-
-  UIKitColorScheme _defineColors(UIKitMenuItemThemeData themeData) {
-    UIKitColorScheme colorScheme;
-
-    if (this.colorScheme == null) {
-      colorScheme = themeData.colorScheme;
-    } else {
-      colorScheme = this.colorScheme!;
-    }
-    return colorScheme;
-  }
-
-  UIKitSizeScheme _defineSize(UIKitMenuItemThemeData themeData) {
-    UIKitSizeScheme sizeScheme;
-
-    if (this.sizeScheme == null) {
-      sizeScheme = themeData.sizeScheme;
-    } else {
-      sizeScheme = this.sizeScheme!;
-    }
-    return sizeScheme;
-  }
-
-  UIKitShadowScheme _defineShadows(UIKitMenuItemThemeData themeData) {
-    UIKitShadowScheme shadowScheme;
-
-    if (this.shadowScheme == null) {
-      shadowScheme = themeData.shadowScheme;
-    } else {
-      shadowScheme = this.shadowScheme!;
-    }
-    return shadowScheme;
   }
 }
