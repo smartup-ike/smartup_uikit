@@ -82,10 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const UIKitIcon.asset('assets/images/url.svg'),
                   sizeScheme: UIKitSizeScheme(
                     height: 40,
-                    iconSize: 24,
+                    leadingSize: 24,
                     borderSize: 1,
                     borderRadius: 8,
-                    pressedBorderSize: 1,
                   ),
                   isCircle: true,
                   onTap: () {},
@@ -249,7 +248,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   sizeScheme: UIKitSizeScheme(
                     width: 50,
                     borderRadius: 8,
-                    pressedBorderSize: 1,
                     borderSize: 0,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -284,7 +282,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   sizeScheme: UIKitSizeScheme(
                     width: 50,
                     borderRadius: 8,
-                    pressedBorderSize: 1,
                     borderSize: 0,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,

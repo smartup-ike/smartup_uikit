@@ -134,15 +134,14 @@ class UIKitMenuItem extends HookWidget {
             children: [
               UIKitIconTheme(
                 color: contentColor,
-                size: sizeScheme?.iconSize,
+                size: sizeScheme?.leadingSize,
                 child: icon ?? const SizedBox(),
               ),
               if (isExpanded) ...[
                 const SizedBox(width: 8),
                 DefaultTextStyle(
-                  style:
-                      itemSize.labelTextStyle?.copyWith(color: contentColor) ??
-                          TextStyle(color: contentColor),
+                  style: itemSize.labelStyle?.copyWith(color: contentColor) ??
+                      TextStyle(color: contentColor),
                   child: label ?? const SizedBox(),
                 ),
               ],

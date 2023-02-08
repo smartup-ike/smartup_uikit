@@ -463,22 +463,22 @@ class UIKitButton extends HookWidget {
                 if (leading != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: size$.value.iconSize,
+                    size: size$.value.leadingSize,
                     child: leading!,
                   ),
                   const SizedBox(width: 10),
                 ],
                 DefaultTextStyle(
-                  style: size$.value.labelTextStyle
-                          ?.copyWith(color: contentColor) ??
-                      TextStyle(color: contentColor),
+                  style:
+                      size$.value.labelStyle?.copyWith(color: contentColor) ??
+                          TextStyle(color: contentColor),
                   child: labelText ?? const Text('Button'),
                 ),
                 if (!removePadding!) const SizedBox(width: 10),
                 if (trailing != null) ...[
                   UIKitIconTheme(
                     color: contentColor,
-                    size: size$.value.iconSize,
+                    size: size$.value.leadingSize,
                     child: trailing!,
                   ),
                   if (!removePadding!) const SizedBox(width: 10),

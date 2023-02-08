@@ -306,7 +306,7 @@ class UIKitTextInput extends HookWidget {
                   if (leading != null) ...[
                     UIKitIconTheme(
                       color: contentColor,
-                      size: size.iconSize,
+                      size: size.leadingSize,
                       child: leading!,
                     ),
                     const SizedBox(width: 6),
@@ -322,15 +322,14 @@ class UIKitTextInput extends HookWidget {
                           ? SystemMouseCursors.basic
                           : SystemMouseCursors.text,
                       selectionColor: Colors.white,
-                      style:
-                          size.labelTextStyle?.copyWith(color: contentColor) ??
-                              TextStyle(color: contentColor),
+                      style: size.labelStyle?.copyWith(color: contentColor) ??
+                          TextStyle(color: contentColor),
                     ),
                   ),
                   if (errorIcon != null) ...[
                     UIKitIconTheme(
                       color: contentColor,
-                      size: size.iconSize,
+                      size: size.leadingSize,
                       child: errorIcon!,
                     ),
                     const SizedBox(width: 10),
@@ -338,7 +337,7 @@ class UIKitTextInput extends HookWidget {
                   if (trailing != null) ...[
                     UIKitIconTheme(
                       color: contentColor,
-                      size: size.iconSize,
+                      size: size.leadingSize,
                       child: trailing!,
                     ),
                     const SizedBox(width: 10),

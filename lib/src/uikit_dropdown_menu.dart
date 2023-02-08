@@ -134,7 +134,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
                     sizeScheme: UIKitSizeScheme(
                       width: 16,
                       height: 16,
-                      iconSize: 12,
+                      leadingSize: 12,
                     ),
                   ),
                 ]
@@ -215,13 +215,13 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
                 const SizedBox(width: 8),
               ],
               DefaultTextStyle(
-                style: sizeScheme?.labelTextStyle ?? const TextStyle(),
+                style: sizeScheme?.labelStyle ?? const TextStyle(),
                 child: label ?? const SizedBox(),
               ),
               if (trailing != null) ...[
                 const SizedBox(width: 8),
                 UIKitIconTheme(
-                  size: sizeScheme?.iconSize,
+                  size: sizeScheme?.leadingSize,
                   color: isSelected
                       ? colorScheme?.defaultContentColor
                       : colorScheme?.disabledContentColor,

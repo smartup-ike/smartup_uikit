@@ -291,15 +291,13 @@ class UIKitDropdownButton<T> extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DefaultTextStyle(
-                      style:
-                          size.labelTextStyle?.copyWith(color: contentColor) ??
-                              const TextStyle().copyWith(color: contentColor),
+                      style: size.labelStyle?.copyWith(color: contentColor) ??
+                          const TextStyle().copyWith(color: contentColor),
                       child: label ?? const SizedBox(),
                     ),
                     DefaultTextStyle(
-                      style:
-                          size.labelTextStyle?.copyWith(color: contentColor) ??
-                              const TextStyle().copyWith(color: contentColor),
+                      style: size.labelStyle?.copyWith(color: contentColor) ??
+                          const TextStyle().copyWith(color: contentColor),
                       child: input ?? const SizedBox(),
                     ),
                   ],
@@ -307,7 +305,7 @@ class UIKitDropdownButton<T> extends HookWidget {
               ),
               UIKitIconTheme(
                 color: contentColor,
-                size: size.iconSize,
+                size: size.leadingSize,
                 child: trailing,
               ),
               const SizedBox(width: 10),

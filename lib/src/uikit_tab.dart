@@ -233,7 +233,7 @@ class UIKitTab extends HookWidget {
                   if (leading != null) ...[
                     UIKitIconTheme(
                       color: contentColor,
-                      size: tabSize.iconSize,
+                      size: tabSize.leadingSize,
                       child: leading!,
                     ),
                     const SizedBox(width: 10),
@@ -241,9 +241,8 @@ class UIKitTab extends HookWidget {
                   SizedBox(width: tabSize.spacing),
                 ],
                 DefaultTextStyle(
-                  style:
-                      tabSize.labelTextStyle?.copyWith(color: contentColor) ??
-                          TextStyle(color: contentColor ?? Colors.transparent),
+                  style: tabSize.labelStyle?.copyWith(color: contentColor) ??
+                      TextStyle(color: contentColor ?? Colors.transparent),
                   child: label ?? const SizedBox(),
                 ),
                 if (trailing != null) ...[
@@ -251,7 +250,7 @@ class UIKitTab extends HookWidget {
                   if (trailing != null) ...[
                     UIKitIconTheme(
                       color: contentColor,
-                      size: tabSize.iconSize,
+                      size: tabSize.leadingSize,
                       child: trailing!,
                     ),
                     const SizedBox(width: 10),
