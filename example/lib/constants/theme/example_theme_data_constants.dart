@@ -276,6 +276,50 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       ],
     ),
   ),
+  radioGroupThemeData: UIKitRadioGroupThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondary900,
+      defaultContentColor: ExampleColors.secondary700,
+      defaultSecondaryContentColor: ExampleColors.secondary400,
+      errorBackgroundColor: ExampleColors.primary900,
+      errorContentColor: ExampleColors.secondary800,
+      errorSecondaryContentColor: ExampleColors.primary900,
+      disabledBackgroundColor: ExampleColors.secondary300.withOpacity(0.7),
+      disabledContentColor: ExampleColors.secondary300.withOpacity(0.7),
+      disabledSecondaryContentColor:
+          ExampleColors.secondary300.withOpacity(0.7),
+    ),
+    smallSize: UIKitSizeScheme(
+      width: 4,
+      height: 6,
+      spacing: 4,
+      secondarySpacing: 16,
+      iconSize: 16,
+      labelStyle: ExampleTypography.bodySSemiBold,
+      inputStyle: ExampleTypography.body3Regular,
+      assistiveStyle: ExampleTypography.bodySRegular,
+    ),
+    mediumSize: UIKitSizeScheme(
+      width: 4,
+      height: 12,
+      spacing: 6,
+      secondarySpacing: 24,
+      iconSize: 16,
+      labelStyle: ExampleTypography.body3SemiBold,
+      inputStyle: ExampleTypography.body2Regular,
+      assistiveStyle: ExampleTypography.body3Regular,
+    ),
+    largeSize: UIKitSizeScheme(
+      width: 4,
+      height: 6,
+      spacing: 8,
+      secondarySpacing: 32,
+      iconSize: 16,
+      labelStyle: ExampleTypography.body2SemiBold,
+      inputStyle: ExampleTypography.body1Regular,
+      assistiveStyle: ExampleTypography.body2Regular,
+    ),
+  ),
 );
 
 UIKitTextInputThemeData kitTextInputThemeData = UIKitTextInputThemeData(

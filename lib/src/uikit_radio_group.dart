@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/uikit_icon_theme.dart';
+import 'helpers/uikit_helper_functions.dart';
+import 'helpers/uikit_sizes.dart';
+import 'helpers/uikit_states.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'theme/uikit_theme.dart';
 import 'theme/uikit_radio_group_theme_data.dart';
@@ -10,25 +14,88 @@ import 'helpers/uikit_color_scheme.dart';
 class UIKitRadioGroup extends HookWidget {
   const UIKitRadioGroup({
     super.key,
+    this.size,
+    this.initialSelectedIndex,
     this.label,
     this.assistiveText,
+    this.errorIcon,
     this.sizeScheme,
     this.colorScheme,
-    this.buttonsColorSheme,
-    this.buttonsSizeScheme,
-    this.buttonsShadowScheme,
+    this.shadowScheme,
     this.optionLabels,
     this.isVertical,
-    required this.getSelected,
-  });
+    this.hasError,
+    this.onTap,
+  }) : assert(
+          size == null,
+          'Must be null by default. Use named constructors to set its value',
+        );
+
+  const UIKitRadioGroup.small({
+    super.key,
+    this.initialSelectedIndex,
+    this.label,
+    this.assistiveText,
+    this.errorIcon,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.optionLabels,
+    this.isVertical,
+    this.hasError,
+    this.onTap,
+  }) : size = UIKitSizes.small;
+
+  const UIKitRadioGroup.medium({
+    super.key,
+    this.initialSelectedIndex,
+    this.label,
+    this.assistiveText,
+    this.errorIcon,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.optionLabels,
+    this.isVertical,
+    this.hasError,
+    this.onTap,
+  }) : size = UIKitSizes.medium;
+
+  const UIKitRadioGroup.large({
+    super.key,
+    this.initialSelectedIndex,
+    this.label,
+    this.assistiveText,
+    this.errorIcon,
+    this.sizeScheme,
+    this.colorScheme,
+    this.shadowScheme,
+    this.optionLabels,
+    this.isVertical,
+    this.hasError,
+    this.onTap,
+  }) : size = UIKitSizes.large;
+
+  /// [UIKitSizes] determining the size of this widget.
+  /// Must be null by default.
+  /// Use named constructors to set its value.
+  final UIKitSizes? size;
+
+  /// [int] that assigns the selected item when the widget is first built.
+  final int? initialSelectedIndex;
 
   /// [Widget] that is displayed at the top.
   /// Should contain some indication about the content of this radio button group.
   final Widget? label;
 
   /// [Widget] that is displayed on the bottom.
-  /// Should contain information about what this radio button group is for.
+  /// Should contain information about what this radio button group is for or
+  /// error info when the [hasError] is true.
   final Widget? assistiveText;
+
+  /// [Widget] that will be displayed alongside [assistiveText] when [hasError]
+  /// is true.
+  final Widget? errorIcon;
 
   /// [UIKitSizeScheme] determining the value of different attributes of this
   /// radio button group.
@@ -38,14 +105,9 @@ class UIKitRadioGroup extends HookWidget {
   /// attributes of this radio button group.
   final UIKitColorScheme? colorScheme;
 
-  /// [UIKitColorScheme] passed to the [UIKitRadioButton] of this group
-  final UIKitColorScheme? buttonsColorSheme;
-
-  /// [UIKitSizeScheme] passed to the [UIKitRadioButton] of this group
-  final UIKitSizeScheme? buttonsSizeScheme;
-
-  /// [UIKitShadowScheme] passed to the [UIKitRadioButton] of this group
-  final UIKitShadowScheme? buttonsShadowScheme;
+  /// [UIKitShadowScheme] determining the value of different shadow
+  /// attributes of this radio button group.
+  final UIKitShadowScheme? shadowScheme;
 
   /// [List] containing [Widget] that will be used as labels for the
   /// different radio buttons of this group.
@@ -54,137 +116,137 @@ class UIKitRadioGroup extends HookWidget {
   /// [bool] indicating the layout of this radio button group.
   final bool? isVertical;
 
+  /// [bool] indicating whether this widget is in error state
+  final bool? hasError;
+
   /// [Function]
   /// Set it to (index) => setState(() => _selectedRadioItem = index)
   /// in order to get the index of the selected radio item that you need
-  /// in your logic.
-  final void Function(int?) getSelected;
+  /// in your logic. If null, widget is disabled.
+  final void Function(int?)? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex$ = useState<int?>(null);
-    final themeData = UIKitTheme.of(context).radioGroupThemeData;
+    final state$ = useState(onTap == null
+        ? UIKitState.disabled
+        : hasError ?? false
+            ? UIKitState.error
+            : UIKitState.defaultState);
+    final selectedIndex$ = useState<int?>(initialSelectedIndex);
+    final themeData$ = useState(UIKitTheme.of(context).radioGroupThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
+    final size$ = useState(findSize(themeData$.value));
 
-    UIKitColorScheme colorScheme = _defineColors(context, themeData);
-    UIKitSizeScheme sizeScheme = _defineSize(context, themeData);
-    UIKitColorScheme buttonColorScheme =
-        _defineButtonColors(context, themeData);
-    UIKitSizeScheme buttonSizeScheme = _defineButtonSize(context, themeData);
-    UIKitShadowScheme buttonShadowScheme =
-        _defineButtonShadows(context, themeData);
+    Color? contentColor;
+    Color? labelColor;
+    Color? assistiveTextColor;
+
+    switch (state$.value) {
+      case UIKitState.disabled:
+        contentColor = colors$.value.disabledContentColor;
+        labelColor = colors$.value.disabledBackgroundColor;
+        assistiveTextColor = colors$.value.disabledSecondaryContentColor;
+        break;
+      case UIKitState.error:
+        contentColor = colors$.value.errorContentColor;
+        labelColor = colors$.value.errorBackgroundColor;
+        assistiveTextColor = colors$.value.errorSecondaryContentColor;
+        break;
+      default:
+        contentColor = colors$.value.defaultContentColor;
+        labelColor = colors$.value.defaultBackgroundColor;
+        assistiveTextColor = colors$.value.defaultSecondaryContentColor;
+        break;
+    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null) ...[
-          label!,
-          SizedBox(height: sizeScheme.spacing),
+          DefaultTextStyle(
+            style: size$.value.labelStyle?.copyWith(color: labelColor) ??
+                TextStyle(color: labelColor),
+            child: label!,
+          ),
+          SizedBox(height: size$.value.spacing),
         ],
-        Wrap(
-          spacing: sizeScheme.width ?? 16,
-          runSpacing: sizeScheme.height ?? 12,
-          children: [
-            for (Widget element in optionLabels ?? []) ...[
-              Row(
-                mainAxisSize:
-                    isVertical ?? false ? MainAxisSize.max : MainAxisSize.min,
-                children: [
-                  UIKitRadioButton(
-                    isSelected:
-                        selectedIndex$.value == optionLabels?.indexOf(element),
-                    onTap: () {
-                      selectedIndex$.value = optionLabels?.indexOf(element);
-                      getSelected.call(selectedIndex$.value);
-                    },
-                    colorScheme: buttonColorScheme,
-                    sizeScheme: buttonSizeScheme,
-                    shadowScheme: buttonShadowScheme,
-                  ),
-                  SizedBox(width: sizeScheme.spacing),
-                  element,
-                ],
-              ),
+        DefaultTextStyle(
+          style: size$.value.inputStyle?.copyWith(color: contentColor) ??
+              TextStyle(color: contentColor),
+          child: Wrap(
+            spacing: size$.value.secondarySpacing ?? 16,
+            runSpacing: size$.value.height ?? 12,
+            children: [
+              for (Widget element in optionLabels ?? []) ...[
+                Row(
+                  mainAxisSize:
+                      isVertical ?? false ? MainAxisSize.max : MainAxisSize.min,
+                  children: [
+                    UIKitRadioButton(
+                      isSelected: selectedIndex$.value ==
+                          optionLabels?.indexOf(element),
+                      onTap: onTap == null
+                          ? null
+                          : () {
+                              selectedIndex$.value =
+                                  optionLabels?.indexOf(element);
+                              onTap?.call(selectedIndex$.value);
+                            },
+                    ),
+                    SizedBox(width: size$.value.width),
+                    element,
+                  ],
+                ),
+              ],
             ],
-          ],
+          ),
         ),
         if (assistiveText != null) ...[
-          const SizedBox(height: 8),
-          assistiveText!
+          SizedBox(height: size$.value.spacing),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DefaultTextStyle(
+                style: size$.value.assistiveStyle
+                        ?.copyWith(color: assistiveTextColor) ??
+                    TextStyle(color: assistiveTextColor),
+                child: assistiveText!,
+              ),
+              SizedBox(width: size$.value.spacing),
+              if (errorIcon != null && state$.value == UIKitState.error)
+                UIKitIconTheme(
+                  color: assistiveTextColor,
+                  size: size$.value.iconSize,
+                  child: errorIcon!,
+                ),
+            ],
+          )
         ],
       ],
     );
   }
 
-  UIKitColorScheme _defineColors(
-    BuildContext context,
-    UIKitRadioGroupThemeData themeData,
-  ) {
-    UIKitColorScheme toggleSwitchColors;
-
-    if (colorScheme == null) {
-      toggleSwitchColors = themeData.colorScheme;
+  UIKitSizeScheme findSize(UIKitRadioGroupThemeData themeData) {
+    UIKitSizeScheme sizeScheme;
+    if (this.sizeScheme != null) {
+      sizeScheme = this.sizeScheme!;
     } else {
-      toggleSwitchColors = colorScheme!;
+      switch (size) {
+        case UIKitSizes.small:
+          sizeScheme = themeData.smallSize;
+          break;
+        case UIKitSizes.large:
+          sizeScheme = themeData.largeSize;
+          break;
+        default:
+          sizeScheme = themeData.mediumSize;
+          break;
+      }
     }
 
-    return toggleSwitchColors;
-  }
-
-  UIKitSizeScheme _defineSize(
-    BuildContext context,
-    UIKitRadioGroupThemeData themeData,
-  ) {
-    UIKitSizeScheme toggleSwitchSize;
-
-    if (sizeScheme == null) {
-      toggleSwitchSize = themeData.sizeScheme;
-    } else {
-      toggleSwitchSize = sizeScheme!;
-    }
-    return toggleSwitchSize;
-  }
-
-  UIKitColorScheme _defineButtonColors(
-    BuildContext context,
-    UIKitRadioGroupThemeData themeData,
-  ) {
-    UIKitColorScheme toggleSwitchColors;
-
-    if (buttonsColorSheme == null) {
-      toggleSwitchColors = themeData.buttonsColorScheme;
-    } else {
-      toggleSwitchColors = buttonsColorSheme!;
-    }
-
-    return toggleSwitchColors;
-  }
-
-  UIKitSizeScheme _defineButtonSize(
-    BuildContext context,
-    UIKitRadioGroupThemeData themeData,
-  ) {
-    UIKitSizeScheme toggleSwitchSize;
-
-    if (buttonsSizeScheme == null) {
-      toggleSwitchSize = themeData.buttonsSizeScheme;
-    } else {
-      toggleSwitchSize = buttonsSizeScheme!;
-    }
-    return toggleSwitchSize;
-  }
-
-  UIKitShadowScheme _defineButtonShadows(
-    BuildContext context,
-    UIKitRadioGroupThemeData themeData,
-  ) {
-    UIKitShadowScheme toggleSwitchShadow;
-
-    if (buttonsShadowScheme == null) {
-      toggleSwitchShadow = themeData.buttonsShadowScheme;
-    } else {
-      toggleSwitchShadow = buttonsShadowScheme!;
-    }
-    return toggleSwitchShadow;
+    return sizeScheme;
   }
 }

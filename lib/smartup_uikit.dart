@@ -14,6 +14,7 @@ export 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart'
 export 'package:smartup_uikit/src/theme/uikit_theme.dart';
 export 'package:smartup_uikit/src/theme/uikit_button_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_radio_button_theme_data.dart';
+export 'package:smartup_uikit/src/theme/uikit_radio_group_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_text_input_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_menu_item_theme_data.dart';
 
