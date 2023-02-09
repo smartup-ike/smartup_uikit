@@ -245,6 +245,37 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       labelStyle: ExampleTypography.body2SemiBold,
     ),
   ),
+  radioButtonThemeData: UIKitRadioButtonThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      hoverBackgroundColor: ExampleColors.secondaryW,
+      focusedBackgroundColor: ExampleColors.secondaryW,
+      activeBackgroundColor: ExampleColors.secondaryW,
+      disabledBackgroundColor: ExampleColors.secondaryW,
+      defaultBorderColor: ExampleColors.primary700,
+      hoverBorderColor: ExampleColors.primary800,
+      focusedBorderColor: ExampleColors.primary900,
+      activeBorderColor: ExampleColors.primary800,
+      disabledBorderColor: ExampleColors.secondary300,
+    ),
+    sizeScheme: UIKitSizeScheme(
+      padding: const EdgeInsets.all(3),
+      width: 20,
+      height: 20,
+      borderSize: 1.6,
+      spacing: 16,
+      secondarySpacing: 8,
+    ),
+    shadowScheme: UIKitShadowScheme(
+      focusedShadow: [
+        BoxShadow(
+          color: const Color(0xFF690A10).withOpacity(0.7),
+          blurRadius: 2,
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+  ),
 );
 
 UIKitTextInputThemeData kitTextInputThemeData = UIKitTextInputThemeData(

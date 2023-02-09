@@ -37,10 +37,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _isToggleActive = false;
+  bool _isRadioActive = false;
   bool _isCheckBoxChecked = false;
   bool _isMenuItemActive = false;
   int? _selectedRadioItem;
-  String? _selectedDropdownItem;
   String? dropdownValue;
   TextEditingController controller = TextEditingController();
   late FocusNode focusNode;
@@ -68,14 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: Drawer(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              UIKitMenuItem(
-                isActive: false,
-                isExpanded: true,
-                label: Text('Buttons'),
-                icon: const UIKitIcon.asset('assets/images/url.svg'),
-              )
-            ]),
+            child: Column(
+              children: [
+                UIKitMenuItem(
+                  isActive: false,
+                  isExpanded: true,
+                  label: Text('Buttons'),
+                  icon: const UIKitIcon.asset('assets/images/url.svg'),
+                )
+              ],
+            ),
           ),
         ),
         body: ListView(
@@ -185,6 +187,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(width: 50),
                 Expanded(child: LeaveTypeSelector()),
               ],
+            ),
+            const SizedBox(height: 8),
+            UIKitRadioButton(
+              isSelected: _isRadioActive,
+              onTap: () => setState(() => _isRadioActive = !_isRadioActive),
             ),
           ],
         ),
