@@ -249,6 +249,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                UIKitCheckbox(
+                  icon: const UIKitIcon.asset('assets/images/url.svg'),
+                  isChecked: _isCheckBoxChecked,
+                  onChanged: (value) => setState(
+                    () => _isCheckBoxChecked = !_isCheckBoxChecked,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

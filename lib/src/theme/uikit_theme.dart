@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
 import 'uikit_menu_item_theme_data.dart';
 import 'uikit_text_input_theme_data.dart';
 import 'uikit_button_theme_data.dart';
@@ -67,6 +68,7 @@ class UIKitThemeData {
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
+  final UIKitCheckboxThemeData checkboxThemeData;
 
   const UIKitThemeData.raw({
     required this.buttonThemeData,
@@ -76,6 +78,7 @@ class UIKitThemeData {
     required this.radioGroupThemeData,
     required this.textInputThemeData,
     required this.menuItemThemeData,
+    required this.checkboxThemeData,
   });
 
   factory UIKitThemeData({
@@ -86,6 +89,7 @@ class UIKitThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
+    UIKitCheckboxThemeData? checkboxThemeData,
   }) {
     buttonThemeData ??= UIKitButtonThemeData();
     radioButtonThemeData ??= UIKitRadioButtonThemeData();
@@ -94,6 +98,7 @@ class UIKitThemeData {
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
     textInputThemeData ??= UIKitTextInputThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
+    checkboxThemeData ??= UIKitCheckboxThemeData();
 
     return UIKitThemeData.raw(
       buttonThemeData: buttonThemeData,
@@ -103,6 +108,7 @@ class UIKitThemeData {
       radioGroupThemeData: radioGroupThemeData,
       textInputThemeData: textInputThemeData,
       menuItemThemeData: menuItemThemeData,
+      checkboxThemeData: checkboxThemeData,
     );
   }
 
@@ -114,6 +120,7 @@ class UIKitThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
+    UIKitCheckboxThemeData? checkboxThemeData,
   }) {
     return UIKitThemeData.raw(
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
@@ -124,6 +131,7 @@ class UIKitThemeData {
       radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
       menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
+      checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
     );
   }
 }
