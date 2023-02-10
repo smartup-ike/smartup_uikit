@@ -320,6 +320,102 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       assistiveStyle: ExampleTypography.body2Regular,
     ),
   ),
+  toggleSwitchThemeData: UIKitToggleSwitchThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondary100,
+      defaultBorderColor: ExampleColors.primary800,
+      defaultContentColor: ExampleColors.primary700,
+      defaultSecondaryContentColor: ExampleColors.secondaryW,
+      hoverBackgroundColor: ExampleColors.secondary100,
+      hoverBorderColor: ExampleColors.primary900,
+      hoverContentColor: ExampleColors.primary800,
+      hoverSecondaryContentColor: ExampleColors.secondaryW,
+      activeBackgroundColor: ExampleColors.secondary100,
+      activeBorderColor: ExampleColors.primary900,
+      activeContentColor: ExampleColors.primary800,
+      activeSecondaryContentColor: ExampleColors.secondaryW,
+      focusedBackgroundColor: ExampleColors.secondary100,
+      focusedBorderColor: ExampleColors.primary800,
+      focusedContentColor: ExampleColors.primary700,
+      focusedSecondaryContentColor: ExampleColors.secondaryW,
+      disabledBackgroundColor: ExampleColors.secondary50.withOpacity(0.7),
+      disabledBorderColor: Colors.transparent.withOpacity(0.7),
+      disabledContentColor: ExampleColors.secondary200.withOpacity(0.7),
+      disabledSecondaryContentColor: ExampleColors.secondaryW.withOpacity(0.7),
+    ),
+    shadowScheme: UIKitShadowScheme(
+      defaultShadow: [
+        BoxShadow(
+          color: const Color(0xFF690A10).withOpacity(0.24),
+          offset: const Offset(0, 2),
+          blurRadius: 3,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF58060C).withOpacity(0.16),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 0,
+        ),
+      ],
+      hoverShadow: [
+        BoxShadow(
+          color: const Color(0xFF690A10).withOpacity(0.24),
+          offset: const Offset(0, 2),
+          blurRadius: 3,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF58060C).withOpacity(0.16),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 0,
+        ),
+      ],
+      activeShadow: [
+        BoxShadow(
+          color: const Color(0xFF690A10).withOpacity(0.24),
+          offset: const Offset(0, 2),
+          blurRadius: 3,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF58060C).withOpacity(0.16),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 0,
+        ),
+      ],
+      focusedShadow: [
+        BoxShadow(
+          color: const Color(0xFF690A10).withOpacity(0.24),
+          offset: const Offset(0, 2),
+          blurRadius: 3,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF58060C).withOpacity(0.16),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+    largeSize: UIKitSizeScheme(
+      width: 48,
+      height: 24,
+      borderSize: 1,
+      spacing: 20,
+      iconSize: 16,
+    ),
+    smallSize: UIKitSizeScheme(
+      width: 40,
+      height: 20,
+      borderSize: 1,
+      spacing: 16.67,
+      iconSize: 13,
+    ),
+  ),
 );
 
 UIKitTextInputThemeData kitTextInputThemeData = UIKitTextInputThemeData(

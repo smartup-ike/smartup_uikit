@@ -189,11 +189,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             const SizedBox(height: 8),
-            UIKitRadioButton(
-              isSelected: _isRadioActive,
-              onTap: () => setState(() => _isRadioActive = !_isRadioActive),
-            ),
-            const SizedBox(height: 8),
             UIKitRadioGroup.small(
               isVertical: false,
               initialSelectedIndex: _selectedRadioItem,
@@ -226,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 8),
             UIKitRadioGroup.large(
               isVertical: false,
-              // onTap: (index) => setState(() => _selectedRadioItem = index),
+              onTap: (index) => setState(() => _selectedRadioItem = index),
               label: const Text('Label'),
               assistiveText: const Text('Assistive text'),
               optionLabels: const [
@@ -235,6 +230,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text('Option3'),
                 Text('Option4'),
                 Text('Option5'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                UIKitToggleSwitch.large(
+                  isActive: _isToggleActive,
+                  onTap: () =>
+                      setState(() => _isToggleActive = !_isToggleActive),
+                ),
+                const SizedBox(width: 16),
+                UIKitToggleSwitch.small(
+                  isActive: _isToggleActive,
+                  icon: const UIKitIcon.asset('assets/images/url.svg'),
+                  onTap: () =>
+                      setState(() => _isToggleActive = !_isToggleActive),
+                ),
               ],
             ),
           ],
