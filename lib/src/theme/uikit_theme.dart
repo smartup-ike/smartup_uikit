@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
+import 'package:smartup_uikit/src/theme/uikit_colors.dart';
+import 'package:smartup_uikit/src/theme/uikit_typography.dart';
 import 'uikit_menu_item_theme_data.dart';
 import 'uikit_text_input_theme_data.dart';
 import 'uikit_button_theme_data.dart';
@@ -61,6 +63,8 @@ class _UIKitTheme extends InheritedTheme {
 
 @immutable
 class UIKitThemeData {
+  final UIKitColors colors;
+  final UIKitTypography typography;
   final UIKitButtonThemeData buttonThemeData;
   final UIKitRadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
@@ -71,6 +75,8 @@ class UIKitThemeData {
   final UIKitCheckboxThemeData checkboxThemeData;
 
   const UIKitThemeData.raw({
+    required this.colors,
+    required this.typography,
     required this.buttonThemeData,
     required this.radioButtonThemeData,
     required this.tabThemeData,
@@ -82,6 +88,8 @@ class UIKitThemeData {
   });
 
   factory UIKitThemeData({
+    UIKitColors? colors,
+    UIKitTypography? typography,
     UIKitButtonThemeData? buttonThemeData,
     UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
@@ -91,6 +99,8 @@ class UIKitThemeData {
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
   }) {
+    colors ??= const UIKitColors();
+    typography ??= const UIKitTypography();
     buttonThemeData ??= UIKitButtonThemeData();
     radioButtonThemeData ??= UIKitRadioButtonThemeData();
     tabThemeData ??= UIKitTabThemeData();
@@ -101,6 +111,8 @@ class UIKitThemeData {
     checkboxThemeData ??= UIKitCheckboxThemeData();
 
     return UIKitThemeData.raw(
+      colors: colors,
+      typography: typography,
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
       tabThemeData: tabThemeData,
@@ -113,6 +125,8 @@ class UIKitThemeData {
   }
 
   UIKitThemeData copyWith({
+    UIKitColors? colors,
+    UIKitTypography? typography,
     UIKitButtonThemeData? buttonThemeData,
     UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
@@ -123,6 +137,8 @@ class UIKitThemeData {
     UIKitCheckboxThemeData? checkboxThemeData,
   }) {
     return UIKitThemeData.raw(
+      colors: colors ?? this.colors,
+      typography: typography ?? this.typography,
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
       radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
       tabThemeData: tabThemeData ?? this.tabThemeData,
