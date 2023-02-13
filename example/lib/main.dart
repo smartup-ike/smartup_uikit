@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Smartup UI Kit Example'),
+        home: const MyHomePage(title: 'Smartup UI kit example'),
       ),
     );
   }
@@ -35,7 +35,9 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   bool _isToggleActive = false;
   bool _isRadioActive = false;
   bool _isCheckBoxChecked = false;
@@ -49,11 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     focusNode = FocusNode();
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
     focusNode.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -64,203 +68,244 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          bottom: TabBar(
+            controller: _tabController,
+            padding: const EdgeInsets.all(8),
+            indicatorWeight: 0,
+            indicatorColor: Colors.transparent,
+            indicator: const BoxDecoration(),
+            onTap: (value) => setState(() {}),
+            tabs: [
+              UIKitTab.line(
+                label: const Text('Buttons'),
+                leading: const UIKitIcon.asset('assets/images/url.svg'),
+                isActive: _tabController.index == 0,
+                onTap: () => setState(() => _tabController.index = 0),
+              ),
+              UIKitTab.page(
+                label: const Text('Radio'),
+                leading: const UIKitIcon.asset('assets/images/url.svg'),
+                isActive: _tabController.index == 1,
+                onTap: () => setState(() => _tabController.index = 1),
+              ),
+              UIKitTab.page(
+                label: const Text('Buttons'),
+                leading: const UIKitIcon.asset('assets/images/url.svg'),
+                isActive: _tabController.index == 2,
+                onTap: () => setState(() => _tabController.index = 2),
+              ),
+            ],
+          ),
         ),
         drawer: Drawer(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              children: [
+              children: const [
                 UIKitMenuItem(
                   isActive: false,
                   isExpanded: true,
                   label: Text('Buttons'),
-                  icon: const UIKitIcon.asset('assets/images/url.svg'),
+                  icon: UIKitIcon.asset('assets/images/url.svg'),
                 )
               ],
             ),
           ),
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(16),
+        body: TabBarView(
+          controller: _tabController,
           children: [
-            const SizedBox(height: 8),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            ListView(
+              padding: const EdgeInsets.all(16),
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    UIKitButton.smallGhost(
-                      labelText: const Text('Button'),
-                      leading: const UIKitIcon.asset('assets/images/url.svg'),
-                      onTap: () {},
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UIKitButton.smallGhost(
+                          labelText: const Text('Button'),
+                          leading:
+                              const UIKitIcon.asset('assets/images/url.svg'),
+                          onTap: () {},
+                        ),
+                        UIKitButton.mediumTertiary(
+                          labelText: const Text('Button'),
+                          leading:
+                              const UIKitIcon.asset('assets/images/url.svg'),
+                          onTap: () {},
+                        ),
+                        UIKitButton.largeOutline(
+                          labelText: const Text('Button'),
+                          leading:
+                              const UIKitIcon.asset('assets/images/url.svg'),
+                          onTap: () {},
+                        ),
+                      ],
                     ),
-                    UIKitButton.mediumTertiary(
-                      labelText: const Text('Button'),
-                      leading: const UIKitIcon.asset('assets/images/url.svg'),
-                      onTap: () {},
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UIKitIconButton.smallSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.smallSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                      ],
                     ),
-                    UIKitButton.largeOutline(
-                      labelText: const Text('Button'),
-                      leading: const UIKitIcon.asset('assets/images/url.svg'),
-                      onTap: () {},
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UIKitIconButton.smallGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.smallGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                      ],
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    SizedBox(width: 50),
+                    Expanded(child: LeaveTypeSelector()),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
                   children: [
-                    UIKitIconButton.smallSolid(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: false,
-                      onTap: () {},
+                    UIKitToggleSwitch.large(
+                      isActive: _isToggleActive,
+                      onTap: () =>
+                          setState(() => _isToggleActive = !_isToggleActive),
                     ),
-                    UIKitIconButton.mediumSolid(
+                    const SizedBox(width: 16),
+                    UIKitToggleSwitch.small(
+                      isActive: _isToggleActive,
                       icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: false,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.largeSolid(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: false,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.smallSolid(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: true,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.mediumSolid(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: true,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.largeSolid(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: true,
-                      onTap: () {},
+                      onTap: () =>
+                          setState(() => _isToggleActive = !_isToggleActive),
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    UIKitIconButton.smallGhost(
+                    UIKitCheckbox(
                       icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: false,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.mediumGhost(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: false,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.largeGhost(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: false,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.smallGhost(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: true,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.mediumGhost(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: true,
-                      onTap: () {},
-                    ),
-                    UIKitIconButton.largeGhost(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isCircle: true,
-                      onTap: () {},
+                      isChecked: _isCheckBoxChecked,
+                      onChanged: (value) => setState(
+                        () => _isCheckBoxChecked = !_isCheckBoxChecked,
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            Row(
-              children: const [
-                SizedBox(width: 50),
-                Expanded(child: LeaveTypeSelector()),
-              ],
-            ),
-            const SizedBox(height: 8),
-            UIKitRadioGroup.small(
-              isVertical: false,
-              initialSelectedIndex: _selectedRadioItem,
-              onTap: (index) => setState(() => _selectedRadioItem = index),
-              label: const Text('Label'),
-              assistiveText: const Text('Assistive text'),
-              errorIcon: const UIKitIcon.asset('assets/images/url.svg'),
-              optionLabels: const [
-                Text('Option1'),
-                Text('Option2'),
-                Text('Option3'),
-                Text('Option4'),
-                Text('Option5'),
-              ],
-            ),
-            const SizedBox(height: 8),
-            UIKitRadioGroup.medium(
-              isVertical: false,
-              onTap: (index) => setState(() => _selectedRadioItem = index),
-              label: const Text('Label'),
-              assistiveText: const Text('Assistive text'),
-              optionLabels: const [
-                Text('Option1'),
-                Text('Option2'),
-                Text('Option3'),
-                Text('Option4'),
-                Text('Option5'),
-              ],
-            ),
-            const SizedBox(height: 8),
-            UIKitRadioGroup.large(
-              isVertical: false,
-              onTap: (index) => setState(() => _selectedRadioItem = index),
-              label: const Text('Label'),
-              assistiveText: const Text('Assistive text'),
-              optionLabels: const [
-                Text('Option1'),
-                Text('Option2'),
-                Text('Option3'),
-                Text('Option4'),
-                Text('Option5'),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
+            ListView(
+              padding: const EdgeInsets.all(16),
               children: [
-                UIKitToggleSwitch.large(
-                  isActive: _isToggleActive,
-                  onTap: () =>
-                      setState(() => _isToggleActive = !_isToggleActive),
+                UIKitRadioGroup.small(
+                  isVertical: false,
+                  initialSelectedIndex: _selectedRadioItem,
+                  onTap: (index) => setState(() => _selectedRadioItem = index),
+                  label: const Text('Label'),
+                  assistiveText: const Text('Assistive text'),
+                  errorIcon: const UIKitIcon.asset('assets/images/url.svg'),
+                  optionLabels: const [
+                    Text('Option1'),
+                    Text('Option2'),
+                    Text('Option3'),
+                    Text('Option4'),
+                    Text('Option5'),
+                  ],
                 ),
-                const SizedBox(width: 16),
-                UIKitToggleSwitch.small(
-                  isActive: _isToggleActive,
-                  icon: const UIKitIcon.asset('assets/images/url.svg'),
-                  onTap: () =>
-                      setState(() => _isToggleActive = !_isToggleActive),
+                const SizedBox(height: 8),
+                UIKitRadioGroup.medium(
+                  isVertical: false,
+                  onTap: (index) => setState(() => _selectedRadioItem = index),
+                  label: const Text('Label'),
+                  assistiveText: const Text('Assistive text'),
+                  optionLabels: const [
+                    Text('Option1'),
+                    Text('Option2'),
+                    Text('Option3'),
+                    Text('Option4'),
+                    Text('Option5'),
+                  ],
                 ),
+                const SizedBox(height: 8),
+                UIKitRadioGroup.large(
+                  isVertical: false,
+                  onTap: (index) => setState(() => _selectedRadioItem = index),
+                  label: const Text('Label'),
+                  assistiveText: const Text('Assistive text'),
+                  optionLabels: const [
+                    Text('Option1'),
+                    Text('Option2'),
+                    Text('Option3'),
+                    Text('Option4'),
+                    Text('Option5'),
+                  ],
+                ),
+                const SizedBox(height: 8),
               ],
             ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                UIKitCheckbox(
-                  icon: const UIKitIcon.asset('assets/images/url.svg'),
-                  isChecked: _isCheckBoxChecked,
-                  onChanged: (value) => setState(
-                    () => _isCheckBoxChecked = !_isCheckBoxChecked,
-                  ),
-                ),
-              ],
-            ),
+            ListView(),
           ],
         ),
       ),
