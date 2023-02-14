@@ -81,7 +81,6 @@ class UIKitTextInput extends HookWidget {
     super.key,
     this.leading,
     this.trailing,
-    this.label,
     this.isDisabled,
     required this.controller,
     required this.focusNode,
@@ -92,6 +91,7 @@ class UIKitTextInput extends HookWidget {
   })  : styleType = TextInputStyleType.filled,
         inputType = TextInputType.search,
         size = UIKitSizes.small,
+        label = null,
         errorIcon = null,
         assistiveText = null;
 
@@ -99,7 +99,6 @@ class UIKitTextInput extends HookWidget {
     super.key,
     this.leading,
     this.trailing,
-    this.label,
     this.isDisabled,
     required this.controller,
     required this.focusNode,
@@ -110,6 +109,7 @@ class UIKitTextInput extends HookWidget {
   })  : styleType = TextInputStyleType.line,
         inputType = TextInputType.search,
         size = UIKitSizes.small,
+        label = null,
         errorIcon = null,
         assistiveText = null;
 
@@ -153,7 +153,6 @@ class UIKitTextInput extends HookWidget {
     super.key,
     this.leading,
     this.trailing,
-    this.label,
     this.isDisabled,
     required this.controller,
     required this.focusNode,
@@ -164,6 +163,7 @@ class UIKitTextInput extends HookWidget {
   })  : styleType = TextInputStyleType.filled,
         inputType = TextInputType.search,
         size = UIKitSizes.medium,
+        label = null,
         errorIcon = null,
         assistiveText = null;
 
@@ -171,7 +171,6 @@ class UIKitTextInput extends HookWidget {
     super.key,
     this.leading,
     this.trailing,
-    this.label,
     this.isDisabled,
     required this.controller,
     required this.focusNode,
@@ -182,6 +181,7 @@ class UIKitTextInput extends HookWidget {
   })  : styleType = TextInputStyleType.line,
         inputType = TextInputType.search,
         size = UIKitSizes.medium,
+        label = null,
         errorIcon = null,
         assistiveText = null;
 
@@ -225,7 +225,6 @@ class UIKitTextInput extends HookWidget {
     super.key,
     this.leading,
     this.trailing,
-    this.label,
     this.isDisabled,
     required this.controller,
     required this.focusNode,
@@ -236,6 +235,7 @@ class UIKitTextInput extends HookWidget {
   })  : styleType = TextInputStyleType.filled,
         inputType = TextInputType.search,
         size = UIKitSizes.large,
+        label = null,
         errorIcon = null,
         assistiveText = null;
 
@@ -243,7 +243,6 @@ class UIKitTextInput extends HookWidget {
     super.key,
     this.leading,
     this.trailing,
-    this.label,
     this.isDisabled,
     required this.controller,
     required this.focusNode,
@@ -254,6 +253,7 @@ class UIKitTextInput extends HookWidget {
   })  : styleType = TextInputStyleType.line,
         inputType = TextInputType.search,
         size = UIKitSizes.large,
+        label = null,
         errorIcon = null,
         assistiveText = null;
 
@@ -503,7 +503,7 @@ class UIKitTextInput extends HookWidget {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (label != null)
+                        if (label != null) ...[
                           DefaultTextStyle(
                             style: state$.value == UIKitState.active ||
                                     state$.value == UIKitState.focused ||
@@ -518,14 +518,16 @@ class UIKitTextInput extends HookWidget {
                                     TextStyle(color: secondaryContentColor),
                             child: label!,
                           ),
-                        if (state$.value == UIKitState.active ||
-                            state$.value == UIKitState.focused ||
-                            state$.value == UIKitState.error)
-                          SizedBox(
-                            height: (size$.value.labelStyle?.fontSize ?? 0) -
-                                (size$.value.focusedLabelStyle?.fontSize ?? 0) +
-                                findMissingSize(),
-                          ),
+                          if (state$.value == UIKitState.active ||
+                              state$.value == UIKitState.focused ||
+                              state$.value == UIKitState.error)
+                            SizedBox(
+                              height: (size$.value.labelStyle?.fontSize ?? 0) -
+                                  (size$.value.focusedLabelStyle?.fontSize ??
+                                      0) +
+                                  findMissingSize(),
+                            ),
+                        ],
                         EditableText(
                           controller: controller,
                           focusNode: focusNode,
