@@ -320,7 +320,7 @@ class UIKitDropdownButton<T> extends HookWidget {
     UIKitColorScheme colorScheme;
 
     if (this.colorScheme == null) {
-      colorScheme = themeData.filledInputcolorScheme;
+      colorScheme = themeData.filledInputColorScheme;
     } else {
       colorScheme = this.colorScheme!;
     }
@@ -331,7 +331,7 @@ class UIKitDropdownButton<T> extends HookWidget {
     UIKitSizeScheme sizeScheme;
 
     if (this.sizeScheme == null) {
-      sizeScheme = themeData.inputSizeScheme;
+      sizeScheme = themeData.smallFilledInputSizeScheme;
     } else {
       sizeScheme = this.sizeScheme!;
     }
@@ -342,7 +342,7 @@ class UIKitDropdownButton<T> extends HookWidget {
     UIKitShadowScheme shadowScheme;
 
     if (this.shadowScheme == null) {
-      shadowScheme = themeData.shadowScheme;
+      shadowScheme = themeData.filledInputShadowScheme;
     } else {
       shadowScheme = this.shadowScheme!;
     }
