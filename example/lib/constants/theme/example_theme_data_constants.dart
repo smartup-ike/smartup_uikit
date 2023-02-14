@@ -815,7 +815,7 @@ UIKitThemeData kitThemeData = UIKitThemeData(
     ),
   ),
   textInputThemeData: UIKitTextInputThemeData(
-    filledInputcolorScheme: UIKitColorScheme(
+    filledInputColorScheme: UIKitColorScheme(
       defaultBackgroundColor: ExampleColors.secondary50,
       defaultBorderColor: Colors.transparent,
       defaultContentColor: ExampleColors.secondaryK,
@@ -875,5 +875,6 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       trailingSize: 16,
     ),
     filledInputShadowScheme: UIKitShadowScheme.defaultScheme(),
+    lineInputColorScheme: UIKitColorScheme(),
   ),
 );

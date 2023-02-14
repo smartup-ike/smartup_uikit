@@ -50,8 +50,8 @@ class UIKitTextInputThemeData {
   });
 
   factory UIKitTextInputThemeData({
-    UIKitColorScheme? filledInputcolorScheme,
-    UIKitColorScheme? lineInputcolorScheme,
+    UIKitColorScheme? filledInputColorScheme,
+    UIKitColorScheme? lineInputColorScheme,
     UIKitColorScheme? filledSearchcolorScheme,
     UIKitColorScheme? lineSearchcolorScheme,
     UIKitSizeScheme? smallFilledInputSizeScheme,
@@ -71,8 +71,8 @@ class UIKitTextInputThemeData {
     UIKitShadowScheme? filledSearchShadowScheme,
     UIKitShadowScheme? lineSearchShadowScheme,
   }) {
-    filledInputcolorScheme ??= UIKitColorScheme.defaultScheme();
-    lineInputcolorScheme ??= UIKitColorScheme.defaultScheme();
+    filledInputColorScheme ??= UIKitColorScheme.defaultScheme();
+    lineInputColorScheme ??= UIKitColorScheme.defaultScheme();
     filledSearchcolorScheme ??= UIKitColorScheme.defaultScheme();
     lineSearchcolorScheme ??= UIKitColorScheme.defaultScheme();
     smallFilledInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
@@ -93,8 +93,8 @@ class UIKitTextInputThemeData {
     lineSearchShadowScheme ??= UIKitShadowScheme.defaultScheme();
 
     return UIKitTextInputThemeData.raw(
-      filledInputColorScheme: filledInputcolorScheme,
-      lineInputColorScheme: lineInputcolorScheme,
+      filledInputColorScheme: filledInputColorScheme,
+      lineInputColorScheme: lineInputColorScheme,
       filledSearchColorScheme: filledSearchcolorScheme,
       lineSearchColorScheme: lineSearchcolorScheme,
       smallFilledInputSizeScheme: smallFilledInputSizeScheme,
