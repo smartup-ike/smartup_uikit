@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
-import 'package:smartup_uikit/src/helpers/uikit_sizes.dart';
+import 'helpers/uikit_helper_functions.dart';
+import 'helpers/uikit_sizes.dart';
 import 'theme/uikit_text_input_theme_data.dart';
 import 'uikit_icon_theme.dart';
 import 'helpers/uikit_states.dart';
@@ -472,12 +472,20 @@ class UIKitTextInput extends HookWidget {
               padding: size$.value.padding,
               decoration: BoxDecoration(
                 color: backgroundColor,
-                borderRadius:
-                    BorderRadius.circular(size$.value.borderRadius ?? 8),
-                border: Border.all(
-                  color: borderColor ?? Colors.transparent,
-                  width: size$.value.borderSize ?? 1,
-                ),
+                borderRadius: styleType == TextInputStyleType.filled
+                    ? BorderRadius.circular(size$.value.borderRadius ?? 8)
+                    : null,
+                border: styleType == TextInputStyleType.filled
+                    ? Border.all(
+                        color: borderColor ?? Colors.transparent,
+                        width: size$.value.borderSize ?? 1,
+                      )
+                    : Border(
+                        bottom: BorderSide(
+                          color: borderColor ?? Colors.transparent,
+                          width: size$.value.borderSize ?? 1,
+                        ),
+                      ),
                 boxShadow: currentShadows,
               ),
               child: Row(
@@ -557,13 +565,6 @@ class UIKitTextInput extends HookWidget {
             ),
           ),
         ),
-        if (styleType == TextInputStyleType.line) ...[
-          const SizedBox(height: 3),
-          Divider(
-            thickness: size$.value.borderSize,
-            color: borderColor,
-          ),
-        ],
         if (assistiveText != null) ...[
           SizedBox(height: size$.value.spacing),
           DefaultTextStyle(
@@ -571,7 +572,7 @@ class UIKitTextInput extends HookWidget {
                     ?.copyWith(color: secondaryContentColor) ??
                 TextStyle(color: secondaryContentColor),
             child: assistiveText!,
-          )
+          ),
         ],
       ],
     );
