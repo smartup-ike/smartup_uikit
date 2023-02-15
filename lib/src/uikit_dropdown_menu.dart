@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
+import 'package:smartup_uikit/src/helpers/uikit_states.dart';
+import 'package:smartup_uikit/src/theme/uikit_theme.dart';
 
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
@@ -44,6 +47,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
   const UIKitDropdownMenu({
     super.key,
     required this.value,
+    this.initialValue,
     required this.onChange,
     this.options = const [],
     this.labels = const [],
@@ -61,6 +65,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
         );
 
   final List<T?> value;
+  final List<T?>? initialValue;
   final ValueChanged<List<T?>> onChange;
   final List<T> options;
   final List<Widget> labels;
@@ -75,9 +80,8 @@ class UIKitDropdownMenu<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentValue$ = useState<List<T?>>(
-      multiselect ? List.from(value, growable: true) : [],
-    );
+    final currentValue$ =
+        useState<List<T?>>(List.from(initialValue ?? [], growable: true));
 
     return Container(
       width: width,
@@ -114,28 +118,6 @@ class UIKitDropdownMenu<T> extends HookWidget {
                     multiselect: multiselect,
                     isSelected: currentValue$.value.contains(options[i]),
                     trailing: multiselect ? null : itemTrailing,
-                    colorScheme: UIKitColorScheme(
-                      defaultBackgroundColor: Colors.red,
-                      hoverBackgroundColor: Colors.blue,
-                      focusedBackgroundColor: Colors.purple,
-                      activeBackgroundColor: Colors.teal,
-                      disabledBackgroundColor: Colors.grey,
-                      defaultContentColor: Colors.white,
-                      hoverContentColor: Colors.green,
-                      focusedContentColor: Colors.red,
-                      activeContentColor: Colors.orange,
-                      disabledContentColor: Colors.grey,
-                      defaultBorderColor: Colors.black,
-                      hoverBorderColor: Colors.black,
-                      focusedBorderColor: Colors.black,
-                      activeBorderColor: Colors.black,
-                      disabledBorderColor: Colors.black,
-                    ),
-                    sizeScheme: UIKitSizeScheme(
-                      width: 16,
-                      height: 16,
-                      iconSize: 12,
-                    ),
                   ),
                 ]
               ],
@@ -187,17 +169,51 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isHovered$ = useState(false);
+    final themeData$ = useState(UIKitTheme.of(context).menuItemThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
+
+    Color? backgroundColor;
+    Color? borderColor;
+    Color? contentColor;
+    Color? secondaryContentColor;
+    List<BoxShadow>? shadows;
+
+    if (isHovered$.value) {
+      backgroundColor = colors$.value.hoverBackgroundColor;
+      borderColor = colors$.value.hoverBorderColor;
+      contentColor = colors$.value.hoverContentColor;
+      secondaryContentColor = colors$.value.hoverSecondaryContentColor;
+      shadows = shadows$.value.hoverShadow;
+    } else {
+      backgroundColor = colors$.value.defaultBackgroundColor;
+      borderColor = colors$.value.defaultBorderColor;
+      contentColor = colors$.value.defaultContentColor;
+      secondaryContentColor = isSelected
+          ? colors$.value.activeSecondaryContentColor
+          : colors$.value.defaultSecondaryContentColor;
+      shadows = shadows$.value.defaultShadow;
+    }
+
     return MouseRegion(
       onHover: (_) => isHovered$.value = true,
       onExit: (_) => isHovered$.value = false,
       child: GestureDetector(
         onTap: onTap,
-        child: ColoredBox(
-          color: isHovered$.value
-              ? colorScheme?.hoverBackgroundColor ?? Colors.transparent
-              : isSelected
-                  ? colorScheme?.activeBackgroundColor ?? Colors.transparent
-                  : colorScheme?.defaultBackgroundColor ?? Colors.transparent,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: size$.value.padding,
+          decoration: BoxDecoration(
+            color: backgroundColor ?? Colors.transparent,
+            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+            border: Border.all(
+              color: borderColor ?? Colors.transparent,
+              width: size$.value.borderSize ?? 0,
+            ),
+            boxShadow: shadows,
+          ),
           child: Row(
             children: [
               if (multiselect) ...[
@@ -208,23 +224,20 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
                       Icons.check,
                       size: 12,
                     ),
-                    colorScheme: colorScheme,
-                    sizeScheme: sizeScheme,
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: size$.value.spacing),
               ],
               DefaultTextStyle(
-                style: sizeScheme?.labelTextStyle ?? const TextStyle(),
-                child: label ?? const SizedBox(),
+                style: size$.value.labelStyle?.copyWith(color: contentColor) ??
+                    const TextStyle(),
+                child: label ?? const Text(''),
               ),
               if (trailing != null) ...[
-                const SizedBox(width: 8),
+                const Spacer(),
                 UIKitIconTheme(
-                  size: sizeScheme?.iconSize,
-                  color: isSelected
-                      ? colorScheme?.defaultContentColor
-                      : colorScheme?.disabledContentColor,
+                  size: size$.value.trailingSize,
+                  color: secondaryContentColor,
                   child: trailing!,
                 ),
               ],

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
+import 'package:smartup_uikit/src/theme/uikit_colors.dart';
+import 'package:smartup_uikit/src/theme/uikit_typography.dart';
 import 'uikit_menu_item_theme_data.dart';
 import 'uikit_text_input_theme_data.dart';
 import 'uikit_button_theme_data.dart';
@@ -15,51 +18,53 @@ class UIKitTheme extends StatelessWidget {
   }) : super(key: key);
 
   /// Specifies the color and typography values for descendant widgets.
-  final SUThemeData theme;
+  final UIKitThemeData theme;
 
   /// The widget below this widget in the tree.
   final Widget child;
 
-  static SUThemeData of(BuildContext context) {
-    final SUThemeData? result = maybeOf(context);
+  static UIKitThemeData of(BuildContext context) {
+    final UIKitThemeData? result = maybeOf(context);
     assert(result != null, 'No ThemeData found in context');
     return result!;
   }
 
-  static SUThemeData? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_SUTheme>()?.data;
+  static UIKitThemeData? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_UIKitTheme>()?.data;
   }
 
   @override
   Widget build(BuildContext context) {
-    return _SUTheme(
+    return _UIKitTheme(
       data: theme,
       child: child,
     );
   }
 }
 
-class _SUTheme extends InheritedTheme {
-  const _SUTheme({
+class _UIKitTheme extends InheritedTheme {
+  const _UIKitTheme({
     Key? key,
     required this.data,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final SUThemeData data;
+  final UIKitThemeData data;
 
   @override
-  bool updateShouldNotify(covariant _SUTheme oldWidget) =>
+  bool updateShouldNotify(covariant _UIKitTheme oldWidget) =>
       oldWidget.data != data;
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    return _SUTheme(data: data, child: child);
+    return _UIKitTheme(data: data, child: child);
   }
 }
 
 @immutable
-class SUThemeData {
+class UIKitThemeData {
+  final UIKitColors colors;
+  final UIKitTypography typography;
   final UIKitButtonThemeData buttonThemeData;
   final UIKitRadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
@@ -67,8 +72,11 @@ class SUThemeData {
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
+  final UIKitCheckboxThemeData checkboxThemeData;
 
-  const SUThemeData.raw({
+  const UIKitThemeData.raw({
+    required this.colors,
+    required this.typography,
     required this.buttonThemeData,
     required this.radioButtonThemeData,
     required this.tabThemeData,
@@ -76,9 +84,12 @@ class SUThemeData {
     required this.radioGroupThemeData,
     required this.textInputThemeData,
     required this.menuItemThemeData,
+    required this.checkboxThemeData,
   });
 
-  factory SUThemeData({
+  factory UIKitThemeData({
+    UIKitColors? colors,
+    UIKitTypography? typography,
     UIKitButtonThemeData? buttonThemeData,
     UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
@@ -86,7 +97,10 @@ class SUThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
+    UIKitCheckboxThemeData? checkboxThemeData,
   }) {
+    colors ??= const UIKitColors();
+    typography ??= const UIKitTypography();
     buttonThemeData ??= UIKitButtonThemeData();
     radioButtonThemeData ??= UIKitRadioButtonThemeData();
     tabThemeData ??= UIKitTabThemeData();
@@ -94,8 +108,11 @@ class SUThemeData {
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
     textInputThemeData ??= UIKitTextInputThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
+    checkboxThemeData ??= UIKitCheckboxThemeData();
 
-    return SUThemeData.raw(
+    return UIKitThemeData.raw(
+      colors: colors,
+      typography: typography,
       buttonThemeData: buttonThemeData,
       radioButtonThemeData: radioButtonThemeData,
       tabThemeData: tabThemeData,
@@ -103,10 +120,13 @@ class SUThemeData {
       radioGroupThemeData: radioGroupThemeData,
       textInputThemeData: textInputThemeData,
       menuItemThemeData: menuItemThemeData,
+      checkboxThemeData: checkboxThemeData,
     );
   }
 
-  SUThemeData copyWith({
+  UIKitThemeData copyWith({
+    UIKitColors? colors,
+    UIKitTypography? typography,
     UIKitButtonThemeData? buttonThemeData,
     UIKitRadioButtonThemeData? radioButtonThemeData,
     UIKitTabThemeData? tabThemeData,
@@ -114,8 +134,11 @@ class SUThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
+    UIKitCheckboxThemeData? checkboxThemeData,
   }) {
-    return SUThemeData.raw(
+    return UIKitThemeData.raw(
+      colors: colors ?? this.colors,
+      typography: typography ?? this.typography,
       buttonThemeData: buttonThemeData ?? this.buttonThemeData,
       radioButtonThemeData: radioButtonThemeData ?? this.radioButtonThemeData,
       tabThemeData: tabThemeData ?? this.tabThemeData,
@@ -124,6 +147,7 @@ class SUThemeData {
       radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
       menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
+      checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
     );
   }
 }

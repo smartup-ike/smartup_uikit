@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
+import 'package:smartup_uikit/src/uikit_icon_theme.dart';
+import 'theme/uikit_theme.dart';
+import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
@@ -7,118 +11,150 @@ import 'helpers/uikit_states.dart';
 class UIKitCheckbox extends HookWidget {
   const UIKitCheckbox({
     super.key,
-    this.icon,
+    required this.icon,
     this.onChanged,
-    this.isChecked,
+    required this.isChecked,
     this.colorScheme,
     this.sizeScheme,
+    this.shadowScheme,
   });
 
-  final Widget? icon;
+  /// [Widget] that is displayed within the checkbox.
+  /// It is suggested that you pass a ternary with two different [Widget] for
+  /// each of the states (checked or not checked).
+  final Widget icon;
+
+  /// [ValueChanged] called whenever the widget is tapped with the negative
+  /// value of [isChecked].
   final ValueChanged<bool?>? onChanged;
-  final bool? isChecked;
+
+  /// [bool] indicating whether the widget is checked
+  final bool isChecked;
+
+  /// [UIKitColorScheme] determining color attributes of this widget
   final UIKitColorScheme? colorScheme;
+
+  /// [UIKitSizeScheme] determining size attributes of this widget
   final UIKitSizeScheme? sizeScheme;
+
+  /// [UIKitShadowScheme] determining shadow attributes of this widget
+  final UIKitShadowScheme? shadowScheme;
 
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
-        onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
+      onChanged == null
+          ? UIKitState.disabled
+          : isChecked
+              ? UIKitState.active
+              : UIKitState.defaultState,
+    );
     final isHovered$ = useState(false);
+    final themeData$ = useState(UIKitTheme.of(context).checkboxThemeData);
+    final colors$ =
+        useState(define(colorScheme, themeData$.value.checkedColorScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
+    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
 
     Color? backgroundColor;
     Color? contentColor;
     Color? borderColor;
+    List<BoxShadow>? shadows;
 
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = colorScheme?.defaultBackgroundColor;
-        contentColor = colorScheme?.defaultContentColor;
-        borderColor = colorScheme?.defaultBorderColor;
+        backgroundColor = colors$.value.defaultBackgroundColor;
+        contentColor = colors$.value.defaultContentColor;
+        borderColor = colors$.value.defaultBorderColor;
+        shadows = shadows$.value.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = colorScheme?.hoverBackgroundColor;
-        contentColor = colorScheme?.hoverContentColor;
-        borderColor = colorScheme?.hoverBorderColor;
+        backgroundColor = colors$.value.hoverBackgroundColor;
+        contentColor = colors$.value.hoverContentColor;
+        borderColor = colors$.value.hoverBorderColor;
+        shadows = shadows$.value.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = colorScheme?.focusedBackgroundColor;
-        contentColor = colorScheme?.focusedContentColor;
-        borderColor = colorScheme?.focusedBorderColor;
+        backgroundColor = colors$.value.focusedBackgroundColor;
+        contentColor = colors$.value.focusedContentColor;
+        borderColor = colors$.value.focusedBorderColor;
+        shadows = shadows$.value.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = colorScheme?.activeBackgroundColor;
-        contentColor = colorScheme?.activeContentColor;
-        borderColor = colorScheme?.activeBorderColor;
+        backgroundColor = colors$.value.activeBackgroundColor;
+        contentColor = colors$.value.activeContentColor;
+        borderColor = colors$.value.activeBorderColor;
+        shadows = shadows$.value.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = colorScheme?.disabledBackgroundColor;
-        contentColor = colorScheme?.disabledContentColor;
-        borderColor = colorScheme?.disabledBorderColor;
+        backgroundColor = colors$.value.disabledBackgroundColor;
+        contentColor = colors$.value.disabledContentColor;
+        borderColor = colors$.value.disabledBorderColor;
+        shadows = shadows$.value.disabledShadow;
         break;
       default:
         break;
     }
 
-    return Center(
-      child: MouseRegion(
-        cursor: state$.value == UIKitState.disabled
-            ? SystemMouseCursors.basic
-            : SystemMouseCursors.click,
-        onHover: (_) {
+    return MouseRegion(
+      cursor: state$.value == UIKitState.disabled
+          ? SystemMouseCursors.basic
+          : SystemMouseCursors.click,
+      onHover: (_) {
+        if (onChanged != null) {
+          state$.value = UIKitState.hover;
+          isHovered$.value = true;
+        }
+      },
+      onExit: (_) {
+        if (onChanged != null) {
+          state$.value = UIKitState.defaultState;
+          isHovered$.value = false;
+        }
+      },
+      child: GestureDetector(
+        onTap: () => onChanged?.call(!(isChecked)),
+        onTapDown: (_) {
           if (onChanged != null) {
-            state$.value = UIKitState.hover;
-            isHovered$.value = true;
+            state$.value = UIKitState.focused;
           }
         },
-        onExit: (_) {
+        onTapUp: (_) {
           if (onChanged != null) {
-            state$.value = UIKitState.defaultState;
-            isHovered$.value = false;
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
-        child: GestureDetector(
-          onTap: () {
-            onChanged?.call(!(isChecked ?? false));
-          },
-          onTapDown: (_) {
-            if (onChanged != null) {
-              state$.value = UIKitState.focused;
-            }
-          },
-          onTapUp: (_) {
-            if (onChanged != null) {
-              state$.value =
-                  isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
-            }
-          },
-          onTapCancel: () {
-            if (onChanged != null) {
-              state$.value =
-                  isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
-            }
-          },
+        onTapCancel: () {
+          if (onChanged != null) {
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+          }
+        },
+        child: SizedBox(
+          height: size$.value.height,
+          width: size$.value.width,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
+              color: backgroundColor,
+              borderRadius:
+                  BorderRadius.circular(size$.value.borderRadius ?? 4),
               border: Border.all(
-                strokeAlign: BorderSide.strokeAlignOutside,
-                width: 1,
+                width: size$.value.borderSize ?? 1,
                 color: borderColor ?? Colors.transparent,
               ),
+              boxShadow: shadows,
             ),
-            height: sizeScheme?.height,
-            width: sizeScheme?.height,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color:
-                    isChecked ?? false ? backgroundColor : Colors.transparent,
-              ),
-              child: isChecked ?? false ? icon : null,
-            ),
+            padding: size$.value.padding,
+            child: isChecked
+                ? UIKitIconTheme(
+                    size: size$.value.iconSize,
+                    color: contentColor,
+                    child: icon,
+                  )
+                : null,
           ),
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'helpers/uikit_helper_functions.dart';
 import 'theme/uikit_theme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
-import 'theme/uikit_radio_button_theme_data.dart';
 
 class UIKitRadioButton extends HookWidget {
   const UIKitRadioButton({
@@ -41,7 +41,11 @@ class UIKitRadioButton extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final themeData = UIKitTheme.of(context).radioButtonThemeData;
+    final themeData$ = useState(UIKitTheme.of(context).radioButtonThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
 
     useEffect(() {
       if (onTap == null) {
@@ -52,45 +56,35 @@ class UIKitRadioButton extends HookWidget {
       return null;
     }, [onTap == null]);
 
-    UIKitColorScheme radioColors = _defineColors(context, themeData);
-    UIKitSizeScheme radioSize = _defineSize(context, themeData);
-    UIKitShadowScheme radioShadows = _defineShadow(context, themeData);
-
     Color? backgroundColor;
-    Color? contentColor;
     Color? borderColor;
     List<BoxShadow>? shadows;
 
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = radioColors.defaultBackgroundColor;
-        contentColor = radioColors.defaultContentColor;
-        borderColor = radioColors.defaultBorderColor;
-        shadows = radioShadows.defaultShadow;
+        backgroundColor = colors$.value.defaultBackgroundColor;
+        borderColor = colors$.value.defaultBorderColor;
+        shadows = shadows$.value.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = radioColors.hoverBackgroundColor;
-        contentColor = radioColors.hoverContentColor;
-        borderColor = radioColors.hoverBorderColor;
-        shadows = radioShadows.hoverShadow;
+        backgroundColor = colors$.value.hoverBackgroundColor;
+        borderColor = colors$.value.hoverBorderColor;
+        shadows = shadows$.value.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = radioColors.focusedBackgroundColor;
-        contentColor = radioColors.focusedContentColor;
-        borderColor = radioColors.focusedBorderColor;
-        shadows = radioShadows.focusedShadow;
+        backgroundColor = colors$.value.focusedBackgroundColor;
+        borderColor = colors$.value.focusedBorderColor;
+        shadows = shadows$.value.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = radioColors.activeBackgroundColor;
-        contentColor = radioColors.activeContentColor;
-        borderColor = radioColors.activeBorderColor;
-        shadows = radioShadows.activeShadow;
+        backgroundColor = colors$.value.activeBackgroundColor;
+        borderColor = colors$.value.activeBorderColor;
+        shadows = shadows$.value.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = radioColors.disabledBackgroundColor;
-        contentColor = radioColors.disabledContentColor;
-        borderColor = radioColors.disabledBorderColor;
-        shadows = radioShadows.disabledShadow;
+        backgroundColor = colors$.value.disabledBackgroundColor;
+        borderColor = colors$.value.disabledBorderColor;
+        shadows = shadows$.value.disabledShadow;
         break;
       default:
         break;
@@ -131,75 +125,35 @@ class UIKitRadioButton extends HookWidget {
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          width: radioSize.width,
-          height: radioSize.height,
-          decoration: BoxDecoration(
+        child: SizedBox(
+          width: size$.value.width,
+          height: size$.value.height,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            width: size$.value.spacing,
+            height: size$.value.spacing,
+            padding: size$.value.padding ?? const EdgeInsets.all(2),
+            decoration: BoxDecoration(
               border: Border.all(
-                width: radioSize.borderSize ?? 1,
+                width: size$.value.borderSize ?? 1,
                 color: borderColor ?? Colors.transparent,
               ),
               color: backgroundColor ?? Colors.transparent,
               shape: BoxShape.circle,
-              boxShadow: shadows),
-          child: Padding(
-            padding: radioSize.padding ?? const EdgeInsets.all(2),
+              boxShadow: shadows,
+            ),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: radioSize.spacing,
-              height: radioSize.spacing,
+              width: size$.value.secondarySpacing,
+              height: size$.value.secondarySpacing,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isSelected ? contentColor : Colors.transparent,
+                color: isSelected ? borderColor : Colors.transparent,
               ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  UIKitColorScheme _defineColors(
-    BuildContext context,
-    UIKitRadioButtonThemeData themeData,
-  ) {
-    UIKitColorScheme radioColors;
-
-    if (colorScheme == null) {
-      radioColors = themeData.colorScheme;
-    } else {
-      radioColors = colorScheme!;
-    }
-
-    return radioColors;
-  }
-
-  UIKitSizeScheme _defineSize(
-    BuildContext context,
-    UIKitRadioButtonThemeData themeData,
-  ) {
-    UIKitSizeScheme radioSize;
-
-    if (sizeScheme == null) {
-      radioSize = themeData.sizeScheme;
-    } else {
-      radioSize = sizeScheme!;
-    }
-    return radioSize;
-  }
-
-  UIKitShadowScheme _defineShadow(
-    BuildContext context,
-    UIKitRadioButtonThemeData themeData,
-  ) {
-    UIKitShadowScheme radioShadow;
-
-    if (shadowScheme == null) {
-      radioShadow = themeData.shadowScheme;
-    } else {
-      radioShadow = shadowScheme!;
-    }
-    return radioShadow;
   }
 }

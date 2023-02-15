@@ -6,54 +6,54 @@ import '../helpers/uikit_color_scheme.dart';
 @immutable
 class UIKitRadioGroupThemeData {
   final UIKitColorScheme colorScheme;
-  final UIKitColorScheme buttonsColorScheme;
-  final UIKitSizeScheme sizeScheme;
-  final UIKitSizeScheme buttonsSizeScheme;
-  final UIKitShadowScheme buttonsShadowScheme;
+  final UIKitShadowScheme shadowScheme;
+  final UIKitSizeScheme smallSize;
+  final UIKitSizeScheme mediumSize;
+  final UIKitSizeScheme largeSize;
 
   const UIKitRadioGroupThemeData.raw({
     required this.colorScheme,
-    required this.buttonsColorScheme,
-    required this.sizeScheme,
-    required this.buttonsSizeScheme,
-    required this.buttonsShadowScheme,
+    required this.shadowScheme,
+    required this.smallSize,
+    required this.mediumSize,
+    required this.largeSize,
   });
 
   factory UIKitRadioGroupThemeData({
     UIKitColorScheme? colorScheme,
-    UIKitColorScheme? buttonsColorScheme,
-    UIKitSizeScheme? sizeScheme,
-    UIKitSizeScheme? buttonsSizeScheme,
-    UIKitShadowScheme? buttonsShadowScheme,
+    UIKitShadowScheme? shadowScheme,
+    UIKitSizeScheme? smallSize,
+    UIKitSizeScheme? mediumSize,
+    UIKitSizeScheme? largeSize,
   }) {
     colorScheme ??= UIKitColorScheme.defaultScheme();
-    buttonsColorScheme ??= UIKitColorScheme.defaultScheme();
-    sizeScheme ??= UIKitSizeScheme.defaultScheme();
-    buttonsSizeScheme ??= UIKitSizeScheme.defaultScheme();
-    buttonsShadowScheme ??= UIKitShadowScheme.defaultScheme();
+    shadowScheme ??= UIKitShadowScheme.defaultScheme();
+    smallSize ??= UIKitSizeScheme.defaultScheme();
+    mediumSize ??= UIKitSizeScheme.defaultScheme();
+    largeSize ??= UIKitSizeScheme.defaultScheme();
 
     return UIKitRadioGroupThemeData.raw(
       colorScheme: colorScheme,
-      buttonsColorScheme: buttonsColorScheme,
-      sizeScheme: sizeScheme,
-      buttonsSizeScheme: buttonsSizeScheme,
-      buttonsShadowScheme: buttonsShadowScheme,
+      shadowScheme: shadowScheme,
+      smallSize: smallSize,
+      mediumSize: mediumSize,
+      largeSize: largeSize,
     );
   }
 
   UIKitRadioGroupThemeData copyWith({
     UIKitColorScheme? colorScheme,
-    UIKitColorScheme? buttonsColorScheme,
-    UIKitSizeScheme? sizeScheme,
-    UIKitSizeScheme? buttonsSizeScheme,
-    UIKitShadowScheme? buttonsShadowScheme,
+    UIKitShadowScheme? shadowScheme,
+    UIKitSizeScheme? smallSize,
+    UIKitSizeScheme? mediumSize,
+    UIKitSizeScheme? largeSize,
   }) {
     return UIKitRadioGroupThemeData.raw(
       colorScheme: colorScheme ?? this.colorScheme,
-      buttonsColorScheme: buttonsColorScheme ?? this.buttonsColorScheme,
-      sizeScheme: sizeScheme ?? this.sizeScheme,
-      buttonsSizeScheme: buttonsSizeScheme ?? this.buttonsSizeScheme,
-      buttonsShadowScheme: buttonsShadowScheme ?? this.buttonsShadowScheme,
+      shadowScheme: shadowScheme ?? this.shadowScheme,
+      smallSize: smallSize ?? this.smallSize,
+      mediumSize: mediumSize ?? this.mediumSize,
+      largeSize: largeSize ?? this.largeSize,
     );
   }
 }

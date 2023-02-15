@@ -27,13 +27,14 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
         initialValue: _selectedValue,
       ),
       onTap: (position, size) async {
-        _selectedValue = (await Navigator.of(context).push<List<String?>>(
-          DropdownRoute(
-            child: SelectionDialog(initialValue: _selectedValue),
-            position: position,
-            size: size,
-          ),
-        ))!;
+        _selectedValue = await Navigator.of(context).push<List<String?>>(
+              DropdownRoute(
+                child: SelectionDialog(initialValue: _selectedValue),
+                position: position,
+                size: size,
+              ),
+            ) ??
+            _selectedValue;
         print(_selectedValue.toString());
         setState(() {});
         return;
@@ -66,16 +67,17 @@ class _SelectionDialogState extends State<SelectionDialog> {
         _value = value;
       }),
       value: _value,
+      initialValue: widget.initialValue,
       height: 300,
-      multiselect: false,
+      multiselect: true,
       itemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
       actions: [
-        UIKitButton.ghost(
+        UIKitButton.smallGhost(
           labelText: const Text('Cancel'),
           onTap: () => Navigator.of(context).pop(widget.initialValue),
         ),
         const SizedBox(width: 8),
-        UIKitButton.ghost(
+        UIKitButton.smallGhost(
           labelText: const Text('Ok'),
           onTap: () => Navigator.of(context).pop(_value),
         ),

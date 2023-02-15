@@ -1,6 +1,6 @@
-import 'package:example/leave_type_selector.dart';
+import 'constants/theme/example_theme_data_constants.dart';
+import 'leave_type_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 void main() {
@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UIKitTheme(
-      theme: _MyHomePageState.theme,
+      theme: kitThemeData,
       child: MaterialApp(
         title: 'Smartup UI Kit Example',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Smartup UI Kit Example'),
+        home: const MyHomePage(title: 'Smartup UI kit example'),
       ),
     );
   }
@@ -35,82 +35,29 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   bool _isToggleActive = false;
+  bool _isRadioActive = false;
   bool _isCheckBoxChecked = false;
   bool _isMenuItemActive = false;
   int? _selectedRadioItem;
-  String? _selectedDropdownItem;
   String? dropdownValue;
   TextEditingController controller = TextEditingController();
   late FocusNode focusNode;
-  static final theme = SUThemeData(
-    buttonThemeData: UIKitButtonThemeData(
-      primaryColorScheme: UIKitColorScheme(
-        defaultBackgroundColor: Colors.red,
-        hoverBackgroundColor: Colors.blue,
-        focusedBackgroundColor: Colors.purple,
-        activeBackgroundColor: Colors.teal,
-        disabledBackgroundColor: Colors.grey,
-        defaultContentColor: Colors.white,
-        hoverContentColor: Colors.green,
-        focusedContentColor: Colors.red,
-        activeContentColor: Colors.orange,
-        disabledContentColor: Colors.grey,
-        defaultBorderColor: Colors.black,
-        hoverBorderColor: Colors.black,
-        focusedBorderColor: Colors.black,
-        activeBorderColor: Colors.black,
-        disabledBorderColor: Colors.black,
-      ),
-      ghostColorScheme: UIKitColorScheme(
-        defaultBackgroundColor: Colors.red,
-        hoverBackgroundColor: Colors.blue,
-        focusedBackgroundColor: Colors.purple,
-        activeBackgroundColor: Colors.teal,
-        disabledBackgroundColor: Colors.grey,
-        defaultContentColor: Colors.white,
-        hoverContentColor: Colors.green,
-        focusedContentColor: Colors.red,
-        activeContentColor: Colors.orange,
-        disabledContentColor: Colors.grey,
-        defaultBorderColor: Colors.black,
-        hoverBorderColor: Colors.black,
-        focusedBorderColor: Colors.black,
-        activeBorderColor: Colors.black,
-        disabledBorderColor: Colors.black,
-      ),
-    ),
-    textInputThemeData: UIKitTextInputThemeData(
-      filledInputcolorScheme: UIKitColorScheme(
-        defaultBackgroundColor: Colors.red,
-        hoverBackgroundColor: Colors.blue,
-        focusedBackgroundColor: Colors.purple,
-        activeBackgroundColor: Colors.teal,
-        disabledBackgroundColor: Colors.grey,
-        defaultContentColor: Colors.white,
-        hoverContentColor: Colors.green,
-        focusedContentColor: Colors.red,
-        activeContentColor: Colors.orange,
-        disabledContentColor: Colors.grey,
-        defaultBorderColor: Colors.black,
-        hoverBorderColor: Colors.black,
-        focusedBorderColor: Colors.black,
-        activeBorderColor: Colors.black,
-        disabledBorderColor: Colors.black,
-      ),
-    ),
-  );
 
   @override
   void initState() {
     super.initState();
     focusNode = FocusNode();
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
     focusNode.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -121,299 +68,347 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          bottom: TabBar(
+            controller: _tabController,
+            padding: const EdgeInsets.all(8),
+            indicatorWeight: 0,
+            indicatorColor: Colors.transparent,
+            indicator: const BoxDecoration(),
+            onTap: (value) => setState(() {}),
+            tabs: [
+              UIKitTab.line(
+                label: const Text('Buttons'),
+                leading: const UIKitIcon.asset('assets/images/url.svg'),
+                isActive: _tabController.index == 0,
+                onTap: () => setState(() => _tabController.index = 0),
+              ),
+              UIKitTab.page(
+                label: const Text('Radio'),
+                leading: const UIKitIcon.asset('assets/images/url.svg'),
+                isActive: _tabController.index == 1,
+                onTap: () => setState(() => _tabController.index = 1),
+              ),
+              UIKitTab.page(
+                label: const Text('Buttons'),
+                leading: const UIKitIcon.asset('assets/images/url.svg'),
+                isActive: _tabController.index == 2,
+                onTap: () => setState(() => _tabController.index = 2),
+              ),
+            ],
+          ),
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                UIKitButton.primary(
-                  labelText: const Text('Button'),
-                  removePadding: false,
-                  onTap: () {},
-                ),
-                const SizedBox(width: 12),
-                UIKitIconButton.primary(
-                  icon: const UIKitIcon.asset('assets/images/url.svg'),
-                  sizeScheme: UIKitSizeScheme(
-                    height: 40,
-                    iconSize: 24,
-                    borderSize: 1,
-                    borderRadius: 8,
-                    pressedBorderSize: 1,
-                  ),
-                  isCircle: true,
-                  onTap: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                UIKitRadioButton(
-                  isSelected: true,
-                  onTap: () {},
-                  colorScheme: UIKitColorScheme(
-                    defaultBackgroundColor: Colors.white,
-                    hoverBackgroundColor: Colors.white,
-                    focusedBackgroundColor: Colors.white,
-                    activeBackgroundColor: Colors.white,
-                    disabledBackgroundColor: Colors.white,
-                    defaultContentColor: Colors.black,
-                    hoverContentColor: Colors.green,
-                    focusedContentColor: Colors.red,
-                    activeContentColor: Colors.orange,
-                    disabledContentColor: Colors.grey,
-                    defaultBorderColor: Colors.black,
-                    hoverBorderColor: Colors.green,
-                    focusedBorderColor: Colors.red,
-                    activeBorderColor: Colors.orange,
-                    disabledBorderColor: Colors.grey,
-                  ),
-                  sizeScheme: UIKitSizeScheme(
-                    borderSize: 1.6,
-                    height: 16,
-                    width: 16,
-                    spacing: 8,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            UIKitRadioGroup(
-              isVertical: false,
-              label: const Text('Label'),
-              assistiveText: const Text('Assistive text'),
-              optionLabels: const [
-                Text('Test 1'),
-                Text('Test 2'),
-                Text('Test 3'),
-                Text('Test 4'),
-              ],
-              sizeScheme: UIKitSizeScheme(
-                borderSize: 1.6,
-                height: 16,
-                width: 16,
-                spacing: 8,
-              ),
-              colorScheme: UIKitColorScheme(
-                defaultBackgroundColor: Colors.white,
-                hoverBackgroundColor: Colors.white,
-                focusedBackgroundColor: Colors.white,
-                activeBackgroundColor: Colors.white,
-                disabledBackgroundColor: Colors.white,
-                defaultContentColor: Colors.black,
-                hoverContentColor: Colors.green,
-                focusedContentColor: Colors.red,
-                activeContentColor: Colors.orange,
-                disabledContentColor: Colors.grey,
-                defaultBorderColor: Colors.black,
-                hoverBorderColor: Colors.green,
-                focusedBorderColor: Colors.red,
-                activeBorderColor: Colors.orange,
-                disabledBorderColor: Colors.grey,
-              ),
-              getSelected: (index) =>
-                  setState(() => _selectedRadioItem = index),
-            ),
-            const SizedBox(height: 8),
-            UIKitToggleSwitch(
-              hasIcon: true,
-              isActive: _isToggleActive,
-              onTap: () => setState(() => _isToggleActive = !_isToggleActive),
-              colorScheme: UIKitColorScheme(
-                defaultBackgroundColor: Colors.black,
-                hoverBackgroundColor: Colors.green,
-                focusedBackgroundColor: Colors.red,
-                activeBackgroundColor: Colors.orange,
-                disabledBackgroundColor: Colors.grey,
-                defaultContentColor: Colors.white,
-                hoverContentColor: Colors.white,
-                focusedContentColor: Colors.white,
-                activeContentColor: Colors.white,
-                disabledContentColor: Colors.white,
-                defaultBorderColor: Colors.black,
-                hoverBorderColor: Colors.green,
-                focusedBorderColor: Colors.red,
-                activeBorderColor: Colors.orange,
-                disabledBorderColor: Colors.grey,
-              ),
-              sizeScheme: UIKitSizeScheme(
-                height: 24,
-                spacing: 20,
-                borderRadius: 10,
-                width: 48,
-              ),
-            ),
-            const SizedBox(height: 8),
-            UIKitCheckbox(
-              isChecked: _isCheckBoxChecked,
-              onChanged: (value) =>
-                  setState(() => _isCheckBoxChecked = value ?? false),
-              sizeScheme: UIKitSizeScheme(
-                height: 16,
-              ),
-              colorScheme: UIKitColorScheme(
-                defaultBackgroundColor: Colors.tealAccent,
-                hoverBackgroundColor: Colors.green,
-                focusedBackgroundColor: Colors.red,
-                activeBackgroundColor: Colors.orange,
-                disabledBackgroundColor: Colors.grey,
-                defaultContentColor: Colors.white,
-                hoverContentColor: Colors.white,
-                focusedContentColor: Colors.white,
-                activeContentColor: Colors.white,
-                disabledContentColor: Colors.white,
-                defaultBorderColor: Colors.black,
-                hoverBorderColor: Colors.green,
-                focusedBorderColor: Colors.red,
-                activeBorderColor: Colors.orange,
-                disabledBorderColor: Colors.grey,
-              ),
-              icon: const Icon(
-                Icons.check,
-                size: 12,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                UIKitTab.line(
-                  onTap: () {},
-                  leading: const Icon(Icons.gamepad_rounded),
-                  label: const Text('Label'),
-                  isActive: false,
-                  colorScheme: UIKitColorScheme(
-                    defaultBackgroundColor: Colors.tealAccent,
-                    hoverBackgroundColor: Colors.green,
-                    focusedBackgroundColor: Colors.red,
-                    activeBackgroundColor: Colors.orange,
-                    disabledBackgroundColor: Colors.grey,
-                    defaultContentColor: Colors.white,
-                    hoverContentColor: Colors.white,
-                    focusedContentColor: Colors.white,
-                    activeContentColor: Colors.white,
-                    disabledContentColor: Colors.white,
-                    defaultBorderColor: Colors.black,
-                    hoverBorderColor: Colors.green,
-                    focusedBorderColor: Colors.deepPurpleAccent,
-                    activeBorderColor: Colors.orange,
-                    disabledBorderColor: Colors.grey,
-                  ),
-                  sizeScheme: UIKitSizeScheme(
-                    width: 50,
-                    borderRadius: 8,
-                    pressedBorderSize: 1,
-                    borderSize: 0,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
-                    ),
-                    spacing: 8,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                UIKitTab.page(
-                  onTap: () {},
-                  leading: const Icon(Icons.gamepad_rounded),
-                  label: const Text('Label'),
-                  isActive: false,
-                  colorScheme: UIKitColorScheme(
-                    defaultBackgroundColor: Colors.tealAccent,
-                    hoverBackgroundColor: Colors.green,
-                    focusedBackgroundColor: Colors.red,
-                    activeBackgroundColor: Colors.orange,
-                    disabledBackgroundColor: Colors.grey,
-                    defaultContentColor: Colors.white,
-                    hoverContentColor: Colors.white,
-                    focusedContentColor: Colors.white,
-                    activeContentColor: Colors.white,
-                    disabledContentColor: Colors.white,
-                    defaultBorderColor: Colors.black,
-                    hoverBorderColor: Colors.green,
-                    focusedBorderColor: Colors.deepPurpleAccent,
-                    activeBorderColor: Colors.orange,
-                    disabledBorderColor: Colors.grey,
-                  ),
-                  sizeScheme: UIKitSizeScheme(
-                    width: 50,
-                    borderRadius: 8,
-                    pressedBorderSize: 1,
-                    borderSize: 0,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
-                    ),
-                    spacing: 8,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            UIKitTextInput.filledInput(
-              controller: controller,
-              focusNode: focusNode,
-              isDisabled: false,
-              leading: Icon(Icons.nat_rounded),
-              trailing: Icon(Icons.arrow_drop_down_rounded),
-              assistiveText: const Text('Assist'),
-              colorScheme: UIKitColorScheme(
-                defaultBackgroundColor: Colors.tealAccent,
-                hoverBackgroundColor: Colors.green,
-                focusedBackgroundColor: Colors.red,
-                activeBackgroundColor: Colors.orange,
-                disabledBackgroundColor: Colors.grey,
-                defaultContentColor: Colors.black,
-                hoverContentColor: Colors.black,
-                focusedContentColor: Colors.black,
-                activeContentColor: Colors.black,
-                disabledContentColor: Colors.black,
-                defaultBorderColor: Colors.black,
-                hoverBorderColor: Colors.green,
-                focusedBorderColor: Colors.deepPurpleAccent,
-                activeBorderColor: Colors.orange,
-                disabledBorderColor: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                UIKitMenuItem(
-                  label: const Text('Label'),
-                  icon: const UIKitIcon.asset('assets/images/url.svg'),
-                  isActive: false,
-                  isExpanded: _isMenuItemActive,
-                  onTap: () => setState(
-                    () => _isMenuItemActive = !_isMenuItemActive,
-                  ),
-                  colorScheme: UIKitColorScheme(
-                    defaultBackgroundColor: Colors.tealAccent,
-                    hoverBackgroundColor: Colors.green,
-                    focusedBackgroundColor: Colors.red,
-                    activeBackgroundColor: Colors.orange,
-                    disabledBackgroundColor: Colors.grey,
-                    defaultContentColor: Colors.redAccent,
-                    hoverContentColor: Colors.black,
-                    focusedContentColor: Colors.black,
-                    activeContentColor: Colors.black,
-                    disabledContentColor: Colors.black,
-                    defaultBorderColor: Colors.black,
-                    hoverBorderColor: Colors.green,
-                    focusedBorderColor: Colors.deepPurpleAccent,
-                    activeBorderColor: Colors.orange,
-                    disabledBorderColor: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
+        drawer: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: const [
-                SizedBox(width: 50),
-                Expanded(child: LeaveTypeSelector()),
+                UIKitMenuItem(
+                  isActive: false,
+                  isExpanded: true,
+                  label: Text('Buttons'),
+                  icon: UIKitIcon.asset('assets/images/url.svg'),
+                )
+              ],
+            ),
+          ),
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UIKitButton.smallGhost(
+                          labelText: const Text('Button'),
+                          leading:
+                              const UIKitIcon.asset('assets/images/url.svg'),
+                          onTap: () {},
+                        ),
+                        UIKitButton.mediumTertiary(
+                          labelText: const Text('Button'),
+                          leading:
+                              const UIKitIcon.asset('assets/images/url.svg'),
+                          onTap: () {},
+                        ),
+                        UIKitButton.largeOutline(
+                          labelText: const Text('Button'),
+                          leading:
+                              const UIKitIcon.asset('assets/images/url.svg'),
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UIKitIconButton.smallSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.smallSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeSolid(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UIKitIconButton.smallGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: false,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.smallGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.mediumGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                        UIKitIconButton.largeGhost(
+                          icon: const UIKitIcon.asset('assets/images/url.svg'),
+                          isCircle: true,
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: const [
+                    SizedBox(width: 50),
+                    Expanded(child: LeaveTypeSelector()),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    UIKitToggleSwitch.large(
+                      isActive: _isToggleActive,
+                      onTap: () =>
+                          setState(() => _isToggleActive = !_isToggleActive),
+                    ),
+                    const SizedBox(width: 16),
+                    UIKitToggleSwitch.small(
+                      isActive: _isToggleActive,
+                      icon: const UIKitIcon.asset('assets/images/url.svg'),
+                      onTap: () =>
+                          setState(() => _isToggleActive = !_isToggleActive),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    UIKitCheckbox(
+                      icon: const UIKitIcon.asset('assets/images/url.svg'),
+                      isChecked: _isCheckBoxChecked,
+                      onChanged: (value) => setState(
+                        () => _isCheckBoxChecked = !_isCheckBoxChecked,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                UIKitRadioGroup.small(
+                  isVertical: false,
+                  initialSelectedIndex: _selectedRadioItem,
+                  onTap: (index) => setState(() => _selectedRadioItem = index),
+                  label: const Text('Label'),
+                  assistiveText: const Text('Assistive text'),
+                  errorIcon: const UIKitIcon.asset('assets/images/url.svg'),
+                  optionLabels: const [
+                    Text('Option1'),
+                    Text('Option2'),
+                    Text('Option3'),
+                    Text('Option4'),
+                    Text('Option5'),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                UIKitRadioGroup.medium(
+                  isVertical: false,
+                  onTap: (index) => setState(() => _selectedRadioItem = index),
+                  label: const Text('Label'),
+                  assistiveText: const Text('Assistive text'),
+                  optionLabels: const [
+                    Text('Option1'),
+                    Text('Option2'),
+                    Text('Option3'),
+                    Text('Option4'),
+                    Text('Option5'),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                UIKitRadioGroup.large(
+                  isVertical: false,
+                  onTap: (index) => setState(() => _selectedRadioItem = index),
+                  label: const Text('Label'),
+                  assistiveText: const Text('Assistive text'),
+                  optionLabels: const [
+                    Text('Option1'),
+                    Text('Option2'),
+                    Text('Option3'),
+                    Text('Option4'),
+                    Text('Option5'),
+                  ],
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+            ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                UIKitTextInput.largeFilledInput(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  label: const Text('Test'),
+                  assistiveText: const Text('Test'),
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.mediumFilledInput(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  label: const Text('Test'),
+                  assistiveText: const Text('Test'),
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.smallFilledInput(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  label: const Text('Test'),
+                  assistiveText: const Text('Test'),
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.largeLineInput(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  label: const Text('Test'),
+                  assistiveText: const Text('Test'),
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.mediumLineInput(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  label: const Text('Test'),
+                  assistiveText: const Text('Test'),
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.smallLineInput(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  label: const Text('Test'),
+                  assistiveText: const Text('Test'),
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.largeFilledSearch(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  onSubmitted: (_) {},
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.mediumFilledSearch(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  onSubmitted: (_) {},
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.smallFilledSearch(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  onSubmitted: (_) {},
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.largeLineSearch(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  onSubmitted: (_) {},
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.mediumLineSearch(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  onSubmitted: (_) {},
+                ),
+                const SizedBox(height: 8),
+                UIKitTextInput.smallLineSearch(
+                  controller: controller,
+                  focusNode: focusNode,
+                  leading: const UIKitIcon.asset('assets/images/url.svg'),
+                  trailing: const UIKitIcon.asset('assets/images/url.svg'),
+                  onSubmitted: (_) {},
+                ),
               ],
             ),
           ],

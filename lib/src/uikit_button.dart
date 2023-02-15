@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/helpers/uikit_sizes.dart';
+
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_size_scheme.dart';
+import 'helpers/uikit_shadow_scheme.dart';
+import 'theme/uikit_button_theme_data.dart';
 import 'theme/uikit_theme.dart';
 import 'uikit_icon_theme.dart';
 
@@ -28,85 +32,235 @@ class UIKitButton extends HookWidget {
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
+    this.sizeScheme,
+    this.shadowScheme,
     this.buttonType,
-  }) : assert(buttonType == null,
-            'buttonType has to be null on default constructor. Use one of the named constructors instead e.g.: UIKitButton.primary()');
+    this.buttonSize,
+  })  : assert(
+          buttonType == null,
+          'buttonType has to be null on default constructor. Use one of the named constructors instead e.g.: UIKitButton.primary()',
+        ),
+        assert(
+          buttonSize == null,
+          'buttonType has to be null on default constructor. Use one of the named constructors instead.',
+        );
 
-  const UIKitButton.primary({
+  const UIKitButton.smallPrimary({
     super.key,
     this.onTap,
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
-  }) : buttonType = UIKitButtonType.primary;
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.primary,
+        buttonSize = UIKitSizes.small;
 
-  const UIKitButton.secondary({
+  const UIKitButton.smallSecondary({
     super.key,
     this.onTap,
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
-  }) : buttonType = UIKitButtonType.secondary;
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.secondary,
+        buttonSize = UIKitSizes.small;
 
-  const UIKitButton.secondaryWhite({
+  const UIKitButton.smallSecondaryWhite({
     super.key,
     this.onTap,
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
-  }) : buttonType = UIKitButtonType.secondaryWhite;
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.secondaryWhite,
+        buttonSize = UIKitSizes.small;
 
-  const UIKitButton.tertiary({
+  const UIKitButton.smallTertiary({
     super.key,
     this.onTap,
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
-  }) : buttonType = UIKitButtonType.tertiary;
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.tertiary,
+        buttonSize = UIKitSizes.small;
 
-  const UIKitButton.outline({
+  const UIKitButton.smallOutline({
     super.key,
     this.onTap,
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
-  }) : buttonType = UIKitButtonType.outline;
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.outline,
+        buttonSize = UIKitSizes.small;
 
-  const UIKitButton.ghost({
+  const UIKitButton.smallGhost({
     super.key,
     this.onTap,
     this.labelText,
     this.leading,
     this.trailing,
-    this.sizeScheme,
-    this.hasShadow,
     this.colorScheme,
-    this.removePadding = false,
-  }) : buttonType = UIKitButtonType.ghost;
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.ghost,
+        buttonSize = UIKitSizes.small;
+
+  const UIKitButton.mediumPrimary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.primary,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitButton.mediumSecondary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.secondary,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitButton.mediumSecondaryWhite({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.secondaryWhite,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitButton.mediumTertiary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.tertiary,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitButton.mediumOutline({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.outline,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitButton.mediumGhost({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.ghost,
+        buttonSize = UIKitSizes.medium;
+
+  const UIKitButton.largePrimary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.primary,
+        buttonSize = UIKitSizes.large;
+
+  const UIKitButton.lergeSecondary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.secondary,
+        buttonSize = UIKitSizes.large;
+
+  const UIKitButton.lergeSecondaryWhite({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.secondaryWhite,
+        buttonSize = UIKitSizes.large;
+
+  const UIKitButton.lergeTertiary({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.tertiary,
+        buttonSize = UIKitSizes.large;
+
+  const UIKitButton.largeOutline({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.outline,
+        buttonSize = UIKitSizes.large;
+
+  const UIKitButton.largeGhost({
+    super.key,
+    this.onTap,
+    this.labelText,
+    this.leading,
+    this.trailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : buttonType = UIKitButtonType.ghost,
+        buttonSize = UIKitSizes.large;
 
   /// Function that is called on button tap.
   ///
@@ -128,17 +282,17 @@ class UIKitButton extends HookWidget {
   /// If the widget contains [SvgPicture], the style changes automatically.
   final Widget? trailing;
 
-  /// [UIKitSizeScheme] an object containing info for the button's height, border size, border radius size, icon size and text style
-  final UIKitSizeScheme? sizeScheme;
-
-  /// [UIKitColorScheme] an object containing different colors for all the button's states
+  /// [UIKitColorScheme] containing information about the colors for all the
+  /// different states.
   final UIKitColorScheme? colorScheme;
 
-  /// Boolean indicating whether the button has shadow
-  final bool? hasShadow;
+  /// [UIKitSizeScheme] containing information about the size elements
+  /// for all the different states.
+  final UIKitSizeScheme? sizeScheme;
 
-  /// Boolean of the button to remove initial padding.
-  final bool? removePadding;
+  /// [UIKitShadowScheme] containing information about the shadows for all the
+  /// different states.
+  final UIKitShadowScheme? shadowScheme;
 
   /// Type of the button [UIKitButtonType]
   ///
@@ -151,45 +305,23 @@ class UIKitButton extends HookWidget {
   /// * ghost
   final UIKitButtonType? buttonType;
 
+  /// [UIKitSizes] size of this button.
+  /// Must be null with default constructor.
+  /// Use named constructors to change the value.
+  final UIKitSizes? buttonSize;
+
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
+    final theme$ =
+        useState<UIKitButtonThemeData>(UIKitTheme.of(context).buttonThemeData);
+    final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
+    final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
+    final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
 
     // Handles button colors according to buttonType.
-    final buttonTheme = UIKitTheme.of(context).buttonThemeData;
-    UIKitColorScheme buttonColors;
-    switch (buttonType) {
-      case UIKitButtonType.primary:
-        buttonColors = buttonTheme.primaryColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-      case UIKitButtonType.secondary:
-        buttonColors = buttonTheme.secondaryColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-      case UIKitButtonType.secondaryWhite:
-        buttonColors = buttonTheme.secondaryWhiteColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-      case UIKitButtonType.tertiary:
-        buttonColors = buttonTheme.tertiaryColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-      case UIKitButtonType.outline:
-        buttonColors = buttonTheme.outlineColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-      case UIKitButtonType.ghost:
-        buttonColors =
-            buttonTheme.ghostColorScheme.copyWithScheme(newScheme: colorScheme);
-        break;
-      default:
-        buttonColors = buttonTheme.primaryColorScheme
-            .copyWithScheme(newScheme: colorScheme);
-        break;
-    }
 
     useEffect(() {
       if (onTap == null) {
@@ -203,33 +335,39 @@ class UIKitButton extends HookWidget {
     Color? backgroundColor;
     Color? contentColor;
     Color? borderColor;
+    List<BoxShadow>? shadows;
 
-    // Change the color of the button according to state
+    // Change color and shadow according to state
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = buttonColors.defaultBackgroundColor;
-        contentColor = buttonColors.defaultContentColor;
-        borderColor = buttonColors.defaultBorderColor;
+        backgroundColor = colors$.value.defaultBackgroundColor;
+        contentColor = colors$.value.defaultContentColor;
+        borderColor = colors$.value.defaultBorderColor;
+        shadows = shadows$.value.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = buttonColors.hoverBackgroundColor;
-        contentColor = buttonColors.hoverContentColor;
-        borderColor = buttonColors.hoverBorderColor;
+        backgroundColor = colors$.value.hoverBackgroundColor;
+        contentColor = colors$.value.hoverContentColor;
+        borderColor = colors$.value.hoverBorderColor;
+        shadows = shadows$.value.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = buttonColors.focusedBackgroundColor;
-        contentColor = buttonColors.focusedContentColor;
-        borderColor = buttonColors.focusedBorderColor;
+        backgroundColor = colors$.value.focusedBackgroundColor;
+        contentColor = colors$.value.focusedContentColor;
+        borderColor = colors$.value.focusedBorderColor;
+        shadows = shadows$.value.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = buttonColors.activeBackgroundColor;
-        contentColor = buttonColors.activeContentColor;
-        borderColor = buttonColors.activeBorderColor;
+        backgroundColor = colors$.value.activeBackgroundColor;
+        contentColor = colors$.value.activeContentColor;
+        borderColor = colors$.value.activeBorderColor;
+        shadows = shadows$.value.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = buttonColors.disabledBackgroundColor;
-        contentColor = buttonColors.disabledContentColor;
-        borderColor = buttonColors.disabledBorderColor;
+        backgroundColor = colors$.value.disabledBackgroundColor;
+        contentColor = colors$.value.disabledContentColor;
+        borderColor = colors$.value.disabledBorderColor;
+        shadows = shadows$.value.disabledShadow;
         break;
       default:
         break;
@@ -272,100 +410,128 @@ class UIKitButton extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          padding: size$.value.padding,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ??
-                buttonTheme.sizeScheme.borderRadius ??
-                8),
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
-              strokeAlign: BorderSide.strokeAlignOutside,
-              width: sizeScheme?.pressedBorderSize ??
-                  buttonTheme.sizeScheme.pressedBorderSize ??
-                  0,
-              color: (state$.value == UIKitState.focused)
-                  ? (borderColor ?? Colors.transparent)
-                  : Colors.transparent,
+              strokeAlign: BorderSide.strokeAlignInside,
+              width: size$.value.borderSize ?? 0,
+              color: borderColor ?? Colors.transparent,
             ),
+            boxShadow: shadows,
           ),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ??
-                  buttonTheme.sizeScheme.borderRadius ??
-                  8),
-              border: Border.all(
-                strokeAlign: BorderSide.strokeAlignOutside,
-                width: sizeScheme?.borderSize ??
-                    buttonTheme.sizeScheme.borderSize ??
-                    0,
-                color: (state$.value == UIKitState.focused)
-                    ? Colors.transparent
-                    : (borderColor ?? Colors.transparent),
-              ),
-              boxShadow: onTap == null || !(hasShadow ?? true)
-                  ? []
-                  : state$.value == UIKitState.focused
-                      ? [
-                          BoxShadow(
-                            offset: const Offset(0, 0),
-                            blurRadius: 4,
-                            spreadRadius: 0,
-                            color: const Color(0xFF0D1556).withOpacity(.75),
-                          ),
-                        ]
-                      : [
-                          BoxShadow(
-                            offset: const Offset(0, 1),
-                            blurRadius: 2,
-                            spreadRadius: 0,
-                            color: const Color(0xFF0D1556).withOpacity(.33),
-                          ),
-                          BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 8,
-                            spreadRadius: 0,
-                            color: const Color(0xFF201E8D).withOpacity(.25),
-                          ),
-                        ],
-            ),
-            height: sizeScheme?.height ?? buttonTheme.sizeScheme.height,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!removePadding!) const SizedBox(width: 10),
-                if (leading != null) ...[
-                  UIKitIconTheme(
-                    color: contentColor,
-                    size:
-                        sizeScheme?.iconSize ?? buttonTheme.sizeScheme.iconSize,
-                    child: leading!,
-                  ),
-                  const SizedBox(width: 10),
-                ],
-                DefaultTextStyle(
-                  style: sizeScheme?.labelTextStyle
-                          ?.copyWith(color: contentColor) ??
-                      buttonTheme.sizeScheme.labelTextStyle!
-                          .copyWith(color: contentColor),
-                  child: labelText ?? const Text('Button'),
+          height: size$.value.height,
+          width: size$.value.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (leading != null) ...[
+                UIKitIconTheme(
+                  color: contentColor,
+                  size: size$.value.leadingSize,
+                  child: leading!,
                 ),
-                if (!removePadding!) const SizedBox(width: 10),
-                if (trailing != null) ...[
-                  UIKitIconTheme(
-                    color: contentColor,
-                    size:
-                        sizeScheme?.iconSize ?? buttonTheme.sizeScheme.iconSize,
-                    child: trailing!,
-                  ),
-                  if (!removePadding!) const SizedBox(width: 10),
-                ],
+                SizedBox(width: size$.value.spacing),
               ],
-            ),
+              DefaultTextStyle(
+                style: size$.value.labelStyle?.copyWith(color: contentColor) ??
+                    TextStyle(color: contentColor),
+                child: labelText ?? const Text('Button'),
+              ),
+              if (trailing != null) ...[
+                SizedBox(width: size$.value.spacing),
+                UIKitIconTheme(
+                  color: contentColor,
+                  size: size$.value.trailingSize,
+                  child: trailing!,
+                ),
+              ],
+            ],
           ),
         ),
       ),
     );
+  }
+
+  UIKitColorScheme findColors(UIKitButtonThemeData themeData) {
+    UIKitColorScheme colorScheme;
+    if (this.colorScheme != null) {
+      colorScheme = this.colorScheme!;
+    } else {
+      switch (buttonType) {
+        case UIKitButtonType.secondary:
+          colorScheme = themeData.secondaryColors;
+          break;
+        case UIKitButtonType.secondaryWhite:
+          colorScheme = themeData.secondaryWhiteColors;
+          break;
+        case UIKitButtonType.tertiary:
+          colorScheme = themeData.tertiaryColors;
+          break;
+        case UIKitButtonType.outline:
+          colorScheme = themeData.outlineColors;
+          break;
+        case UIKitButtonType.ghost:
+          colorScheme = themeData.ghostColors;
+          break;
+        default:
+          colorScheme = themeData.primaryColors;
+          break;
+      }
+    }
+    return colorScheme;
+  }
+
+  UIKitShadowScheme findShadows(UIKitButtonThemeData themeData) {
+    UIKitShadowScheme shadowScheme;
+    if (this.shadowScheme != null) {
+      shadowScheme = this.shadowScheme!;
+    } else {
+      switch (buttonType) {
+        case UIKitButtonType.secondary:
+          shadowScheme = themeData.secondaryShadows;
+          break;
+        case UIKitButtonType.secondaryWhite:
+          shadowScheme = themeData.secondaryWhiteShadows;
+          break;
+        case UIKitButtonType.tertiary:
+          shadowScheme = themeData.tertiaryShadows;
+          break;
+        case UIKitButtonType.outline:
+          shadowScheme = themeData.outlineShadows;
+          break;
+        case UIKitButtonType.ghost:
+          shadowScheme = themeData.ghostIconShadows;
+          break;
+        default:
+          shadowScheme = themeData.primaryShadows;
+          break;
+      }
+    }
+    return shadowScheme;
+  }
+
+  UIKitSizeScheme findSize(UIKitButtonThemeData themeData) {
+    UIKitSizeScheme sizeScheme;
+    if (this.sizeScheme != null) {
+      sizeScheme = this.sizeScheme!;
+    } else {
+      switch (buttonSize) {
+        case UIKitSizes.small:
+          sizeScheme = themeData.smallSize;
+          break;
+        case UIKitSizes.large:
+          sizeScheme = themeData.largeSize;
+          break;
+        default:
+          sizeScheme = themeData.mediumSize;
+          break;
+      }
+    }
+    return sizeScheme;
   }
 }

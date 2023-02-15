@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/helpers/uikit_sizes.dart';
+import 'package:smartup_uikit/src/uikit_icon_theme.dart';
+import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'theme/uikit_theme.dart';
@@ -10,20 +13,43 @@ import 'helpers/uikit_states.dart';
 class UIKitToggleSwitch extends HookWidget {
   const UIKitToggleSwitch({
     super.key,
-    this.isActive,
-    this.hasIcon,
+    required this.isActive,
+    this.icon,
     this.onTap,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  });
+    this.size,
+  }) : assert(
+          size == null,
+          'Must be null by default. Use named constructors if you want to change the value',
+        );
+
+  const UIKitToggleSwitch.small({
+    super.key,
+    required this.isActive,
+    this.icon,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  }) : size = UIKitSizes.small;
+
+  const UIKitToggleSwitch.large({
+    super.key,
+    required this.isActive,
+    this.icon,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  }) : size = UIKitSizes.large;
 
   /// [bool] that dictates whether the switch is on or off.
-  final bool? isActive;
+  final bool isActive;
 
-  /// [bool] that dictates whether the switch has an [Icon] at the center of
-  /// the button.
-  final bool? hasIcon;
+  /// Icon that is displayed inside the circle of this switch.
+  final Widget? icon;
 
   /// [VoidCallback] that is called when the switch is pressed.
   final VoidCallback? onTap;
@@ -40,53 +66,62 @@ class UIKitToggleSwitch extends HookWidget {
   /// attributes of this switch.
   final UIKitShadowScheme? shadowScheme;
 
+  /// [UIKitSizes] determining the size of this widget. Must be null by default.
+  /// Use named constructors if you want to ghange the value.
+  final UIKitSizes? size;
+
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    UIKitToggleSwitchThemeData themeData =
-        UIKitTheme.of(context).toggleSwitchThemeData;
-
-    UIKitColorScheme toggleSwitchColors = _defineColors(context, themeData);
-    UIKitSizeScheme toggleSwitchSize = _defineSize(context, themeData);
-    UIKitShadowScheme toggleSwitchShadows = _defineShadow(context, themeData);
+    final themeData$ = useState(UIKitTheme.of(context).toggleSwitchThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
+    final size$ = useState(findSize(themeData$.value));
 
     Color? backgroundColor;
     Color? contentColor;
+    Color? secondaryContentColor;
     Color? borderColor;
     List<BoxShadow>? shadows;
 
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = toggleSwitchColors.defaultBackgroundColor;
-        contentColor = toggleSwitchColors.defaultContentColor;
-        borderColor = toggleSwitchColors.defaultBorderColor;
-        shadows = toggleSwitchShadows.defaultShadow;
+        backgroundColor = colors$.value.defaultBackgroundColor;
+        contentColor = colors$.value.defaultContentColor;
+        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
+        borderColor = colors$.value.defaultBorderColor;
+        shadows = shadows$.value.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = toggleSwitchColors.hoverBackgroundColor;
-        contentColor = toggleSwitchColors.hoverContentColor;
-        borderColor = toggleSwitchColors.hoverBorderColor;
-        shadows = toggleSwitchShadows.hoverShadow;
+        backgroundColor = colors$.value.hoverBackgroundColor;
+        contentColor = colors$.value.hoverContentColor;
+        secondaryContentColor = colors$.value.hoverSecondaryContentColor;
+        borderColor = colors$.value.hoverBorderColor;
+        shadows = shadows$.value.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = toggleSwitchColors.focusedBackgroundColor;
-        contentColor = toggleSwitchColors.focusedContentColor;
-        borderColor = toggleSwitchColors.focusedBorderColor;
-        shadows = toggleSwitchShadows.focusedShadow;
+        backgroundColor = colors$.value.focusedBackgroundColor;
+        contentColor = colors$.value.focusedContentColor;
+        secondaryContentColor = colors$.value.focusedSecondaryContentColor;
+        borderColor = colors$.value.focusedBorderColor;
+        shadows = shadows$.value.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = toggleSwitchColors.activeBackgroundColor;
-        contentColor = toggleSwitchColors.activeContentColor;
-        borderColor = toggleSwitchColors.activeBorderColor;
-        shadows = toggleSwitchShadows.activeShadow;
+        backgroundColor = colors$.value.activeBackgroundColor;
+        contentColor = colors$.value.activeContentColor;
+        secondaryContentColor = colors$.value.activeSecondaryContentColor;
+        borderColor = colors$.value.activeBorderColor;
+        shadows = shadows$.value.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = toggleSwitchColors.disabledBackgroundColor;
-        contentColor = toggleSwitchColors.disabledContentColor;
-        borderColor = toggleSwitchColors.disabledBorderColor;
-        shadows = toggleSwitchShadows.disabledShadow;
+        backgroundColor = colors$.value.disabledBackgroundColor;
+        contentColor = colors$.value.disabledContentColor;
+        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
+        borderColor = colors$.value.disabledBorderColor;
+        shadows = shadows$.value.disabledShadow;
         break;
       default:
         break;
@@ -129,48 +164,46 @@ class UIKitToggleSwitch extends HookWidget {
             }
           },
           child: SizedBox(
-            height: toggleSwitchSize.height,
-            width: toggleSwitchSize.width,
+            height: size$.value.height,
+            width: size$.value.width,
             child: Stack(
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                          toggleSwitchSize.borderRadius ?? 8),
-                      child: ColoredBox(
-                        color: const Color(0xFFE8E8F3),
-                        child: SizedBox(
-                          width: toggleSwitchSize.width,
-                          height: toggleSwitchSize.spacing,
-                        ),
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      size$.value.borderRadius ?? 8,
+                    ),
+                    child: ColoredBox(
+                      color: backgroundColor ?? Colors.grey,
+                      child: SizedBox(
+                        width: size$.value.width,
+                        height: size$.value.spacing,
                       ),
                     ),
-                  ],
+                  ),
                 ),
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 200),
-                  left: isActive ?? false ? null : 0,
-                  right: isActive ?? false ? 0 : null,
+                  left: isActive ? null : 0,
+                  right: isActive ? 0 : null,
                   child: Container(
-                    width: toggleSwitchSize.height,
-                    height: toggleSwitchSize.height,
+                    width: size$.value.height,
+                    height: size$.value.height,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: backgroundColor,
+                      color: contentColor,
                       border: Border.all(
                         color: borderColor ?? Colors.transparent,
-                        width: toggleSwitchSize.borderSize ?? 1,
+                        width: size$.value.borderSize ?? 1,
                       ),
                       boxShadow: shadows,
                     ),
-                    child: hasIcon ?? false
+                    child: icon != null
                         ? Center(
-                            child: Icon(
-                              isActive ?? false ? Icons.check : Icons.close,
-                              size: 16,
-                              color: contentColor,
+                            child: UIKitIconTheme(
+                              color: secondaryContentColor,
+                              size: size$.value.iconSize,
+                              child: icon!,
                             ),
                           )
                         : null,
@@ -184,46 +217,24 @@ class UIKitToggleSwitch extends HookWidget {
     );
   }
 
-  UIKitColorScheme _defineColors(
-    BuildContext context,
-    UIKitToggleSwitchThemeData themeData,
-  ) {
-    UIKitColorScheme toggleSwitchColors;
+  UIKitSizeScheme findSize(UIKitToggleSwitchThemeData themeData) {
+    UIKitSizeScheme sizeScheme;
 
-    if (colorScheme == null) {
-      toggleSwitchColors = themeData.colorScheme;
+    if (this.sizeScheme != null) {
+      sizeScheme = this.sizeScheme!;
     } else {
-      toggleSwitchColors = colorScheme!;
+      switch (size) {
+        case UIKitSizes.small:
+          sizeScheme = themeData.smallSize;
+          break;
+        case UIKitSizes.large:
+          sizeScheme = themeData.largeSize;
+          break;
+        default:
+          sizeScheme = themeData.largeSize;
+          break;
+      }
     }
-
-    return toggleSwitchColors;
-  }
-
-  UIKitSizeScheme _defineSize(
-    BuildContext context,
-    UIKitToggleSwitchThemeData themeData,
-  ) {
-    UIKitSizeScheme toggleSwitchSize;
-
-    if (sizeScheme == null) {
-      toggleSwitchSize = themeData.sizeScheme;
-    } else {
-      toggleSwitchSize = sizeScheme!;
-    }
-    return toggleSwitchSize;
-  }
-
-  UIKitShadowScheme _defineShadow(
-    BuildContext context,
-    UIKitToggleSwitchThemeData themeData,
-  ) {
-    UIKitShadowScheme toggleSwitchShadow;
-
-    if (shadowScheme == null) {
-      toggleSwitchShadow = themeData.shadowScheme;
-    } else {
-      toggleSwitchShadow = shadowScheme!;
-    }
-    return toggleSwitchShadow;
+    return sizeScheme;
   }
 }

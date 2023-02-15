@@ -7,6 +7,7 @@ class UIKitShadowScheme {
     List<BoxShadow>? focusedShadow,
     List<BoxShadow>? activeShadow,
     List<BoxShadow>? disabledShadow,
+    List<BoxShadow>? errorShadow,
   }) {
     return UIKitShadowScheme._(
       defaultShadow: defaultShadow,
@@ -14,6 +15,7 @@ class UIKitShadowScheme {
       focusedShadow: focusedShadow,
       activeShadow: activeShadow,
       disabledShadow: disabledShadow,
+      errorShadow: errorShadow,
     );
   }
 
@@ -23,6 +25,7 @@ class UIKitShadowScheme {
     this.focusedShadow,
     this.activeShadow,
     this.disabledShadow,
+    this.errorShadow,
   });
 
   UIKitShadowScheme.defaultScheme() {
@@ -31,6 +34,7 @@ class UIKitShadowScheme {
     focusedShadow = [];
     activeShadow = [];
     disabledShadow = [];
+    errorShadow = [];
   }
 
   UIKitShadowScheme copyWith({
@@ -39,6 +43,7 @@ class UIKitShadowScheme {
     List<BoxShadow>? focusedShadow,
     List<BoxShadow>? activeShadow,
     List<BoxShadow>? disabledShadow,
+    List<BoxShadow>? errorShadow,
   }) {
     return UIKitShadowScheme._(
       defaultShadow: defaultShadow ?? this.defaultShadow,
@@ -46,6 +51,7 @@ class UIKitShadowScheme {
       focusedShadow: focusedShadow ?? this.focusedShadow,
       activeShadow: activeShadow ?? this.activeShadow,
       disabledShadow: disabledShadow ?? this.disabledShadow,
+      errorShadow: errorShadow ?? this.errorShadow,
     );
   }
 
@@ -54,4 +60,5 @@ class UIKitShadowScheme {
   List<BoxShadow>? focusedShadow;
   List<BoxShadow>? activeShadow;
   List<BoxShadow>? disabledShadow;
+  List<BoxShadow>? errorShadow;
 }

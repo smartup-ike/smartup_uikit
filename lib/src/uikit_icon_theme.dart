@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -38,14 +39,14 @@ class UIKitIcon extends StatelessWidget {
     _UIKitIconThemeData? iconTheme;
 
     try {
-      iconTheme = context.read<_UIKitIconThemeData>();
+      iconTheme = context.watch<_UIKitIconThemeData>();
     } catch (error) {}
     if ((assetPath ?? '').isNotEmpty) {
       return SvgPicture.asset(
         assetPath!,
-        width: size ?? iconTheme?.size ?? UIKitIconSize.size16,
-        height: size ?? iconTheme?.size ?? UIKitIconSize.size16,
-        color: color ?? iconTheme?.color,
+        width: iconTheme?.size ?? size ?? UIKitIconSize.size16,
+        height: iconTheme?.size ?? size ?? UIKitIconSize.size16,
+        color: iconTheme?.color ?? color,
       );
     } else if (url != null) {
       return SvgPicture.network(
