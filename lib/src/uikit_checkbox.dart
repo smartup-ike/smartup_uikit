@@ -43,7 +43,12 @@ class UIKitCheckbox extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final state$ = useState<UIKitState>(
-        onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
+      onChanged == null
+          ? UIKitState.disabled
+          : isChecked
+              ? UIKitState.active
+              : UIKitState.defaultState,
+    );
     final isHovered$ = useState(false);
     final themeData$ = useState(UIKitTheme.of(context).checkboxThemeData);
     final colors$ =

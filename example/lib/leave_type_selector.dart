@@ -27,13 +27,14 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
         initialValue: _selectedValue,
       ),
       onTap: (position, size) async {
-        _selectedValue = (await Navigator.of(context).push<List<String?>>(
-          DropdownRoute(
-            child: SelectionDialog(initialValue: _selectedValue),
-            position: position,
-            size: size,
-          ),
-        ))!;
+        _selectedValue = await Navigator.of(context).push<List<String?>>(
+              DropdownRoute(
+                child: SelectionDialog(initialValue: _selectedValue),
+                position: position,
+                size: size,
+              ),
+            ) ??
+            _selectedValue;
         print(_selectedValue.toString());
         setState(() {});
         return;
@@ -66,8 +67,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
         _value = value;
       }),
       value: _value,
+      initialValue: widget.initialValue,
       height: 300,
-      multiselect: false,
+      multiselect: true,
       itemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
       actions: [
         UIKitButton.smallGhost(
