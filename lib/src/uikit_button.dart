@@ -390,7 +390,11 @@ class UIKitButton extends HookWidget {
         }
       },
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () {
+          onTap?.call();
+          state$.value =
+              isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+        },
         onTapDown: (_) {
           if (onTap != null) {
             state$.value = UIKitState.focused;
