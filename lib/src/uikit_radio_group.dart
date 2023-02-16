@@ -135,6 +135,7 @@ class UIKitRadioGroup extends HookWidget {
     final selectedIndex$ = useState<int?>(initialSelectedIndex);
     final themeData$ = useState(UIKitTheme.of(context).radioGroupThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    // ignore: unused_local_variable
     final shadows$ =
         useState(define(shadowScheme, themeData$.value.shadowScheme));
     final size$ = useState(findSize(themeData$.value));

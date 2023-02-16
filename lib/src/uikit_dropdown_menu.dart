@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
-import 'package:smartup_uikit/src/helpers/uikit_states.dart';
 import 'package:smartup_uikit/src/theme/uikit_theme.dart';
-
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/src/helpers/uikit_sizes.dart';
@@ -377,8 +379,8 @@ class UIKitButton extends HookWidget {
       cursor: state$.value == UIKitState.disabled
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
-      onHover: (_) {
-        if (onTap != null) {
+      onHover: (e) {
+        if (onTap != null && e.kind != PointerDeviceKind.touch) {
           state$.value = UIKitState.hover;
           isHovered$.value = true;
         }
@@ -391,22 +393,26 @@ class UIKitButton extends HookWidget {
       },
       child: GestureDetector(
         onTap: () {
+          print('onTap');
           onTap?.call();
           state$.value =
               isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
         },
         onTapDown: (_) {
+          print('onTapDown');
           if (onTap != null) {
             state$.value = UIKitState.focused;
           }
         },
         onTapUp: (_) {
+          print('onTapUp');
           if (onTap != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
+          print('onTapCancel');
           if (onTap != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;

@@ -35,7 +35,6 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
               ),
             ) ??
             _selectedValue;
-        print(_selectedValue.toString());
         setState(() {});
         return;
       },

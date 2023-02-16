@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'constants/theme/example_theme_data_constants.dart';
 import 'leave_type_selector.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +41,9 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _isToggleActive = false;
-  bool _isRadioActive = false;
+  final bool _isRadioActive = false;
   bool _isCheckBoxChecked = false;
-  bool _isMenuItemActive = false;
+  final bool _isMenuItemActive = false;
   int? _selectedRadioItem;
   String? dropdownValue;
   TextEditingController controller = TextEditingController();
@@ -124,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        UIKitButton.smallGhost(
+                        UIKitButton.mediumPrimary(
                           labelText: const Text('Button'),
                           leading:
                               const UIKitIcon.asset('assets/images/url.svg'),
