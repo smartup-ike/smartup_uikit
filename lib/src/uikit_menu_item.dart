@@ -65,6 +65,11 @@ class UIKitMenuItem extends HookWidget {
     final shadows$ =
         useState(define(shadowScheme, themeData$.value.shadowScheme));
 
+    useEffect(() {
+      state$.value = isActive ? UIKitState.active : UIKitState.defaultState;
+      return;
+    }, [isActive]);
+
     Color? backgroundColor;
     Color? contentColor;
     Color? borderColor;
@@ -118,10 +123,7 @@ class UIKitMenuItem extends HookWidget {
         }
       },
       child: GestureDetector(
-        onTap: () {
-          onTap?.call();
-          state$.value = UIKitState.active;
-        },
+        onTap: onTap,
         child: AnimatedContainer(
           height: size$.value.height,
           duration: const Duration(milliseconds: 200),
