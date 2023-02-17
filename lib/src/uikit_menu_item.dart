@@ -118,7 +118,10 @@ class UIKitMenuItem extends HookWidget {
         }
       },
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () {
+          onTap?.call();
+          state$.value = UIKitState.active;
+        },
         child: AnimatedContainer(
           height: size$.value.height,
           duration: const Duration(milliseconds: 200),
