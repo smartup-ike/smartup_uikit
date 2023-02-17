@@ -393,26 +393,22 @@ class UIKitButton extends HookWidget {
       },
       child: GestureDetector(
         onTap: () {
-          print('onTap');
           onTap?.call();
           state$.value =
               isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
         },
         onTapDown: (_) {
-          print('onTapDown');
           if (onTap != null) {
             state$.value = UIKitState.focused;
           }
         },
         onTapUp: (_) {
-          print('onTapUp');
           if (onTap != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
-          print('onTapCancel');
           if (onTap != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
