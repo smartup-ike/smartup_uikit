@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
 
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
@@ -151,6 +152,7 @@ class UIKitDropdownButton<T> extends HookWidget {
     required this.trailing,
     this.label,
     this.input,
+    this.childSize,
   }) : super(key: key);
 
   final Widget child;
@@ -162,6 +164,7 @@ class UIKitDropdownButton<T> extends HookWidget {
   final Widget trailing;
   final Widget? label;
   final Widget? input;
+  final Size? childSize;
 
   @override
   Widget build(BuildContext context) {
@@ -170,52 +173,61 @@ class UIKitDropdownButton<T> extends HookWidget {
     );
     final isHovered$ = useState(false);
 
-    final themeData = UIKitTheme.of(context).textInputThemeData;
+    final themeData$ = useState(UIKitTheme.of(context).textInputThemeData);
 
     useEffect(() {
       state$.value = isDisabled ? UIKitState.disabled : UIKitState.defaultState;
       return;
     }, [isDisabled]);
 
-    UIKitColorScheme colors = _defineColors(themeData);
-    UIKitSizeScheme size = _defineSize(themeData);
-    UIKitShadowScheme shadows = _defineShadows(themeData);
+    final colors$ =
+        useState(define(colorScheme, themeData$.value.filledInputColorScheme));
+    final size$ = useState(
+        define(sizeScheme, themeData$.value.smallFilledInputSizeScheme));
+    final shadows$ = useState(
+        define(shadowScheme, themeData$.value.filledInputShadowScheme));
 
     Color? backgroundColor;
     Color? contentColor;
+    Color? secondaryContentColor;
     Color? borderColor;
     List<BoxShadow>? currentShadows;
 
     switch (state$.value) {
       case UIKitState.defaultState:
-        backgroundColor = colors.defaultBackgroundColor;
-        contentColor = colors.defaultContentColor;
-        borderColor = colors.defaultBorderColor;
-        currentShadows = shadows.defaultShadow;
+        backgroundColor = colors$.value.defaultBackgroundColor;
+        contentColor = colors$.value.defaultContentColor;
+        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
+        borderColor = colors$.value.defaultBorderColor;
+        currentShadows = shadows$.value.defaultShadow;
         break;
       case UIKitState.hover:
-        backgroundColor = colors.hoverBackgroundColor;
-        contentColor = colors.hoverContentColor;
-        borderColor = colors.hoverBorderColor;
-        currentShadows = shadows.hoverShadow;
+        backgroundColor = colors$.value.hoverBackgroundColor;
+        contentColor = colors$.value.hoverContentColor;
+        secondaryContentColor = colors$.value.hoverSecondaryContentColor;
+        borderColor = colors$.value.hoverBorderColor;
+        currentShadows = shadows$.value.hoverShadow;
         break;
       case UIKitState.focused:
-        backgroundColor = colors.focusedBackgroundColor;
-        contentColor = colors.focusedContentColor;
-        borderColor = colors.focusedBorderColor;
-        currentShadows = shadows.focusedShadow;
+        backgroundColor = colors$.value.focusedBackgroundColor;
+        contentColor = colors$.value.focusedContentColor;
+        secondaryContentColor = colors$.value.focusedSecondaryContentColor;
+        borderColor = colors$.value.focusedBorderColor;
+        currentShadows = shadows$.value.focusedShadow;
         break;
       case UIKitState.active:
-        backgroundColor = colors.activeBackgroundColor;
-        contentColor = colors.activeContentColor;
-        borderColor = colors.activeBorderColor;
-        currentShadows = shadows.activeShadow;
+        backgroundColor = colors$.value.activeBackgroundColor;
+        contentColor = colors$.value.activeContentColor;
+        secondaryContentColor = colors$.value.activeSecondaryContentColor;
+        borderColor = colors$.value.activeBorderColor;
+        currentShadows = shadows$.value.activeShadow;
         break;
       case UIKitState.disabled:
-        backgroundColor = colors.disabledBackgroundColor;
-        contentColor = colors.disabledContentColor;
-        borderColor = colors.disabledBorderColor;
-        currentShadows = shadows.disabledShadow;
+        backgroundColor = colors$.value.disabledBackgroundColor;
+        contentColor = colors$.value.disabledContentColor;
+        secondaryContentColor = colors$.value.disabledSecondaryContentColor;
+        borderColor = colors$.value.disabledBorderColor;
+        currentShadows = shadows$.value.disabledShadow;
         break;
       default:
         break;
@@ -256,7 +268,7 @@ class UIKitDropdownButton<T> extends HookWidget {
                   ),
                   offset & overlay.size,
                 );
-                final size = box.size;
+                final size = Size.copy(childSize ?? box.size);
                 onTap?.call(position, size);
               },
         onTapDown: (_) {
@@ -278,15 +290,15 @@ class UIKitDropdownButton<T> extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          height: size.height,
-          width: size.width,
-          padding: size.padding,
+          height: size$.value.height,
+          width: size$.value.width,
+          padding: size$.value.padding,
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
+            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
               color: borderColor ?? Colors.transparent,
-              width: size.borderSize ?? 1,
+              width: size$.value.borderSize ?? 1,
             ),
             boxShadow: currentShadows,
           ),
@@ -297,12 +309,14 @@ class UIKitDropdownButton<T> extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DefaultTextStyle(
-                      style: size.labelStyle?.copyWith(color: contentColor) ??
+                      style: size$.value.labelStyle
+                              ?.copyWith(color: contentColor) ??
                           const TextStyle().copyWith(color: contentColor),
                       child: label ?? const SizedBox(),
                     ),
                     DefaultTextStyle(
-                      style: size.labelStyle?.copyWith(color: contentColor) ??
+                      style: size$.value.labelStyle
+                              ?.copyWith(color: contentColor) ??
                           const TextStyle().copyWith(color: contentColor),
                       child: input ?? const SizedBox(),
                     ),
@@ -310,8 +324,8 @@ class UIKitDropdownButton<T> extends HookWidget {
                 ),
               ),
               UIKitIconTheme(
-                color: contentColor,
-                size: size.leadingSize,
+                color: secondaryContentColor,
+                size: size$.value.trailingSize,
                 child: trailing,
               ),
             ],
@@ -319,38 +333,5 @@ class UIKitDropdownButton<T> extends HookWidget {
         ),
       ),
     );
-  }
-
-  UIKitColorScheme _defineColors(UIKitTextInputThemeData themeData) {
-    UIKitColorScheme colorScheme;
-
-    if (this.colorScheme == null) {
-      colorScheme = themeData.filledInputColorScheme;
-    } else {
-      colorScheme = this.colorScheme!;
-    }
-    return colorScheme;
-  }
-
-  UIKitSizeScheme _defineSize(UIKitTextInputThemeData themeData) {
-    UIKitSizeScheme sizeScheme;
-
-    if (this.sizeScheme == null) {
-      sizeScheme = themeData.smallFilledInputSizeScheme;
-    } else {
-      sizeScheme = this.sizeScheme!;
-    }
-    return sizeScheme;
-  }
-
-  UIKitShadowScheme _defineShadows(UIKitTextInputThemeData themeData) {
-    UIKitShadowScheme shadowScheme;
-
-    if (this.shadowScheme == null) {
-      shadowScheme = themeData.filledInputShadowScheme;
-    } else {
-      shadowScheme = this.shadowScheme!;
-    }
-    return shadowScheme;
   }
 }
