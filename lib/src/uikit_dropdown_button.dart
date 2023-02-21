@@ -1,13 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
-
+import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
-import 'theme/uikit_text_input_theme_data.dart';
 import 'theme/uikit_theme.dart';
 import 'uikit_icon_theme.dart';
 
@@ -311,13 +309,13 @@ class UIKitDropdownButton<T> extends HookWidget {
                     DefaultTextStyle(
                       style: size$.value.labelStyle
                               ?.copyWith(color: contentColor) ??
-                          const TextStyle().copyWith(color: contentColor),
+                          TextStyle(color: contentColor),
                       child: label ?? const SizedBox(),
                     ),
                     DefaultTextStyle(
-                      style: size$.value.labelStyle
+                      style: size$.value.inputStyle
                               ?.copyWith(color: contentColor) ??
-                          const TextStyle().copyWith(color: contentColor),
+                          TextStyle(color: contentColor),
                       child: input ?? const SizedBox(),
                     ),
                   ],
