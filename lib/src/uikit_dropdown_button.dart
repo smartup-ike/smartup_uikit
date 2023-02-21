@@ -172,7 +172,10 @@ class UIKitDropdownButton<T> extends HookWidget {
 
     final themeData = UIKitTheme.of(context).textInputThemeData;
 
-    useEffect(() => null, [isDisabled]);
+    useEffect(() {
+      state$.value = isDisabled ? UIKitState.disabled : UIKitState.defaultState;
+      return;
+    }, [isDisabled]);
 
     UIKitColorScheme colors = _defineColors(themeData);
     UIKitSizeScheme size = _defineSize(themeData);
