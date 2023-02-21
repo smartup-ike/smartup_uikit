@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_helper_functions.dart';
@@ -410,8 +411,10 @@ class UIKitTextInput extends HookWidget {
           cursor: state$.value == UIKitState.disabled
               ? SystemMouseCursors.basic
               : SystemMouseCursors.text,
-          onHover: (_) {
-            if (!(isDisabled ?? false) && state$.value != UIKitState.focused) {
+          onHover: (e) {
+            if (!(isDisabled ?? false) &&
+                state$.value != UIKitState.focused &&
+                e.kind != PointerDeviceKind.touch) {
               state$.value = controller.text.isEmpty
                   ? UIKitState.hover
                   : UIKitState.active;
