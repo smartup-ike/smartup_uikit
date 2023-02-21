@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -218,8 +219,8 @@ class UIKitDropdownButton<T> extends HookWidget {
       cursor: state$.value == UIKitState.disabled
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
-      onHover: (_) {
-        if (!isDisabled) {
+      onHover: (e) {
+        if (!isDisabled && e.kind != PointerDeviceKind.touch) {
           state$.value = UIKitState.hover;
           isHovered$.value = true;
         }
