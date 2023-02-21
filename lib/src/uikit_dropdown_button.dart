@@ -238,7 +238,7 @@ class UIKitDropdownButton<T> extends HookWidget {
       },
       child: GestureDetector(
         onTap: isDisabled
-            ? () {}
+            ? null
             : () async {
                 const offset = Offset.zero;
                 final box = context.findRenderObject()! as RenderBox;
@@ -280,6 +280,7 @@ class UIKitDropdownButton<T> extends HookWidget {
           duration: const Duration(milliseconds: 200),
           height: size.height,
           width: size.width,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
@@ -291,7 +292,6 @@ class UIKitDropdownButton<T> extends HookWidget {
           ),
           child: Row(
             children: [
-              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,7 +314,6 @@ class UIKitDropdownButton<T> extends HookWidget {
                 size: size.leadingSize,
                 child: trailing,
               ),
-              const SizedBox(width: 10),
             ],
           ),
         ),
