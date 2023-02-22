@@ -118,6 +118,14 @@ class UIKitTab extends HookWidget {
           : define(shadowScheme, themeData$.value.pageTabShadowScheme),
     );
 
+    useEffect(() {
+      state$.value = onTap == null
+          ? UIKitState.disabled
+          : isActive
+              ? UIKitState.active
+              : UIKitState.defaultState;
+    }, [isActive]);
+
     Color? backgroundColor;
     Color? contentColor;
     Color? secondaryContentColor;
