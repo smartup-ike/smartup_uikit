@@ -124,6 +124,7 @@ class UIKitTab extends HookWidget {
           : isActive
               ? UIKitState.active
               : UIKitState.defaultState;
+      return;
     }, [isActive]);
 
     Color? backgroundColor;
