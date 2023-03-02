@@ -337,7 +337,12 @@ class UIKitTextInput extends HookWidget {
               : UIKitState.active,
     );
     final isHovered$ = useState(false);
-    final isFocused$ = useState(false);
+    final isFocused$ = useState(focusNode.hasFocus);
+    focusNode.addListener(
+      () {
+        focusNode.hasFocus ? isFocused$.value = true : isFocused$.value = false;
+      },
+    );
 
     useEffect(() {
       if (isFocused$.value) {
