@@ -230,27 +230,6 @@ class UIKitTab extends HookWidget {
                 color: borderColor ?? Colors.transparent,
                 width: size$.value.borderSize ?? 1,
               ),
-              // top: BorderSide(
-              //   color: tabType == UIKitTabType.line &&
-              //           state$.value == UIKitState.focused
-              //       ? borderColor ?? Colors.transparent
-              //       : Colors.transparent,
-              //   width: size$.value.borderSize ?? 1,
-              // ),
-              // left: BorderSide(
-              //   color: tabType == UIKitTabType.line &&
-              //           state$.value == UIKitState.focused
-              //       ? borderColor ?? Colors.transparent
-              //       : Colors.transparent,
-              //   width: size$.value.borderSize ?? 1,
-              // ),
-              // right: BorderSide(
-              //   color: tabType == UIKitTabType.line &&
-              //           state$.value == UIKitState.focused
-              //       ? borderColor ?? Colors.transparent
-              //       : Colors.transparent,
-              //   width: size$.value.borderSize ?? 1,
-              // ),
             ),
           ),
           child: Row(
