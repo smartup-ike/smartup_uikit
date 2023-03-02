@@ -340,20 +340,18 @@ class UIKitTextInput extends HookWidget {
     final isFocused$ = useState(false);
 
     useEffect(() {
-      if (focusNode.hasFocus) {
+      if (isFocused$.value) {
         state$.value = UIKitState.focused;
-        isFocused$.value = true;
         focusNode.attach(context);
         focusNode.requestFocus();
       } else {
         state$.value = controller.text.isEmpty
             ? UIKitState.defaultState
             : UIKitState.active;
-        isFocused$.value = false;
         focusNode.unfocus();
       }
       return;
-    }, [focusNode.hasFocus]);
+    }, [isFocused$.value]);
 
     final themeData$ = useState(UIKitTheme.of(context).textInputThemeData);
 
@@ -442,7 +440,7 @@ class UIKitTextInput extends HookWidget {
           child: GestureDetector(
             onTap: () {
               if (!(isDisabled ?? false)) {
-                if (isFocused$.value) {
+                if (!isFocused$.value) {
                   state$.value = controller.text.isEmpty
                       ? UIKitState.defaultState
                       : UIKitState.active;
