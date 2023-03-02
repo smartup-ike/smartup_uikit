@@ -340,23 +340,17 @@ class UIKitTextInput extends HookWidget {
     final isFocused$ = useState(false);
 
     useEffect(() {
-      if (isFocused$.value) {
-        focusNode.attach(context);
-        focusNode.requestFocus();
-      } else {
-        focusNode.unfocus();
-      }
-      return;
-    }, [isFocused$.value]);
-
-    useEffect(() {
       if (focusNode.hasFocus) {
         state$.value = UIKitState.focused;
+        isFocused$.value = true;
+        focusNode.attach(context);
+        focusNode.requestFocus();
       } else {
         state$.value = controller.text.isEmpty
             ? UIKitState.defaultState
             : UIKitState.active;
         isFocused$.value = false;
+        focusNode.unfocus();
       }
       return;
     }, [focusNode.hasFocus]);
