@@ -27,6 +27,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -53,6 +54,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     required this.focusNode,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -72,6 +74,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     required this.focusNode,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -89,6 +92,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -108,6 +112,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -129,6 +134,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     required this.focusNode,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -148,6 +154,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     required this.focusNode,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -165,6 +172,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -184,6 +192,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -205,6 +214,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     required this.focusNode,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -224,6 +234,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     required this.focusNode,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -241,6 +252,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -260,6 +272,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
+    this.onChanged,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -298,6 +311,9 @@ class UIKitTextInput extends HookWidget {
   /// [Function] with a [String] parameter. Must be null by default for input
   /// constructors. Must not be null for search constructors.
   final void Function(String)? onSubmitted;
+
+  /// [Function] with a [String] parameter. Called on each character input.
+  final void Function(String)? onChanged;
 
   /// How many lines this widget can show on screen.
   final int? maxLines;
@@ -548,6 +564,7 @@ class UIKitTextInput extends HookWidget {
                           controller: controller,
                           focusNode: focusNode,
                           onSubmitted: onSubmitted,
+                          onChanged: onChanged,
                           cursorColor: Colors.transparent,
                           backgroundCursorColor: Colors.transparent,
                           rendererIgnoresPointer: true,
