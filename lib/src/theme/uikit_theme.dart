@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'uikit_dropdown_menu_theme_data.dart';
 import 'uikit_checkbox_theme_data.dart';
 import 'uikit_colors.dart';
 import 'uikit_typography.dart';
@@ -73,6 +74,7 @@ class UIKitThemeData {
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
   final UIKitCheckboxThemeData checkboxThemeData;
+  final UIKitDropdownMenuThemeData dropdownMenuThemeData;
 
   const UIKitThemeData.raw({
     required this.colors,
@@ -85,6 +87,7 @@ class UIKitThemeData {
     required this.textInputThemeData,
     required this.menuItemThemeData,
     required this.checkboxThemeData,
+    required this.dropdownMenuThemeData,
   });
 
   factory UIKitThemeData({
@@ -98,6 +101,7 @@ class UIKitThemeData {
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
+    UIKitDropdownMenuThemeData? dropdownMenuThemeData,
   }) {
     colors ??= const UIKitColors();
     typography ??= const UIKitTypography();
@@ -109,6 +113,7 @@ class UIKitThemeData {
     textInputThemeData ??= UIKitTextInputThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
     checkboxThemeData ??= UIKitCheckboxThemeData();
+    dropdownMenuThemeData ??= UIKitDropdownMenuThemeData();
 
     return UIKitThemeData.raw(
       colors: colors,
@@ -121,6 +126,7 @@ class UIKitThemeData {
       textInputThemeData: textInputThemeData,
       menuItemThemeData: menuItemThemeData,
       checkboxThemeData: checkboxThemeData,
+      dropdownMenuThemeData: dropdownMenuThemeData,
     );
   }
 
@@ -135,6 +141,7 @@ class UIKitThemeData {
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
+    UIKitDropdownMenuThemeData? dropdownMenuThemeData,
   }) {
     return UIKitThemeData.raw(
       colors: colors ?? this.colors,
@@ -148,6 +155,8 @@ class UIKitThemeData {
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
       menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
       checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
+      dropdownMenuThemeData:
+          dropdownMenuThemeData ?? this.dropdownMenuThemeData,
     );
   }
 }

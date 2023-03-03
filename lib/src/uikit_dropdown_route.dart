@@ -122,6 +122,9 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
           (position.top > position.bottom ? position.top : position.bottom) -
               16,
     );
+    // BoxConstraints.loose(constraints.biggest).deflate(
+    //   const EdgeInsets.all(16),
+    // );
   }
 
   @override
