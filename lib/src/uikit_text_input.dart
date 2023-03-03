@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_sizes.dart';
 import 'theme/uikit_text_input_theme_data.dart';
-import 'uikit_icon_theme.dart';
+import 'helpers/uikit_icon_theme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';

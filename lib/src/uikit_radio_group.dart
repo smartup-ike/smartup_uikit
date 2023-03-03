@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/uikit_icon_theme.dart';
+import 'helpers/uikit_icon_theme.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_sizes.dart';
 import 'helpers/uikit_states.dart';

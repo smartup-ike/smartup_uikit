@@ -1,4 +1,4 @@
-import 'package:smartup_uikit/src/helpers/uikit_states.dart';
+import 'uikit_states.dart';
 import 'uikit_color_scheme.dart';
 import 'uikit_color_helper.dart';
 import 'uikit_shadow_scheme.dart';

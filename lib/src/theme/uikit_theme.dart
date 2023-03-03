@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
-import 'package:smartup_uikit/src/theme/uikit_colors.dart';
-import 'package:smartup_uikit/src/theme/uikit_typography.dart';
+import 'uikit_checkbox_theme_data.dart';
+import 'uikit_colors.dart';
+import 'uikit_typography.dart';
 import 'uikit_menu_item_theme_data.dart';
 import 'uikit_text_input_theme_data.dart';
 import 'uikit_button_theme_data.dart';

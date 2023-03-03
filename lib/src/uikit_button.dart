@@ -1,17 +1,15 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
-import 'package:smartup_uikit/src/helpers/uikit_sizes.dart';
-
+import 'helpers/uikit_helper_functions.dart';
+import 'helpers/uikit_sizes.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'theme/uikit_button_theme_data.dart';
 import 'theme/uikit_theme.dart';
-import 'uikit_icon_theme.dart';
+import 'helpers/uikit_icon_theme.dart';
 
 enum UIKitButtonType {
   primary,

@@ -7,7 +7,7 @@ import 'helpers/uikit_states.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'theme/uikit_theme.dart';
-import 'uikit_icon_theme.dart';
+import 'helpers/uikit_icon_theme.dart';
 
 class UIKitMenuItem extends HookWidget {
   const UIKitMenuItem({
