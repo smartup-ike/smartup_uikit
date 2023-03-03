@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/src/helpers/uikit_helper_functions.dart';
 import 'package:smartup_uikit/src/helpers/uikit_sizes.dart';
 
 import 'helpers/uikit_color_scheme.dart';
@@ -334,46 +335,11 @@ class UIKitButton extends HookWidget {
       return null;
     }, [onTap == null]);
 
-    Color? backgroundColor;
-    Color? contentColor;
-    Color? borderColor;
-    List<BoxShadow>? shadows;
-
-    // Change color and shadow according to state
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        contentColor = colors$.value.defaultContentColor;
-        borderColor = colors$.value.defaultBorderColor;
-        shadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        contentColor = colors$.value.hoverContentColor;
-        borderColor = colors$.value.hoverBorderColor;
-        shadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        contentColor = colors$.value.focusedContentColor;
-        borderColor = colors$.value.focusedBorderColor;
-        shadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        contentColor = colors$.value.activeContentColor;
-        borderColor = colors$.value.activeBorderColor;
-        shadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        contentColor = colors$.value.disabledContentColor;
-        borderColor = colors$.value.disabledBorderColor;
-        shadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return MouseRegion(
       cursor: state$.value == UIKitState.disabled
@@ -419,14 +385,14 @@ class UIKitButton extends HookWidget {
           alignment: Alignment.center,
           padding: size$.value.padding,
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: colorHelper.backgroundColor,
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
               strokeAlign: BorderSide.strokeAlignInside,
               width: size$.value.borderSize ?? 0,
-              color: borderColor ?? Colors.transparent,
+              color: colorHelper.borderColor ?? Colors.transparent,
             ),
-            boxShadow: shadows,
+            boxShadow: colorHelper.shadows,
           ),
           height: size$.value.height,
           width: size$.value.width,
@@ -437,21 +403,22 @@ class UIKitButton extends HookWidget {
             children: [
               if (leading != null) ...[
                 UIKitIconTheme(
-                  color: contentColor,
+                  color: colorHelper.contentColor,
                   size: size$.value.leadingSize,
                   child: leading!,
                 ),
                 SizedBox(width: size$.value.spacing),
               ],
               DefaultTextStyle(
-                style: size$.value.labelStyle?.copyWith(color: contentColor) ??
-                    TextStyle(color: contentColor),
+                style: size$.value.labelStyle
+                        ?.copyWith(color: colorHelper.contentColor) ??
+                    TextStyle(color: colorHelper.contentColor),
                 child: labelText ?? const Text('Button'),
               ),
               if (trailing != null) ...[
                 SizedBox(width: size$.value.spacing),
                 UIKitIconTheme(
-                  color: contentColor,
+                  color: colorHelper.contentColor,
                   size: size$.value.trailingSize,
                   child: trailing!,
                 ),

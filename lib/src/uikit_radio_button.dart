@@ -56,39 +56,11 @@ class UIKitRadioButton extends HookWidget {
       return null;
     }, [onTap == null]);
 
-    Color? backgroundColor;
-    Color? borderColor;
-    List<BoxShadow>? shadows;
-
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        borderColor = colors$.value.defaultBorderColor;
-        shadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        borderColor = colors$.value.hoverBorderColor;
-        shadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        borderColor = colors$.value.focusedBorderColor;
-        shadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        borderColor = colors$.value.activeBorderColor;
-        shadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        borderColor = colors$.value.disabledBorderColor;
-        shadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return MouseRegion(
       cursor: state$.value == UIKitState.disabled
@@ -136,11 +108,11 @@ class UIKitRadioButton extends HookWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 width: size$.value.borderSize ?? 1,
-                color: borderColor ?? Colors.transparent,
+                color: colorHelper.borderColor ?? Colors.transparent,
               ),
-              color: backgroundColor ?? Colors.transparent,
+              color: colorHelper.backgroundColor ?? Colors.transparent,
               shape: BoxShape.circle,
-              boxShadow: shadows,
+              boxShadow: colorHelper.shadows,
             ),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
@@ -148,7 +120,8 @@ class UIKitRadioButton extends HookWidget {
               height: size$.value.secondarySpacing,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isSelected ? borderColor : Colors.transparent,
+                color:
+                    isSelected ? colorHelper.borderColor : Colors.transparent,
               ),
             ),
           ),

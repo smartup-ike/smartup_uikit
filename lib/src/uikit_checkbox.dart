@@ -57,45 +57,11 @@ class UIKitCheckbox extends HookWidget {
         useState(define(shadowScheme, themeData$.value.shadowScheme));
     final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
 
-    Color? backgroundColor;
-    Color? contentColor;
-    Color? borderColor;
-    List<BoxShadow>? shadows;
-
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        contentColor = colors$.value.defaultContentColor;
-        borderColor = colors$.value.defaultBorderColor;
-        shadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        contentColor = colors$.value.hoverContentColor;
-        borderColor = colors$.value.hoverBorderColor;
-        shadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        contentColor = colors$.value.focusedContentColor;
-        borderColor = colors$.value.focusedBorderColor;
-        shadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        contentColor = colors$.value.activeContentColor;
-        borderColor = colors$.value.activeBorderColor;
-        shadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        contentColor = colors$.value.disabledContentColor;
-        borderColor = colors$.value.disabledBorderColor;
-        shadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return MouseRegion(
       cursor: state$.value == UIKitState.disabled
@@ -138,20 +104,20 @@ class UIKitCheckbox extends HookWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: backgroundColor,
+              color: colorHelper.backgroundColor,
               borderRadius:
                   BorderRadius.circular(size$.value.borderRadius ?? 4),
               border: Border.all(
                 width: size$.value.borderSize ?? 1,
-                color: borderColor ?? Colors.transparent,
+                color: colorHelper.borderColor ?? Colors.transparent,
               ),
-              boxShadow: shadows,
+              boxShadow: colorHelper.shadows,
             ),
             padding: size$.value.padding,
             child: isChecked
                 ? UIKitIconTheme(
                     size: size$.value.iconSize,
-                    color: contentColor,
+                    color: colorHelper.contentColor,
                     child: icon,
                   )
                 : null,

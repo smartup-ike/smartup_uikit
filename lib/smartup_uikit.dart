@@ -45,7 +45,10 @@ export 'package:smartup_uikit/src/uikit_text_input.dart' show UIKitTextInput;
 export 'package:smartup_uikit/src/uikit_menu_item.dart' show UIKitMenuItem;
 
 export 'package:smartup_uikit/src/uikit_dropdown_menu.dart'
-    show UIKitDropdownMenu, UIKitDropdownMenuItem;
+    show UIKitDropdownMenu;
 
 export 'package:smartup_uikit/src/uikit_dropdown_button.dart'
-    show UIKitDropdownButton, DropdownRoute;
+    show UIKitDropdownButton;
+
+export 'package:smartup_uikit/src/uikit_dropdown_route.dart'
+    show UIKitDropdownRoute;

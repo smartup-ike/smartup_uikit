@@ -381,56 +381,11 @@ class UIKitTextInput extends HookWidget {
     final shadows$ =
         useState(define(shadowScheme, findShadows(themeData$.value)));
 
-    Color? backgroundColor;
-    Color? contentColor;
-    Color? secondaryContentColor;
-    Color? borderColor;
-    List<BoxShadow>? currentShadows;
-
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        contentColor = colors$.value.defaultContentColor;
-        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
-        borderColor = colors$.value.defaultBorderColor;
-        currentShadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        contentColor = colors$.value.hoverContentColor;
-        secondaryContentColor = colors$.value.hoverSecondaryContentColor;
-        borderColor = colors$.value.hoverBorderColor;
-        currentShadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        contentColor = colors$.value.focusedContentColor;
-        secondaryContentColor = colors$.value.focusedSecondaryContentColor;
-        borderColor = colors$.value.focusedBorderColor;
-        currentShadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        contentColor = colors$.value.activeContentColor;
-        secondaryContentColor = colors$.value.activeSecondaryContentColor;
-        borderColor = colors$.value.activeBorderColor;
-        currentShadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        contentColor = colors$.value.disabledContentColor;
-        secondaryContentColor = colors$.value.disabledSecondaryContentColor;
-        borderColor = colors$.value.disabledBorderColor;
-        currentShadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        backgroundColor = colors$.value.errorBackgroundColor;
-        contentColor = colors$.value.errorContentColor;
-        secondaryContentColor = colors$.value.errorSecondaryContentColor;
-        borderColor = colors$.value.errorBorderColor;
-        currentShadows = shadows$.value.errorShadow;
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -503,28 +458,28 @@ class UIKitTextInput extends HookWidget {
               width: size$.value.width,
               padding: size$.value.padding,
               decoration: BoxDecoration(
-                color: backgroundColor,
+                color: colorHelper.backgroundColor,
                 borderRadius: styleType == TextInputStyleType.filled
                     ? BorderRadius.circular(size$.value.borderRadius ?? 8)
                     : null,
                 border: styleType == TextInputStyleType.filled
                     ? Border.all(
-                        color: borderColor ?? Colors.transparent,
+                        color: colorHelper.borderColor ?? Colors.transparent,
                         width: size$.value.borderSize ?? 1,
                       )
                     : Border(
                         bottom: BorderSide(
-                          color: borderColor ?? Colors.transparent,
+                          color: colorHelper.borderColor ?? Colors.transparent,
                           width: size$.value.borderSize ?? 1,
                         ),
                       ),
-                boxShadow: currentShadows,
+                boxShadow: colorHelper.shadows,
               ),
               child: Row(
                 children: [
                   if (leading != null) ...[
                     UIKitIconTheme(
-                      color: contentColor,
+                      color: colorHelper.contentColor,
                       size: size$.value.leadingSize,
                       child: leading!,
                     ),
@@ -541,13 +496,17 @@ class UIKitTextInput extends HookWidget {
                                     state$.value == UIKitState.focused ||
                                     state$.value == UIKitState.error
                                 ? size$.value.focusedLabelStyle?.copyWith(
-                                      color: secondaryContentColor,
+                                      color: colorHelper.secondaryContentColor,
                                     ) ??
-                                    TextStyle(color: secondaryContentColor)
+                                    TextStyle(
+                                        color:
+                                            colorHelper.secondaryContentColor)
                                 : size$.value.labelStyle?.copyWith(
-                                      color: secondaryContentColor,
+                                      color: colorHelper.secondaryContentColor,
                                     ) ??
-                                    TextStyle(color: secondaryContentColor),
+                                    TextStyle(
+                                        color:
+                                            colorHelper.secondaryContentColor),
                             child: label!,
                           ),
                           if (state$.value == UIKitState.active ||
@@ -574,16 +533,16 @@ class UIKitTextInput extends HookWidget {
                               : SystemMouseCursors.text,
                           selectionColor: Colors.white,
                           style: size$.value.inputStyle?.copyWith(
-                                color: contentColor,
+                                color: colorHelper.contentColor,
                               ) ??
-                              TextStyle(color: contentColor),
+                              TextStyle(color: colorHelper.contentColor),
                         ),
                       ],
                     ),
                   ),
                   if (errorIcon != null) ...[
                     UIKitIconTheme(
-                      color: contentColor,
+                      color: colorHelper.contentColor,
                       size: size$.value.leadingSize,
                       child: errorIcon!,
                     ),
@@ -591,7 +550,7 @@ class UIKitTextInput extends HookWidget {
                   ],
                   if (trailing != null) ...[
                     UIKitIconTheme(
-                      color: contentColor,
+                      color: colorHelper.contentColor,
                       size: size$.value.trailingSize,
                       child: trailing!,
                     ),
@@ -605,8 +564,8 @@ class UIKitTextInput extends HookWidget {
           SizedBox(height: size$.value.spacing),
           DefaultTextStyle(
             style: size$.value.assistiveStyle
-                    ?.copyWith(color: secondaryContentColor) ??
-                TextStyle(color: secondaryContentColor),
+                    ?.copyWith(color: colorHelper.secondaryContentColor) ??
+                TextStyle(color: colorHelper.secondaryContentColor),
             child: assistiveText!,
           ),
         ],

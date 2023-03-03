@@ -2,15 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class UIKitIconSize {
-  static double size16 = 16;
-  static double size20 = 20;
-  static double size24 = 24;
-  static double size28 = 28;
-  static double size32 = 32;
-  static double size48 = 48;
-}
-
 class UIKitIcon extends StatelessWidget {
   const UIKitIcon.asset(
     this.assetPath, {
@@ -45,8 +36,8 @@ class UIKitIcon extends StatelessWidget {
     if ((assetPath ?? '').isNotEmpty) {
       return SvgPicture.asset(
         assetPath!,
-        width: iconTheme?.size ?? size ?? UIKitIconSize.size16,
-        height: iconTheme?.size ?? size ?? UIKitIconSize.size16,
+        width: iconTheme?.size ?? size ?? 16,
+        height: iconTheme?.size ?? size ?? 16,
         colorFilter: svgColor == null
             ? null
             : ColorFilter.mode(svgColor, BlendMode.srcIn),
@@ -54,16 +45,16 @@ class UIKitIcon extends StatelessWidget {
     } else if (url != null) {
       return SvgPicture.network(
         url!,
-        width: size ?? iconTheme?.size ?? UIKitIconSize.size16,
-        height: size ?? iconTheme?.size ?? UIKitIconSize.size16,
+        width: size ?? iconTheme?.size ?? 16,
+        height: size ?? iconTheme?.size ?? 16,
         colorFilter: svgColor == null
             ? null
             : ColorFilter.mode(svgColor, BlendMode.srcIn),
       );
     }
     return SizedBox(
-      width: size ?? iconTheme?.size ?? UIKitIconSize.size16,
-      height: size ?? iconTheme?.size ?? UIKitIconSize.size16,
+      width: size ?? iconTheme?.size ?? 16,
+      height: size ?? iconTheme?.size ?? 16,
     );
   }
 }

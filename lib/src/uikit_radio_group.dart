@@ -140,27 +140,11 @@ class UIKitRadioGroup extends HookWidget {
         useState(define(shadowScheme, themeData$.value.shadowScheme));
     final size$ = useState(findSize(themeData$.value));
 
-    Color? contentColor;
-    Color? labelColor;
-    Color? assistiveTextColor;
-
-    switch (state$.value) {
-      case UIKitState.disabled:
-        contentColor = colors$.value.disabledContentColor;
-        labelColor = colors$.value.disabledBackgroundColor;
-        assistiveTextColor = colors$.value.disabledSecondaryContentColor;
-        break;
-      case UIKitState.error:
-        contentColor = colors$.value.errorContentColor;
-        labelColor = colors$.value.errorBackgroundColor;
-        assistiveTextColor = colors$.value.errorSecondaryContentColor;
-        break;
-      default:
-        contentColor = colors$.value.defaultContentColor;
-        labelColor = colors$.value.defaultBackgroundColor;
-        assistiveTextColor = colors$.value.defaultSecondaryContentColor;
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -168,15 +152,17 @@ class UIKitRadioGroup extends HookWidget {
       children: [
         if (label != null) ...[
           DefaultTextStyle(
-            style: size$.value.labelStyle?.copyWith(color: labelColor) ??
-                TextStyle(color: labelColor),
+            style: size$.value.labelStyle
+                    ?.copyWith(color: colorHelper.backgroundColor) ??
+                TextStyle(color: colorHelper.backgroundColor),
             child: label!,
           ),
           SizedBox(height: size$.value.spacing),
         ],
         DefaultTextStyle(
-          style: size$.value.inputStyle?.copyWith(color: contentColor) ??
-              TextStyle(color: contentColor),
+          style: size$.value.inputStyle
+                  ?.copyWith(color: colorHelper.contentColor) ??
+              TextStyle(color: colorHelper.contentColor),
           child: Wrap(
             spacing: size$.value.secondarySpacing ?? 16,
             runSpacing: size$.value.height ?? 12,
@@ -212,14 +198,14 @@ class UIKitRadioGroup extends HookWidget {
             children: [
               DefaultTextStyle(
                 style: size$.value.assistiveStyle
-                        ?.copyWith(color: assistiveTextColor) ??
-                    TextStyle(color: assistiveTextColor),
+                        ?.copyWith(color: colorHelper.secondaryContentColor) ??
+                    TextStyle(color: colorHelper.secondaryContentColor),
                 child: assistiveText!,
               ),
               SizedBox(width: size$.value.spacing),
               if (errorIcon != null && state$.value == UIKitState.error)
                 UIKitIconTheme(
-                  color: assistiveTextColor,
+                  color: colorHelper.secondaryContentColor,
                   size: size$.value.iconSize,
                   child: errorIcon!,
                 ),

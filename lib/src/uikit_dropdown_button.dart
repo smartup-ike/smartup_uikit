@@ -9,135 +9,6 @@ import 'helpers/uikit_states.dart';
 import 'theme/uikit_theme.dart';
 import 'uikit_icon_theme.dart';
 
-class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
-  final RelativeRect position;
-  final Size size;
-
-  _DropdownRouteChildDelegate(this.position, this.size);
-
-  @override
-  Offset getPositionForChild(Size size, Size childSize) {
-    // size: The size of the overlay.
-    // childSize: The size of the menu, when fully open, as determined by
-    // getConstraintsForChild.
-
-    final double buttonHeight = size.height - position.top - position.bottom;
-    // Find the ideal vertical position.
-    double y;
-    if (position.top > position.bottom) {
-      // Menu button is closer to the bottom edge
-      if (childSize.height > position.bottom) {
-        // Child can not fit to the bottom, so grow to the top, aligned to the top edge.
-        y = position.top - childSize.height;
-      } else {
-        // Child can fit to the bottom, so grow to the bottom, aligned to the bottom edge.
-        y = position.top + buttonHeight;
-      }
-    } else {
-      // Menu button is closer to the top edge, so grow to the bottom, aligned to the bottom edge.
-      y = position.top + buttonHeight;
-    }
-    // Find the ideal horizontal position.
-    double x;
-    if (position.left >= position.right) {
-      // Menu button is closer to the right edge, so grow to the left, aligned to the right edge.
-      x = size.width - position.right - childSize.width;
-    } else {
-      // Menu button is closer to the left edge, so grow to the right, aligned to the left edge.
-      x = position.left;
-    }
-    final Offset wantedPosition = Offset(x, y);
-    final Offset originCenter = position.toRect(Offset.zero & size).center;
-    final Iterable<Rect> subScreens =
-        DisplayFeatureSubScreen.subScreensInBounds(Offset.zero & size, []);
-    final Rect subScreen = _closestScreen(subScreens, originCenter);
-    return _fitInsideScreen(subScreen, childSize, wantedPosition);
-  }
-
-  Rect _closestScreen(Iterable<Rect> screens, Offset point) {
-    Rect closest = screens.first;
-    for (final Rect screen in screens) {
-      if ((screen.center - point).distance <
-          (closest.center - point).distance) {
-        closest = screen;
-      }
-    }
-    return closest;
-  }
-
-  Offset _fitInsideScreen(Rect screen, Size childSize, Offset wantedPosition) {
-    double x = wantedPosition.dx;
-    double y = wantedPosition.dy;
-    // Avoid going outside an area defined as the rectangle 8.0 pixels from the
-    // edge of the screen in every direction.
-    if (x < screen.left) {
-      x = screen.left;
-    } else if (x + childSize.width > screen.right) {
-      x = screen.right - childSize.width;
-    }
-    if (y < screen.top) {
-      y = screen.top - 8;
-    } else if (y + childSize.height > screen.bottom) {
-      y = screen.bottom - childSize.height;
-    }
-
-    return Offset(x, y);
-  }
-
-  @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return BoxConstraints(
-      maxWidth: size.width,
-      maxHeight:
-          position.top > position.bottom ? position.top : position.bottom,
-    );
-  }
-
-  @override
-  bool shouldRelayout(covariant _DropdownRouteChildDelegate oldDelegate) {
-    return position != oldDelegate.position;
-  }
-}
-
-class DropdownRoute<T> extends PopupRoute<T> {
-  final Widget child;
-  final RelativeRect position;
-  final Size size;
-
-  DropdownRoute({
-    required this.child,
-    required this.position,
-    required this.size,
-  });
-  @override
-  Color? get barrierColor => Colors.transparent;
-
-  @override
-  bool get barrierDismissible => true;
-
-  @override
-  String? get barrierLabel => 'Click to dismiss';
-
-  @override
-  Widget buildPage(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-  ) {
-    return CustomSingleChildLayout(
-      delegate: _DropdownRouteChildDelegate(position, size),
-      child: ScaleTransition(
-        alignment: Alignment.topCenter,
-        scale: animation,
-        child: child,
-      ),
-    );
-  }
-
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 200);
-}
-
 class UIKitDropdownButton<T> extends HookWidget {
   const UIKitDropdownButton({
     Key? key,
@@ -185,51 +56,12 @@ class UIKitDropdownButton<T> extends HookWidget {
     final shadows$ = useState(
         define(shadowScheme, themeData$.value.filledInputShadowScheme));
 
-    Color? backgroundColor;
-    Color? contentColor;
-    Color? secondaryContentColor;
-    Color? borderColor;
-    List<BoxShadow>? currentShadows;
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        contentColor = colors$.value.defaultContentColor;
-        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
-        borderColor = colors$.value.defaultBorderColor;
-        currentShadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        contentColor = colors$.value.hoverContentColor;
-        secondaryContentColor = colors$.value.hoverSecondaryContentColor;
-        borderColor = colors$.value.hoverBorderColor;
-        currentShadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        contentColor = colors$.value.focusedContentColor;
-        secondaryContentColor = colors$.value.focusedSecondaryContentColor;
-        borderColor = colors$.value.focusedBorderColor;
-        currentShadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        contentColor = colors$.value.activeContentColor;
-        secondaryContentColor = colors$.value.activeSecondaryContentColor;
-        borderColor = colors$.value.activeBorderColor;
-        currentShadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        contentColor = colors$.value.disabledContentColor;
-        secondaryContentColor = colors$.value.disabledSecondaryContentColor;
-        borderColor = colors$.value.disabledBorderColor;
-        currentShadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        break;
-    }
     return MouseRegion(
       cursor: state$.value == UIKitState.disabled
           ? SystemMouseCursors.basic
@@ -292,13 +124,13 @@ class UIKitDropdownButton<T> extends HookWidget {
           width: size$.value.width,
           padding: size$.value.padding,
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: colorHelper.backgroundColor,
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
-              color: borderColor ?? Colors.transparent,
+              color: colorHelper.borderColor ?? Colors.transparent,
               width: size$.value.borderSize ?? 1,
             ),
-            boxShadow: currentShadows,
+            boxShadow: colorHelper.shadows,
           ),
           child: Row(
             children: [
@@ -308,21 +140,21 @@ class UIKitDropdownButton<T> extends HookWidget {
                   children: [
                     DefaultTextStyle(
                       style: size$.value.labelStyle
-                              ?.copyWith(color: contentColor) ??
-                          TextStyle(color: contentColor),
+                              ?.copyWith(color: colorHelper.contentColor) ??
+                          TextStyle(color: colorHelper.contentColor),
                       child: label ?? const SizedBox(),
                     ),
                     DefaultTextStyle(
                       style: size$.value.inputStyle
-                              ?.copyWith(color: contentColor) ??
-                          TextStyle(color: contentColor),
+                              ?.copyWith(color: colorHelper.contentColor) ??
+                          TextStyle(color: colorHelper.contentColor),
                       child: input ?? const SizedBox(),
                     ),
                   ],
                 ),
               ),
               UIKitIconTheme(
-                color: secondaryContentColor,
+                color: colorHelper.secondaryContentColor,
                 size: size$.value.trailingSize,
                 child: trailing,
               ),

@@ -127,51 +127,11 @@ class UIKitTab extends HookWidget {
       return;
     }, [isActive]);
 
-    Color? backgroundColor;
-    Color? contentColor;
-    Color? secondaryContentColor;
-    Color? borderColor;
-    List<BoxShadow>? shadows;
-
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        contentColor = colors$.value.defaultContentColor;
-        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
-        borderColor = colors$.value.defaultBorderColor;
-        shadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        contentColor = colors$.value.hoverContentColor;
-        secondaryContentColor = colors$.value.hoverSecondaryContentColor;
-        borderColor = colors$.value.hoverBorderColor;
-        shadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        contentColor = colors$.value.focusedContentColor;
-        secondaryContentColor = colors$.value.focusedSecondaryContentColor;
-        borderColor = colors$.value.focusedBorderColor;
-        shadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        contentColor = colors$.value.activeContentColor;
-        secondaryContentColor = colors$.value.activeSecondaryContentColor;
-        borderColor = colors$.value.activeBorderColor;
-        shadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        contentColor = colors$.value.disabledContentColor;
-        secondaryContentColor = colors$.value.disabledSecondaryContentColor;
-        borderColor = colors$.value.disabledBorderColor;
-        shadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return MouseRegion(
       cursor: state$.value == UIKitState.disabled
@@ -220,14 +180,14 @@ class UIKitTab extends HookWidget {
           height: size$.value.height,
           width: size$.value.width,
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: colorHelper.backgroundColor,
             borderRadius: tabType == UIKitTabType.page
                 ? BorderRadius.circular(size$.value.borderRadius ?? 8)
                 : null,
-            boxShadow: shadows,
+            boxShadow: colorHelper.shadows,
             border: Border(
               bottom: BorderSide(
-                color: borderColor ?? Colors.transparent,
+                color: colorHelper.borderColor ?? Colors.transparent,
                 width: size$.value.borderSize ?? 1,
               ),
             ),
@@ -237,15 +197,16 @@ class UIKitTab extends HookWidget {
             children: [
               if (leading != null) ...[
                 UIKitIconTheme(
-                  color: secondaryContentColor,
+                  color: colorHelper.secondaryContentColor,
                   size: size$.value.leadingSize,
                   child: leading!,
                 ),
                 SizedBox(width: size$.value.spacing),
               ],
               DefaultTextStyle(
-                style: size$.value.labelStyle?.copyWith(color: contentColor) ??
-                    TextStyle(color: contentColor),
+                style: size$.value.labelStyle
+                        ?.copyWith(color: colorHelper.contentColor) ??
+                    TextStyle(color: colorHelper.contentColor),
                 child: label ?? const SizedBox(),
               ),
               if (trailing != null) ...[

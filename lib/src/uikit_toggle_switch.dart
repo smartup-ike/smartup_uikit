@@ -81,51 +81,11 @@ class UIKitToggleSwitch extends HookWidget {
         useState(define(shadowScheme, themeData$.value.shadowScheme));
     final size$ = useState(findSize(themeData$.value));
 
-    Color? backgroundColor;
-    Color? contentColor;
-    Color? secondaryContentColor;
-    Color? borderColor;
-    List<BoxShadow>? shadows;
-
-    switch (state$.value) {
-      case UIKitState.defaultState:
-        backgroundColor = colors$.value.defaultBackgroundColor;
-        contentColor = colors$.value.defaultContentColor;
-        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
-        borderColor = colors$.value.defaultBorderColor;
-        shadows = shadows$.value.defaultShadow;
-        break;
-      case UIKitState.hover:
-        backgroundColor = colors$.value.hoverBackgroundColor;
-        contentColor = colors$.value.hoverContentColor;
-        secondaryContentColor = colors$.value.hoverSecondaryContentColor;
-        borderColor = colors$.value.hoverBorderColor;
-        shadows = shadows$.value.hoverShadow;
-        break;
-      case UIKitState.focused:
-        backgroundColor = colors$.value.focusedBackgroundColor;
-        contentColor = colors$.value.focusedContentColor;
-        secondaryContentColor = colors$.value.focusedSecondaryContentColor;
-        borderColor = colors$.value.focusedBorderColor;
-        shadows = shadows$.value.focusedShadow;
-        break;
-      case UIKitState.active:
-        backgroundColor = colors$.value.activeBackgroundColor;
-        contentColor = colors$.value.activeContentColor;
-        secondaryContentColor = colors$.value.activeSecondaryContentColor;
-        borderColor = colors$.value.activeBorderColor;
-        shadows = shadows$.value.activeShadow;
-        break;
-      case UIKitState.disabled:
-        backgroundColor = colors$.value.disabledBackgroundColor;
-        contentColor = colors$.value.disabledContentColor;
-        secondaryContentColor = colors$.value.defaultSecondaryContentColor;
-        borderColor = colors$.value.disabledBorderColor;
-        shadows = shadows$.value.disabledShadow;
-        break;
-      default:
-        break;
-    }
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
 
     return Center(
       child: MouseRegion(
@@ -174,7 +134,7 @@ class UIKitToggleSwitch extends HookWidget {
                       size$.value.borderRadius ?? 8,
                     ),
                     child: ColoredBox(
-                      color: backgroundColor ?? Colors.grey,
+                      color: colorHelper.backgroundColor ?? Colors.grey,
                       child: SizedBox(
                         width: size$.value.width,
                         height: size$.value.spacing,
@@ -191,17 +151,17 @@ class UIKitToggleSwitch extends HookWidget {
                     height: size$.value.height,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: contentColor,
+                      color: colorHelper.contentColor,
                       border: Border.all(
-                        color: borderColor ?? Colors.transparent,
+                        color: colorHelper.borderColor ?? Colors.transparent,
                         width: size$.value.borderSize ?? 1,
                       ),
-                      boxShadow: shadows,
+                      boxShadow: colorHelper.shadows,
                     ),
                     child: icon != null
                         ? Center(
                             child: UIKitIconTheme(
-                              color: secondaryContentColor,
+                              color: colorHelper.secondaryContentColor,
                               size: size$.value.iconSize,
                               child: icon!,
                             ),
