@@ -67,7 +67,6 @@ class _SelectionDialogState extends State<SelectionDialog> {
       }),
       value: _value,
       initialValue: widget.initialValue,
-      height: 300,
       multiselect: true,
       itemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
       actions: [
