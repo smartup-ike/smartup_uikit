@@ -21,8 +21,6 @@ class UIKitDropdownMenu<T> extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.width,
-    this.height,
   }) : assert(
           options.length == labels.length,
           'There must be exactly one label for each option!',
@@ -39,27 +37,32 @@ class UIKitDropdownMenu<T> extends HookWidget {
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
-  final double? width;
-  final double? height;
 
   @override
   Widget build(BuildContext context) {
     final currentValue$ =
         useState<List<T?>>(List.from(initialValue ?? <T?>[], growable: true));
+    final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
+    final shadows$ =
+        useState(define(shadowScheme, themeData$.value.shadowScheme));
 
     return Container(
-      width: width,
-      height: height,
+      width: size$.value.width,
+      height: size$.value.height,
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(sizeScheme?.borderRadius ?? 8),
+        color: colors$.value.defaultBackgroundColor,
+        border: Border.all(
+            color: colors$.value.defaultBorderColor ?? Colors.transparent),
+        borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+        boxShadow: shadows$.value.defaultShadow,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SingleChildScrollView(
-            padding: sizeScheme?.padding,
+            padding: size$.value.padding,
             child: Column(
               children: [
                 for (int i = 0; i < options.length; i++) ...[
