@@ -7,39 +7,6 @@ import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'uikit_dropdown_menu_item.dart';
 
-/// ```dart
-///   Dropdown(
-///     child: Text(),
-///     builder: (context) => UIKitDropdown(...),
-///   )
-/// ```
-
-/// ```dart
-/// UIKitDropdown(
-///   value: '',
-///   onChange: (List<String> newValue) {
-///
-///   }
-///   children: [
-///     DropdownOption<String>(
-///       value: 'option_1',
-///       label: Text('kati'),
-///       trailing: FlutterLogo(),
-///       selectable: false,
-///       disabled: false,
-///       children: [
-///         DropdownOption(
-///           value: 'value_1_1',
-///         ),
-///       ],
-///     ),
-///     DropdownOption(
-///       label: Text('kati allo'),
-///     ),
-///   ],
-/// ),
-/// ```
-
 class UIKitDropdownMenu<T> extends HookWidget {
   const UIKitDropdownMenu({
     super.key,

@@ -119,7 +119,8 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
     return BoxConstraints(
       maxWidth: size.width,
       maxHeight:
-          position.top > position.bottom ? position.top : position.bottom,
+          (position.top > position.bottom ? position.top : position.bottom) -
+              16,
     );
   }
 
