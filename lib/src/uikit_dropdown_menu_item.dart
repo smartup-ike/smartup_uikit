@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_states.dart';
@@ -54,7 +55,11 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     );
 
     return MouseRegion(
-      onHover: (_) => isHovered$.value = true,
+      onHover: (e) {
+        if (e.kind != PointerDeviceKind.touch) {
+          isHovered$.value = true;
+        }
+      },
       onExit: (_) => isHovered$.value = false,
       child: GestureDetector(
         onTap: onTap,

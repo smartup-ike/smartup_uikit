@@ -1,18 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'helpers/uikit_sizes.dart';
+import 'helpers/uikit_text_input_style.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_states.dart';
+import 'theme/uikit_text_input_theme_data.dart';
 import 'theme/uikit_theme.dart';
 import 'helpers/uikit_icon_theme.dart';
 
 class UIKitDropdownButton<T> extends HookWidget {
   const UIKitDropdownButton({
-    Key? key,
-    required this.child,
+    super.key,
     this.onTap,
     this.colorScheme,
     this.sizeScheme,
@@ -22,9 +24,93 @@ class UIKitDropdownButton<T> extends HookWidget {
     this.label,
     this.input,
     this.childSize,
-  }) : super(key: key);
+  })  : styleType = null,
+        size = UIKitSizes.medium;
 
-  final Widget child;
+  const UIKitDropdownButton.largeFilled({
+    super.key,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
+    this.childSize,
+  })  : styleType = TextInputStyleType.filled,
+        size = UIKitSizes.large;
+
+  const UIKitDropdownButton.mediumFilled({
+    super.key,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
+    this.childSize,
+  })  : styleType = TextInputStyleType.filled,
+        size = UIKitSizes.medium;
+
+  const UIKitDropdownButton.smallFilled({
+    super.key,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
+    this.childSize,
+  })  : styleType = TextInputStyleType.filled,
+        size = UIKitSizes.small;
+
+  const UIKitDropdownButton.largeLine({
+    super.key,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
+    this.childSize,
+  })  : styleType = TextInputStyleType.line,
+        size = UIKitSizes.large;
+
+  const UIKitDropdownButton.mediumLine({
+    super.key,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
+    this.childSize,
+  })  : styleType = TextInputStyleType.line,
+        size = UIKitSizes.medium;
+
+  const UIKitDropdownButton.smallLine({
+    super.key,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+    required this.isDisabled,
+    required this.trailing,
+    this.label,
+    this.input,
+    this.childSize,
+  })  : styleType = TextInputStyleType.line,
+        size = UIKitSizes.small;
+
   final Future<T?> Function(RelativeRect position, Size size)? onTap;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
@@ -34,6 +120,8 @@ class UIKitDropdownButton<T> extends HookWidget {
   final Widget? label;
   final Widget? input;
   final Size? childSize;
+  final TextInputStyleType? styleType;
+  final UIKitSizes? size;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +137,15 @@ class UIKitDropdownButton<T> extends HookWidget {
       return;
     }, [isDisabled]);
 
-    final colors$ =
-        useState(define(colorScheme, themeData$.value.filledInputColorScheme));
+    final colors$ = useState(
+      define(colorScheme, findColors(themeData$.value)),
+    );
     final size$ = useState(
-        define(sizeScheme, themeData$.value.smallFilledInputSizeScheme));
+      define(sizeScheme, findSize(themeData$.value)),
+    );
     final shadows$ = useState(
-        define(shadowScheme, themeData$.value.filledInputShadowScheme));
+      define(shadowScheme, findShadows(themeData$.value)),
+    );
 
     final colorHelper = findStateAttributes(
       colors$.value,
@@ -163,5 +254,59 @@ class UIKitDropdownButton<T> extends HookWidget {
         ),
       ),
     );
+  }
+
+  UIKitColorScheme findColors(UIKitTextInputThemeData themeData) {
+    UIKitColorScheme colorScheme;
+
+    if (this.styleType == TextInputStyleType.filled) {
+      colorScheme = themeData.filledInputColorScheme;
+    } else {
+      colorScheme = themeData.lineInputColorScheme;
+    }
+
+    return colorScheme;
+  }
+
+  UIKitSizeScheme findSize(UIKitTextInputThemeData themeData) {
+    UIKitSizeScheme sizeScheme;
+
+    switch (size) {
+      case UIKitSizes.small:
+        if (styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.smallFilledInputSizeScheme;
+        } else {
+          sizeScheme = themeData.smallLineInputSizeScheme;
+        }
+        break;
+      case UIKitSizes.medium:
+        if (styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.mediumFilledInputSizeScheme;
+        } else {
+          sizeScheme = themeData.mediumFilledInputSizeScheme;
+        }
+        break;
+      default:
+        if (styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.largeFilledInputSizeScheme;
+        } else {
+          sizeScheme = themeData.largeLineInputSizeScheme;
+        }
+        break;
+    }
+
+    return sizeScheme;
+  }
+
+  UIKitShadowScheme findShadows(UIKitTextInputThemeData themeData) {
+    UIKitShadowScheme shadowScheme;
+
+    if (styleType == TextInputStyleType.filled) {
+      shadowScheme = themeData.filledInputShadowScheme;
+    } else {
+      shadowScheme = themeData.lineInputShadowScheme;
+    }
+
+    return shadowScheme;
   }
 }

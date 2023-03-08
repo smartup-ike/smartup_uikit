@@ -1055,4 +1055,31 @@ UIKitThemeData kitThemeData = UIKitThemeData(
     ),
     lineSearchShadowScheme: UIKitShadowScheme.defaultScheme(),
   ),
+  dropdownMenuThemeData: UIKitDropdownMenuThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      defaultBorderColor: Colors.transparent,
+    ),
+    sizeScheme: UIKitSizeScheme(
+      borderSize: 0,
+      borderRadius: 12,
+      padding: const EdgeInsets.all(8),
+    ),
+    shadowScheme: UIKitShadowScheme(
+      defaultShadow: [
+        BoxShadow(
+          color: const Color(0xFF301B1D).withOpacity(0.06),
+          offset: const Offset(0, 2),
+          blurRadius: 3,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF180203).withOpacity(0.1),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+  ),
 );

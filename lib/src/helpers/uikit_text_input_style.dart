@@ -1,0 +1,1 @@
+enum TextInputStyleType { filled, line }

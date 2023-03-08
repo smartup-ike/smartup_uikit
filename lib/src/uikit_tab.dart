@@ -185,12 +185,17 @@ class UIKitTab extends HookWidget {
                 ? BorderRadius.circular(size$.value.borderRadius ?? 8)
                 : null,
             boxShadow: colorHelper.shadows,
-            border: Border(
-              bottom: BorderSide(
-                color: colorHelper.borderColor ?? Colors.transparent,
-                width: size$.value.borderSize ?? 1,
-              ),
-            ),
+            border: tabType == UIKitTabType.page
+                ? Border.all(
+                    color: colorHelper.borderColor ?? Colors.transparent,
+                    width: size$.value.borderSize ?? 1,
+                  )
+                : Border(
+                    bottom: BorderSide(
+                      color: colorHelper.borderColor ?? Colors.transparent,
+                      width: size$.value.borderSize ?? 1,
+                    ),
+                  ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

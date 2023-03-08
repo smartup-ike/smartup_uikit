@@ -20,6 +20,7 @@ export 'package:smartup_uikit/src/theme/uikit_menu_item_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_toggle_switch_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
+export 'package:smartup_uikit/src/theme/uikit_dropdown_menu_theme_data.dart';
 
 // UI Elements
 export 'package:smartup_uikit/src/uikit_button.dart';

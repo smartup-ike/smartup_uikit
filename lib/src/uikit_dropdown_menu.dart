@@ -54,48 +54,58 @@ class UIKitDropdownMenu<T> extends HookWidget {
       decoration: BoxDecoration(
         color: colors$.value.defaultBackgroundColor,
         border: Border.all(
-            color: colors$.value.defaultBorderColor ?? Colors.transparent),
+          color: colors$.value.defaultBorderColor ?? Colors.transparent,
+          width: size$.value.borderSize ?? 1,
+        ),
         borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
         boxShadow: shadows$.value.defaultShadow,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          SingleChildScrollView(
-            padding: size$.value.padding,
-            child: Column(
-              children: [
-                for (int i = 0; i < options.length; i++) ...[
-                  UIKitDropdownMenuItem<T>(
-                    label: labels[i],
-                    value: options[i],
-                    onTap: multiselect
-                        ? () {
-                            currentValue$.value.contains(options[i])
-                                ? currentValue$.value.remove(options[i])
-                                : currentValue$.value.add(options[i]);
-                            onChange.call(currentValue$.value);
-                          }
-                        : () {
-                            currentValue$.value.isEmpty
-                                ? currentValue$.value.add(options[i])
-                                : currentValue$.value.first = options[i];
-                            onChange.call(currentValue$.value);
-                          },
-                    multiselect: multiselect,
-                    isSelected: currentValue$.value.contains(options[i]),
-                    trailing: multiselect ? null : itemTrailing,
-                  ),
-                ]
-              ],
+          Expanded(
+            child: SingleChildScrollView(
+              padding: size$.value.padding,
+              child: Column(
+                children: [
+                  for (int i = 0; i < options.length; i++) ...[
+                    UIKitDropdownMenuItem<T>(
+                      label: labels[i],
+                      value: options[i],
+                      onTap: multiselect
+                          ? () {
+                              currentValue$.value.contains(options[i])
+                                  ? currentValue$.value.remove(options[i])
+                                  : currentValue$.value.add(options[i]);
+                              onChange.call(currentValue$.value);
+                            }
+                          : () {
+                              currentValue$.value.isEmpty
+                                  ? currentValue$.value.add(options[i])
+                                  : currentValue$.value.first = options[i];
+                              onChange.call(currentValue$.value);
+                            },
+                      multiselect: multiselect,
+                      isSelected: currentValue$.value.contains(options[i]),
+                      trailing: multiselect ? null : itemTrailing,
+                    ),
+                    const SizedBox(height: 4),
+                  ],
+                ],
+              ),
             ),
           ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: actions,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 0),
+            child: ColoredBox(
+              color: colors$.value.defaultBackgroundColor ?? Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: actions,
+                ),
+              ),
             ),
           ),
         ],

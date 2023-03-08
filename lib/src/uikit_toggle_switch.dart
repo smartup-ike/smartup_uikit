@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_sizes.dart';
@@ -92,8 +93,8 @@ class UIKitToggleSwitch extends HookWidget {
         cursor: state$.value == UIKitState.disabled
             ? SystemMouseCursors.basic
             : SystemMouseCursors.click,
-        onHover: (_) {
-          if (onTap != null) {
+        onHover: (e) {
+          if (onTap != null && e.kind != PointerDeviceKind.touch) {
             state$.value = UIKitState.hover;
             isHovered$.value = true;
           }

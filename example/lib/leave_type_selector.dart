@@ -19,13 +19,11 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return UIKitDropdownButton<String?>(
-      label: Text(_selectedValue.join(', ')),
+    return UIKitDropdownButton<String?>.mediumLine(
+      label: const Text('Selection'),
+      input: Text(_selectedValue.join(', ')),
       isDisabled: false,
-      trailing: const Icon(Icons.report_gmailerrorred),
-      child: SelectionDialog(
-        initialValue: _selectedValue,
-      ),
+      trailing: const UIKitIcon.asset('assets/images/url.svg'),
       onTap: (position, size) async {
         _selectedValue = await Navigator.of(context).push<List<String?>>(
               UIKitDropdownRoute(
@@ -85,8 +83,40 @@ class _SelectionDialogState extends State<SelectionDialog> {
         'two',
         'three',
         'four',
+        'one',
+        'two',
+        'three',
+        'four',
+        'one',
+        'two',
+        'three',
+        'four',
+        'one',
+        'two',
+        'three',
+        'four',
+        'one',
+        'two',
+        'three',
+        'four',
       ],
       labels: const [
+        Text('one'),
+        Text('two'),
+        Text('three'),
+        Text('four'),
+        Text('one'),
+        Text('two'),
+        Text('three'),
+        Text('four'),
+        Text('one'),
+        Text('two'),
+        Text('three'),
+        Text('four'),
+        Text('one'),
+        Text('two'),
+        Text('three'),
+        Text('four'),
         Text('one'),
         Text('two'),
         Text('three'),

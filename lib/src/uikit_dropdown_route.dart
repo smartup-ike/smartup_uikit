@@ -58,14 +58,14 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
       // Menu button is closer to the bottom edge
       if (childSize.height > position.bottom) {
         // Child can not fit to the bottom, so grow to the top, aligned to the top edge.
-        y = position.top - childSize.height;
+        y = position.top - childSize.height - 3;
       } else {
         // Child can fit to the bottom, so grow to the bottom, aligned to the bottom edge.
-        y = position.top + buttonHeight;
+        y = position.top + buttonHeight + 3;
       }
     } else {
       // Menu button is closer to the top edge, so grow to the bottom, aligned to the bottom edge.
-      y = position.top + buttonHeight;
+      y = position.top + buttonHeight + 3;
     }
     // Find the ideal horizontal position.
     double x;

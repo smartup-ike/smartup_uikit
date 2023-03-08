@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_sizes.dart';
+import 'helpers/uikit_text_input_style.dart';
 import 'theme/uikit_text_input_theme_data.dart';
 import 'helpers/uikit_icon_theme.dart';
 import 'helpers/uikit_states.dart';
@@ -10,8 +11,6 @@ import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'theme/uikit_theme.dart';
-
-enum TextInputStyleType { filled, line }
 
 enum TextInputType { input, search }
 
@@ -576,22 +575,19 @@ class UIKitTextInput extends HookWidget {
   UIKitColorScheme findColors(UIKitTextInputThemeData themeData) {
     UIKitColorScheme colorScheme;
 
-    if (this.colorScheme == null) {
-      if (inputType == TextInputType.input &&
-          styleType == TextInputStyleType.filled) {
-        colorScheme = themeData.filledInputColorScheme;
-      } else if (inputType == TextInputType.input &&
-          styleType == TextInputStyleType.line) {
-        colorScheme = themeData.lineInputColorScheme;
-      } else if (inputType == TextInputType.search &&
-          styleType == TextInputStyleType.filled) {
-        colorScheme = themeData.filledSearchColorScheme;
-      } else {
-        colorScheme = themeData.lineSearchColorScheme;
-      }
+    if (inputType == TextInputType.input &&
+        styleType == TextInputStyleType.filled) {
+      colorScheme = themeData.filledInputColorScheme;
+    } else if (inputType == TextInputType.input &&
+        styleType == TextInputStyleType.line) {
+      colorScheme = themeData.lineInputColorScheme;
+    } else if (inputType == TextInputType.search &&
+        styleType == TextInputStyleType.filled) {
+      colorScheme = themeData.filledSearchColorScheme;
     } else {
-      colorScheme = this.colorScheme!;
+      colorScheme = themeData.lineSearchColorScheme;
     }
+
     return colorScheme;
   }
 
@@ -600,57 +596,45 @@ class UIKitTextInput extends HookWidget {
 
     switch (size) {
       case UIKitSizes.small:
-        if (this.sizeScheme == null) {
-          if (inputType == TextInputType.input &&
-              styleType == TextInputStyleType.filled) {
-            sizeScheme = themeData.smallFilledInputSizeScheme;
-          } else if (inputType == TextInputType.input &&
-              styleType == TextInputStyleType.line) {
-            sizeScheme = themeData.smallLineInputSizeScheme;
-          } else if (inputType == TextInputType.search &&
-              styleType == TextInputStyleType.filled) {
-            sizeScheme = themeData.smallFilledSearchSizeScheme;
-          } else {
-            sizeScheme = themeData.smallLineSearchSizeScheme;
-          }
+        if (inputType == TextInputType.input &&
+            styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.smallFilledInputSizeScheme;
+        } else if (inputType == TextInputType.input &&
+            styleType == TextInputStyleType.line) {
+          sizeScheme = themeData.smallLineInputSizeScheme;
+        } else if (inputType == TextInputType.search &&
+            styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.smallFilledSearchSizeScheme;
         } else {
-          sizeScheme = this.sizeScheme!;
+          sizeScheme = themeData.smallLineSearchSizeScheme;
         }
         break;
       case UIKitSizes.medium:
-        if (this.sizeScheme == null) {
-          if (inputType == TextInputType.input &&
-              styleType == TextInputStyleType.filled) {
-            sizeScheme = themeData.mediumFilledInputSizeScheme;
-          } else if (inputType == TextInputType.input &&
-              styleType == TextInputStyleType.line) {
-            sizeScheme = themeData.mediumLineInputSizeScheme;
-          } else if (inputType == TextInputType.search &&
-              styleType == TextInputStyleType.filled) {
-            sizeScheme = themeData.mediumFilledSearchSizeScheme;
-          } else {
-            sizeScheme = themeData.mediumLineSearchSizeScheme;
-          }
+        if (inputType == TextInputType.input &&
+            styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.mediumFilledInputSizeScheme;
+        } else if (inputType == TextInputType.input &&
+            styleType == TextInputStyleType.line) {
+          sizeScheme = themeData.mediumLineInputSizeScheme;
+        } else if (inputType == TextInputType.search &&
+            styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.mediumFilledSearchSizeScheme;
         } else {
-          sizeScheme = this.sizeScheme!;
+          sizeScheme = themeData.mediumLineSearchSizeScheme;
         }
         break;
       default:
-        if (this.sizeScheme == null) {
-          if (inputType == TextInputType.input &&
-              styleType == TextInputStyleType.filled) {
-            sizeScheme = themeData.largeFilledInputSizeScheme;
-          } else if (inputType == TextInputType.input &&
-              styleType == TextInputStyleType.line) {
-            sizeScheme = themeData.largeLineInputSizeScheme;
-          } else if (inputType == TextInputType.search &&
-              styleType == TextInputStyleType.filled) {
-            sizeScheme = themeData.largeFilledSearchSizeScheme;
-          } else {
-            sizeScheme = themeData.largeLineSearchSizeScheme;
-          }
+        if (inputType == TextInputType.input &&
+            styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.largeFilledInputSizeScheme;
+        } else if (inputType == TextInputType.input &&
+            styleType == TextInputStyleType.line) {
+          sizeScheme = themeData.largeLineInputSizeScheme;
+        } else if (inputType == TextInputType.search &&
+            styleType == TextInputStyleType.filled) {
+          sizeScheme = themeData.largeFilledSearchSizeScheme;
         } else {
-          sizeScheme = this.sizeScheme!;
+          sizeScheme = themeData.largeLineSearchSizeScheme;
         }
         break;
     }
@@ -661,22 +645,19 @@ class UIKitTextInput extends HookWidget {
   UIKitShadowScheme findShadows(UIKitTextInputThemeData themeData) {
     UIKitShadowScheme shadowScheme;
 
-    if (this.shadowScheme == null) {
-      if (inputType == TextInputType.input &&
-          styleType == TextInputStyleType.filled) {
-        shadowScheme = themeData.filledInputShadowScheme;
-      } else if (inputType == TextInputType.input &&
-          styleType == TextInputStyleType.line) {
-        shadowScheme = themeData.lineInputShadowScheme;
-      } else if (inputType == TextInputType.search &&
-          styleType == TextInputStyleType.filled) {
-        shadowScheme = themeData.filledSearchShadowScheme;
-      } else {
-        shadowScheme = themeData.lineSearchShadowScheme;
-      }
+    if (inputType == TextInputType.input &&
+        styleType == TextInputStyleType.filled) {
+      shadowScheme = themeData.filledInputShadowScheme;
+    } else if (inputType == TextInputType.input &&
+        styleType == TextInputStyleType.line) {
+      shadowScheme = themeData.lineInputShadowScheme;
+    } else if (inputType == TextInputType.search &&
+        styleType == TextInputStyleType.filled) {
+      shadowScheme = themeData.filledSearchShadowScheme;
     } else {
-      shadowScheme = this.shadowScheme!;
+      shadowScheme = themeData.lineSearchShadowScheme;
     }
+
     return shadowScheme;
   }
 
