@@ -238,12 +238,13 @@ class UIKitDropdownButton<T> extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DefaultTextStyle(
-                      style: size$.value.labelStyle
-                              ?.copyWith(color: colorHelper.contentColor) ??
-                          TextStyle(color: colorHelper.contentColor),
-                      child: label ?? const Text(''),
-                    ),
+                    if (label != null)
+                      DefaultTextStyle(
+                        style: size$.value.labelStyle
+                                ?.copyWith(color: colorHelper.contentColor) ??
+                            TextStyle(color: colorHelper.contentColor),
+                        child: label ?? const Text(''),
+                      ),
                     DefaultTextStyle(
                       style: size$.value.inputStyle
                               ?.copyWith(color: colorHelper.contentColor) ??

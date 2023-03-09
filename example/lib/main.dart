@@ -256,6 +256,26 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ],
                 ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: UIKitDatePicker(
+                        actions: [
+                          UIKitButton.smallGhost(
+                            labelText: const Text('Ακύρωση'),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                          const SizedBox(width: 8),
+                          UIKitButton.smallPrimary(
+                            labelText: const Text('Αποθήκευση'),
+                            onTap: () => Navigator.of(context).pop(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             ListView(

@@ -1,5 +1,6 @@
 library smartup_uikit;
 
+// Helpers
 export 'package:smartup_uikit/src/helpers/uikit_color_scheme.dart';
 
 export 'package:smartup_uikit/src/helpers/uikit_size_scheme.dart';
@@ -23,7 +24,7 @@ export 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_dropdown_menu_theme_data.dart';
 
 // UI Elements
-export 'package:smartup_uikit/src/uikit_button.dart';
+export 'package:smartup_uikit/src/uikit_button.dart' show UIKitButton;
 
 export 'package:smartup_uikit/src/uikit_icon_button.dart' show UIKitIconButton;
 
@@ -51,3 +52,5 @@ export 'package:smartup_uikit/src/uikit_dropdown_button.dart'
 
 export 'package:smartup_uikit/src/uikit_dropdown_route.dart'
     show UIKitDropdownRoute;
+
+export 'package:smartup_uikit/src/uikit_date_picker.dart' show UIKitDatePicker;
