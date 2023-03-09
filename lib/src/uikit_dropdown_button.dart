@@ -216,11 +216,20 @@ class UIKitDropdownButton<T> extends HookWidget {
           padding: size$.value.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
-            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
-            border: Border.all(
-              color: colorHelper.borderColor ?? Colors.transparent,
-              width: size$.value.borderSize ?? 1,
-            ),
+            borderRadius: styleType == TextInputStyleType.filled
+                ? BorderRadius.circular(size$.value.borderRadius ?? 8)
+                : null,
+            border: styleType == TextInputStyleType.filled
+                ? Border.all(
+                    color: colorHelper.borderColor ?? Colors.transparent,
+                    width: size$.value.borderSize ?? 1,
+                  )
+                : Border(
+                    bottom: BorderSide(
+                      color: colorHelper.borderColor ?? Colors.transparent,
+                      width: size$.value.borderSize ?? 1,
+                    ),
+                  ),
             boxShadow: colorHelper.shadows,
           ),
           child: Row(
@@ -233,13 +242,13 @@ class UIKitDropdownButton<T> extends HookWidget {
                       style: size$.value.labelStyle
                               ?.copyWith(color: colorHelper.contentColor) ??
                           TextStyle(color: colorHelper.contentColor),
-                      child: label ?? const SizedBox(),
+                      child: label ?? const Text(''),
                     ),
                     DefaultTextStyle(
                       style: size$.value.inputStyle
                               ?.copyWith(color: colorHelper.contentColor) ??
                           TextStyle(color: colorHelper.contentColor),
-                      child: input ?? const SizedBox(),
+                      child: input ?? const Text(''),
                     ),
                   ],
                 ),
