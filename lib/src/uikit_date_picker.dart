@@ -20,13 +20,13 @@ const monthsMap = {
   11: 'Δεκέμβριος',
 };
 const daysList = [
-  'Κ',
   'Δ',
   'Τ',
   'Τ',
   'Π',
   'Π',
   'Σ',
+  'Κ',
 ];
 
 class UIKitDatePicker extends HookWidget {
@@ -95,13 +95,17 @@ class UIKitDatePicker extends HookWidget {
                         cells: List.generate(
                           7,
                           (columnIndex) {
+                            final date = findDate(
+                              DateTime(
+                                year$.value!,
+                                month$.value!,
+                                (rowIndex * 7) + (columnIndex + 1),
+                              ),
+                              columnIndex + 1,
+                            );
                             return DataCell(
                               Text(
-                                DateTime(
-                                  year$.value!,
-                                  month$.value!,
-                                  (rowIndex * 7) + (columnIndex + 1),
-                                ).day.toString(),
+                                date.day.toString(),
                               ),
                             );
                           },
@@ -121,6 +125,13 @@ class UIKitDatePicker extends HookWidget {
         ],
       ),
     );
+  }
+
+  DateTime findDate(DateTime date, int weekday) {
+    if (date.weekday == weekday) {
+      return date;
+    }
+    return findDate(date.subtract(const Duration(days: 1)), weekday);
   }
 }
 
