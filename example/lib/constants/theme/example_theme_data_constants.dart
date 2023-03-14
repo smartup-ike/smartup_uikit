@@ -1113,4 +1113,43 @@ UIKitThemeData kitThemeData = UIKitThemeData(
     ),
     shadowScheme: UIKitShadowScheme.defaultScheme(),
   ),
+  datePickerThemeData: UIKitDatePickerThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      defaultBorderColor: Colors.transparent,
+    ),
+    sizeScheme: UIKitSizeScheme(
+      padding: const EdgeInsets.all(24),
+      borderSize: 0,
+      borderRadius: 8,
+    ),
+    shadowScheme: UIKitShadowScheme(
+      defaultShadow: [
+        BoxShadow(
+          color: const Color(0xFF0D1556).withOpacity(0.24),
+          offset: const Offset(0, 1),
+          blurRadius: 2,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF201E8D).withOpacity(0.13),
+          offset: const Offset(0, 4),
+          blurRadius: 8,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF201E8D).withOpacity(0.07),
+          offset: const Offset(0, 8),
+          blurRadius: 16,
+          spreadRadius: 0,
+        ),
+        BoxShadow(
+          color: const Color(0xFF2B297C).withOpacity(0.08),
+          offset: const Offset(0, 16),
+          blurRadius: 32,
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+  ),
 );

@@ -19,18 +19,23 @@ const monthsMap = {
   11: 'Δεκέμβριος',
 };
 
-class MonthSelector extends StatefulWidget {
-  const MonthSelector({
+class UIKitMonthSelector extends StatefulWidget {
+  const UIKitMonthSelector({
     super.key,
     required this.onChanged,
+    this.trailing,
+    this.itemTrailing,
   });
+
   final ValueChanged<int?> onChanged;
+  final Widget? trailing;
+  final Widget? itemTrailing;
 
   @override
-  State<MonthSelector> createState() => _MonthSelectorState();
+  State<UIKitMonthSelector> createState() => _UIKitMonthSelectorState();
 }
 
-class _MonthSelectorState extends State<MonthSelector> {
+class _UIKitMonthSelectorState extends State<UIKitMonthSelector> {
   late List<int?> selectedValue;
 
   @override
@@ -45,11 +50,14 @@ class _MonthSelectorState extends State<MonthSelector> {
       childSize: const Size(150, 90),
       input: Text(monthsMap[selectedValue.first] ?? ''),
       isDisabled: false,
-      trailing: const Icon(Icons.arrow_downward_sharp),
+      trailing: widget.trailing ?? const SizedBox(),
       onTap: (position, size) async {
         selectedValue = await Navigator.of(context).push<List<int?>>(
               UIKitDropdownRoute(
-                child: MonthDialog(initialValue: selectedValue),
+                child: MonthDialog(
+                  initialValue: selectedValue,
+                  itemTrailing: widget.itemTrailing,
+                ),
                 position: position,
                 size: size,
               ),
@@ -64,8 +72,14 @@ class _MonthSelectorState extends State<MonthSelector> {
 }
 
 class MonthDialog extends StatefulWidget {
-  const MonthDialog({super.key, this.initialValue = const []});
+  const MonthDialog({
+    super.key,
+    this.initialValue = const [],
+    this.itemTrailing,
+  });
+
   final List<int?> initialValue;
+  final Widget? itemTrailing;
 
   @override
   State<MonthDialog> createState() => _MonthDialogState();
@@ -86,7 +100,7 @@ class _MonthDialogState extends State<MonthDialog> {
       value: value,
       onChange: (value) => setState(() => this.value = value),
       multiselect: false,
-      itemTrailing: const Icon(Icons.check),
+      itemTrailing: widget.itemTrailing,
       actions: [
         UIKitButton.smallPrimary(
           labelText: const Text('Εντάξει'),

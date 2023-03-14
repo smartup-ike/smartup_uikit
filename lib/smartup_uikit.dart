@@ -23,6 +23,7 @@ export 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_dropdown_menu_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_calendar_buton_theme_data.dart';
+export 'package:smartup_uikit/src/theme/uikit_date_picker_theme_data.dart';
 
 // UI Elements
 export 'package:smartup_uikit/src/uikit_button.dart' show UIKitButton;

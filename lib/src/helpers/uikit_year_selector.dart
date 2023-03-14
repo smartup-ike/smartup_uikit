@@ -5,11 +5,11 @@ import '../uikit_dropdown_menu.dart';
 import '../uikit_dropdown_route.dart';
 
 class UIKitYearSelector extends StatefulWidget {
-  const UIKitYearSelector({
-    super.key,
-    required this.onChanged,
-  });
+  const UIKitYearSelector(
+      {super.key, required this.onChanged, this.trailing, this.itemTrailing});
   final ValueChanged<int?> onChanged;
+  final Widget? trailing;
+  final Widget? itemTrailing;
 
   @override
   State<UIKitYearSelector> createState() => _UIKitYearSelectorState();
@@ -30,11 +30,14 @@ class _UIKitYearSelectorState extends State<UIKitYearSelector> {
       childSize: const Size(90, 90),
       input: Text(selectedValue.first.toString()),
       isDisabled: false,
-      trailing: const Icon(Icons.arrow_downward_sharp),
+      trailing: widget.trailing ?? const SizedBox(),
       onTap: (position, size) async {
         selectedValue = await Navigator.of(context).push<List<int?>>(
               UIKitDropdownRoute(
-                child: YearDialog(initialValue: selectedValue),
+                child: YearDialog(
+                  initialValue: selectedValue,
+                  itemTrailing: widget.itemTrailing,
+                ),
                 position: position,
                 size: size,
               ),
@@ -49,8 +52,14 @@ class _UIKitYearSelectorState extends State<UIKitYearSelector> {
 }
 
 class YearDialog extends StatefulWidget {
-  const YearDialog({super.key, this.initialValue = const []});
+  const YearDialog({
+    super.key,
+    this.initialValue = const [],
+    this.itemTrailing,
+  });
+
   final List<int?> initialValue;
+  final Widget? itemTrailing;
 
   @override
   State<YearDialog> createState() => _YearDialogState();
@@ -74,7 +83,7 @@ class _YearDialogState extends State<YearDialog> {
       value: value,
       onChange: (value) => setState(() => this.value = value),
       multiselect: false,
-      itemTrailing: const Icon(Icons.check),
+      itemTrailing: widget.itemTrailing,
       actions: [
         UIKitButton.smallPrimary(
           labelText: const Text('Εντάξει'),

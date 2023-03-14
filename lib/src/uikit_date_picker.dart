@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'helpers/uikit_helper_functions.dart';
+import 'helpers/uikit_color_scheme.dart';
+import 'helpers/uikit_shadow_scheme.dart';
+import 'helpers/uikit_size_scheme.dart';
+import 'theme/uikit_theme.dart';
 import 'helpers/uikit_calendar_button.dart';
 import 'helpers/uikit_month_selector.dart';
 import 'helpers/uikit_year_selector.dart';
+import 'uikit_button.dart';
 
 const daysList = [
   'Δ',
@@ -17,19 +23,33 @@ const daysList = [
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
     super.key,
-    this.actions = const [],
+    required this.onChanged,
+    this.dropdownButtonTrailing,
+    this.dropdownMenuItemTrailing,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
   });
 
-  final List<Widget>? actions;
+  final ValueChanged<List<DateTime?>> onChanged;
+  final Widget? dropdownButtonTrailing;
+  final Widget? dropdownMenuItemTrailing;
+  final UIKitColorScheme? colorScheme;
+  final UIKitSizeScheme? sizeScheme;
+  final UIKitShadowScheme? shadowScheme;
 
   @override
   Widget build(BuildContext context) {
     final year$ = useState<int>(DateTime.now().year);
     final month$ = useState<int>(DateTime.now().month);
-    final selectedDates$ = useState<List<DateTime?>>(
-      List.filled(2, null),
-    );
+    final selectedDates$ = useState<List<DateTime?>>(List.filled(2, null));
     final selectFirst$ = useState(true);
+    final themeData$ = useState(UIKitTheme.of(context).datePickerThemeData);
+    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
+    final shadows$ = useState(
+      define(shadowScheme, themeData$.value.shadowScheme),
+    );
     DateTime date = findDate(
       DateTime(
         year$.value,
@@ -41,15 +61,15 @@ class UIKitDatePicker extends HookWidget {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      padding: const EdgeInsets.all(24),
+      padding: size$.value.padding,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        color: colors$.value.defaultBackgroundColor,
+        borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
         border: Border.all(
-          color: Colors.black,
-          width: 1,
+          color: colors$.value.defaultBorderColor ?? Colors.transparent,
+          width: size$.value.borderSize ?? 0,
         ),
-        boxShadow: const [],
+        boxShadow: shadows$.value.defaultShadow,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -61,14 +81,18 @@ class UIKitDatePicker extends HookWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: MonthSelector(
+                  child: UIKitMonthSelector(
                     onChanged: (value) => month$.value = value! + 1,
+                    trailing: dropdownButtonTrailing,
+                    itemTrailing: dropdownMenuItemTrailing,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: UIKitYearSelector(
                     onChanged: (value) => year$.value = value! + 1,
+                    trailing: dropdownButtonTrailing,
+                    itemTrailing: dropdownMenuItemTrailing,
                   ),
                 ),
               ],
@@ -144,7 +168,17 @@ class UIKitDatePicker extends HookWidget {
           const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: actions!,
+            children: [
+              UIKitButton.smallGhost(
+                labelText: const Text('Ακύρωση'),
+                onTap: () => Navigator.of(context).pop(),
+              ),
+              const SizedBox(width: 8),
+              UIKitButton.smallPrimary(
+                labelText: const Text('Αποθήκευση'),
+                onTap: () => Navigator.of(context).pop(selectedDates$.value),
+              ),
+            ],
           ),
         ],
       ),
