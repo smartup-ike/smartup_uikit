@@ -29,7 +29,7 @@ class _DateSelectorState extends State<DateSelector> {
               UIKitDropdownRoute(
                 child: DatePickerDialog(initialValue: selectedValue),
                 position: position,
-                size: size,
+                size: Size.fromWidth(size.width >= 400 ? size.width : 400),
               ),
             ) ??
             selectedValue;

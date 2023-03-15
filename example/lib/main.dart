@@ -261,8 +261,23 @@ class _MyHomePageState extends State<MyHomePage>
                 const SizedBox(height: 8),
                 Row(
                   children: const [
+                    SizedBox(width: 200),
                     Expanded(
                       child: DateSelector(),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: UIKitDatePicker(
+                        onChanged: (_) {},
+                        dropdownButtonTrailing:
+                            const UIKitIcon.asset('assets/images/url.svg'),
+                        dropdownMenuItemTrailing:
+                            const UIKitIcon.asset('assets/images/url.svg'),
+                      ),
                     ),
                   ],
                 ),

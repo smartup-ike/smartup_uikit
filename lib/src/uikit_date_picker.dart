@@ -82,7 +82,7 @@ class UIKitDatePicker extends HookWidget {
               children: [
                 Expanded(
                   child: UIKitMonthSelector(
-                    onChanged: (value) => month$.value = value! + 1,
+                    onChanged: (value) => month$.value = value!,
                     trailing: dropdownButtonTrailing,
                     itemTrailing: dropdownMenuItemTrailing,
                   ),
@@ -90,7 +90,7 @@ class UIKitDatePicker extends HookWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: UIKitYearSelector(
-                    onChanged: (value) => year$.value = value! + 1,
+                    onChanged: (value) => year$.value = value!,
                     trailing: dropdownButtonTrailing,
                     itemTrailing: dropdownMenuItemTrailing,
                   ),
@@ -110,7 +110,7 @@ class UIKitDatePicker extends HookWidget {
                   outside: BorderSide.none,
                 ),
                 children: List.generate(
-                  6,
+                  isSixWeekMonth(year$.value, month$.value) ? 6 : 5,
                   (rowIndex) {
                     return TableRow(
                       children: List.generate(
@@ -119,6 +119,17 @@ class UIKitDatePicker extends HookWidget {
                           if (!(rowIndex == 0 && columnIndex == 0)) {
                             date = date.add(const Duration(days: 1));
                           }
+                          // print('Date: ${date.toString()}');
+                          // print('isDisabled: ${date.month != month$.value}');
+                          // print(
+                          //     'isSelected: ${selectedDates$.value.contains(date)}');
+                          // print(
+                          //     'isBetweenSelected: ${selectedDates$.value.contains(null) ? false : date.isAfter(
+                          //           selectedDates$.value.first!,
+                          //         ) && date.isBefore(
+                          //           selectedDates$.value.last!,
+                          //         )}');
+                          // print('\n');
                           return TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
@@ -189,5 +200,17 @@ class UIKitDatePicker extends HookWidget {
     return date.weekday == weekday
         ? date
         : date.subtract(Duration(days: (date.weekday - weekday).abs()));
+  }
+
+  bool isSixWeekMonth(int year, int month) {
+    DateTime date = DateTime(year, month, 1);
+    if (date.weekday >= DateTime.saturday &&
+        [1, 3, 5, 7, 8, 10, 12].contains(month)) {
+      return true;
+    }
+    if (date.weekday == DateTime.sunday && month != DateTime.february) {
+      return true;
+    }
+    return false;
   }
 }

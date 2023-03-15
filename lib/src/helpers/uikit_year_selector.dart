@@ -27,7 +27,6 @@ class _UIKitYearSelectorState extends State<UIKitYearSelector> {
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownButton.smallFilled(
-      childSize: const Size(90, 90),
       input: Text(selectedValue.first.toString()),
       isDisabled: false,
       trailing: widget.trailing ?? const SizedBox(),

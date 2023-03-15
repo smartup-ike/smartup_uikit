@@ -5,18 +5,18 @@ import '../uikit_dropdown_menu.dart';
 import '../uikit_dropdown_route.dart';
 
 const monthsMap = {
-  0: 'Ιανουάριος',
-  1: 'Φεβρουάριος',
-  2: 'Μάρτιος',
-  3: 'Απρίλιος',
-  4: 'Μάιος',
-  5: 'Ιούνιος',
-  6: 'Ιούλιος',
-  7: 'Αύγουστος',
-  8: 'Σεπτέμβριος',
-  9: 'Οκτώβριος',
-  10: 'Νοέμβριος',
-  11: 'Δεκέμβριος',
+  1: 'Ιανουάριος',
+  2: 'Φεβρουάριος',
+  3: 'Μάρτιος',
+  4: 'Απρίλιος',
+  5: 'Μάιος',
+  6: 'Ιούνιος',
+  7: 'Ιούλιος',
+  8: 'Αύγουστος',
+  9: 'Σεπτέμβριος',
+  10: 'Οκτώβριος',
+  11: 'Νοέμβριος',
+  12: 'Δεκέμβριος',
 };
 
 class UIKitMonthSelector extends StatefulWidget {
@@ -41,13 +41,12 @@ class _UIKitMonthSelectorState extends State<UIKitMonthSelector> {
   @override
   void initState() {
     super.initState();
-    selectedValue = [DateTime.now().month - 1];
+    selectedValue = [DateTime.now().month];
   }
 
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownButton.smallFilled(
-      childSize: const Size(150, 90),
       input: Text(monthsMap[selectedValue.first] ?? ''),
       isDisabled: false,
       trailing: widget.trailing ?? const SizedBox(),
@@ -107,8 +106,8 @@ class _MonthDialogState extends State<MonthDialog> {
           onTap: () => Navigator.of(context).pop(value),
         ),
       ],
-      options: List.generate(12, (index) => index),
-      labels: List.generate(12, (index) => Text(monthsMap[index] ?? '')),
+      options: List.generate(12, (index) => index + 1),
+      labels: List.generate(12, (index) => Text(monthsMap[index + 1] ?? '')),
     );
   }
 }

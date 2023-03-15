@@ -61,7 +61,7 @@ class UIKitCalendarButton extends HookWidget {
                 : UIKitState.defaultState;
         return;
       },
-      [isSelected, isBetweenSelected],
+      [isSelected, isBetweenSelected, onTap == null],
     );
 
     return MouseRegion(
