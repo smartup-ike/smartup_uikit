@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'uikit_date_picker_theme_data.dart';
+import 'uikit_calendar_buton_theme_data.dart';
 import 'uikit_dropdown_menu_theme_data.dart';
 import 'uikit_checkbox_theme_data.dart';
 import 'uikit_colors.dart';
@@ -75,6 +77,8 @@ class UIKitThemeData {
   final UIKitMenuItemThemeData menuItemThemeData;
   final UIKitCheckboxThemeData checkboxThemeData;
   final UIKitDropdownMenuThemeData dropdownMenuThemeData;
+  final UIKitCalendarButtonThemeData calendarButtonThemeData;
+  final UIKitDatePickerThemeData datePickerThemeData;
 
   const UIKitThemeData.raw({
     required this.colors,
@@ -88,6 +92,8 @@ class UIKitThemeData {
     required this.menuItemThemeData,
     required this.checkboxThemeData,
     required this.dropdownMenuThemeData,
+    required this.calendarButtonThemeData,
+    required this.datePickerThemeData,
   });
 
   factory UIKitThemeData({
@@ -102,6 +108,8 @@ class UIKitThemeData {
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
+    UIKitCalendarButtonThemeData? calendarButtonThemeData,
+    UIKitDatePickerThemeData? datePickerThemeData,
   }) {
     colors ??= const UIKitColors();
     typography ??= const UIKitTypography();
@@ -114,6 +122,8 @@ class UIKitThemeData {
     menuItemThemeData ??= UIKitMenuItemThemeData();
     checkboxThemeData ??= UIKitCheckboxThemeData();
     dropdownMenuThemeData ??= UIKitDropdownMenuThemeData();
+    calendarButtonThemeData ??= UIKitCalendarButtonThemeData();
+    datePickerThemeData ??= UIKitDatePickerThemeData();
 
     return UIKitThemeData.raw(
       colors: colors,
@@ -127,6 +137,8 @@ class UIKitThemeData {
       menuItemThemeData: menuItemThemeData,
       checkboxThemeData: checkboxThemeData,
       dropdownMenuThemeData: dropdownMenuThemeData,
+      calendarButtonThemeData: calendarButtonThemeData,
+      datePickerThemeData: datePickerThemeData,
     );
   }
 
@@ -142,6 +154,8 @@ class UIKitThemeData {
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
+    UIKitCalendarButtonThemeData? calendarButtonThemeData,
+    UIKitDatePickerThemeData? datePickerThemeData,
   }) {
     return UIKitThemeData.raw(
       colors: colors ?? this.colors,
@@ -157,6 +171,9 @@ class UIKitThemeData {
       checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
       dropdownMenuThemeData:
           dropdownMenuThemeData ?? this.dropdownMenuThemeData,
+      calendarButtonThemeData:
+          calendarButtonThemeData ?? this.calendarButtonThemeData,
+      datePickerThemeData: datePickerThemeData ?? this.datePickerThemeData,
     );
   }
 }

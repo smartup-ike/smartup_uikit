@@ -1,5 +1,7 @@
 // ignore_for_file: unused_field
 
+import 'package:example/date_selector.dart';
+
 import 'constants/theme/example_theme_data_constants.dart';
 import 'leave_type_selector.dart';
 import 'package:flutter/material.dart';
@@ -252,6 +254,29 @@ class _MyHomePageState extends State<MyHomePage>
                       isChecked: _isCheckBoxChecked,
                       onChanged: (value) => setState(
                         () => _isCheckBoxChecked = !_isCheckBoxChecked,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: const [
+                    SizedBox(width: 200),
+                    Expanded(
+                      child: DateSelector(),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: UIKitDatePicker(
+                        onChanged: (_) {},
+                        dropdownButtonTrailing:
+                            const UIKitIcon.asset('assets/images/url.svg'),
+                        dropdownMenuItemTrailing:
+                            const UIKitIcon.asset('assets/images/url.svg'),
                       ),
                     ),
                   ],

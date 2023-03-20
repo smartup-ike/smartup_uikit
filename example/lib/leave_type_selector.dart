@@ -60,9 +60,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownMenu<String?>(
-      onChange: (value) => setState(() {
-        _value = value;
-      }),
+      onChange: (value) => setState(() => _value = value),
       value: _value,
       initialValue: widget.initialValue,
       multiselect: true,
