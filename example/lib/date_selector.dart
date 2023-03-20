@@ -32,7 +32,7 @@ class _DateSelectorState extends State<DateSelector> {
                 size: Size.fromWidth(size.width >= 400 ? size.width : 400),
               ),
             ) ??
-            selectedValue;
+            [];
         setState(() {});
         return;
       },

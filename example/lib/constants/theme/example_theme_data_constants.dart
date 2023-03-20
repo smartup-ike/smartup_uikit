@@ -1117,11 +1117,13 @@ UIKitThemeData kitThemeData = UIKitThemeData(
     colorScheme: UIKitColorScheme(
       defaultBackgroundColor: ExampleColors.secondaryW,
       defaultBorderColor: Colors.transparent,
+      defaultContentColor: ExampleColors.secondary800,
     ),
     sizeScheme: UIKitSizeScheme(
       padding: const EdgeInsets.all(24),
       borderSize: 0,
       borderRadius: 8,
+      labelStyle: ExampleTypography.body2SemiBold,
     ),
     shadowScheme: UIKitShadowScheme(
       defaultShadow: [

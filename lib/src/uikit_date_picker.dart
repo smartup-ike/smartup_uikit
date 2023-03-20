@@ -165,6 +165,24 @@ class UIKitDatePicker extends HookWidget {
             ],
           ),
           const SizedBox(height: 24),
+          Text(
+            'Από: ${selectedDates$.value[0].toString()}',
+            style: size$.value.labelStyle?.copyWith(
+              color: selectFirst$.value
+                  ? colors$.value.defaultContentColor
+                  : colors$.value.defaultContentColor?.withOpacity(0.3),
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            'Έως: ${selectedDates$.value[1].toString()}',
+            style: size$.value.labelStyle?.copyWith(
+              color: selectFirst$.value
+                  ? colors$.value.defaultContentColor?.withOpacity(0.3)
+                  : colors$.value.defaultContentColor,
+            ),
+          ),
+          const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
