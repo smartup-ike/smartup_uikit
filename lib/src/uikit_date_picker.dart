@@ -119,17 +119,6 @@ class UIKitDatePicker extends HookWidget {
                           if (!(rowIndex == 0 && columnIndex == 0)) {
                             date = date.add(const Duration(days: 1));
                           }
-                          // print('Date: ${date.toString()}');
-                          // print('isDisabled: ${date.month != month$.value}');
-                          // print(
-                          //     'isSelected: ${selectedDates$.value.contains(date)}');
-                          // print(
-                          //     'isBetweenSelected: ${selectedDates$.value.contains(null) ? false : date.isAfter(
-                          //           selectedDates$.value.first!,
-                          //         ) && date.isBefore(
-                          //           selectedDates$.value.last!,
-                          //         )}');
-                          // print('\n');
                           return TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
@@ -163,7 +152,6 @@ class UIKitDatePicker extends HookWidget {
                                             (a, b) => a!.compareTo(b!),
                                           );
                                         }
-                                        print(selectedDates$.value.toString());
                                       },
                               ),
                             ),

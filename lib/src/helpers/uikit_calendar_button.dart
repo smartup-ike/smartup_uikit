@@ -47,11 +47,6 @@ class UIKitCalendarButton extends HookWidget {
     final shadows$ = useState(
       define(shadowScheme, themeData$.value.shadowScheme),
     );
-    final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
-      state$.value,
-    );
     useEffect(
       () {
         state$.value = isSelected || isBetweenSelected
@@ -62,6 +57,11 @@ class UIKitCalendarButton extends HookWidget {
         return;
       },
       [isSelected, isBetweenSelected, onTap == null],
+    );
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
     );
 
     return MouseRegion(
