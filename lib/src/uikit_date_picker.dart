@@ -170,7 +170,7 @@ class UIKitDatePicker extends HookWidget {
             style: size$.value.labelStyle?.copyWith(
               color: selectFirst$.value
                   ? colors$.value.defaultContentColor
-                  : colors$.value.defaultContentColor?.withOpacity(0.3),
+                  : colors$.value.defaultContentColor?.withOpacity(0.7),
             ),
           ),
           const SizedBox(height: 2),
@@ -178,7 +178,7 @@ class UIKitDatePicker extends HookWidget {
             'Έως: ${(selectedDates$.value[1] ?? '').toString()}',
             style: size$.value.labelStyle?.copyWith(
               color: selectFirst$.value
-                  ? colors$.value.defaultContentColor?.withOpacity(0.3)
+                  ? colors$.value.defaultContentColor?.withOpacity(0.7)
                   : colors$.value.defaultContentColor,
             ),
           ),
