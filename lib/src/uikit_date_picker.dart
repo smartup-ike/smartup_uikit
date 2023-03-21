@@ -42,7 +42,9 @@ class UIKitDatePicker extends HookWidget {
   Widget build(BuildContext context) {
     final year$ = useState<int>(DateTime.now().year);
     final month$ = useState<int>(DateTime.now().month);
-    final selectedDates$ = useState<List<DateTime?>>(List.filled(2, null));
+    final selectedDates$ = useState<List<DateTime?>>(
+      List.filled(2, null, growable: true),
+    );
     final selectFirst$ = useState(true);
     final themeData$ = useState(UIKitTheme.of(context).datePickerThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
