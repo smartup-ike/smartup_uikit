@@ -165,22 +165,42 @@ class UIKitDatePicker extends HookWidget {
             ],
           ),
           const SizedBox(height: 24),
-          Text(
-            'Από: ${(selectedDates$.value[0] ?? '').toString()}',
-            style: size$.value.labelStyle?.copyWith(
-              color: selectFirst$.value
-                  ? colors$.value.defaultContentColor
-                  : colors$.value.defaultContentColor?.withOpacity(0.7),
-            ),
+          Row(
+            children: [
+              if (selectFirst$.value)
+                Icon(
+                  Icons.arrow_right,
+                  color: colors$.value.defaultContentColor,
+                ),
+              const SizedBox(width: 4),
+              Text(
+                'Από: ${(selectedDates$.value[0] ?? '').toString().split(' ')[0]}',
+                style: size$.value.labelStyle?.copyWith(
+                  color: selectFirst$.value
+                      ? colors$.value.defaultContentColor
+                      : colors$.value.defaultContentColor?.withOpacity(0.7),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 2),
-          Text(
-            'Έως: ${(selectedDates$.value[1] ?? '').toString()}',
-            style: size$.value.labelStyle?.copyWith(
-              color: selectFirst$.value
-                  ? colors$.value.defaultContentColor?.withOpacity(0.7)
-                  : colors$.value.defaultContentColor,
-            ),
+          Row(
+            children: [
+              if (!selectFirst$.value)
+                Icon(
+                  Icons.arrow_right,
+                  color: colors$.value.defaultContentColor,
+                ),
+              const SizedBox(width: 4),
+              Text(
+                'Έως: ${(selectedDates$.value[1] ?? '').toString().split(' ')[0]}',
+                style: size$.value.labelStyle?.copyWith(
+                  color: selectFirst$.value
+                      ? colors$.value.defaultContentColor?.withOpacity(0.7)
+                      : colors$.value.defaultContentColor,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 24),
           Row(
