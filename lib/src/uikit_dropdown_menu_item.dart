@@ -51,7 +51,10 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     final shadows$ =
         useState(define(shadowScheme, themeData$.value.shadowScheme));
 
-    useEffect(() => null, [isSelected]);
+    useEffect(() {
+      state$.value = isSelected ? UIKitState.active : UIKitState.defaultState;
+      return;
+    }, [isSelected]);
 
     final colorHelper = findStateAttributes(
       colors$.value,
@@ -71,7 +74,10 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
         state$.value = isSelected ? UIKitState.active : UIKitState.defaultState;
       },
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () {
+          state$.value = UIKitState.active;
+          onTap.call();
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           padding: size$.value.padding,
