@@ -216,7 +216,7 @@ class UIKitDatePicker extends HookWidget {
                 onTap: () => Navigator.of(context).pop(
                   selectedDates$.value.map((e) {
                     if (e != null) return e;
-                  }),
+                  }).toList(),
                 ),
               ),
             ],
