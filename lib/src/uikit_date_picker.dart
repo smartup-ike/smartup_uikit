@@ -216,7 +216,7 @@ class UIKitDatePicker extends HookWidget {
               UIKitButton.smallPrimary(
                 labelText: const Text('Αποθήκευση'),
                 onTap: () {
-                  selectedDates$.value.remove(null);
+                  selectedDates$.value.removeWhere((e) => e == null);
                   Navigator.of(context).pop(
                     selectedDates$.value,
                   );
