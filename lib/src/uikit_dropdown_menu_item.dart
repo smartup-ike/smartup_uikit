@@ -41,6 +41,9 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state$ = useState(
+      isSelected ? UIKitState.active : UIKitState.defaultState,
+    );
     final isHovered$ = useState(false);
     final themeData$ = useState(UIKitTheme.of(context).menuItemThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
@@ -53,16 +56,20 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     final colorHelper = findStateAttributes(
       colors$.value,
       shadows$.value,
-      isHovered$.value ? UIKitState.hover : UIKitState.defaultState,
+      state$.value,
     );
 
     return MouseRegion(
       onHover: (e) {
         if (e.kind != PointerDeviceKind.touch) {
           isHovered$.value = true;
+          state$.value = UIKitState.hover;
         }
       },
-      onExit: (_) => isHovered$.value = false,
+      onExit: (_) {
+        isHovered$.value = false;
+        state$.value = isSelected ? UIKitState.active : UIKitState.defaultState;
+      },
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
