@@ -48,6 +48,8 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     final shadows$ =
         useState(define(shadowScheme, themeData$.value.shadowScheme));
 
+    useEffect(() => null, [isSelected]);
+
     final colorHelper = findStateAttributes(
       colors$.value,
       shadows$.value,
