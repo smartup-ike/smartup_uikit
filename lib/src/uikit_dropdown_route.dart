@@ -29,7 +29,8 @@ class UIKitDropdownRoute<T> extends PopupRoute<T> {
     Animation<double> secondaryAnimation,
   ) {
     return CustomSingleChildLayout(
-      delegate: _DropdownRouteChildDelegate(position, size),
+      delegate: _DropdownRouteChildDelegate(
+          position, size, MediaQuery.of(context).padding.top),
       child: ScaleTransition(
         alignment: Alignment.topCenter,
         scale: animation,
@@ -42,8 +43,9 @@ class UIKitDropdownRoute<T> extends PopupRoute<T> {
 class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
   final RelativeRect position;
   final Size size;
+  final double topPadding;
 
-  _DropdownRouteChildDelegate(this.position, this.size);
+  _DropdownRouteChildDelegate(this.position, this.size, this.topPadding);
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
@@ -120,7 +122,8 @@ class _DropdownRouteChildDelegate extends SingleChildLayoutDelegate {
       maxWidth: size.width,
       maxHeight:
           (position.top > position.bottom ? position.top : position.bottom) -
-              32,
+              32 -
+              topPadding,
     );
     // BoxConstraints.loose(constraints.biggest).deflate(
     //   const EdgeInsets.all(16),
