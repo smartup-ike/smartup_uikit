@@ -104,6 +104,8 @@ class UIKitMenuItem extends HookWidget {
             boxShadow: colorHelper.shadows,
           ),
           child: Row(
+            mainAxisAlignment:
+                isExpanded ? MainAxisAlignment.start : MainAxisAlignment.center,
             children: [
               UIKitIconTheme(
                 color: colorHelper.contentColor,
