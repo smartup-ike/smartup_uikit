@@ -24,7 +24,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onSubmitted,
     this.onChanged,
     this.maxLines,
@@ -52,7 +52,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -72,7 +72,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -89,8 +89,8 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -109,8 +109,8 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -132,7 +132,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -169,8 +169,8 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -189,8 +189,8 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -212,7 +212,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -232,7 +232,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -249,8 +249,8 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -269,8 +269,8 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
-    required this.onSubmitted,
+    this.focusNode,
+    this.onSubmitted,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -305,7 +305,7 @@ class UIKitTextInput extends HookWidget {
   final TextEditingController controller;
 
   /// [FocusNode] that handles focus events.
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   /// [Function] with a [String] parameter. Must be null by default for input
   /// constructors. Must not be null for search constructors.
@@ -344,6 +344,10 @@ class UIKitTextInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // a fallback focusnode in case none is provided
+    final focusNodeFallback = useFocusNode();
+    final focusNode = this.focusNode ?? focusNodeFallback;
+
     final state$ = useState(
       isDisabled ?? false
           ? UIKitState.disabled
@@ -353,16 +357,22 @@ class UIKitTextInput extends HookWidget {
     );
     final isHovered$ = useState(false);
     final isFocused$ = useState(focusNode.hasFocus);
-    focusNode.addListener(
-      () {
-        focusNode.hasFocus ? isFocused$.value = true : isFocused$.value = false;
-      },
-    );
+
+    final focusListener = useCallback(() {
+      focusNode.hasFocus ? isFocused$.value = true : isFocused$.value = false;
+    }, []);
+
+    useEffect(() {
+      focusNode.addListener(focusListener);
+
+      return () {
+        focusNode.removeListener(focusListener);
+      };
+    }, []);
 
     useEffect(() {
       if (isFocused$.value) {
         state$.value = UIKitState.focused;
-        focusNode.attach(context);
         focusNode.requestFocus();
       } else {
         state$.value = controller.text.isEmpty
@@ -518,19 +528,25 @@ class UIKitTextInput extends HookWidget {
                                   findMissingSize(),
                             ),
                         ],
-                        EditableText(
+                        TextField(
                           controller: controller,
                           focusNode: focusNode,
                           onSubmitted: onSubmitted,
                           onChanged: onChanged,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.zero,
+                            isCollapsed: true,
+                          ),
                           cursorColor: Colors.transparent,
-                          backgroundCursorColor: Colors.transparent,
-                          rendererIgnoresPointer: true,
+                          // backgroundCursorColor: Colors.transparent,
+                          // rendererIgnoresPointer: true,
+
                           maxLines: maxLines,
                           mouseCursor: state$.value == UIKitState.disabled
                               ? SystemMouseCursors.basic
                               : SystemMouseCursors.text,
-                          selectionColor: Colors.white,
+                          // selectionColor: Colors.white,
                           style: size$.value.inputStyle?.copyWith(
                                 color: colorHelper.contentColor,
                               ) ??
