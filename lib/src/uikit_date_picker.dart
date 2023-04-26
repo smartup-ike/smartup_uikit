@@ -23,7 +23,6 @@ const daysList = [
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
     super.key,
-    required this.onChanged,
     this.isRangePicker = true,
     this.dropdownButtonTrailing,
     this.dropdownMenuItemTrailing,
@@ -32,7 +31,6 @@ class UIKitDatePicker extends HookWidget {
     this.shadowScheme,
   });
 
-  final ValueChanged<List<DateTime?>> onChanged;
   final bool isRangePicker;
   final Widget? dropdownButtonTrailing;
   final Widget? dropdownMenuItemTrailing;

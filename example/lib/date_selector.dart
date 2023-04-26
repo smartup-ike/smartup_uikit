@@ -63,10 +63,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return UIKitDatePicker(
-      onChanged: (newValue) => value = newValue,
-      dropdownButtonTrailing: const UIKitIcon.asset('assets/images/url.svg'),
-      dropdownMenuItemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
+    return const UIKitDatePicker(
+      dropdownButtonTrailing: UIKitIcon.asset('assets/images/url.svg'),
+      dropdownMenuItemTrailing: UIKitIcon.asset('assets/images/url.svg'),
     );
   }
 }
