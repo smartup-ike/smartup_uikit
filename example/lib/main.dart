@@ -269,14 +269,14 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 const SizedBox(height: 8),
                 Row(
-                  children: [
+                  children: const [
                     Expanded(
                       child: UIKitDatePicker(
-                        onChanged: (_) {},
+                        isRangePicker: false,
                         dropdownButtonTrailing:
-                            const UIKitIcon.asset('assets/images/url.svg'),
+                            UIKitIcon.asset('assets/images/url.svg'),
                         dropdownMenuItemTrailing:
-                            const UIKitIcon.asset('assets/images/url.svg'),
+                            UIKitIcon.asset('assets/images/url.svg'),
                       ),
                     ),
                   ],
