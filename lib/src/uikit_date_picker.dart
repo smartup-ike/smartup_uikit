@@ -24,6 +24,7 @@ class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
     super.key,
     required this.onChanged,
+    this.isRangePicker = true,
     this.dropdownButtonTrailing,
     this.dropdownMenuItemTrailing,
     this.colorScheme,
@@ -32,6 +33,7 @@ class UIKitDatePicker extends HookWidget {
   });
 
   final ValueChanged<List<DateTime?>> onChanged;
+  final bool isRangePicker;
   final Widget? dropdownButtonTrailing;
   final Widget? dropdownMenuItemTrailing;
   final UIKitColorScheme? colorScheme;
@@ -140,21 +142,24 @@ class UIKitDatePicker extends HookWidget {
                                             ),
                                 onTap: date.month != month$.value
                                     ? null
-                                    : (newDate) {
-                                        selectFirst$.value
-                                            ? selectedDates$.value.first =
-                                                newDate
-                                            : selectedDates$.value.last =
-                                                newDate;
-                                        selectFirst$.value =
-                                            !selectFirst$.value;
-                                        if (!selectedDates$.value
-                                            .contains(null)) {
-                                          selectedDates$.value.sort(
-                                            (a, b) => a!.compareTo(b!),
-                                          );
-                                        }
-                                      },
+                                    : isRangePicker
+                                        ? (newDate) {
+                                            selectFirst$.value
+                                                ? selectedDates$.value.first =
+                                                    newDate
+                                                : selectedDates$.value.last =
+                                                    newDate;
+                                            selectFirst$.value =
+                                                !selectFirst$.value;
+                                            if (!selectedDates$.value
+                                                .contains(null)) {
+                                              selectedDates$.value.sort(
+                                                (a, b) => a!.compareTo(b!),
+                                              );
+                                            }
+                                          }
+                                        : (newDate) => selectedDates$
+                                            .value.first = newDate,
                               ),
                             ),
                           );
@@ -166,44 +171,46 @@ class UIKitDatePicker extends HookWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              if (selectFirst$.value)
-                Icon(
-                  Icons.arrow_right,
-                  color: colors$.value.defaultContentColor,
+          if (isRangePicker) ...[
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                if (selectFirst$.value)
+                  Icon(
+                    Icons.arrow_right,
+                    color: colors$.value.defaultContentColor,
+                  ),
+                const SizedBox(width: 4),
+                Text(
+                  'Από: ${(selectedDates$.value[0] ?? '').toString().split(' ')[0]}',
+                  style: size$.value.labelStyle?.copyWith(
+                    color: selectFirst$.value
+                        ? colors$.value.defaultContentColor
+                        : colors$.value.defaultContentColor?.withOpacity(0.7),
+                  ),
                 ),
-              const SizedBox(width: 4),
-              Text(
-                'Από: ${(selectedDates$.value[0] ?? '').toString().split(' ')[0]}',
-                style: size$.value.labelStyle?.copyWith(
-                  color: selectFirst$.value
-                      ? colors$.value.defaultContentColor
-                      : colors$.value.defaultContentColor?.withOpacity(0.7),
+              ],
+            ),
+            const SizedBox(height: 2),
+            Row(
+              children: [
+                if (!selectFirst$.value)
+                  Icon(
+                    Icons.arrow_right,
+                    color: colors$.value.defaultContentColor,
+                  ),
+                const SizedBox(width: 4),
+                Text(
+                  'Έως: ${(selectedDates$.value[1] ?? '').toString().split(' ')[0]}',
+                  style: size$.value.labelStyle?.copyWith(
+                    color: selectFirst$.value
+                        ? colors$.value.defaultContentColor?.withOpacity(0.7)
+                        : colors$.value.defaultContentColor,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 2),
-          Row(
-            children: [
-              if (!selectFirst$.value)
-                Icon(
-                  Icons.arrow_right,
-                  color: colors$.value.defaultContentColor,
-                ),
-              const SizedBox(width: 4),
-              Text(
-                'Έως: ${(selectedDates$.value[1] ?? '').toString().split(' ')[0]}',
-                style: size$.value.labelStyle?.copyWith(
-                  color: selectFirst$.value
-                      ? colors$.value.defaultContentColor?.withOpacity(0.7)
-                      : colors$.value.defaultContentColor,
-                ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
           const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
