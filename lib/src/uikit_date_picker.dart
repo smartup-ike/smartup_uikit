@@ -131,15 +131,16 @@ class UIKitDatePicker extends HookWidget {
                               child: UIKitCalendarButton(
                                 date: date,
                                 isSelected: selectedDates$.value.contains(date),
-                                isBetweenSelected:
-                                    selectedDates$.value.contains(null)
+                                isBetweenSelected: isRangePicker
+                                    ? selectedDates$.value.contains(null)
                                         ? false
                                         : date.isAfter(
                                               selectedDates$.value.first!,
                                             ) &&
                                             date.isBefore(
                                               selectedDates$.value.last!,
-                                            ),
+                                            )
+                                    : false,
                                 onTap: date.month != month$.value
                                     ? null
                                     : isRangePicker
