@@ -54,14 +54,7 @@ class UIKitDatePicker extends HookWidget {
     final shadows$ = useState(
       define(shadowScheme, themeData$.value.shadowScheme),
     );
-    DateTime date = findDate(
-      DateTime(
-        year$.value,
-        month$.value,
-        1,
-      ),
-      1,
-    );
+    DateTime date = findDate(DateTime(year$.value, month$.value, 1), 1);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
@@ -159,8 +152,8 @@ class UIKitDatePicker extends HookWidget {
                                               );
                                             }
                                           }
-                                        : (newDate) => selectedDates$
-                                            .value.first = newDate,
+                                        : (newDate) =>
+                                            selectedDates$.value = [newDate],
                               ),
                             ),
                           );
