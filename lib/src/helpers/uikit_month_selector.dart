@@ -86,17 +86,47 @@ class MonthDialog extends StatefulWidget {
 
 class _MonthDialogState extends State<MonthDialog> {
   late List<int?> value;
-
+  final List<int?> values = List.generate(12, (index) => index + 1);
+  final List<Widget> labels =
+      List.generate(12, (index) => Text(monthsMap[index + 1] ?? ''));
+  List<int?> toShowValues = [];
+  List<Widget> toShowLabels = [];
   @override
   void initState() {
     super.initState();
     value = widget.initialValue;
+    toShowLabels = labels;
+    toShowValues = values;
   }
 
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownMenu(
       value: value,
+      hasSearchBar: true,
+      searchOnChange: (value) {
+        List<Widget> tempLabels = [];
+        List<int?> tempValues = [];
+        if ((value ?? '').isEmpty) {
+          setState(
+            () {
+              toShowValues = values;
+              toShowLabels = labels;
+            },
+          );
+        } else {
+          monthsMap.forEach((key, mapValue) {
+            if (mapValue.contains(value)) {
+              tempValues.add(key);
+              tempLabels.add(Text(mapValue));
+            }
+          });
+          setState(() {
+            toShowValues = tempValues;
+            toShowLabels = tempLabels;
+          });
+        }
+      },
       onChange: (value) => setState(() => this.value = value),
       multiselect: false,
       itemTrailing: widget.itemTrailing,
@@ -106,8 +136,8 @@ class _MonthDialogState extends State<MonthDialog> {
           onTap: () => Navigator.of(context).pop(value),
         ),
       ],
-      options: List.generate(12, (index) => index + 1),
-      labels: List.generate(12, (index) => Text(monthsMap[index + 1] ?? '')),
+      options: toShowValues,
+      labels: toShowLabels,
     );
   }
 }
