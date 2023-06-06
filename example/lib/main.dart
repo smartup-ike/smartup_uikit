@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage>
                           labelText: const Text('Button'),
                           leading:
                               const UIKitIcon.asset('assets/images/url.svg'),
-                          onTap: () {},
+                          onTap: (){},
                         ),
                         UIKitButton.mediumTertiary(
                           labelText: const Text('Button'),
