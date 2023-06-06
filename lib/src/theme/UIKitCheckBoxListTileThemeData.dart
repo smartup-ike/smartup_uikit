@@ -2,7 +2,6 @@ import '../helpers/uikit_color_scheme.dart';
 import '../helpers/uikit_shadow_scheme.dart';
 import '../helpers/uikit_size_scheme.dart';
 
-
 class UIKitCheckBoxListTileThemeData {
   final UIKitColorScheme primaryColors;
   final UIKitSizeScheme smallSize;
@@ -11,11 +10,11 @@ class UIKitCheckBoxListTileThemeData {
   final UIKitShadowScheme primaryShadows;
 
   const UIKitCheckBoxListTileThemeData.raw({
-    required final UIKitColorScheme primaryColors,
-    required final UIKitSizeScheme smallSize,
-    required final UIKitSizeScheme mediumSize,
-    required final UIKitSizeScheme largeSize,
-    required final UIKitShadowScheme primaryShadows,
+    required this.primaryColors,
+    required this.smallSize,
+    required this.mediumSize,
+    required this.largeSize,
+    required this.primaryShadows,
   });
 
   factory UIKitCheckBoxListTileThemeData({
@@ -26,8 +25,8 @@ class UIKitCheckBoxListTileThemeData {
     UIKitShadowScheme? primaryShadows,
   }) {
     // Sets default color schemes.
-    primaryColors ?? UIKitColorScheme.defaultScheme();
-    smallSize ?? UIKitSizeScheme.defaultScheme();
+    primaryColors ??= UIKitColorScheme.defaultScheme();
+    smallSize ??= UIKitSizeScheme.defaultScheme();
     mediumSize ??= UIKitSizeScheme.defaultScheme();
     largeSize ??= UIKitSizeScheme.defaultScheme();
     primaryShadows ??= UIKitShadowScheme.defaultScheme();
@@ -40,7 +39,6 @@ class UIKitCheckBoxListTileThemeData {
       primaryShadows: primaryShadows,
     );
   }
-
 
   UIKitCheckBoxListTileThemeData copyWith({
     UIKitColorScheme? primaryColors,
@@ -56,7 +54,5 @@ class UIKitCheckBoxListTileThemeData {
       mediumSize: mediumSize ?? this.mediumSize,
       largeSize: largeSize ?? this.largeSize,
     );
-
   }
-
 }

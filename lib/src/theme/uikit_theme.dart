@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'UIKitCheckBoxListTileThemeData.dart';
 import 'uikit_date_picker_theme_data.dart';
 import 'uikit_calendar_buton_theme_data.dart';
 import 'uikit_dropdown_menu_theme_data.dart';
-import 'uikit_checkbox_theme_data.dart';
 import 'uikit_colors.dart';
 import 'uikit_typography.dart';
 import 'uikit_menu_item_theme_data.dart';
@@ -75,10 +75,10 @@ class UIKitThemeData {
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
-  final UIKitCheckboxThemeData checkboxThemeData;
   final UIKitDropdownMenuThemeData dropdownMenuThemeData;
   final UIKitCalendarButtonThemeData calendarButtonThemeData;
   final UIKitDatePickerThemeData datePickerThemeData;
+  final UIKitCheckBoxListTileThemeData checkboxThemeData;
 
   const UIKitThemeData.raw({
     required this.colors,
@@ -90,10 +90,10 @@ class UIKitThemeData {
     required this.radioGroupThemeData,
     required this.textInputThemeData,
     required this.menuItemThemeData,
-    required this.checkboxThemeData,
     required this.dropdownMenuThemeData,
     required this.calendarButtonThemeData,
     required this.datePickerThemeData,
+    required this.checkboxThemeData,
   });
 
   factory UIKitThemeData({
@@ -106,10 +106,10 @@ class UIKitThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
-    UIKitCheckboxThemeData? checkboxThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
+    UIKitCheckBoxListTileThemeData? checkboxThemeData,
   }) {
     colors ??= const UIKitColors();
     typography ??= const UIKitTypography();
@@ -120,10 +120,10 @@ class UIKitThemeData {
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
     textInputThemeData ??= UIKitTextInputThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
-    checkboxThemeData ??= UIKitCheckboxThemeData();
     dropdownMenuThemeData ??= UIKitDropdownMenuThemeData();
     calendarButtonThemeData ??= UIKitCalendarButtonThemeData();
     datePickerThemeData ??= UIKitDatePickerThemeData();
+    checkboxThemeData ??= UIKitCheckBoxListTileThemeData();
 
     return UIKitThemeData.raw(
       colors: colors,
@@ -135,10 +135,10 @@ class UIKitThemeData {
       radioGroupThemeData: radioGroupThemeData,
       textInputThemeData: textInputThemeData,
       menuItemThemeData: menuItemThemeData,
-      checkboxThemeData: checkboxThemeData,
       dropdownMenuThemeData: dropdownMenuThemeData,
       calendarButtonThemeData: calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData,
+        checkboxThemeData: checkboxThemeData,
     );
   }
 
@@ -152,10 +152,10 @@ class UIKitThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
-    UIKitCheckboxThemeData? checkboxThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
+    UIKitCheckBoxListTileThemeData? checkboxThemeData,
   }) {
     return UIKitThemeData.raw(
       colors: colors ?? this.colors,
@@ -168,12 +168,12 @@ class UIKitThemeData {
       radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
       menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
-      checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
       dropdownMenuThemeData:
           dropdownMenuThemeData ?? this.dropdownMenuThemeData,
       calendarButtonThemeData:
           calendarButtonThemeData ?? this.calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData ?? this.datePickerThemeData,
+        checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
     );
   }
 }
