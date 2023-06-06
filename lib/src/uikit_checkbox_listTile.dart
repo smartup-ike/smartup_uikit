@@ -1,16 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/theme/UIKitCheckBoxListTileThemeData.dart';
+import 'package:smartup_uikit/src/theme/uikit_checkbox_list_tile_theme_data.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_sizes.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_states.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
-import 'theme/uikit_button_theme_data.dart';
 import 'theme/uikit_theme.dart';
-import 'helpers/uikit_icon_theme.dart';
 
 /// [UIKitCheckBoxListTile] is a checkbox that can have a leading label [Widget] or a trailing label [Widget]
 ///
@@ -22,7 +20,7 @@ import 'helpers/uikit_icon_theme.dart';
 //   trailing,
 // }
 
-class UIKitCheckBoxListTile extends StatelessWidget {
+class UIKitCheckBoxListTile extends HookWidget {
   const UIKitCheckBoxListTile.WithLeading({
     super.key,
     this.leading,
@@ -91,7 +89,7 @@ class UIKitCheckBoxListTile extends StatelessWidget {
     final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
 
-    return MouseRegion(child: ListTile());
+    return MouseRegion(child: Text("PLACEHOLDER CHECKBOX"));
   }
 
   UIKitColorScheme findColors(UIKitCheckBoxListTileThemeData themeData) {
