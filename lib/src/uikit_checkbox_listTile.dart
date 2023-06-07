@@ -218,7 +218,7 @@ class UIKitCheckBoxListTile extends HookWidget {
                   style: size$.value.labelStyle
                           ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
-                  child: leading!,
+                  child: trailing!,
                 ),
               ],
             ],

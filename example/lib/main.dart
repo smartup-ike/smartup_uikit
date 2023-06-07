@@ -247,16 +247,11 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                UIKitCheckBoxListTile.WithLeading(
-                  leading: const Text(
-                    "LeadingText",
-                  ),
-                  sizeScheme: UIKitSizeScheme(
-                    spacing: 15,
-                    padding: EdgeInsets.all(20),
-                    iconSize: 20,
-                  ),
+
+                UIKitToggleListTile.WithTrailing(
+                  trailing: Text("LABEL"),
                 ),
+
                 const SizedBox(height: 8),
                 const Row(
                   children: [

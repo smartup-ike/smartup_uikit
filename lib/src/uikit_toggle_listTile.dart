@@ -162,60 +162,60 @@ class UIKitToggleListTile extends HookWidget {
                   child: leading!,
                 ),
                 SizedBox(width: size$.value.spacing),
-                // Container(
-                //   height: size$.value.iconSize,
-                //   width: size$.value.iconSize,
-                //   color: colorHelper.secondaryContentColor,
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       border: Border.all(
-                //         width: size$.value.secondarySpacing ?? 1,
-                //         color: colorHelper.borderColor ?? Colors.black,
-                //       ),
-                //     ),
-                //     height: size$.value.iconSize,
-                //     width: size$.value.iconSize,
-                //     child: Center(
-                //       child: isActive.value == false
-                //           ? SizedBox()
-                //           : Icon(
-                //         Icons.check,
-                //         size: size$.value.iconSize,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Container(
+                  height: size$.value.iconSize,
+                  width: size$.value.iconSize,
+                  color: colorHelper.secondaryContentColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: size$.value.secondarySpacing ?? 1,
+                        color: colorHelper.borderColor ?? Colors.black,
+                      ),
+                    ),
+                    height: size$.value.iconSize,
+                    width: size$.value.iconSize,
+                    child: Center(
+                      child: isActive.value == false
+                          ? SizedBox()
+                          : Icon(
+                        Icons.check,
+                        size: size$.value.iconSize,
+                      ),
+                    ),
+                  ),
+                ),
               ],
               if (trailing != null) ...[
-                // Container(
-                //   height: size$.value.iconSize,
-                //   width: size$.value.iconSize,
-                //   color: colorHelper.secondaryContentColor,
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       border: Border.all(
-                //         width: size$.value.secondarySpacing ?? 1,
-                //         color: colorHelper.borderColor ?? Colors.black,
-                //       ),
-                //     ),
-                //     height: size$.value.iconSize,
-                //     width: size$.value.iconSize,
-                //     child: Center(
-                //       child: isActive.value == false
-                //           ? SizedBox()
-                //           : Icon(
-                //         Icons.check,
-                //         size: size$.value.iconSize,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Container(
+                  height: size$.value.iconSize,
+                  width: size$.value.iconSize,
+                  color: colorHelper.secondaryContentColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: size$.value.secondarySpacing ?? 1,
+                        color: colorHelper.borderColor ?? Colors.black,
+                      ),
+                    ),
+                    height: size$.value.iconSize,
+                    width: size$.value.iconSize,
+                    child: Center(
+                      child: isActive.value == false
+                          ? SizedBox()
+                          : Icon(
+                        Icons.check,
+                        size: size$.value.iconSize,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
                   style: size$.value.labelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
-                  child: leading!,
+                  child: trailing!,
                 ),
               ],
             ],
