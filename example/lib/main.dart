@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage>
                           labelText: const Text('Button'),
                           leading:
                               const UIKitIcon.asset('assets/images/url.svg'),
-                          onTap: (){},
+                          onTap: () {},
                         ),
                         UIKitButton.mediumTertiary(
                           labelText: const Text('Button'),
@@ -247,14 +247,19 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    UIKitCheckBoxListTile.WithLeading(),
-                  ],
+                UIKitCheckBoxListTile.WithLeading(
+                  leading: const Text(
+                    "LeadingText",
+                  ),
+                  sizeScheme: UIKitSizeScheme(
+                    spacing: 15,
+                    padding: EdgeInsets.all(20),
+                    iconSize: 20,
+                  ),
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     SizedBox(width: 200),
                     Expanded(
                       child: DateSelector(),

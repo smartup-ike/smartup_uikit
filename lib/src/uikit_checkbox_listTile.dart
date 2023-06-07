@@ -10,16 +10,6 @@ import 'helpers/uikit_size_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
 import 'theme/uikit_theme.dart';
 
-/// [UIKitCheckBoxListTile] is a checkbox that can have a leading label [Widget] or a trailing label [Widget]
-///
-/// * Recommended type for label [Text]
-///
-
-// enum UIKitCheckBoxListTileType {
-//   leading,
-//   trailing,
-// }
-
 class UIKitCheckBoxListTile extends HookWidget {
   const UIKitCheckBoxListTile.WithLeading({
     super.key,
@@ -42,6 +32,11 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.checkBoxSize,
     //this.checkBoxType,
   }) : leading = null;
+
+  /// [UIKitCheckBoxListTile] is a checkbox that can have a leading label [Widget] or a trailing label [Widget]
+  ///
+  /// * Recommended type for label [Text]
+  ///
 
   /// Type of the button [UIKitButtonType]
   ///
@@ -69,6 +64,7 @@ class UIKitCheckBoxListTile extends HookWidget {
 
   /// [UIKitSizeScheme] containing information about the size elements
   /// for all the different states.
+  /// secondary spacing is the width of the checkbox (inner) border
   final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitShadowScheme] containing information about the shadows for all the
@@ -80,16 +76,163 @@ class UIKitCheckBoxListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<bool> isActive = useState(false);
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final theme$ =
-        useState<UIKitCheckBoxListTileThemeData>(UIKitTheme.of(context).checkboxThemeData);
+    final theme$ = useState<UIKitCheckBoxListTileThemeData>(
+        UIKitTheme.of(context).checkboxThemeData);
     final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
     final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
 
-    return MouseRegion(child: Text("PLACEHOLDER CHECKBOX"));
+    useEffect(() {
+      if (onTap == null) {
+        state$.value = UIKitState.disabled;
+      } else {
+        state$.value = UIKitState.defaultState;
+      }
+      return null;
+    }, [onTap == null]);
+
+    final colorHelper = findStateAttributes(
+      colors$.value,
+      shadows$.value,
+      state$.value,
+    );
+
+    return MouseRegion(
+      cursor: state$.value == UIKitState.disabled
+          ? SystemMouseCursors.basic
+          : SystemMouseCursors.click,
+      onHover: (e) {
+        if (onTap != null && e.kind != PointerDeviceKind.touch) {
+          state$.value = UIKitState.hover;
+          isHovered$.value = true;
+        }
+      },
+      onExit: (_) {
+        if (onTap != null) {
+          state$.value = UIKitState.defaultState;
+          isHovered$.value = false;
+        }
+      },
+      child: GestureDetector(
+        onTap: () {
+          isActive.value = !isActive.value;
+          if (state$.value != UIKitState.disabled) {
+            onTap?.call();
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+          }
+        },
+        onTapUp: (_) {
+          if (onTap != null) {
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+          }
+        },
+        onTapCancel: () {
+          if (onTap != null) {
+            state$.value =
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+          }
+        },
+        onTapDown: (_) {
+          if (onTap != null) {
+            state$.value = UIKitState.focused;
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          padding: size$.value.padding,
+          decoration: BoxDecoration(
+            color: colorHelper.backgroundColor,
+            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+            border: Border.all(
+              strokeAlign: BorderSide.strokeAlignInside,
+              width: size$.value.borderSize ?? 0,
+              color: colorHelper.borderColor ?? Colors.transparent,
+            ),
+            boxShadow: colorHelper.shadows,
+          ),
+          height: size$.value.height,
+          width: size$.value.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (leading != null) ...[
+                DefaultTextStyle(
+                  style: size$.value.labelStyle
+                          ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor),
+                  child: leading!,
+                ),
+                SizedBox(width: size$.value.spacing),
+                Container(
+                  height: size$.value.iconSize,
+                  width: size$.value.iconSize,
+                  color: colorHelper.secondaryContentColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: size$.value.secondarySpacing ?? 1,
+                        color: colorHelper.borderColor ?? Colors.black,
+                      ),
+                    ),
+                    height: size$.value.iconSize,
+                    width: size$.value.iconSize,
+                    child: Center(
+                      child: isActive.value == false
+                          ? SizedBox()
+                          : Icon(
+                              Icons.check,
+                              size: size$.value.iconSize,
+                            ),
+                    ),
+                  ),
+                ),
+              ],
+              if (trailing != null) ...[
+                Container(
+                  height: size$.value.iconSize,
+                  width: size$.value.iconSize,
+                  color: colorHelper.secondaryContentColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: size$.value.secondarySpacing ?? 1,
+                        color: colorHelper.borderColor ?? Colors.black,
+                      ),
+                    ),
+                    height: size$.value.iconSize,
+                    width: size$.value.iconSize,
+                    child: Center(
+                      child: isActive.value == false
+                          ? SizedBox()
+                          : Icon(
+                              Icons.check,
+                              size: size$.value.iconSize,
+                            ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: size$.value.spacing),
+                DefaultTextStyle(
+                  style: size$.value.labelStyle
+                          ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor),
+                  child: leading!,
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   UIKitColorScheme findColors(UIKitCheckBoxListTileThemeData themeData) {
