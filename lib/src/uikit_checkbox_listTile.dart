@@ -38,13 +38,6 @@ class UIKitCheckBoxListTile extends HookWidget {
   /// * Recommended type for label [Text]
   ///
 
-  /// Type of the button [UIKitButtonType]
-  ///
-  /// Use those named constructors to change the checkBoxType
-  /// * leading
-  /// * trailing
-  //final UIKitCheckBoxListTileType? checkBoxType;
-
   /// Function that is called on tile tap.
   ///
   /// Set onTap = null if the checkbox-ListTile is disabled

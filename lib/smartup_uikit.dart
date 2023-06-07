@@ -24,6 +24,7 @@ export 'package:smartup_uikit/src/theme/uikit_dropdown_menu_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_calendar_buton_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_date_picker_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_checkbox_list_tile_theme_data.dart';
+export 'package:smartup_uikit/src/theme/uikit_toggle_list_tile_theme_data.dart';
 
 // UI Elements
 export 'package:smartup_uikit/src/uikit_button.dart' show UIKitButton;
@@ -57,3 +58,6 @@ export 'package:smartup_uikit/src/uikit_date_picker.dart' show UIKitDatePicker;
 
 export 'package:smartup_uikit/src/uikit_checkbox_listTile.dart'
     show UIKitCheckBoxListTile;
+
+export 'package:smartup_uikit/src/uikit_toggle_listTile.dart'
+    show UIKitToggleListTile;
