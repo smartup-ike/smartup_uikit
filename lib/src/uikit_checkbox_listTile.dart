@@ -252,6 +252,8 @@ class UIKitCheckBoxListTile extends HookWidget {
     UIKitSizeScheme sizeScheme;
     if (this.sizeScheme != null) {
       sizeScheme = this.sizeScheme!;
+      //if the icon size is null set 15 as default
+      sizeScheme.iconSize ??= 15;
     } else {
       switch (checkBoxSize) {
         case UIKitSizes.small:

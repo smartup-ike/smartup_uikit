@@ -113,19 +113,19 @@ class UIKitToggleListTile extends HookWidget {
           if (state$.value != UIKitState.disabled) {
             onTap?.call();
             state$.value =
-            isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapUp: (_) {
           if (onTap != null) {
             state$.value =
-            isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
           if (onTap != null) {
             state$.value =
-            isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
+                isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapDown: (_) {
@@ -155,65 +155,25 @@ class UIKitToggleListTile extends HookWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (leading != null) ...[
-                DefaultTextStyle(
-                  style: size$.value.labelStyle
-                      ?.copyWith(color: colorHelper.contentColor) ??
-                      TextStyle(color: colorHelper.contentColor),
-                  child: leading!,
-                ),
-                SizedBox(width: size$.value.spacing),
-                Container(
-                  height: size$.value.iconSize,
-                  width: size$.value.iconSize,
-                  color: colorHelper.secondaryContentColor,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: size$.value.secondarySpacing ?? 1,
-                        color: colorHelper.borderColor ?? Colors.black,
-                      ),
-                    ),
-                    height: size$.value.iconSize,
-                    width: size$.value.iconSize,
-                    child: Center(
-                      child: isActive.value == false
-                          ? SizedBox()
-                          : Icon(
-                        Icons.check,
-                        size: size$.value.iconSize,
-                      ),
-                    ),
-                  ),
-                ),
+                // DefaultTextStyle(
+                //   style: size$.value.labelStyle
+                //           ?.copyWith(color: colorHelper.contentColor) ??
+                //       TextStyle(color: colorHelper.contentColor),
+                //   child: leading!,
+                // ),
+                // SizedBox(width: size$.value.spacing),
+                // AnimatedContainer(
+                //   duration: Duration(milliseconds: 200),
+                // ),
               ],
               if (trailing != null) ...[
-                Container(
-                  height: size$.value.iconSize,
-                  width: size$.value.iconSize,
-                  color: colorHelper.secondaryContentColor,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: size$.value.secondarySpacing ?? 1,
-                        color: colorHelper.borderColor ?? Colors.black,
-                      ),
-                    ),
-                    height: size$.value.iconSize,
-                    width: size$.value.iconSize,
-                    child: Center(
-                      child: isActive.value == false
-                          ? SizedBox()
-                          : Icon(
-                        Icons.check,
-                        size: size$.value.iconSize,
-                      ),
-                    ),
-                  ),
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
                 ),
                 SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
                   style: size$.value.labelStyle
-                      ?.copyWith(color: colorHelper.contentColor) ??
+                          ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: trailing!,
                 ),
