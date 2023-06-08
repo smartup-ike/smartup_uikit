@@ -56,8 +56,8 @@ export 'package:smartup_uikit/src/uikit_dropdown_route.dart'
 
 export 'package:smartup_uikit/src/uikit_date_picker.dart' show UIKitDatePicker;
 
-export 'package:smartup_uikit/src/uikit_checkbox_listTile.dart'
+export 'package:smartup_uikit/src/uikit_checkbox_list_tile.dart'
     show UIKitCheckBoxListTile;
 
-export 'package:smartup_uikit/src/uikit_toggle_listTile.dart'
+export 'package:smartup_uikit/src/uikit_toggle_list_tile.dart'
     show UIKitToggleListTile;

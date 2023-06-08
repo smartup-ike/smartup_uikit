@@ -1,46 +1,41 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smartup_uikit/src/theme/uikit_checkbox_list_tile_theme_data.dart';
+import '../smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_sizes.dart';
-import 'helpers/uikit_color_scheme.dart';
-import 'helpers/uikit_states.dart';
-import 'helpers/uikit_size_scheme.dart';
-import 'helpers/uikit_shadow_scheme.dart';
-import 'theme/uikit_theme.dart';
 
-class UIKitCheckBoxListTile extends HookWidget {
-  const UIKitCheckBoxListTile.WithLeading({
+import 'helpers/uikit_states.dart';
+
+class UIKitToggleListTile extends HookWidget {
+  const UIKitToggleListTile.withLeading({
     super.key,
     this.leading,
     this.onTap,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.checkBoxSize,
-    //this.checkBoxType,
+    this.toggleSize,
   }) : trailing = null;
 
-  const UIKitCheckBoxListTile.WithTrailing({
+  const UIKitToggleListTile.withTrailing({
     super.key,
     this.trailing,
     this.onTap,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.checkBoxSize,
-    //this.checkBoxType,
+    this.toggleSize,
   }) : leading = null;
 
-  /// [UIKitCheckBoxListTile] is a checkbox that can have a leading label [Widget] or a trailing label [Widget]
+  /// [UIKitToggleListTile] is a toggle that can have a leading label [Widget] or a trailing label [Widget]
   ///
   /// * Recommended type for label [Text]
   ///
 
   /// Function that is called on tile tap.
   ///
-  /// Set onTap = null if the checkbox-ListTile is disabled
+  /// Set onTap = null if the toggle is disabled
   final VoidCallback? onTap;
 
   /// [Widget] for the leading label.
@@ -57,15 +52,14 @@ class UIKitCheckBoxListTile extends HookWidget {
 
   /// [UIKitSizeScheme] containing information about the size elements
   /// for all the different states.
-  /// secondary spacing is the width of the checkbox (inner) border
   final UIKitSizeScheme? sizeScheme;
 
   /// [UIKitShadowScheme] containing information about the shadows for all the
   /// different states.
   final UIKitShadowScheme? shadowScheme;
 
-  /// [UIKitSizes] size of this checkBox.
-  final UIKitSizes? checkBoxSize;
+  /// [UIKitSizes] size of this toggle.
+  final UIKitSizes? toggleSize;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +67,8 @@ class UIKitCheckBoxListTile extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final theme$ = useState<UIKitCheckBoxListTileThemeData>(
-        UIKitTheme.of(context).checkboxThemeData);
+    final theme$ = useState<UIKitToggleListTileThemeData>(
+        UIKitTheme.of(context).toggleListTileThemeData);
     final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
     final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
@@ -166,27 +160,13 @@ class UIKitCheckBoxListTile extends HookWidget {
                 ),
                 SizedBox(width: size$.value.spacing),
               ],
-              Container(
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
                 height: size$.value.iconSize,
                 width: size$.value.iconSize,
                 color: colorHelper.secondaryContentColor,
                 child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: size$.value.secondarySpacing ?? 1,
-                      color: colorHelper.borderColor ?? Colors.black,
-                    ),
-                  ),
-                  height: size$.value.iconSize,
-                  width: size$.value.iconSize,
-                  child: Center(
-                    child: isActive.value == false
-                        ? SizedBox()
-                        : Icon(
-                            Icons.check,
-                            size: size$.value.iconSize,
-                          ),
-                  ),
+
                 ),
               ),
               if (trailing != null) ...[
@@ -205,7 +185,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     );
   }
 
-  UIKitColorScheme findColors(UIKitCheckBoxListTileThemeData themeData) {
+  UIKitColorScheme findColors(UIKitToggleListTileThemeData themeData) {
     UIKitColorScheme colorScheme;
     if (this.colorScheme != null) {
       colorScheme = this.colorScheme!;
@@ -215,7 +195,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     return colorScheme;
   }
 
-  UIKitShadowScheme findShadows(UIKitCheckBoxListTileThemeData themeData) {
+  UIKitShadowScheme findShadows(UIKitToggleListTileThemeData themeData) {
     UIKitShadowScheme shadowScheme;
     if (this.shadowScheme != null) {
       shadowScheme = this.shadowScheme!;
@@ -225,14 +205,12 @@ class UIKitCheckBoxListTile extends HookWidget {
     return shadowScheme;
   }
 
-  UIKitSizeScheme findSize(UIKitCheckBoxListTileThemeData themeData) {
+  UIKitSizeScheme findSize(UIKitToggleListTileThemeData themeData) {
     UIKitSizeScheme sizeScheme;
     if (this.sizeScheme != null) {
       sizeScheme = this.sizeScheme!;
-      //if the icon size is null set 15 as default
-      sizeScheme.iconSize ??= 15;
     } else {
-      switch (checkBoxSize) {
+      switch (toggleSize) {
         case UIKitSizes.small:
           sizeScheme = themeData.smallSize;
           break;

@@ -92,7 +92,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
           child: Row(
             children: [
               if (multiselect) ...[
-                IgnorePointer(
+                const IgnorePointer(
                   child: Text("PlaceHolder"),
                 ),
                 SizedBox(width: size$.value.spacing),

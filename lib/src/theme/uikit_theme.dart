@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../smartup_uikit.dart';
-import 'uikit_checkbox_list_tile_theme_data.dart';
-import 'uikit_date_picker_theme_data.dart';
-import 'uikit_calendar_buton_theme_data.dart';
-import 'uikit_dropdown_menu_theme_data.dart';
-import 'uikit_colors.dart';
-import 'uikit_typography.dart';
-import 'uikit_menu_item_theme_data.dart';
-import 'uikit_text_input_theme_data.dart';
-import 'uikit_button_theme_data.dart';
-import 'uikit_radio_button_theme_data.dart';
-import 'uikit_radio_group_theme_data.dart';
-import 'uikit_tab_theme_data.dart';
-import 'uikit_toggle_switch_theme_data.dart';
-
 
 class UIKitTheme extends StatelessWidget {
   const UIKitTheme({
