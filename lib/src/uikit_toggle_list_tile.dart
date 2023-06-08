@@ -61,8 +61,13 @@ class UIKitToggleListTile extends HookWidget {
   /// [UIKitSizes] size of this toggle.
   final UIKitSizes? toggleSize;
 
+  /// the height of the toggle is iconSize / 2
+  /// and the width of the toggle is equal to iconSize
+  /// secondaryRadius is the radius used for the actual toggle
+
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<bool> toggleIsOn = useState(false);
     final ValueNotifier<bool> isActive = useState(false);
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
@@ -106,6 +111,7 @@ class UIKitToggleListTile extends HookWidget {
       },
       child: GestureDetector(
         onTap: () {
+          toggleIsOn.value = !toggleIsOn.value;
           isActive.value = !isActive.value;
           if (state$.value != UIKitState.disabled) {
             onTap?.call();
@@ -161,14 +167,34 @@ class UIKitToggleListTile extends HookWidget {
                 SizedBox(width: size$.value.spacing),
               ],
               AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: size$.value.iconSize,
-                width: size$.value.iconSize,
-                color: colorHelper.secondaryContentColor,
-                child: Container(
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                    color: colors$.value.activeBackgroundColor,
+                    borderRadius: BorderRadius.circular(
+                      size$.value.secondaryRadius ?? 18,
+                    ),
+                  ),
+                  height: size$.value.iconSize! / 2,
+                  width: size$.value.iconSize,
+                  //color: colorHelper.secondaryContentColor,
 
-                ),
-              ),
+                  child: Row(
+                    mainAxisAlignment: toggleIsOn.value
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: colors$.value.activeContentColor,
+                          borderRadius: BorderRadius.circular(
+                            size$.value.secondaryRadius ?? 18,
+                          ),
+                        ),
+                        height: size$.value.iconSize! / 2,
+                        width: size$.value.iconSize! / 2,
+                      )
+                    ],
+                  )),
               if (trailing != null) ...[
                 SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
@@ -209,6 +235,8 @@ class UIKitToggleListTile extends HookWidget {
     UIKitSizeScheme sizeScheme;
     if (this.sizeScheme != null) {
       sizeScheme = this.sizeScheme!;
+      //if the icon size is null set 60 as default
+      sizeScheme.iconSize ??= 60;
     } else {
       switch (toggleSize) {
         case UIKitSizes.small:

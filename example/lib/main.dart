@@ -247,27 +247,11 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                Container(
-                  color: Colors.green,
-                  height: 25,
-                  width: 60,
-                  child: UIKitCheckBoxListTile.withTrailing(
-                    trailing: const Text("ITRAIL"),
-                    colorScheme: UIKitColorScheme(
-                      disabledBackgroundColor: Colors.white,
-                      disabledBorderColor: Colors.black,
-                    ),
-                    sizeScheme: UIKitSizeScheme(iconSize: 20, spacing: 30),
-                  ),
-                ),
 
-                // UIKitToggleListTile.WithTrailing(
-                //   colorScheme: UIKitColorScheme(
-                //     disabledBackgroundColor: Colors.white,
-                //     disabledBorderColor: Colors.black,
-                //   ),
-                //   trailing: Text("LABEL"),
-                // ),
+                //
+                //
+                //
+
                 const SizedBox(height: 8),
                 const Row(
                   children: [
