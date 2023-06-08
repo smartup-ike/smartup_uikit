@@ -257,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage>
                       disabledBackgroundColor: Colors.white,
                       disabledBorderColor: Colors.black,
                     ),
-                    sizeScheme: UIKitSizeScheme(iconSize: 10, spacing: 20),
+                    sizeScheme: UIKitSizeScheme(iconSize: 20, spacing: 30),
                   ),
                 ),
 
