@@ -101,11 +101,11 @@ class _MyHomePageState extends State<MyHomePage>
             ],
           ),
         ),
-        drawer: Drawer(
+        drawer: const Drawer(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
-              children: const [
+              children: [
                 UIKitMenuItem(
                   isActive: false,
                   isExpanded: true,
@@ -223,8 +223,8 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     SizedBox(width: 50),
                     Expanded(child: LeaveTypeSelector()),
                   ],
@@ -259,8 +259,8 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     SizedBox(width: 200),
                     Expanded(
                       child: DateSelector(),
