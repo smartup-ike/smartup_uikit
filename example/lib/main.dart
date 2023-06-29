@@ -268,8 +268,8 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Expanded(
                       child: UIKitDatePicker(
                         isRangePicker: false,
