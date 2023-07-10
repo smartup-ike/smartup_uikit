@@ -114,44 +114,50 @@ class UIKitDatePicker extends HookWidget {
                           if (!(rowIndex == 0 && columnIndex == 0)) {
                             date = date.add(const Duration(days: 1));
                           }
-                          return TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            child: Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: UIKitCalendarButton(
-                                date: date,
-                                isSelected: selectedDates$.value.contains(date),
-                                isBetweenSelected: isRangePicker
-                                    ? selectedDates$.value.contains(null)
-                                        ? false
-                                        : date.isAfter(
-                                              selectedDates$.value.first!,
-                                            ) &&
-                                            date.isBefore(
-                                              selectedDates$.value.last!,
-                                            )
-                                    : false,
-                                onTap: date.month != month$.value
-                                    ? null
-                                    : isRangePicker
-                                        ? (newDate) {
-                                            selectFirst$.value
-                                                ? selectedDates$.value.first =
-                                                    newDate
-                                                : selectedDates$.value.last =
-                                                    newDate;
-                                            selectFirst$.value =
-                                                !selectFirst$.value;
-                                            if (!selectedDates$.value
-                                                .contains(null)) {
-                                              selectedDates$.value.sort(
-                                                (a, b) => a!.compareTo(b!),
-                                              );
+                          return MediaQuery(
+                            data: MediaQuery.of(context).copyWith(
+                              textScaleFactor: 1,
+                            ),
+                            child: TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: UIKitCalendarButton(
+                                  date: date,
+                                  isSelected:
+                                      selectedDates$.value.contains(date),
+                                  isBetweenSelected: isRangePicker
+                                      ? selectedDates$.value.contains(null)
+                                          ? false
+                                          : date.isAfter(
+                                                selectedDates$.value.first!,
+                                              ) &&
+                                              date.isBefore(
+                                                selectedDates$.value.last!,
+                                              )
+                                      : false,
+                                  onTap: date.month != month$.value
+                                      ? null
+                                      : isRangePicker
+                                          ? (newDate) {
+                                              selectFirst$.value
+                                                  ? selectedDates$.value.first =
+                                                      newDate
+                                                  : selectedDates$.value.last =
+                                                      newDate;
+                                              selectFirst$.value =
+                                                  !selectFirst$.value;
+                                              if (!selectedDates$.value
+                                                  .contains(null)) {
+                                                selectedDates$.value.sort(
+                                                  (a, b) => a!.compareTo(b!),
+                                                );
+                                              }
                                             }
-                                          }
-                                        : (newDate) =>
-                                            selectedDates$.value = [newDate],
+                                          : (newDate) =>
+                                              selectedDates$.value = [newDate],
+                                ),
                               ),
                             ),
                           );
