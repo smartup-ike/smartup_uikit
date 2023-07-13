@@ -259,28 +259,28 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                const Row(
+                Row(
                   children: [
-                    SizedBox(width: 200),
+                    const SizedBox(width: 200),
                     Expanded(
-                      child: DateSelector(),
+                      child: DateSelector(dateMustBeAfter: DateTime.parse('2023-08-15', ), dateMustBeBefore: DateTime.parse('2026-10-12')),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-                const Row(
-                  children: [
-                    Expanded(
-                      child: UIKitDatePicker(
-                        isRangePicker: false,
-                        dropdownButtonTrailing:
-                            UIKitIcon.asset('assets/images/url.svg'),
-                        dropdownMenuItemTrailing:
-                            UIKitIcon.asset('assets/images/url.svg'),
-                      ),
-                    ),
-                  ],
-                ),
+                // const SizedBox(height: 8),
+                // const Row(
+                //   children: [
+                //     Expanded(
+                //       child: UIKitDatePicker(
+                //         isRangePicker: false,
+                //         dropdownButtonTrailing:
+                //             UIKitIcon.asset('assets/images/url.svg'),
+                //         dropdownMenuItemTrailing:
+                //             UIKitIcon.asset('assets/images/url.svg'),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             ListView(

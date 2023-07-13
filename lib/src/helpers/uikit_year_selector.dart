@@ -5,11 +5,20 @@ import '../uikit_dropdown_menu.dart';
 import '../uikit_dropdown_route.dart';
 
 class UIKitYearSelector extends StatefulWidget {
-  const UIKitYearSelector(
-      {super.key, required this.onChanged, this.trailing, this.itemTrailing});
+  const UIKitYearSelector({
+    super.key,
+    required this.onChanged,
+    this.trailing,
+    this.itemTrailing,
+    this.dateMustBeAfter,
+    this.dateMustBeBefore,
+  });
+
   final ValueChanged<int?> onChanged;
   final Widget? trailing;
   final Widget? itemTrailing;
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
 
   @override
   State<UIKitYearSelector> createState() => _UIKitYearSelectorState();
@@ -36,6 +45,8 @@ class _UIKitYearSelectorState extends State<UIKitYearSelector> {
                 child: YearDialog(
                   initialValue: selectedValue,
                   itemTrailing: widget.itemTrailing,
+                  dateMustBeBefore: widget.dateMustBeBefore,
+                  dateMustBeAfter: widget.dateMustBeAfter,
                 ),
                 position: position,
                 size: size,
@@ -55,10 +66,14 @@ class YearDialog extends StatefulWidget {
     super.key,
     this.initialValue = const [],
     this.itemTrailing,
+    this.dateMustBeAfter,
+    this.dateMustBeBefore,
   });
 
   final List<int?> initialValue;
   final Widget? itemTrailing;
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
 
   @override
   State<YearDialog> createState() => _YearDialogState();
@@ -66,17 +81,27 @@ class YearDialog extends StatefulWidget {
 
 class _YearDialogState extends State<YearDialog> {
   late List<int?> value;
-  final int firstYear = 1980;
-  final int lastYear = 2100;
+  int firstYear = 1980;
+  int lastYear = 2100;
   int? difference;
   List<int?> toShowValues = [];
   List<Widget> toShowLabels = [];
   late List<int> values = [];
   late List<Widget> labels = [];
   late List<String> labelsList = [];
+
   @override
   void initState() {
     super.initState();
+
+    if (widget.dateMustBeAfter != null) {
+      firstYear = widget.dateMustBeAfter!.year;
+    }
+
+    if (widget.dateMustBeBefore != null) {
+      lastYear = widget.dateMustBeBefore!.year + 1;
+    }
+
     int difference = lastYear - firstYear;
     values = List.generate(difference, (index) => firstYear + index);
     labels = List.generate(

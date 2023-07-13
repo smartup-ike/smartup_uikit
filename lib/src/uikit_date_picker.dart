@@ -29,6 +29,8 @@ class UIKitDatePicker extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.dateMustBeAfter,
+    this.dateMustBeBefore,
   });
 
   final bool isRangePicker;
@@ -37,6 +39,8 @@ class UIKitDatePicker extends HookWidget {
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +89,8 @@ class UIKitDatePicker extends HookWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: UIKitYearSelector(
+                    dateMustBeAfter: dateMustBeAfter,
+                    dateMustBeBefore: dateMustBeBefore,
                     onChanged: (value) => year$.value = value!,
                     trailing: dropdownButtonTrailing,
                     itemTrailing: dropdownMenuItemTrailing,
@@ -137,26 +143,34 @@ class UIKitDatePicker extends HookWidget {
                                                 selectedDates$.value.last!,
                                               )
                                       : false,
-                                  onTap: date.month != month$.value
+                                  onTap: (dateMustBeAfter != null &&
+                                          !date.isAfter(dateMustBeAfter!))
                                       ? null
-                                      : isRangePicker
-                                          ? (newDate) {
-                                              selectFirst$.value
-                                                  ? selectedDates$.value.first =
-                                                      newDate
-                                                  : selectedDates$.value.last =
-                                                      newDate;
-                                              selectFirst$.value =
-                                                  !selectFirst$.value;
-                                              if (!selectedDates$.value
-                                                  .contains(null)) {
-                                                selectedDates$.value.sort(
-                                                  (a, b) => a!.compareTo(b!),
-                                                );
-                                              }
-                                            }
-                                          : (newDate) =>
-                                              selectedDates$.value = [newDate],
+                                      : (dateMustBeBefore != null &&
+                                              !date.isBefore(dateMustBeBefore!))
+                                          ? null
+                                          : date.month != month$.value
+                                              ? null
+                                              : isRangePicker
+                                                  ? (newDate) {
+                                                      selectFirst$.value
+                                                          ? selectedDates$.value
+                                                              .first = newDate
+                                                          : selectedDates$.value
+                                                              .last = newDate;
+                                                      selectFirst$.value =
+                                                          !selectFirst$.value;
+                                                      if (!selectedDates$.value
+                                                          .contains(null)) {
+                                                        selectedDates$.value
+                                                            .sort(
+                                                          (a, b) =>
+                                                              a!.compareTo(b!),
+                                                        );
+                                                      }
+                                                    }
+                                                  : (newDate) => selectedDates$
+                                                      .value = [newDate],
                                 ),
                               ),
                             ),
