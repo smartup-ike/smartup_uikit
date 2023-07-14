@@ -17,6 +17,7 @@ class UIKitYearSelector extends StatefulWidget {
   final ValueChanged<int?> onChanged;
   final Widget? trailing;
   final Widget? itemTrailing;
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final DateTime? dateMustBeBefore;
 
@@ -31,6 +32,12 @@ class _UIKitYearSelectorState extends State<UIKitYearSelector> {
   void initState() {
     super.initState();
     selectedValue = [DateTime.now().year];
+
+    // If the user specified a limit then we want the years to start at the beginning of the limit.
+    if(widget.dateMustBeAfter!=null)
+      {
+        selectedValue = [widget.dateMustBeAfter!.year];
+      }
   }
 
   @override
@@ -66,6 +73,7 @@ class YearDialog extends StatefulWidget {
     super.key,
     this.initialValue = const [],
     this.itemTrailing,
+    // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
     this.dateMustBeAfter,
     this.dateMustBeBefore,
   });
@@ -94,6 +102,7 @@ class _YearDialogState extends State<YearDialog> {
   void initState() {
     super.initState();
 
+    // If the user specified a limit the we change the first and the last year to the beginning and the end of the limit.
     if (widget.dateMustBeAfter != null) {
       firstYear = widget.dateMustBeAfter!.year;
     }

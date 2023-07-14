@@ -39,13 +39,19 @@ class UIKitDatePicker extends HookWidget {
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final DateTime? dateMustBeBefore;
 
   @override
   Widget build(BuildContext context) {
-    final year$ = useState<int>(DateTime.now().year);
-    final month$ = useState<int>(DateTime.now().month);
+    // If the user gave as limits for the acceptable dates the we change the values of year$ and month$ to the beginning of the limit.
+    // This is done so the calendar starts on the first month the user is allowed to select.
+    final year$ = useState<int>(
+        dateMustBeAfter != null ? dateMustBeAfter!.year : DateTime.now().year);
+    final month$ = useState<int>(dateMustBeAfter != null
+        ? dateMustBeAfter!.month
+        : DateTime.now().month);
     final selectedDates$ = useState<List<DateTime?>>(
       List.filled(2, null, growable: true),
     );
@@ -57,6 +63,31 @@ class UIKitDatePicker extends HookWidget {
       define(shadowScheme, themeData$.value.shadowScheme),
     );
     DateTime date = findDate(DateTime(year$.value, month$.value, 1), 1);
+
+    // This function returns the onTap function of each calendar button.
+    void Function(DateTime)? calendarButtonOnTap() {
+      // If the user did specify a limit we check to see if the date in question is within limits.
+      // This widget is grayed out / disabled if a null onTap is given.
+      return (dateMustBeAfter != null && !date.isAfter(dateMustBeAfter!))
+          ? null
+          : (dateMustBeBefore != null && !date.isBefore(dateMustBeBefore!))
+              ? null
+              : date.month != month$.value
+                  ? null
+                  : isRangePicker
+                      ? (newDate) {
+                          selectFirst$.value
+                              ? selectedDates$.value.first = newDate
+                              : selectedDates$.value.last = newDate;
+                          selectFirst$.value = !selectFirst$.value;
+                          if (!selectedDates$.value.contains(null)) {
+                            selectedDates$.value.sort(
+                              (a, b) => a!.compareTo(b!),
+                            );
+                          }
+                        }
+                      : (newDate) => selectedDates$.value = [newDate];
+    }
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
@@ -81,6 +112,8 @@ class UIKitDatePicker extends HookWidget {
               children: [
                 Expanded(
                   child: UIKitMonthSelector(
+                    dateMustBeAfter: dateMustBeAfter,
+                    dateMustBeBefore: dateMustBeBefore,
                     onChanged: (value) => month$.value = value!,
                     trailing: dropdownButtonTrailing,
                     itemTrailing: dropdownMenuItemTrailing,
@@ -143,34 +176,7 @@ class UIKitDatePicker extends HookWidget {
                                                 selectedDates$.value.last!,
                                               )
                                       : false,
-                                  onTap: (dateMustBeAfter != null &&
-                                          !date.isAfter(dateMustBeAfter!))
-                                      ? null
-                                      : (dateMustBeBefore != null &&
-                                              !date.isBefore(dateMustBeBefore!))
-                                          ? null
-                                          : date.month != month$.value
-                                              ? null
-                                              : isRangePicker
-                                                  ? (newDate) {
-                                                      selectFirst$.value
-                                                          ? selectedDates$.value
-                                                              .first = newDate
-                                                          : selectedDates$.value
-                                                              .last = newDate;
-                                                      selectFirst$.value =
-                                                          !selectFirst$.value;
-                                                      if (!selectedDates$.value
-                                                          .contains(null)) {
-                                                        selectedDates$.value
-                                                            .sort(
-                                                          (a, b) =>
-                                                              a!.compareTo(b!),
-                                                        );
-                                                      }
-                                                    }
-                                                  : (newDate) => selectedDates$
-                                                      .value = [newDate],
+                                  onTap: calendarButtonOnTap(),
                                 ),
                               ),
                             ),

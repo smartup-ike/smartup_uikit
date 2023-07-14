@@ -25,11 +25,16 @@ class UIKitMonthSelector extends StatefulWidget {
     required this.onChanged,
     this.trailing,
     this.itemTrailing,
+    this.dateMustBeAfter,
+    this.dateMustBeBefore,
   });
 
   final ValueChanged<int?> onChanged;
   final Widget? trailing;
   final Widget? itemTrailing;
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
 
   @override
   State<UIKitMonthSelector> createState() => _UIKitMonthSelectorState();
@@ -41,7 +46,17 @@ class _UIKitMonthSelectorState extends State<UIKitMonthSelector> {
   @override
   void initState() {
     super.initState();
-    selectedValue = [DateTime.now().month];
+
+    // If the user specified a limit then we make the calendar start at the month at the beginning of the limit.
+    // Otherwise the calendar will start at the current month.
+    if(widget.dateMustBeAfter!=null)
+      {
+        selectedValue = [widget.dateMustBeAfter!.month];
+      }
+    else
+      {
+        selectedValue = [DateTime.now().month];
+      }
   }
 
   @override

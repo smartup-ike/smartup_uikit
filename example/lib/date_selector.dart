@@ -4,6 +4,7 @@ import 'package:smartup_uikit/smartup_uikit.dart';
 class DateSelector extends StatefulWidget {
   const DateSelector({this.dateMustBeAfter, this.dateMustBeBefore, super.key});
 
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final DateTime? dateMustBeBefore;
 
@@ -55,6 +56,7 @@ class DatePickerDialog extends StatefulWidget {
     this.dateMustBeBefore,
   });
 
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final DateTime? dateMustBeBefore;
   final List<DateTime?> initialValue;
