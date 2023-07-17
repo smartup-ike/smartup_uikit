@@ -263,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage>
                   children: [
                     const SizedBox(width: 200),
                     Expanded(
-                      child: DateSelector(dateMustBeAfter: DateTime.parse('2025-09-15', ), dateMustBeBefore: DateTime.parse('2025-10-12')),
+                      child: DateSelector(dateMustBeAfter: DateTime.parse('2025-09-15', ), dateMustBeBefore: DateTime.parse('2027-03-12')),
                       //child: DateSelector(),
                     ),
                   ],

@@ -80,6 +80,78 @@ class UIKitDatePicker extends HookWidget {
                       : (newDate) => selectedDates$.value = [newDate];
     }
 
+    Map<int, String> availableMonthsMap() {
+      const monthsMap = {
+        1: 'Ιανουάριος',
+        2: 'Φεβρουάριος',
+        3: 'Μάρτιος',
+        4: 'Απρίλιος',
+        5: 'Μάιος',
+        6: 'Ιούνιος',
+        7: 'Ιούλιος',
+        8: 'Αύγουστος',
+        9: 'Σεπτέμβριος',
+        10: 'Οκτώβριος',
+        11: 'Νοέμβριος',
+        12: 'Δεκέμβριος',
+      };
+
+      if (dateMustBeAfter == null && dateMustBeBefore == null) {
+        return monthsMap;
+      }
+      if (dateMustBeAfter != null && dateMustBeBefore != null) {
+        if (year$.value != dateMustBeAfter!.year &&
+            year$.value != dateMustBeBefore!.year) {
+          return monthsMap;
+        }
+      }
+
+      Map<int, String> temp = {};
+      if (dateMustBeAfter != null && dateMustBeBefore == null) {
+        print("after");
+        monthsMap.forEach((key, value) {
+          if (key >= dateMustBeAfter!.month) {
+            temp[key] = value;
+          }
+        });
+      } else if (dateMustBeAfter != null && dateMustBeBefore != null) {
+        if(dateMustBeAfter!.year==dateMustBeBefore!.year && dateMustBeBefore == year$.value)
+          {
+            monthsMap.forEach((key, value) {
+              if (key >= dateMustBeAfter!.month && key <= dateMustBeBefore!.month) {
+                temp[key] = value;
+              }
+            });
+          }
+        else if(dateMustBeAfter!.year==year$.value)
+          {
+            monthsMap.forEach((key, value) {
+              if (key >= dateMustBeAfter!.month) {
+                temp[key] = value;
+              }
+            });
+          }
+        else{
+          monthsMap.forEach((key, value) {
+            if (key <= dateMustBeBefore!.month) {
+              temp[key] = value;
+            }
+          });
+        }
+
+      } else {
+        monthsMap.forEach((key, value) {
+          print("before");
+          if (key <= dateMustBeBefore!.month) {
+            temp[key] = value;
+          }
+        });
+      }
+      print("year changed");
+      return temp;
+    }
+
+    final availableMonthsMap$ = useState(availableMonthsMap());
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       padding: size$.value.padding,
@@ -104,10 +176,10 @@ class UIKitDatePicker extends HookWidget {
                 Expanded(
                   child: UIKitMonthSelector(
                     dateMustBeAfter: dateMustBeAfter,
-                    dateMustBeBefore: dateMustBeBefore,
                     onChanged: (value) => month$.value = value!,
                     trailing: dropdownButtonTrailing,
                     itemTrailing: dropdownMenuItemTrailing,
+                    monthsMap$: availableMonthsMap$,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -115,7 +187,10 @@ class UIKitDatePicker extends HookWidget {
                   child: UIKitYearSelector(
                     dateMustBeAfter: dateMustBeAfter,
                     dateMustBeBefore: dateMustBeBefore,
-                    onChanged: (value) => year$.value = value!,
+                    onChanged: (value) {
+                      year$.value = value!;
+                      availableMonthsMap$.value = availableMonthsMap();
+                    },
                     trailing: dropdownButtonTrailing,
                     itemTrailing: dropdownMenuItemTrailing,
                   ),
@@ -163,8 +238,7 @@ class UIKitDatePicker extends HookWidget {
                             ),
                           ),
                         );
-                      })
-                          );
+                      }));
                     }
                     return TableRow(
                       children: List.generate(
