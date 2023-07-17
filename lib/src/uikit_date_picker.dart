@@ -10,16 +10,6 @@ import 'helpers/uikit_month_selector.dart';
 import 'helpers/uikit_year_selector.dart';
 import 'uikit_button.dart';
 
-const daysList = [
-  'Δ',
-  'Τ',
-  'Τ',
-  'Π',
-  'Π',
-  'Σ',
-  'Κ',
-];
-
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
     super.key,
@@ -39,6 +29,7 @@ class UIKitDatePicker extends HookWidget {
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
+
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final DateTime? dateMustBeBefore;
@@ -144,8 +135,37 @@ class UIKitDatePicker extends HookWidget {
                   outside: BorderSide.none,
                 ),
                 children: List.generate(
-                  isSixWeekMonth(year$.value, month$.value) ? 6 : 5,
+                  // For the calendarButtons the dimension needed was 6 : 5. Since i added day labels i changed it to 7 : 6.
+                  isSixWeekMonth(year$.value, month$.value) ? 7 : 6,
                   (rowIndex) {
+                    if (rowIndex == 0) {
+                      List<String> days = ["Δ", "Τ", "Τ", "Π", "Π", "Σ", "Κ"];
+                      return TableRow(
+                          children: List.generate(7, (index) {
+                        return MediaQuery(
+                          data: MediaQuery.of(context).copyWith(
+                            textScaleFactor: 1,
+                          ),
+                          child: TableCell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Center(
+                                child: Text(
+                                  days[index],
+                                  style: UIKitTheme.of(context)
+                                      .typography
+                                      .headings4Regular
+                                      ?.copyWith(
+                                        color: Colors.black,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      })
+                          );
+                    }
                     return TableRow(
                       children: List.generate(
                         7,
