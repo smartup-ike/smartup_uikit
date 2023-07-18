@@ -227,7 +227,7 @@ class UIKitButton extends HookWidget {
   })  : buttonType = UIKitButtonType.secondaryWhite,
         buttonSize = UIKitSizes.large;
 
-  const UIKitButton.lergeTertiary({
+  const UIKitButton.largeTertiary({
     super.key,
     this.onTap,
     this.labelText,
