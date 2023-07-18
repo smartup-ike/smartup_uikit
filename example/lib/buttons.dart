@@ -177,18 +177,18 @@ class Buttons extends HookWidget {
                     labelText: const Text("largePrimary"),
                   ),
                   const SizedBox(height: 15),
-                  UIKitButton.lergeSecondary(
+                  UIKitButton.largeSecondary(
                     onTap: () {
-                      text$.value = "lergeSecondary";
+                      text$.value = "largeSecondary";
                     },
-                    labelText: const Text("lergeSecondary"),
+                    labelText: const Text("largeSecondary"),
                   ),
                   const SizedBox(height: 15),
-                  UIKitButton.lergeSecondaryWhite(
+                  UIKitButton.largeSecondaryWhite(
                     onTap: () {
-                      text$.value = "lergeSecondaryWhite";
+                      text$.value = "largeSecondaryWhite";
                     },
-                    labelText: const Text("lergeSecondaryWhite"),
+                    labelText: const Text("largeSecondaryWhite"),
                   ),
                   const SizedBox(height: 15),
                   UIKitButton.largeTertiary(

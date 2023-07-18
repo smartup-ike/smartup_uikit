@@ -203,7 +203,7 @@ class UIKitButton extends HookWidget {
   })  : buttonType = UIKitButtonType.primary,
         buttonSize = UIKitSizes.large;
 
-  const UIKitButton.lergeSecondary({
+  const UIKitButton.largeSecondary({
     super.key,
     this.onTap,
     this.labelText,
@@ -215,7 +215,7 @@ class UIKitButton extends HookWidget {
   })  : buttonType = UIKitButtonType.secondary,
         buttonSize = UIKitSizes.large;
 
-  const UIKitButton.lergeSecondaryWhite({
+  const UIKitButton.largeSecondaryWhite({
     super.key,
     this.onTap,
     this.labelText,
