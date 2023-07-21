@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/christostsortanidis/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/christostsortanidis/projects/smartup_uikit/example"
+export "FLUTTER_ROOT=/Users/stratosk/Documents/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/stratosk/Flutter Projects/smartup_uikit/example"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
