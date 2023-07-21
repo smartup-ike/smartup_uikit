@@ -152,7 +152,7 @@ class UIKitTextInput extends HookWidget {
     this.assistiveText,
     this.isDisabled,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
