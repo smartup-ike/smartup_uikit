@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
+
 UIKitThemeData kitThemeData = UIKitThemeData(
   colors: const UIKitColors(
     primary30: Color(0xFFFFF7F7),
@@ -639,51 +640,28 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       iconSize: 13,
     ),
   ),
-  checkboxThemeData: UIKitCheckboxThemeData(
-    checkedColorScheme: UIKitColorScheme(
-      defaultBackgroundColor: ExampleColors.primary700,
-      defaultBorderColor: ExampleColors.primary700,
-      defaultContentColor: ExampleColors.secondaryW,
-      hoverBackgroundColor: ExampleColors.primary800,
-      hoverBorderColor: ExampleColors.primary800,
-      hoverContentColor: ExampleColors.secondaryW,
-      activeBackgroundColor: ExampleColors.primary800,
-      activeBorderColor: ExampleColors.primary800,
-      activeContentColor: ExampleColors.secondaryW,
-      focusedBackgroundColor: ExampleColors.primary800,
-      focusedBorderColor: ExampleColors.primary800,
-      focusedContentColor: ExampleColors.secondaryW,
-      disabledBackgroundColor: ExampleColors.secondary200.withOpacity(0.7),
-      disabledBorderColor: ExampleColors.secondary200.withOpacity(0.7),
-      disabledContentColor: ExampleColors.secondaryW.withOpacity(0.7),
-    ),
-    uncheckedColorScheme: UIKitColorScheme(
-      defaultBackgroundColor: ExampleColors.secondaryW,
-      defaultBorderColor: ExampleColors.secondary800,
-      defaultContentColor: ExampleColors.secondaryW,
-      hoverBackgroundColor: ExampleColors.secondaryW,
-      hoverBorderColor: ExampleColors.secondary800,
-      hoverContentColor: ExampleColors.secondaryW,
-      activeBackgroundColor: ExampleColors.secondaryW,
-      activeBorderColor: ExampleColors.secondary800,
-      activeContentColor: ExampleColors.secondaryW,
-      focusedBackgroundColor: ExampleColors.secondaryW,
-      focusedBorderColor: ExampleColors.secondary800,
-      focusedContentColor: ExampleColors.secondaryW,
-      disabledBackgroundColor: ExampleColors.secondary200.withOpacity(0.7),
-      disabledBorderColor: ExampleColors.secondary200.withOpacity(0.7),
-      disabledContentColor: ExampleColors.secondaryW.withOpacity(0.7),
-    ),
-    shadowScheme: UIKitShadowScheme(
-      focusedShadow: [
-        BoxShadow(
-          color: const Color(0xFF690A10).withOpacity(0.7),
-          blurRadius: 2,
-          spreadRadius: 0,
-        ),
-      ],
-    ),
-    sizeScheme: UIKitSizeScheme(
+  checkboxThemeData: UIKitCheckBoxListTileThemeData(
+    primaryColors :
+  UIKitColorScheme(
+    defaultBackgroundColor: ExampleColors.primary700,
+    defaultBorderColor: ExampleColors.primary700,
+    defaultContentColor: ExampleColors.secondaryW,
+    hoverBackgroundColor: ExampleColors.primary800,
+    hoverBorderColor: ExampleColors.primary800,
+    hoverContentColor: ExampleColors.secondaryW,
+    activeBackgroundColor: ExampleColors.primary800,
+    activeBorderColor: ExampleColors.primary800,
+    activeContentColor: ExampleColors.secondaryW,
+    focusedBackgroundColor: ExampleColors.primary800,
+    focusedBorderColor: ExampleColors.primary800,
+    focusedContentColor: ExampleColors.secondaryW,
+    disabledBackgroundColor: ExampleColors.secondary200.withOpacity(0.7),
+    disabledBorderColor: ExampleColors.secondary200.withOpacity(0.7),
+    disabledContentColor: ExampleColors.secondaryW.withOpacity(0.7),
+  ),
+    // smallSize
+    // mediumSize
+    largeSize : UIKitSizeScheme(
       width: 20,
       height: 20,
       iconSize: 16,
@@ -691,7 +669,17 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       borderSize: 1,
       borderRadius: 6,
     ),
-  ),
+    primaryShadows : UIKitShadowScheme(
+    focusedShadow: [
+      BoxShadow(
+      color: const Color(0xFF690A10).withOpacity(0.7),
+  blurRadius: 2,
+  spreadRadius: 0,
+),
+],
+),
+   ),
+
   tabThemeData: UIKitTabThemeData(
     pageTabColorScheme: UIKitColorScheme(
       defaultBackgroundColor: ExampleColors.secondaryW,

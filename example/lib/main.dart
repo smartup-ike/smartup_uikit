@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage>
                           labelText: const Text('Button'),
                           leading:
                               const UIKitIcon.asset('assets/images/url.svg'),
-                          onTap: (){},
+                          onTap: () {},
                         ),
                         UIKitButton.mediumTertiary(
                           labelText: const Text('Button'),
@@ -247,17 +247,11 @@ class _MyHomePageState extends State<MyHomePage>
                   ],
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    UIKitCheckbox(
-                      icon: const UIKitIcon.asset('assets/images/url.svg'),
-                      isChecked: _isCheckBoxChecked,
-                      onChanged: (value) => setState(
-                        () => _isCheckBoxChecked = !_isCheckBoxChecked,
-                      ),
-                    ),
-                  ],
-                ),
+
+                //
+                //
+                //
+
                 const SizedBox(height: 8),
                 const Row(
                   children: [

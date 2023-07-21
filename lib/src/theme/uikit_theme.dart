@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
-import 'uikit_date_picker_theme_data.dart';
-import 'uikit_calendar_buton_theme_data.dart';
-import 'uikit_dropdown_menu_theme_data.dart';
-import 'uikit_checkbox_theme_data.dart';
-import 'uikit_colors.dart';
-import 'uikit_typography.dart';
-import 'uikit_menu_item_theme_data.dart';
-import 'uikit_text_input_theme_data.dart';
-import 'uikit_button_theme_data.dart';
-import 'uikit_radio_button_theme_data.dart';
-import 'uikit_radio_group_theme_data.dart';
-import 'uikit_tab_theme_data.dart';
-import 'uikit_toggle_switch_theme_data.dart';
+import '../../smartup_uikit.dart';
 
 class UIKitTheme extends StatelessWidget {
   const UIKitTheme({
@@ -75,10 +63,11 @@ class UIKitThemeData {
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
-  final UIKitCheckboxThemeData checkboxThemeData;
   final UIKitDropdownMenuThemeData dropdownMenuThemeData;
   final UIKitCalendarButtonThemeData calendarButtonThemeData;
   final UIKitDatePickerThemeData datePickerThemeData;
+  final UIKitCheckBoxListTileThemeData checkboxThemeData;
+  final UIKitToggleListTileThemeData toggleListTileThemeData;
 
   const UIKitThemeData.raw({
     required this.colors,
@@ -90,10 +79,11 @@ class UIKitThemeData {
     required this.radioGroupThemeData,
     required this.textInputThemeData,
     required this.menuItemThemeData,
-    required this.checkboxThemeData,
     required this.dropdownMenuThemeData,
     required this.calendarButtonThemeData,
     required this.datePickerThemeData,
+    required this.checkboxThemeData,
+    required this.toggleListTileThemeData,
   });
 
   factory UIKitThemeData({
@@ -106,10 +96,11 @@ class UIKitThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
-    UIKitCheckboxThemeData? checkboxThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
+    UIKitCheckBoxListTileThemeData? checkboxThemeData,
+    UIKitToggleListTileThemeData? toggleListTileThemeData,
   }) {
     colors ??= const UIKitColors();
     typography ??= const UIKitTypography();
@@ -120,10 +111,11 @@ class UIKitThemeData {
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
     textInputThemeData ??= UIKitTextInputThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
-    checkboxThemeData ??= UIKitCheckboxThemeData();
     dropdownMenuThemeData ??= UIKitDropdownMenuThemeData();
     calendarButtonThemeData ??= UIKitCalendarButtonThemeData();
     datePickerThemeData ??= UIKitDatePickerThemeData();
+    checkboxThemeData ??= UIKitCheckBoxListTileThemeData();
+    toggleListTileThemeData ??= UIKitToggleListTileThemeData();
 
     return UIKitThemeData.raw(
       colors: colors,
@@ -135,10 +127,11 @@ class UIKitThemeData {
       radioGroupThemeData: radioGroupThemeData,
       textInputThemeData: textInputThemeData,
       menuItemThemeData: menuItemThemeData,
-      checkboxThemeData: checkboxThemeData,
       dropdownMenuThemeData: dropdownMenuThemeData,
       calendarButtonThemeData: calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData,
+      checkboxThemeData: checkboxThemeData,
+      toggleListTileThemeData: toggleListTileThemeData,
     );
   }
 
@@ -152,10 +145,11 @@ class UIKitThemeData {
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
-    UIKitCheckboxThemeData? checkboxThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
+    UIKitCheckBoxListTileThemeData? checkboxThemeData,
+    UIKitToggleListTileThemeData? toggleListTileThemeData,
   }) {
     return UIKitThemeData.raw(
       colors: colors ?? this.colors,
@@ -168,12 +162,14 @@ class UIKitThemeData {
       radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
       menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
-      checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
       dropdownMenuThemeData:
           dropdownMenuThemeData ?? this.dropdownMenuThemeData,
       calendarButtonThemeData:
           calendarButtonThemeData ?? this.calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData ?? this.datePickerThemeData,
+        checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
+      toggleListTileThemeData: toggleListTileThemeData ?? this.toggleListTileThemeData,
+
     );
   }
 }
