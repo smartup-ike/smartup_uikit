@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 class DateSelector extends StatefulWidget {
-  const DateSelector({this.dateMustBeAfter, this.dateMustBeBefore, super.key});
+  const DateSelector({this.dateMustBeAfter, this.dateMustBeBefore, super.key, required this.onChanged,});
 
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final DateTime? dateMustBeBefore;
+  final ValueChanged<List<DateTime?>> onChanged;
 
   @override
   State<DateSelector> createState() => _DateSelectorState();
@@ -41,6 +42,7 @@ class _DateSelectorState extends State<DateSelector> {
               ),
             ) ??
             [];
+        widget.onChanged.call(selectedValue);
         setState(() {});
         return;
       },

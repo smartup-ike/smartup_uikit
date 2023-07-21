@@ -32,13 +32,13 @@ class Buttons extends HookWidget {
                   isActive: tabIndex$.value == 1,
                   onTap: () => tabIndex$.value = 1,
                   leading: const SizedBox(),
-                  label: const Text("Medium Butons"),
+                  label: const Text("Medium Buttons"),
                 ),
                 UIKitTab.line(
                   isActive: tabIndex$.value == 2,
                   onTap: () => tabIndex$.value = 2,
                   leading: const SizedBox(),
-                  label: const Text("Large Butons"),
+                  label: const Text("Large Buttons"),
                 ),
                 const SizedBox(width: 80),
                 Text(

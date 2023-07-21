@@ -1,10 +1,9 @@
 // ignore_for_file: unused_field
 
-import 'package:example/radio_and_toggle.dart';
+import 'package:example/radio_toggle_and_checkbox.dart';
 import 'package:example/text_input.dart';
 
 import 'buttons.dart';
-import 'check_boxes.dart';
 import 'constants/theme/example_theme_data_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
@@ -91,10 +90,10 @@ class _MyHomePageState extends State<MyHomePage>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const RadioAndToggle()),
+                        builder: (context) => const RadioToggleAndCheckBox()),
                   );
                 },
-                label: const Text("Radio and Toggle"),
+                label: const Text("Radio, Toggle and CheckBox"),
               ),
             ),
             Padding(
@@ -105,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage>
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const DatePicker()),
+                    MaterialPageRoute(builder: (context) => DatePicker()),
                   );
                 },
                 label: const Text("Date Picker"),
@@ -133,20 +132,6 @@ class _MyHomePageState extends State<MyHomePage>
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CheckBoxes()),
-                  );
-                },
-                label: const Text("Check Boxes"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: UIKitMenuItem(
-                isActive: true,
-                isExpanded: true,
-                onTap: () {
-                  Navigator.push(
-                    context,
                     MaterialPageRoute(builder: (context) => const TextInput()),
                   );
                 },
@@ -162,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const DropDownMenu()),
+                        builder: (context) => const DropDownMenuPage()),
                   );
                 },
                 label: const Text("Drop Down Menu"),
