@@ -76,7 +76,7 @@ class UIKitCheckBoxListTile extends HookWidget {
         onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
     final theme$ = useState<UIKitCheckBoxListTileThemeData>(
-        UIKitTheme.of(context).checkboxThemeData);
+        UIKitTheme.of(context).checkboxListTileThemeData);
     final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
     final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));

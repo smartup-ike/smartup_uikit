@@ -66,7 +66,7 @@ class UIKitThemeData {
   final UIKitDropdownMenuThemeData dropdownMenuThemeData;
   final UIKitCalendarButtonThemeData calendarButtonThemeData;
   final UIKitDatePickerThemeData datePickerThemeData;
-  final UIKitCheckBoxListTileThemeData checkboxThemeData;
+  final UIKitCheckBoxListTileThemeData checkboxListTileThemeData;
   final UIKitToggleListTileThemeData toggleListTileThemeData;
 
   const UIKitThemeData.raw({
@@ -82,7 +82,7 @@ class UIKitThemeData {
     required this.dropdownMenuThemeData,
     required this.calendarButtonThemeData,
     required this.datePickerThemeData,
-    required this.checkboxThemeData,
+    required this.checkboxListTileThemeData,
     required this.toggleListTileThemeData,
   });
 
@@ -99,7 +99,7 @@ class UIKitThemeData {
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
-    UIKitCheckBoxListTileThemeData? checkboxThemeData,
+    UIKitCheckBoxListTileThemeData? checkboxListTileThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
   }) {
     colors ??= const UIKitColors();
@@ -114,7 +114,7 @@ class UIKitThemeData {
     dropdownMenuThemeData ??= UIKitDropdownMenuThemeData();
     calendarButtonThemeData ??= UIKitCalendarButtonThemeData();
     datePickerThemeData ??= UIKitDatePickerThemeData();
-    checkboxThemeData ??= UIKitCheckBoxListTileThemeData();
+    checkboxListTileThemeData ??= UIKitCheckBoxListTileThemeData();
     toggleListTileThemeData ??= UIKitToggleListTileThemeData();
 
     return UIKitThemeData.raw(
@@ -130,7 +130,7 @@ class UIKitThemeData {
       dropdownMenuThemeData: dropdownMenuThemeData,
       calendarButtonThemeData: calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData,
-      checkboxThemeData: checkboxThemeData,
+      checkboxListTileThemeData: checkboxListTileThemeData,
       toggleListTileThemeData: toggleListTileThemeData,
     );
   }
@@ -148,7 +148,7 @@ class UIKitThemeData {
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
-    UIKitCheckBoxListTileThemeData? checkboxThemeData,
+    UIKitCheckBoxListTileThemeData? checkboxListTileThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
   }) {
     return UIKitThemeData.raw(
@@ -167,9 +167,10 @@ class UIKitThemeData {
       calendarButtonThemeData:
           calendarButtonThemeData ?? this.calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData ?? this.datePickerThemeData,
-        checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
-      toggleListTileThemeData: toggleListTileThemeData ?? this.toggleListTileThemeData,
-
+      checkboxListTileThemeData:
+          checkboxListTileThemeData ?? this.checkboxListTileThemeData,
+      toggleListTileThemeData:
+          toggleListTileThemeData ?? this.toggleListTileThemeData,
     );
   }
 }
