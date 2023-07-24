@@ -1,9 +1,11 @@
 // ignore_for_file: unused_field
+import 'package:go_router/go_router.dart';
 
 import 'package:example/radio_toggle_and_checkbox.dart';
 import 'package:example/text_input.dart';
 
 import 'buttons.dart';
+import 'config/app_router.dart';
 import 'constants/theme/example_theme_data_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
@@ -23,12 +25,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return UIKitTheme(
       theme: kitThemeData,
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Smartup UI Kit Example',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Smartup UI kit example'),
+        routerConfig: router,
+        //home: const MyHomePage(title: 'Smartup UI kit example'),
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -68,11 +71,7 @@ class _MyHomePageState extends State<MyHomePage>
                 isActive: true,
                 isExpanded: true,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RadioToggleAndCheckBox()),
-                  );
+                  context.go("/radioToggleAndCheckBox");
                 },
                 label: const Text("Radio, Toggle and CheckBox"),
               ),
@@ -83,10 +82,7 @@ class _MyHomePageState extends State<MyHomePage>
                 isActive: true,
                 isExpanded: true,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const DatePicker()),
-                  );
+                  context.go("/datePicker");
                 },
                 label: const Text("Date Picker"),
               ),
@@ -97,10 +93,7 @@ class _MyHomePageState extends State<MyHomePage>
                 isActive: true,
                 isExpanded: true,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Buttons()),
-                  );
+                  context.go("/buttons");
                 },
                 label: const Text("Buttons"),
               ),
@@ -111,10 +104,7 @@ class _MyHomePageState extends State<MyHomePage>
                 isActive: true,
                 isExpanded: true,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TextInput()),
-                  );
+                  context.go("/textInput");
                 },
                 label: const Text("Text Input"),
               ),
@@ -125,11 +115,7 @@ class _MyHomePageState extends State<MyHomePage>
                 isActive: true,
                 isExpanded: true,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DropDownMenuPage()),
-                  );
+                  context.go("/dropDownMenuPage");
                 },
                 label: const Text("Drop Down Menu"),
               ),
