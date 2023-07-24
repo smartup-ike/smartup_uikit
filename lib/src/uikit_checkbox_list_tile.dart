@@ -14,7 +14,8 @@ class UIKitCheckBoxListTile extends HookWidget {
   const UIKitCheckBoxListTile.withLeading({
     super.key,
     this.leading,
-    this.onTap,
+    this.onChanged,
+    required this.isChecked,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
@@ -24,7 +25,8 @@ class UIKitCheckBoxListTile extends HookWidget {
   const UIKitCheckBoxListTile.withTrailing({
     super.key,
     this.trailing,
-    this.onTap,
+    this.onChanged,
+    required this.isChecked,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
@@ -39,7 +41,7 @@ class UIKitCheckBoxListTile extends HookWidget {
   /// Function that is called on tile tap.
   ///
   /// Set onTap = null if the checkbox-ListTile is disabled
-  final VoidCallback? onTap;
+  final ValueChanged<bool>? onChanged;
 
   /// [Widget] for the leading label.
   ///
@@ -48,6 +50,8 @@ class UIKitCheckBoxListTile extends HookWidget {
   /// [Widget] for the trailing label.
   ///
   final Widget? trailing;
+
+  final bool isChecked;
 
   /// [UIKitColorScheme] containing information about the colors for all the
   /// different states.
@@ -67,9 +71,9 @@ class UIKitCheckBoxListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> isActive = useState(false);
+    final isActive$ = useState(isChecked);
     final state$ = useState<UIKitState>(
-        onTap == null ? UIKitState.disabled : UIKitState.defaultState);
+        onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
     final theme$ = useState<UIKitCheckBoxListTileThemeData>(
         UIKitTheme.of(context).checkboxThemeData);
@@ -78,13 +82,13 @@ class UIKitCheckBoxListTile extends HookWidget {
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
 
     useEffect(() {
-      if (onTap == null) {
+      if (onChanged == null) {
         state$.value = UIKitState.disabled;
       } else {
         state$.value = UIKitState.defaultState;
       }
       return null;
-    }, [onTap == null]);
+    }, [onChanged == null]);
 
     final colorHelper = findStateAttributes(
       colors$.value,
@@ -97,40 +101,40 @@ class UIKitCheckBoxListTile extends HookWidget {
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
       onHover: (e) {
-        if (onTap != null && e.kind != PointerDeviceKind.touch) {
+        if (onChanged != null && e.kind != PointerDeviceKind.touch) {
           state$.value = UIKitState.hover;
           isHovered$.value = true;
         }
       },
       onExit: (_) {
-        if (onTap != null) {
+        if (onChanged != null) {
           state$.value = UIKitState.defaultState;
           isHovered$.value = false;
         }
       },
       child: GestureDetector(
         onTap: () {
-          isActive.value = !isActive.value;
           if (state$.value != UIKitState.disabled) {
-            onTap?.call();
+            isActive$.value = !isActive$.value;
+            onChanged?.call(isActive$.value);
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapUp: (_) {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapDown: (_) {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value = UIKitState.focused;
           }
         },
@@ -178,7 +182,7 @@ class UIKitCheckBoxListTile extends HookWidget {
                   height: size$.value.iconSize,
                   width: size$.value.iconSize,
                   child: Center(
-                    child: isActive.value == false
+                    child: isActive$.value == false
                         ? const SizedBox()
                         : Icon(
                             Icons.check,
