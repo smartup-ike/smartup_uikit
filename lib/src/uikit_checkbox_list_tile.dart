@@ -169,26 +169,23 @@ class UIKitCheckBoxListTile extends HookWidget {
                 SizedBox(width: size$.value.spacing),
               ],
               Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: size$.value.secondarySpacing ?? 1,
+                    color: colorHelper.borderColor ?? Colors.black,
+                  ),
+                ),
+                color: colorHelper.backgroundColor,
                 height: size$.value.iconSize,
                 width: size$.value.iconSize,
-                color: colorHelper.secondaryContentColor,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: size$.value.secondarySpacing ?? 1,
-                      color: colorHelper.borderColor ?? Colors.black,
-                    ),
-                  ),
-                  height: size$.value.iconSize,
-                  width: size$.value.iconSize,
-                  child: Center(
-                    child: isActive$.value == false
-                        ? const SizedBox()
-                        : Icon(
-                            Icons.check,
-                            size: size$.value.iconSize,
-                          ),
-                  ),
+                child: Center(
+                  child: isActive$.value
+                      ? Icon(
+                          Icons.check,
+                          size: size$.value.iconSize,
+                          color: colorHelper.contentColor,
+                        )
+                      : null,
                 ),
               ),
               if (trailing != null) ...[
