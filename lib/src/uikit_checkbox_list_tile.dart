@@ -174,8 +174,8 @@ class UIKitCheckBoxListTile extends HookWidget {
                     width: size$.value.secondarySpacing ?? 1,
                     color: colorHelper.borderColor ?? Colors.black,
                   ),
+                  color: colorHelper.backgroundColor,
                 ),
-                color: colorHelper.backgroundColor,
                 height: size$.value.iconSize,
                 width: size$.value.iconSize,
                 child: Center(
