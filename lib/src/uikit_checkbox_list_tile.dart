@@ -152,8 +152,6 @@ class UIKitCheckBoxListTile extends HookWidget {
             ),
             boxShadow: colorHelper.shadows,
           ),
-          height: size$.value.height,
-          width: size$.value.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
