@@ -1,17 +1,10 @@
 // ignore_for_file: unused_field
 import 'package:go_router/go_router.dart';
 
-import 'package:example/radio_toggle_and_checkbox.dart';
-import 'package:example/text_input.dart';
-
-import 'buttons.dart';
 import 'config/app_router.dart';
 import 'constants/theme/example_theme_data_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
-
-import 'date_picker.dart';
-import 'drop_down_menu.dart';
 
 void main() {
   runApp(const MyApp());
