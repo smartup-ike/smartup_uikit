@@ -8,6 +8,7 @@ import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'theme/uikit_theme.dart';
 import 'helpers/uikit_icon_theme.dart';
+import 'uikit_checkbox.dart';
 
 class UIKitDropdownMenuItem<T> extends HookWidget {
   const UIKitDropdownMenuItem({
@@ -92,8 +93,14 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
           child: Row(
             children: [
               if (multiselect) ...[
-                const IgnorePointer(
-                  child: Text("PlaceHolder"),
+                IgnorePointer(
+                  child: UIKitCheckbox(
+                    isChecked: isSelected,
+                    icon: const Icon(
+                      Icons.check,
+                      size: 12,
+                    ),
+                  ),
                 ),
                 SizedBox(width: size$.value.spacing),
               ],

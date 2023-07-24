@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
 import '../../smartup_uikit.dart';
 
 class UIKitTheme extends StatelessWidget {
@@ -67,6 +68,7 @@ class UIKitThemeData {
   final UIKitCalendarButtonThemeData calendarButtonThemeData;
   final UIKitDatePickerThemeData datePickerThemeData;
   final UIKitCheckBoxListTileThemeData checkboxListTileThemeData;
+  final UIKitCheckboxThemeData checkboxThemeData;
   final UIKitToggleListTileThemeData toggleListTileThemeData;
 
   const UIKitThemeData.raw({
@@ -83,6 +85,7 @@ class UIKitThemeData {
     required this.calendarButtonThemeData,
     required this.datePickerThemeData,
     required this.checkboxListTileThemeData,
+    required this.checkboxThemeData,
     required this.toggleListTileThemeData,
   });
 
@@ -100,6 +103,7 @@ class UIKitThemeData {
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
     UIKitCheckBoxListTileThemeData? checkboxListTileThemeData,
+    UIKitCheckboxThemeData? checkboxThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
   }) {
     colors ??= const UIKitColors();
@@ -115,6 +119,7 @@ class UIKitThemeData {
     calendarButtonThemeData ??= UIKitCalendarButtonThemeData();
     datePickerThemeData ??= UIKitDatePickerThemeData();
     checkboxListTileThemeData ??= UIKitCheckBoxListTileThemeData();
+    checkboxThemeData ??= UIKitCheckboxThemeData();
     toggleListTileThemeData ??= UIKitToggleListTileThemeData();
 
     return UIKitThemeData.raw(
@@ -131,6 +136,7 @@ class UIKitThemeData {
       calendarButtonThemeData: calendarButtonThemeData,
       datePickerThemeData: datePickerThemeData,
       checkboxListTileThemeData: checkboxListTileThemeData,
+      checkboxThemeData: checkboxThemeData,
       toggleListTileThemeData: toggleListTileThemeData,
     );
   }
@@ -149,6 +155,7 @@ class UIKitThemeData {
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
     UIKitDatePickerThemeData? datePickerThemeData,
     UIKitCheckBoxListTileThemeData? checkboxListTileThemeData,
+    UIKitCheckboxThemeData? checkboxThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
   }) {
     return UIKitThemeData.raw(
@@ -169,6 +176,7 @@ class UIKitThemeData {
       datePickerThemeData: datePickerThemeData ?? this.datePickerThemeData,
       checkboxListTileThemeData:
           checkboxListTileThemeData ?? this.checkboxListTileThemeData,
+      checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
       toggleListTileThemeData:
           toggleListTileThemeData ?? this.toggleListTileThemeData,
     );
