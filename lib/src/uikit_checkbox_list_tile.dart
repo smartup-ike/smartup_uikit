@@ -140,15 +140,13 @@ class UIKitCheckBoxListTile extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          alignment: Alignment.center,
           padding: size$.value.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
-              strokeAlign: BorderSide.strokeAlignInside,
-              width: size$.value.borderSize ?? 0,
-              color: colorHelper.borderColor ?? Colors.transparent,
+              width: size$.value.secondarySpacing ?? 0,
+              color: colorHelper.secondaryContentColor ?? Colors.transparent,
             ),
             boxShadow: colorHelper.shadows,
           ),
@@ -169,7 +167,7 @@ class UIKitCheckBoxListTile extends HookWidget {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    width: size$.value.secondarySpacing ?? 1,
+                    width: size$.value.borderSize ?? 1,
                     color: colorHelper.borderColor ?? Colors.black,
                   ),
                   color: colorHelper.backgroundColor,
@@ -226,8 +224,8 @@ class UIKitCheckBoxListTile extends HookWidget {
     UIKitSizeScheme sizeScheme;
     if (this.sizeScheme != null) {
       sizeScheme = this.sizeScheme!;
-      //if the icon size is null set 15 as default
-      sizeScheme.iconSize ??= 15;
+      //if the icon size is null set 10 as default
+      sizeScheme.iconSize ??= 10;
     } else {
       switch (checkBoxSize) {
         case UIKitSizes.small:
