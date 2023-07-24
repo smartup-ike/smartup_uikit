@@ -69,7 +69,7 @@ class TextInput extends HookWidget {
                         UIKitTextInput.largeFilledInput(
                           controller: textControl0,
                           onChanged: (value) => text$.value = value,
-                          label: Text("largeFilledInput"),
+                          label: const Text("largeFilledInput"),
                         ),
                         const SizedBox(height: 20),
                         const Text("largeFilledSearch"),
@@ -81,7 +81,7 @@ class TextInput extends HookWidget {
                         UIKitTextInput.largeLineInput(
                           controller: textControl2,
                           onChanged: (value) => text$.value = value,
-                          label: Text("largeLineInput"),
+                          label: const Text("largeLineInput"),
                         ),
                         const SizedBox(height: 20),
                         const Text("largeLineSearch"),
@@ -99,7 +99,7 @@ class TextInput extends HookWidget {
                         UIKitTextInput.mediumFilledInput(
                           controller: textControl4,
                           onChanged: (value) => text$.value = value,
-                          label: Text("mediumFilledInput"),
+                          label: const Text("mediumFilledInput"),
                         ),
                         const SizedBox(height: 20),
                         const Text("mediumFilledSearch"),
@@ -110,7 +110,7 @@ class TextInput extends HookWidget {
                         UIKitTextInput.mediumLineInput(
                           controller: textControl6,
                           onChanged: (value) => text$.value = value,
-                          label: Text("mediumLineInput"),
+                          label: const Text("mediumLineInput"),
                         ),
                         const SizedBox(height: 20),
                         const Text("mediumLineSearch"),
@@ -128,7 +128,7 @@ class TextInput extends HookWidget {
                         UIKitTextInput.smallFilledInput(
                           controller: textControl8,
                           onChanged: (value) => text$.value = value,
-                          label: Text("smallFilledInput"),
+                          label: const Text("smallFilledInput"),
                         ),
                         const SizedBox(height: 20),
                         const Text("smallFilledSearch"),
@@ -139,7 +139,7 @@ class TextInput extends HookWidget {
                         UIKitTextInput.smallLineInput(
                           controller: textControl10,
                           onChanged: (value) => text$.value = value,
-                          label: Text("smallLineInput"),
+                          label: const Text("smallLineInput"),
                         ),
                         const SizedBox(height: 20),
                         const Text("smallLineSearch"),

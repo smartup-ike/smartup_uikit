@@ -5,13 +5,13 @@ import 'package:smartup_uikit/smartup_uikit.dart';
 import 'date_selector.dart';
 
 class DatePicker extends HookWidget {
-  DatePicker({super.key});
+  const DatePicker({super.key});
 
   @override
   Widget build(BuildContext context) {
     final date$ = useState("Επιλέξτε Ημερομηνία");
 
-    void _selectRange(value) {
+    void selectRange(value) {
       date$.value = value.toString();
     }
 
@@ -33,7 +33,7 @@ class DatePicker extends HookWidget {
                   height: 80,
                   width: 400,
                   child: DateSelector(
-                    onChanged: (value) => _selectRange(value),
+                    onChanged: (value) => selectRange(value),
                   ),
                 ),
               ],

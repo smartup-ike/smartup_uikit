@@ -38,7 +38,7 @@ class DropDownMenuPage extends HookWidget {
                 onTap: (position, size) async {
                   selectedValue$.value = await Navigator.of(context).push(
                     UIKitDropdownRoute(
-                      child: _optionsSelectorDialog(
+                      child: OptionsSelectorDialog(
                         initialValue: selectedValue$.value,
                         optionsMap: optionsMap,
                       ),
@@ -61,8 +61,8 @@ class DropDownMenuPage extends HookWidget {
   }
 }
 
-class _optionsSelectorDialog extends HookWidget {
-  const _optionsSelectorDialog({
+class OptionsSelectorDialog extends HookWidget {
+  const OptionsSelectorDialog({super.key,
     this.initialValue,
     this.optionsMap,
   });
@@ -91,10 +91,10 @@ class _optionsSelectorDialog extends HookWidget {
           onTap: () => Navigator.of(context).pop(selectedValue$.value),
         ),
       ],
-      options: optionsMap!.keys.toList() ?? [],
+      options: optionsMap!.keys.toList(),
       labels: List.generate(
-        (optionsMap!.keys.toList() ?? []).length,
-            (index) => Text(optionsMap!.values.toList()[index] ?? ''),
+        optionsMap!.keys.toList().length,
+            (index) => Text(optionsMap!.values.toList()[index]),
       ),
     );
   }

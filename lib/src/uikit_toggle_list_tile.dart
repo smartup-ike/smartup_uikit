@@ -174,7 +174,7 @@ class UIKitToggleListTile extends HookWidget {
                       size$.value.secondaryRadius ?? 18,
                     ),
                   ),
-                  height: size$.value.iconSize! / 2,
+                  height: size$.value.iconSize ?? 30 / 2,
                   width: size$.value.iconSize,
                   //color: colorHelper.secondaryContentColor,
 

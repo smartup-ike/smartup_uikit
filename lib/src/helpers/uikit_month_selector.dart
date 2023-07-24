@@ -6,7 +6,7 @@ import '../uikit_dropdown_menu.dart';
 import '../uikit_dropdown_route.dart';
 
 class UIKitMonthSelector extends HookWidget {
-  const UIKitMonthSelector({
+  const UIKitMonthSelector({super.key,
     required this.onChanged,
     this.trailing,
     this.itemTrailing,
@@ -27,7 +27,7 @@ class UIKitMonthSelector extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ValueNotifier? selectedValue$ = useState([DateTime.now().month]);
+    final ValueNotifier selectedValue$ = useState([DateTime.now().month]);
 
 
 
@@ -35,11 +35,11 @@ class UIKitMonthSelector extends HookWidget {
     // Otherwise the calendar will start at the current month.
     if(dateMustBeAfter!=null)
     {
-      selectedValue$!.value = [dateMustBeAfter!.month];
+      selectedValue$.value = [dateMustBeAfter!.month];
     }
     else
     {
-      selectedValue$!.value = [DateTime.now().month];
+      selectedValue$.value = [DateTime.now().month];
     }
 
     return UIKitDropdownButton.smallFilled(
@@ -108,7 +108,7 @@ class _MonthDialogState extends State<MonthDialog> {
       searchOnChange: (value) {
         List<Widget> tempLabels = [];
         List<int?> tempValues = [];
-        if ((value ?? '').isEmpty) {
+        if (value.isEmpty) {
           setState(
             () {
               toShowValues = values;

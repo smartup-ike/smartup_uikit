@@ -108,14 +108,13 @@ class UIKitDatePicker extends HookWidget {
 
       Map<int, String> temp = {};
       if (dateMustBeAfter != null && dateMustBeBefore == null) {
-        print("after");
         monthsMap.forEach((key, value) {
           if (key >= dateMustBeAfter!.month) {
             temp[key] = value;
           }
         });
       } else if (dateMustBeAfter != null && dateMustBeBefore != null) {
-        if(dateMustBeAfter!.year==dateMustBeBefore!.year && dateMustBeBefore == year$.value)
+        if(dateMustBeAfter!.year==dateMustBeBefore!.year && dateMustBeBefore!.year == year$.value)
           {
             monthsMap.forEach((key, value) {
               if (key >= dateMustBeAfter!.month && key <= dateMustBeBefore!.month) {
@@ -141,13 +140,11 @@ class UIKitDatePicker extends HookWidget {
 
       } else {
         monthsMap.forEach((key, value) {
-          print("before");
           if (key <= dateMustBeBefore!.month) {
             temp[key] = value;
           }
         });
       }
-      print("year changed");
       return temp;
     }
 

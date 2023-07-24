@@ -132,7 +132,7 @@ class _YearDialogState extends State<YearDialog> {
         multiselect: false,
         hasSearchBar: true,
         searchOnChange: (search) {
-          if ((search ?? '').isEmpty) {
+          if (search.isEmpty) {
             setState(
               () {
                 toShowValues = values;
