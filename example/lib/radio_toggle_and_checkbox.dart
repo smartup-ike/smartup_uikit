@@ -164,8 +164,9 @@ class RadioToggleAndCheckBox extends HookWidget {
                       children: [
                         UIKitCheckBoxListTile.withTrailing(
                           trailing: const Text("UIKitCheckBoxListTile"),
-                          onTap: () {
-                            check$.value = !check$.value;
+                          isChecked: check$.value,
+                          onChanged: (value) {
+                            check$.value = value;
                           },
                           sizeScheme: UIKitSizeScheme(
                             //distance between the label and the checkbox

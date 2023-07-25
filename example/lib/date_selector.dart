@@ -31,14 +31,17 @@ class _DateSelectorState extends State<DateSelector> {
       trailing: const UIKitIcon.asset('assets/images/url.svg'),
       onTap: (position, size) async {
         selectedValue = await Navigator.of(context).push<List<DateTime?>>(
-              UIKitDropdownRoute(
-                child: DatePickerDialog(
-                  dateMustBeBefore: widget.dateMustBeBefore,
-                  dateMustBeAfter: widget.dateMustBeAfter,
-                  initialValue: selectedValue,
-                ),
-                position: position,
-                size: Size.fromWidth(size.width >= 400 ? size.width : 400),
+              DialogRoute(
+                builder: (context) => Dialog(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 500, maxHeight: 600),
+                    child: DatePickerDialog(
+                      dateMustBeBefore: widget.dateMustBeBefore,
+                      dateMustBeAfter: widget.dateMustBeAfter,
+                      initialValue: selectedValue,
+                    ),
+                  ),
+                ), context: context,
               ),
             ) ??
             [];
