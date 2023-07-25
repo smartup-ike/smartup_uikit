@@ -14,7 +14,8 @@ class UIKitCheckBoxListTile extends HookWidget {
   const UIKitCheckBoxListTile.withLeading({
     super.key,
     this.leading,
-    this.onTap,
+    this.onChanged,
+    required this.isChecked,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
@@ -24,7 +25,8 @@ class UIKitCheckBoxListTile extends HookWidget {
   const UIKitCheckBoxListTile.withTrailing({
     super.key,
     this.trailing,
-    this.onTap,
+    this.onChanged,
+    required this.isChecked,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
@@ -39,7 +41,7 @@ class UIKitCheckBoxListTile extends HookWidget {
   /// Function that is called on tile tap.
   ///
   /// Set onTap = null if the checkbox-ListTile is disabled
-  final VoidCallback? onTap;
+  final ValueChanged<bool>? onChanged;
 
   /// [Widget] for the leading label.
   ///
@@ -48,6 +50,8 @@ class UIKitCheckBoxListTile extends HookWidget {
   /// [Widget] for the trailing label.
   ///
   final Widget? trailing;
+
+  final bool isChecked;
 
   /// [UIKitColorScheme] containing information about the colors for all the
   /// different states.
@@ -67,24 +71,24 @@ class UIKitCheckBoxListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> isActive = useState(false);
+    final isActive$ = useState(isChecked);
     final state$ = useState<UIKitState>(
-        onTap == null ? UIKitState.disabled : UIKitState.defaultState);
+        onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
     final theme$ = useState<UIKitCheckBoxListTileThemeData>(
-        UIKitTheme.of(context).checkboxThemeData);
+        UIKitTheme.of(context).checkboxListTileThemeData);
     final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
     final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
 
     useEffect(() {
-      if (onTap == null) {
+      if (onChanged == null) {
         state$.value = UIKitState.disabled;
       } else {
         state$.value = UIKitState.defaultState;
       }
       return null;
-    }, [onTap == null]);
+    }, [onChanged == null]);
 
     final colorHelper = findStateAttributes(
       colors$.value,
@@ -97,59 +101,55 @@ class UIKitCheckBoxListTile extends HookWidget {
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
       onHover: (e) {
-        if (onTap != null && e.kind != PointerDeviceKind.touch) {
+        if (onChanged != null && e.kind != PointerDeviceKind.touch) {
           state$.value = UIKitState.hover;
           isHovered$.value = true;
         }
       },
       onExit: (_) {
-        if (onTap != null) {
+        if (onChanged != null) {
           state$.value = UIKitState.defaultState;
           isHovered$.value = false;
         }
       },
       child: GestureDetector(
         onTap: () {
-          isActive.value = !isActive.value;
           if (state$.value != UIKitState.disabled) {
-            onTap?.call();
+            isActive$.value = !isActive$.value;
+            onChanged?.call(isActive$.value);
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapUp: (_) {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapCancel: () {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
           }
         },
         onTapDown: (_) {
-          if (onTap != null) {
+          if (onChanged != null) {
             state$.value = UIKitState.focused;
           }
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          alignment: Alignment.center,
           padding: size$.value.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
-              strokeAlign: BorderSide.strokeAlignInside,
-              width: size$.value.borderSize ?? 0,
-              color: colorHelper.borderColor ?? Colors.transparent,
+              width: size$.value.secondarySpacing ?? 0,
+              color: colorHelper.secondaryContentColor ?? Colors.transparent,
             ),
             boxShadow: colorHelper.shadows,
           ),
-          height: size$.value.height,
-          width: size$.value.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,26 +165,23 @@ class UIKitCheckBoxListTile extends HookWidget {
                 SizedBox(width: size$.value.spacing),
               ],
               Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: size$.value.borderSize ?? 1,
+                    color: colorHelper.borderColor ?? Colors.black,
+                  ),
+                  color: colorHelper.backgroundColor,
+                ),
                 height: size$.value.iconSize,
                 width: size$.value.iconSize,
-                color: colorHelper.secondaryContentColor,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: size$.value.secondarySpacing ?? 1,
-                      color: colorHelper.borderColor ?? Colors.black,
-                    ),
-                  ),
-                  height: size$.value.iconSize,
-                  width: size$.value.iconSize,
-                  child: Center(
-                    child: isActive.value == false
-                        ? const SizedBox()
-                        : Icon(
-                            Icons.check,
-                            size: size$.value.iconSize,
-                          ),
-                  ),
+                child: Center(
+                  child: isActive$.value
+                      ? Icon(
+                          Icons.check,
+                          size: size$.value.iconSize,
+                          color: colorHelper.contentColor,
+                        )
+                      : null,
                 ),
               ),
               if (trailing != null) ...[
@@ -227,8 +224,8 @@ class UIKitCheckBoxListTile extends HookWidget {
     UIKitSizeScheme sizeScheme;
     if (this.sizeScheme != null) {
       sizeScheme = this.sizeScheme!;
-      //if the icon size is null set 15 as default
-      sizeScheme.iconSize ??= 15;
+      //if the icon size is null set 10 as default
+      sizeScheme.iconSize ??= 10;
     } else {
       switch (checkBoxSize) {
         case UIKitSizes.small:
