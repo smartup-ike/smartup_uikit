@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../buttons.dart';
 import '../date_picker.dart';
 import '../main.dart';
+import '../playground.dart';
 import '../radio_toggle_and_checkbox.dart';
 import '../text_input.dart';
 
@@ -46,6 +47,12 @@ final GoRouter router = GoRouter(
           path: "radioToggleAndCheckBox",
           builder: (BuildContext context, GoRouterState state) {
             return const RadioToggleAndCheckBox();
+          },
+        ),
+        GoRoute(
+          path: "playground",
+          builder: (BuildContext context, GoRouterState state) {
+            return const Playground();
           },
         )
       ],

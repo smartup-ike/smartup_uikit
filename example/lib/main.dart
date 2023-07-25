@@ -113,6 +113,17 @@ class _MyHomePageState extends State<MyHomePage>
                 label: const Text("Drop Down Menu"),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: UIKitMenuItem(
+                isActive: true,
+                isExpanded: true,
+                onTap: () {
+                  context.go("/playground");
+                },
+                label: const Text("Playground"),
+              ),
+            ),
           ],
         ),
       ),

@@ -150,6 +150,7 @@ class UIKitDatePicker extends HookWidget {
 
     final availableMonthsMap$ = useState(availableMonthsMap());
     return AnimatedContainer(
+      //height: 250,
       duration: const Duration(milliseconds: 200),
       padding: size$.value.padding,
       decoration: BoxDecoration(
@@ -168,30 +169,34 @@ class UIKitDatePicker extends HookWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
-                  child: UIKitMonthSelector(
-                    dateMustBeAfter: dateMustBeAfter,
-                    onChanged: (value) => month$.value = value!,
-                    trailing: dropdownButtonTrailing,
-                    itemTrailing: dropdownMenuItemTrailing,
-                    monthsMap$: availableMonthsMap$,
+                Row(
+                  children: [Expanded(
+                    child: UIKitYearSelector(
+                      dateMustBeAfter: dateMustBeAfter,
+                      dateMustBeBefore: dateMustBeBefore,
+                      onChanged: (value) {
+                        year$.value = value!;
+                        availableMonthsMap$.value = availableMonthsMap();
+                      },
+                      trailing: dropdownButtonTrailing,
+                      itemTrailing: dropdownMenuItemTrailing,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: UIKitYearSelector(
-                    dateMustBeAfter: dateMustBeAfter,
-                    dateMustBeBefore: dateMustBeBefore,
-                    onChanged: (value) {
-                      year$.value = value!;
-                      availableMonthsMap$.value = availableMonthsMap();
-                    },
-                    trailing: dropdownButtonTrailing,
-                    itemTrailing: dropdownMenuItemTrailing,
+                ]),
+                const SizedBox(height: 16),
+                Row(
+                  children: [Expanded(
+                    child: UIKitMonthSelector(
+                      dateMustBeAfter: dateMustBeAfter,
+                      onChanged: (value) => month$.value = value!,
+                      trailing: dropdownButtonTrailing,
+                      itemTrailing: dropdownMenuItemTrailing,
+                      monthsMap$: availableMonthsMap$,
+                    ),
                   ),
-                ),
+                ]),
               ],
             ),
           ),
