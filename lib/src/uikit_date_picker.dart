@@ -10,16 +10,6 @@ import 'helpers/uikit_month_selector.dart';
 import 'helpers/uikit_year_selector.dart';
 import 'uikit_button.dart';
 
-const daysList = [
-  'Δ',
-  'Τ',
-  'Τ',
-  'Π',
-  'Π',
-  'Σ',
-  'Κ',
-];
-
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
     super.key,
@@ -29,6 +19,8 @@ class UIKitDatePicker extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.dateMustBeAfter,
+    this.dateMustBeBefore,
   });
 
   final bool isRangePicker;
@@ -38,10 +30,19 @@ class UIKitDatePicker extends HookWidget {
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
 
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
+
   @override
   Widget build(BuildContext context) {
-    final year$ = useState<int>(DateTime.now().year);
-    final month$ = useState<int>(DateTime.now().month);
+    // If the user gave as limits for the acceptable dates the we change the values of year$ and month$ to the beginning of the limit.
+    // This is done so the calendar starts on the first month the user is allowed to select.
+    final year$ = useState<int>(
+        dateMustBeAfter != null ? dateMustBeAfter!.year : DateTime.now().year);
+    final month$ = useState<int>(dateMustBeAfter != null
+        ? dateMustBeAfter!.month
+        : DateTime.now().month);
     final selectedDates$ = useState<List<DateTime?>>(
       List.filled(2, null, growable: true),
     );
@@ -54,7 +55,102 @@ class UIKitDatePicker extends HookWidget {
     );
     DateTime date = findDate(DateTime(year$.value, month$.value, 1), 1);
 
+    // This function returns the onTap function of each calendar button.
+    void Function(DateTime)? calendarButtonOnTap() {
+      // If the user did specify a limit we check to see if the date in question is within limits.
+      // This widget is grayed out / disabled if a null onTap is given.
+      return (dateMustBeAfter != null && !date.isAfter(dateMustBeAfter!))
+          ? null
+          : (dateMustBeBefore != null && !date.isBefore(dateMustBeBefore!))
+              ? null
+              : date.month != month$.value
+                  ? null
+                  : isRangePicker
+                      ? (newDate) {
+                          selectFirst$.value
+                              ? selectedDates$.value.first = newDate
+                              : selectedDates$.value.last = newDate;
+                          selectFirst$.value = !selectFirst$.value;
+                          if (!selectedDates$.value.contains(null)) {
+                            selectedDates$.value.sort(
+                              (a, b) => a!.compareTo(b!),
+                            );
+                          }
+                        }
+                      : (newDate) => selectedDates$.value = [newDate];
+    }
+
+    Map<int, String> availableMonthsMap() {
+      const monthsMap = {
+        1: 'Ιανουάριος',
+        2: 'Φεβρουάριος',
+        3: 'Μάρτιος',
+        4: 'Απρίλιος',
+        5: 'Μάιος',
+        6: 'Ιούνιος',
+        7: 'Ιούλιος',
+        8: 'Αύγουστος',
+        9: 'Σεπτέμβριος',
+        10: 'Οκτώβριος',
+        11: 'Νοέμβριος',
+        12: 'Δεκέμβριος',
+      };
+
+      if (dateMustBeAfter == null && dateMustBeBefore == null) {
+        return monthsMap;
+      }
+      if (dateMustBeAfter != null && dateMustBeBefore != null) {
+        if (year$.value != dateMustBeAfter!.year &&
+            year$.value != dateMustBeBefore!.year) {
+          return monthsMap;
+        }
+      }
+
+      Map<int, String> temp = {};
+      if (dateMustBeAfter != null && dateMustBeBefore == null) {
+        monthsMap.forEach((key, value) {
+          if (key >= dateMustBeAfter!.month) {
+            temp[key] = value;
+          }
+        });
+      } else if (dateMustBeAfter != null && dateMustBeBefore != null) {
+        if(dateMustBeAfter!.year==dateMustBeBefore!.year && dateMustBeBefore!.year == year$.value)
+          {
+            monthsMap.forEach((key, value) {
+              if (key >= dateMustBeAfter!.month && key <= dateMustBeBefore!.month) {
+                temp[key] = value;
+              }
+            });
+          }
+        else if(dateMustBeAfter!.year==year$.value)
+          {
+            monthsMap.forEach((key, value) {
+              if (key >= dateMustBeAfter!.month) {
+                temp[key] = value;
+              }
+            });
+          }
+        else{
+          monthsMap.forEach((key, value) {
+            if (key <= dateMustBeBefore!.month) {
+              temp[key] = value;
+            }
+          });
+        }
+
+      } else {
+        monthsMap.forEach((key, value) {
+          if (key <= dateMustBeBefore!.month) {
+            temp[key] = value;
+          }
+        });
+      }
+      return temp;
+    }
+
+    final availableMonthsMap$ = useState(availableMonthsMap());
     return AnimatedContainer(
+      //height: 250,
       duration: const Duration(milliseconds: 200),
       padding: size$.value.padding,
       decoration: BoxDecoration(
@@ -73,23 +169,34 @@ class UIKitDatePicker extends HookWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
-                  child: UIKitMonthSelector(
-                    onChanged: (value) => month$.value = value!,
-                    trailing: dropdownButtonTrailing,
-                    itemTrailing: dropdownMenuItemTrailing,
+                Row(
+                  children: [Expanded(
+                    child: UIKitYearSelector(
+                      dateMustBeAfter: dateMustBeAfter,
+                      dateMustBeBefore: dateMustBeBefore,
+                      onChanged: (value) {
+                        year$.value = value!;
+                        availableMonthsMap$.value = availableMonthsMap();
+                      },
+                      trailing: dropdownButtonTrailing,
+                      itemTrailing: dropdownMenuItemTrailing,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: UIKitYearSelector(
-                    onChanged: (value) => year$.value = value!,
-                    trailing: dropdownButtonTrailing,
-                    itemTrailing: dropdownMenuItemTrailing,
+                ]),
+                const SizedBox(height: 16),
+                Row(
+                  children: [Expanded(
+                    child: UIKitMonthSelector(
+                      dateMustBeAfter: dateMustBeAfter,
+                      onChanged: (value) => month$.value = value!,
+                      trailing: dropdownButtonTrailing,
+                      itemTrailing: dropdownMenuItemTrailing,
+                      monthsMap$: availableMonthsMap$,
+                    ),
                   ),
-                ),
+                ]),
               ],
             ),
           ),
@@ -105,8 +212,36 @@ class UIKitDatePicker extends HookWidget {
                   outside: BorderSide.none,
                 ),
                 children: List.generate(
-                  isSixWeekMonth(year$.value, month$.value) ? 6 : 5,
+                  // For the calendarButtons the dimension needed was 6 : 5. Since i added day labels i changed it to 7 : 6.
+                  isSixWeekMonth(year$.value, month$.value) ? 7 : 6,
                   (rowIndex) {
+                    if (rowIndex == 0) {
+                      List<String> days = ["Δ", "Τ", "Τ", "Π", "Π", "Σ", "Κ"];
+                      return TableRow(
+                          children: List.generate(7, (index) {
+                        return MediaQuery(
+                          data: MediaQuery.of(context).copyWith(
+                            textScaleFactor: 1,
+                          ),
+                          child: TableCell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Center(
+                                child: Text(
+                                  days[index],
+                                  style: UIKitTheme.of(context)
+                                      .typography
+                                      .headings4Regular
+                                      ?.copyWith(
+                                        color: Colors.black,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }));
+                    }
                     return TableRow(
                       children: List.generate(
                         7,
@@ -137,26 +272,7 @@ class UIKitDatePicker extends HookWidget {
                                                 selectedDates$.value.last!,
                                               )
                                       : false,
-                                  onTap: date.month != month$.value
-                                      ? null
-                                      : isRangePicker
-                                          ? (newDate) {
-                                              selectFirst$.value
-                                                  ? selectedDates$.value.first =
-                                                      newDate
-                                                  : selectedDates$.value.last =
-                                                      newDate;
-                                              selectFirst$.value =
-                                                  !selectFirst$.value;
-                                              if (!selectedDates$.value
-                                                  .contains(null)) {
-                                                selectedDates$.value.sort(
-                                                  (a, b) => a!.compareTo(b!),
-                                                );
-                                              }
-                                            }
-                                          : (newDate) =>
-                                              selectedDates$.value = [newDate],
+                                  onTap: calendarButtonOnTap(),
                                 ),
                               ),
                             ),

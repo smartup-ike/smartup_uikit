@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 class DateSelector extends StatefulWidget {
-  const DateSelector({super.key});
+  const DateSelector({this.dateMustBeAfter, this.dateMustBeBefore, super.key, required this.onChanged,});
+
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
+  final ValueChanged<List<DateTime?>> onChanged;
 
   @override
   State<DateSelector> createState() => _DateSelectorState();
@@ -20,19 +25,24 @@ class _DateSelectorState extends State<DateSelector> {
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownButton.largeLine(
-      label: const Text('Selected date'),
+      label: const Text('Επιλεγμένες Ημερομηνίες'),
       input: Text(selectedValue.map((e) => e?.toLocal().toString()).join(', ')),
       isDisabled: false,
       trailing: const UIKitIcon.asset('assets/images/url.svg'),
       onTap: (position, size) async {
         selectedValue = await Navigator.of(context).push<List<DateTime?>>(
               UIKitDropdownRoute(
-                child: DatePickerDialog(initialValue: selectedValue),
+                child: DatePickerDialog(
+                  dateMustBeBefore: widget.dateMustBeBefore,
+                  dateMustBeAfter: widget.dateMustBeAfter,
+                  initialValue: selectedValue,
+                ),
                 position: position,
                 size: Size.fromWidth(size.width >= 400 ? size.width : 400),
               ),
             ) ??
             [];
+        widget.onChanged.call(selectedValue);
         setState(() {});
         return;
       },
@@ -44,8 +54,13 @@ class DatePickerDialog extends StatefulWidget {
   const DatePickerDialog({
     super.key,
     this.initialValue = const [],
+    this.dateMustBeAfter,
+    this.dateMustBeBefore,
   });
 
+  // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
+  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeBefore;
   final List<DateTime?> initialValue;
 
   @override
@@ -63,9 +78,11 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return const UIKitDatePicker(
-      dropdownButtonTrailing: UIKitIcon.asset('assets/images/url.svg'),
-      dropdownMenuItemTrailing: UIKitIcon.asset('assets/images/url.svg'),
+    return UIKitDatePicker(
+      dateMustBeAfter: widget.dateMustBeAfter,
+      dateMustBeBefore: widget.dateMustBeBefore,
+      dropdownButtonTrailing: const UIKitIcon.asset('assets/images/url.svg'),
+      dropdownMenuItemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
     );
   }
 }
