@@ -62,7 +62,7 @@ class Playground extends HookWidget {
             const SizedBox(height: 40),
             UIKitTextInput.largeLineInput(
               controller: inputController,
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                 signed: true,
                 decimal: true,
               ),

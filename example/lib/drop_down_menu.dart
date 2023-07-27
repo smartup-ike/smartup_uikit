@@ -14,7 +14,28 @@ class DropDownMenuPage extends HookWidget {
       4: "Option 4",
       5: "Option 5",
       6: "Option 6",
-      7: "Option 7",
+      // 7: "Option 7",
+      // 8: "Option 1",
+      // 9: "Option 2",
+      // 10: "Option 3",
+      // 11: "Option 4",
+      // 12: "Option 5",
+      // 13: "Option 6",
+      // 14: "Option 7",
+      // 15: "Option 1",
+      // 16: "Option 2",
+      // 17: "Option 3",
+      // 18: "Option 4",
+      // 19: "Option 5",
+      // 20: "Option 6",
+      // 21: "Option 7",
+      // 22: "Option 1",
+      // 23: "Option 2",
+      // 24: "Option 3",
+      // 25: "Option 4",
+      // 26: "Option 5",
+      // 27: "Option 6",
+      // 28: "Option 7",
     };
     final text$ = useState("Please pick an Option");
     final selectedValue$ = useState(1);
@@ -26,10 +47,12 @@ class DropDownMenuPage extends HookWidget {
       ),
       body: Center(
         child: Column(
-
           children: [
             const SizedBox(height: 50),
-            Text("You picked: ${text$.value}", style: UIKitTheme.of(context).typography.headings3Bold,),
+            Text(
+              "You picked: ${text$.value}",
+              style: UIKitTheme.of(context).typography.headings3Bold,
+            ),
             const SizedBox(height: 20),
             SizedBox(
               width: 400,
@@ -40,15 +63,15 @@ class DropDownMenuPage extends HookWidget {
                 trailing: const Icon(Icons.add_circle),
                 onTap: (position, size) async {
                   selectedValue$.value = await Navigator.of(context).push(
-                    UIKitDropdownRoute(
-                      child: OptionsSelectorDialog(
-                        initialValue: selectedValue$.value,
-                        optionsMap: optionsMap,
-                      ),
-                      position: position,
-                      size: size,
-                    ),
-                  ) ??
+                        UIKitDropdownRoute(
+                          child: OptionsSelectorDialog(
+                            initialValue: selectedValue$.value,
+                            optionsMap: optionsMap,
+                          ),
+                          position: position,
+                          size: size,
+                        ),
+                      ) ??
                       selectedValue$.value;
                   // if (selectedValue$.value !=null) {
                   //   selectedValue$.value = ;
@@ -65,14 +88,15 @@ class DropDownMenuPage extends HookWidget {
 }
 
 class OptionsSelectorDialog extends HookWidget {
-  const OptionsSelectorDialog({super.key,
+  const OptionsSelectorDialog({
+    super.key,
     this.initialValue,
     this.optionsMap,
   });
 
-
   final int? initialValue;
   final Map<int, String>? optionsMap;
+
   @override
   Widget build(BuildContext context) {
     final selectedValue$ = useState(initialValue);
@@ -97,7 +121,7 @@ class OptionsSelectorDialog extends HookWidget {
       options: optionsMap!.keys.toList(),
       labels: List.generate(
         optionsMap!.keys.toList().length,
-            (index) => Text(optionsMap!.values.toList()[index]),
+        (index) => Text(optionsMap!.values.toList()[index]),
       ),
     );
   }
