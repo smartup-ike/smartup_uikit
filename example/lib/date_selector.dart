@@ -26,7 +26,8 @@ class _DateSelectorState extends State<DateSelector> {
   Widget build(BuildContext context) {
     return UIKitDropdownButton.largeLine(
       label: const Text('Επιλεγμένες Ημερομηνίες'),
-      input: Text(selectedValue.map((e) => e?.toLocal().toString()).join(', ')),
+      //input: Text(selectedValue.map((e) => e?.toLocal().toString()).join(', ')),
+      input: Text(selectedValue.map((e) => e?.toLocal().toString().substring(0, 10)).join(', ')),
       isDisabled: false,
       trailing: const UIKitIcon.asset('assets/images/url.svg'),
       onTap: (position, size) async {

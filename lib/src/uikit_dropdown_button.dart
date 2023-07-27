@@ -242,7 +242,7 @@ class UIKitDropdownButton<T> extends HookWidget {
                       DefaultTextStyle(
                         style: size$.value.labelStyle
                                 ?.copyWith(color: colorHelper.contentColor) ??
-                            TextStyle(color: colorHelper.contentColor),
+                            TextStyle(color: colorHelper.contentColor,),
                         child: label ?? const Text(''),
                       ),
                     DefaultTextStyle(

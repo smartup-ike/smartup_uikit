@@ -114,30 +114,27 @@ class UIKitDatePicker extends HookWidget {
           }
         });
       } else if (dateMustBeAfter != null && dateMustBeBefore != null) {
-        if(dateMustBeAfter!.year==dateMustBeBefore!.year && dateMustBeBefore!.year == year$.value)
-          {
-            monthsMap.forEach((key, value) {
-              if (key >= dateMustBeAfter!.month && key <= dateMustBeBefore!.month) {
-                temp[key] = value;
-              }
-            });
-          }
-        else if(dateMustBeAfter!.year==year$.value)
-          {
-            monthsMap.forEach((key, value) {
-              if (key >= dateMustBeAfter!.month) {
-                temp[key] = value;
-              }
-            });
-          }
-        else{
+        if (dateMustBeAfter!.year == dateMustBeBefore!.year &&
+            dateMustBeBefore!.year == year$.value) {
+          monthsMap.forEach((key, value) {
+            if (key >= dateMustBeAfter!.month &&
+                key <= dateMustBeBefore!.month) {
+              temp[key] = value;
+            }
+          });
+        } else if (dateMustBeAfter!.year == year$.value) {
+          monthsMap.forEach((key, value) {
+            if (key >= dateMustBeAfter!.month) {
+              temp[key] = value;
+            }
+          });
+        } else {
           monthsMap.forEach((key, value) {
             if (key <= dateMustBeBefore!.month) {
               temp[key] = value;
             }
           });
         }
-
       } else {
         monthsMap.forEach((key, value) {
           if (key <= dateMustBeBefore!.month) {
@@ -171,8 +168,10 @@ class UIKitDatePicker extends HookWidget {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             child: Column(
               children: [
-                Row(
-                  children: [Expanded(
+                Row(children: [
+                  SizedBox(width:60, child: Text("Έτος", style: UIKitTheme.of(context).typography.body2Regular,)),
+
+                  Expanded(
                     child: UIKitYearSelector(
                       dateMustBeAfter: dateMustBeAfter,
                       dateMustBeBefore: dateMustBeBefore,
@@ -186,14 +185,15 @@ class UIKitDatePicker extends HookWidget {
                   ),
                 ]),
                 const SizedBox(height: 16),
-                Row(
-                  children: [Expanded(
+                Row(children: [
+                  SizedBox(width: 60, child: Text("Μήνας", style: UIKitTheme.of(context).typography.body2Regular,)),
+                  Expanded(
                     child: UIKitMonthSelector(
                       dateMustBeAfter: dateMustBeAfter,
                       onChanged: (value) => month$.value = value!,
                       trailing: dropdownButtonTrailing,
                       itemTrailing: dropdownMenuItemTrailing,
-                      monthsMap$: availableMonthsMap$,
+                      monthsMap: availableMonthsMap$.value,
                     ),
                   ),
                 ]),

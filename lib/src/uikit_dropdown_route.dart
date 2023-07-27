@@ -10,6 +10,7 @@ class UIKitDropdownRoute<T> extends PopupRoute<T> {
     required this.position,
     required this.size,
   });
+
   @override
   Color? get barrierColor => Colors.transparent;
 

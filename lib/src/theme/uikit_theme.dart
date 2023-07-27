@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smartup_uikit/src/theme/uikit_checkbox_theme_data.dart';
 import '../../smartup_uikit.dart';
 
 class UIKitTheme extends StatelessWidget {
