@@ -11,7 +11,10 @@ class DropDownMenuPage extends HookWidget {
       1: "Option 1",
       2: "Option 2",
       3: "Option 3",
-      4: "Option 4"
+      4: "Option 4",
+      5: "Option 5",
+      6: "Option 6",
+      7: "Option 7",
     };
     final text$ = useState("Please pick an Option");
     final selectedValue$ = useState(1);

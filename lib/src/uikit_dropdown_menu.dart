@@ -63,8 +63,8 @@ class UIKitDropdownMenu<T> extends HookWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          width: size$.value.width,
-          height: size$.value.height,
+          //width: size$.value.width,
+          //height: size$.value.height,
           decoration: BoxDecoration(
             color: colors$.value.defaultBackgroundColor,
             border: Border.all(
@@ -76,6 +76,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (hasSearchBar == true)
                 Padding(

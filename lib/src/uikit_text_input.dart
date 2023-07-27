@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_sizes.dart';
@@ -12,7 +13,7 @@ import 'helpers/uikit_shadow_scheme.dart';
 import 'helpers/uikit_size_scheme.dart';
 import 'theme/uikit_theme.dart';
 
-enum TextInputType { input, search }
+enum UIKitTextInputType { input, search }
 
 class UIKitTextInput extends HookWidget {
   const UIKitTextInput({
@@ -33,6 +34,10 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.styleType,
     this.inputType,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : assert(
           styleType == null && inputType == null,
           'styleType and inputType must be null. If you want to set them use the named constructors instead',
@@ -58,8 +63,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
-        inputType = TextInputType.input,
+        inputType = UIKitTextInputType.input,
         size = UIKitSizes.small,
         onSubmitted = null;
 
@@ -78,8 +87,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
-        inputType = TextInputType.input,
+        inputType = UIKitTextInputType.input,
         size = UIKitSizes.small,
         onSubmitted = null;
 
@@ -96,8 +109,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
-        inputType = TextInputType.search,
+        inputType = UIKitTextInputType.search,
         size = UIKitSizes.small,
         label = null,
         errorIcon = null,
@@ -116,8 +133,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
-        inputType = TextInputType.search,
+        inputType = UIKitTextInputType.search,
         size = UIKitSizes.small,
         label = null,
         errorIcon = null,
@@ -138,8 +159,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
-        inputType = TextInputType.input,
+        inputType = UIKitTextInputType.input,
         size = UIKitSizes.medium,
         onSubmitted = null;
 
@@ -158,8 +183,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
-        inputType = TextInputType.input,
+        inputType = UIKitTextInputType.input,
         size = UIKitSizes.medium,
         onSubmitted = null;
 
@@ -176,8 +205,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
-        inputType = TextInputType.search,
+        inputType = UIKitTextInputType.search,
         size = UIKitSizes.medium,
         label = null,
         errorIcon = null,
@@ -196,8 +229,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
-        inputType = TextInputType.search,
+        inputType = UIKitTextInputType.search,
         size = UIKitSizes.medium,
         label = null,
         errorIcon = null,
@@ -218,8 +255,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
-        inputType = TextInputType.input,
+        inputType = UIKitTextInputType.input,
         size = UIKitSizes.large,
         onSubmitted = null;
 
@@ -238,8 +279,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
-        inputType = TextInputType.input,
+        inputType = UIKitTextInputType.input,
         size = UIKitSizes.large,
         onSubmitted = null;
 
@@ -256,8 +301,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
-        inputType = TextInputType.search,
+        inputType = UIKitTextInputType.search,
         size = UIKitSizes.large,
         label = null,
         errorIcon = null,
@@ -276,8 +325,12 @@ class UIKitTextInput extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
+    this.textInputAction,
+    this.autofillHints,
+    this.keyboardType,
+    this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
-        inputType = TextInputType.search,
+        inputType = UIKitTextInputType.search,
         size = UIKitSizes.large,
         label = null,
         errorIcon = null,
@@ -336,11 +389,23 @@ class UIKitTextInput extends HookWidget {
 
   /// Must be null. Use named constructors to set the inputType to either
   /// filled or line.
-  final TextInputType? inputType;
+  final UIKitTextInputType? inputType;
 
   /// [UIKitSizes] determining the size that this widget gets from theme.
   /// Must be null by default. Use named constructors to set its value instead.
   final UIKitSizes? size;
+
+  /// This changes what the keyboard main button will do.
+  final TextInputAction? textInputAction;
+
+  /// Type of keyboard. Email, phone, etc.
+  final TextInputType? keyboardType;
+
+  /// Hints for the user.
+  final List<String>? autofillHints;
+
+  /// Provides as-you-type validation and formatting of the text being edited.
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -533,6 +598,10 @@ class UIKitTextInput extends HookWidget {
                           focusNode: focusNode,
                           onSubmitted: onSubmitted,
                           onChanged: onChanged,
+                          keyboardType: keyboardType,
+                          textInputAction: textInputAction,
+                          autofillHints: autofillHints,
+                          inputFormatters: inputFormatters,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
@@ -591,13 +660,13 @@ class UIKitTextInput extends HookWidget {
   UIKitColorScheme findColors(UIKitTextInputThemeData themeData) {
     UIKitColorScheme colorScheme;
 
-    if (inputType == TextInputType.input &&
+    if (inputType == UIKitTextInputType.input &&
         styleType == TextInputStyleType.filled) {
       colorScheme = themeData.filledInputColorScheme;
-    } else if (inputType == TextInputType.input &&
+    } else if (inputType == UIKitTextInputType.input &&
         styleType == TextInputStyleType.line) {
       colorScheme = themeData.lineInputColorScheme;
-    } else if (inputType == TextInputType.search &&
+    } else if (inputType == UIKitTextInputType.search &&
         styleType == TextInputStyleType.filled) {
       colorScheme = themeData.filledSearchColorScheme;
     } else {
@@ -612,13 +681,13 @@ class UIKitTextInput extends HookWidget {
 
     switch (size) {
       case UIKitSizes.small:
-        if (inputType == TextInputType.input &&
+        if (inputType == UIKitTextInputType.input &&
             styleType == TextInputStyleType.filled) {
           sizeScheme = themeData.smallFilledInputSizeScheme;
-        } else if (inputType == TextInputType.input &&
+        } else if (inputType == UIKitTextInputType.input &&
             styleType == TextInputStyleType.line) {
           sizeScheme = themeData.smallLineInputSizeScheme;
-        } else if (inputType == TextInputType.search &&
+        } else if (inputType == UIKitTextInputType.search &&
             styleType == TextInputStyleType.filled) {
           sizeScheme = themeData.smallFilledSearchSizeScheme;
         } else {
@@ -626,13 +695,13 @@ class UIKitTextInput extends HookWidget {
         }
         break;
       case UIKitSizes.medium:
-        if (inputType == TextInputType.input &&
+        if (inputType == UIKitTextInputType.input &&
             styleType == TextInputStyleType.filled) {
           sizeScheme = themeData.mediumFilledInputSizeScheme;
-        } else if (inputType == TextInputType.input &&
+        } else if (inputType == UIKitTextInputType.input &&
             styleType == TextInputStyleType.line) {
           sizeScheme = themeData.mediumLineInputSizeScheme;
-        } else if (inputType == TextInputType.search &&
+        } else if (inputType == UIKitTextInputType.search &&
             styleType == TextInputStyleType.filled) {
           sizeScheme = themeData.mediumFilledSearchSizeScheme;
         } else {
@@ -640,13 +709,13 @@ class UIKitTextInput extends HookWidget {
         }
         break;
       default:
-        if (inputType == TextInputType.input &&
+        if (inputType == UIKitTextInputType.input &&
             styleType == TextInputStyleType.filled) {
           sizeScheme = themeData.largeFilledInputSizeScheme;
-        } else if (inputType == TextInputType.input &&
+        } else if (inputType == UIKitTextInputType.input &&
             styleType == TextInputStyleType.line) {
           sizeScheme = themeData.largeLineInputSizeScheme;
-        } else if (inputType == TextInputType.search &&
+        } else if (inputType == UIKitTextInputType.search &&
             styleType == TextInputStyleType.filled) {
           sizeScheme = themeData.largeFilledSearchSizeScheme;
         } else {
@@ -661,13 +730,13 @@ class UIKitTextInput extends HookWidget {
   UIKitShadowScheme findShadows(UIKitTextInputThemeData themeData) {
     UIKitShadowScheme shadowScheme;
 
-    if (inputType == TextInputType.input &&
+    if (inputType == UIKitTextInputType.input &&
         styleType == TextInputStyleType.filled) {
       shadowScheme = themeData.filledInputShadowScheme;
-    } else if (inputType == TextInputType.input &&
+    } else if (inputType == UIKitTextInputType.input &&
         styleType == TextInputStyleType.line) {
       shadowScheme = themeData.lineInputShadowScheme;
-    } else if (inputType == TextInputType.search &&
+    } else if (inputType == UIKitTextInputType.search &&
         styleType == TextInputStyleType.filled) {
       shadowScheme = themeData.filledSearchShadowScheme;
     } else {
