@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/smartup_uikit.dart';
 import '../uikit_dropdown_button.dart';
 import '../uikit_dropdown_menu.dart';
 import '../uikit_dropdown_route.dart';
@@ -85,6 +86,7 @@ class MonthDialog extends HookWidget {
       options: values$.value,
       labels: labels$.value,
       hasSearchBar: false,
+      //sizeScheme: UIKitSizeScheme(height: 400),
     );
   }
 }

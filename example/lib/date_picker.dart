@@ -34,8 +34,8 @@ class DatePicker extends HookWidget {
                   width: 400,
                   child: DateSelector(
                     onChanged: (value) => selectRange(value),
-                    dateMustBeAfter: DateTime.now(),
-                    dateMustBeBefore: DateTime.now().add(const Duration(days: 60)),
+                    // dateMustBeAfter: DateTime.now(),
+                    //dateMustBeBefore: DateTime.now().add(const Duration(days: 60)),
                   ),
                 ),
               ],
