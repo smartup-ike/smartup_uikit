@@ -56,7 +56,7 @@ class DropDownMenuPage extends HookWidget {
             const SizedBox(height: 20),
             SizedBox(
               width: 400,
-              child: UIKitDropdownButton.mediumFilled(
+              child: UIKitDropdownButton.largeLine(
                 label: const Text("Pick an Option"),
                 input: Text(selectedValue$.value.toString()),
                 isDisabled: false,

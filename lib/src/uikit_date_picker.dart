@@ -169,6 +169,8 @@ class UIKitDatePicker extends HookWidget {
             child: Column(
               children: [
                 Row(children: [
+                  SizedBox(width:60, child: Text("Έτος", style: UIKitTheme.of(context).typography.body2Regular,)),
+
                   Expanded(
                     child: UIKitYearSelector(
                       dateMustBeAfter: dateMustBeAfter,
@@ -184,6 +186,7 @@ class UIKitDatePicker extends HookWidget {
                 ]),
                 const SizedBox(height: 16),
                 Row(children: [
+                  SizedBox(width: 60, child: Text("Μήνας", style: UIKitTheme.of(context).typography.body2Regular,)),
                   Expanded(
                     child: UIKitMonthSelector(
                       dateMustBeAfter: dateMustBeAfter,
