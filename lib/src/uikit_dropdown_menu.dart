@@ -106,6 +106,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
                                       ? currentValue$.value.add(options[i])
                                       : currentValue$.value.first = options[i];
                                   onChange.call(currentValue$.value);
+                                  Navigator.of(context).pop(options[i]);
                                 },
                           multiselect: multiselect,
                           isSelected: currentValue$.value.contains(options[i]),

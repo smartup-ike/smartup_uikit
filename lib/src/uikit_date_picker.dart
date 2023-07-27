@@ -193,7 +193,7 @@ class UIKitDatePicker extends HookWidget {
                       onChanged: (value) => month$.value = value!,
                       trailing: dropdownButtonTrailing,
                       itemTrailing: dropdownMenuItemTrailing,
-                      monthsMap$: availableMonthsMap$,
+                      monthsMap: availableMonthsMap$.value,
                     ),
                   ),
                 ]),
