@@ -38,6 +38,9 @@ class UIKitDatePicker extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Direction is used to detect the swipe detection on the calendar.
+    String direction = '';
+
     // If the user gave as limits for the acceptable dates the we change the values of year$ and month$ to the beginning of the limit.
     // This is done so the calendar starts on the first month the user is allowed to select.
     final year$ = useState<int>(
@@ -233,82 +236,113 @@ class UIKitDatePicker extends HookWidget {
                         : month$.value = 12;
                   },
                 ),
-              Table(
-                defaultColumnWidth: const FixedColumnWidth(50),
-                border: TableBorder.symmetric(
-                  inside: BorderSide.none,
-                  outside: BorderSide.none,
-                ),
-                children: List.generate(
-                  // For the calendarButtons the dimension needed was 6 : 5. Since i added day labels i changed it to 7 : 6.
-                  isSixWeekMonth(year$.value, month$.value) ? 7 : 6,
-                  (rowIndex) {
-                    if (rowIndex == 0) {
-                      List<String> days = ["Δ", "Τ", "Τ", "Π", "Π", "Σ", "Κ"];
-                      return TableRow(
-                          children: List.generate(7, (index) {
-                        return MediaQuery(
-                          data: MediaQuery.of(context).copyWith(
-                            textScaleFactor: 1,
-                          ),
-                          child: TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: Center(
-                                child: Text(
-                                  days[index],
-                                  style: UIKitTheme.of(context)
-                                      .typography
-                                      .headings4Regular
-                                      ?.copyWith(
-                                        color: Colors.black,
-                                      ),
+              GestureDetector(
+                onPanEnd: (details) {
+                  if(!kIsWeb){
+                    if (direction == 'right') {
+                      month$.value > 1
+                          ? month$.value = month$.value - 1
+                          : month$.value = 12;
+                    }
+                    if (direction == 'left' ) {
+                      month$.value < 12
+                          ? month$.value = month$.value + 1
+                          : month$.value = 1;
+                    }
+                  }
+                },
+                onPanUpdate: (details) {
+                  // Swiping in right direction.
+                  if (details.delta.dx > 0) {
+                    direction = 'right';
+                  }
+
+                  // Swiping in left direction.
+                  if (details.delta.dx < 0) {
+                    direction = 'left';
+                  }
+                },
+                child: Table(
+                  defaultColumnWidth: const FixedColumnWidth(50),
+                  border: TableBorder.symmetric(
+                    inside: BorderSide.none,
+                    outside: BorderSide.none,
+                  ),
+                  children: List.generate(
+                    // For the calendarButtons the dimension needed was 6 : 5. Since i added day labels i changed it to 7 : 6.
+                    isSixWeekMonth(year$.value, month$.value) ? 7 : 6,
+                    (rowIndex) {
+                      if (rowIndex == 0) {
+                        List<String> days = ["Δ", "Τ", "Τ", "Π", "Π", "Σ", "Κ"];
+                        return TableRow(
+                          children: List.generate(
+                            7,
+                            (index) {
+                              return MediaQuery(
+                                data: MediaQuery.of(context).copyWith(
+                                  textScaleFactor: 1,
                                 ),
-                              ),
-                            ),
+                                child: TableCell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: Center(
+                                      child: Text(
+                                        days[index],
+                                        style: UIKitTheme.of(context)
+                                            .typography
+                                            .headings4Regular
+                                            ?.copyWith(
+                                              color: Colors.black,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         );
-                      },),);
-                    }
-                    return TableRow(
-                      children: List.generate(
-                        7,
-                        (columnIndex) {
-                          if (!(rowIndex == 1 && columnIndex == 0)) {
-                            date = date.add(const Duration(days: 1));
-                          }
-                          return MediaQuery(
-                            data: MediaQuery.of(context).copyWith(
-                              textScaleFactor: 1,
-                            ),
-                            child: TableCell(
-                              verticalAlignment:
-                                  TableCellVerticalAlignment.middle,
-                              child: Padding(
-                                padding: const EdgeInsets.all(2),
-                                child: UIKitCalendarButton(
-                                  date: date,
-                                  isSelected:
-                                      selectedDates$.value.contains(date),
-                                  isBetweenSelected: isRangePicker
-                                      ? selectedDates$.value.contains(null)
-                                          ? false
-                                          : date.isAfter(
-                                                selectedDates$.value.first!,
-                                              ) &&
-                                              date.isBefore(
-                                                selectedDates$.value.last!,
-                                              )
-                                      : false,
-                                  onTap: calendarButtonOnTap(),
+                      }
+                      return TableRow(
+                        children: List.generate(
+                          7,
+                          (columnIndex) {
+                            if (!(rowIndex == 1 && columnIndex == 0)) {
+                              date = date.add(const Duration(days: 1));
+                            }
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(
+                                textScaleFactor: 1,
+                              ),
+                              child: TableCell(
+                                verticalAlignment:
+                                    TableCellVerticalAlignment.middle,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2),
+                                  child: UIKitCalendarButton(
+                                    date: date,
+                                    isSelected:
+                                        selectedDates$.value.contains(date),
+                                    isBetweenSelected: isRangePicker
+                                        ? selectedDates$.value.contains(null)
+                                            ? false
+                                            : date.isAfter(
+                                                  selectedDates$.value.first!,
+                                                ) &&
+                                                date.isBefore(
+                                                  selectedDates$.value.last!,
+                                                )
+                                        : false,
+                                    onTap: calendarButtonOnTap(),
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               // We only want the buttons to be available on web platforms.
