@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
-import '../uikit_dropdown_button.dart';
-import '../uikit_dropdown_menu.dart';
-import '../uikit_dropdown_route.dart';
 
 class UIKitMonthSelector extends HookWidget {
   const UIKitMonthSelector({
@@ -13,6 +10,7 @@ class UIKitMonthSelector extends HookWidget {
     this.itemTrailing,
     this.dateMustBeAfter,
     required this.monthsMap,
+    this.initialValue,
   });
 
   final ValueChanged<int?> onChanged;
@@ -22,24 +20,27 @@ class UIKitMonthSelector extends HookWidget {
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeAfter;
   final Map<int, String> monthsMap;
+  final int? initialValue;
 
   @override
   Widget build(BuildContext context) {
     // If the user specified a limit then we make the calendar start at the month at the beginning of the limit.
     // Otherwise the calendar will start at the current month.
-    final ValueNotifier<int?> selectedValue$ = useState(dateMustBeAfter != null
+    int? selectedValue$ = dateMustBeAfter != null
         ? dateMustBeAfter!.month
-        : DateTime.now().month);
+        : initialValue;
+
+    print(selectedValue$);
 
     return UIKitDropdownButton.largeFilled(
-      input: Text(monthsMap[selectedValue$.value] ?? ''),
+      input: Text(monthsMap[selectedValue$] ?? ''),
       isDisabled: false,
       trailing: trailing ?? const SizedBox(),
       onTap: (position, size) async {
-        selectedValue$.value = await Navigator.of(context).push<int?>(
+        selectedValue$ = await Navigator.of(context).push<int?>(
               UIKitDropdownRoute(
                 child: MonthDialog(
-                  initialValue: selectedValue$.value,
+                  initialValue: selectedValue$,
                   itemTrailing: itemTrailing,
                   monthsMap: monthsMap,
                 ),
@@ -47,8 +48,8 @@ class UIKitMonthSelector extends HookWidget {
                 size: size,
               ),
             ) ??
-            selectedValue$.value;
-        onChanged.call(selectedValue$.value);
+            selectedValue$;
+        onChanged.call(selectedValue$);
         return;
       },
     );
