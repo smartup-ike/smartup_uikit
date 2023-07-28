@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartup_uikit/smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 import 'helpers/uikit_color_scheme.dart';
 import 'helpers/uikit_shadow_scheme.dart';
@@ -168,35 +169,51 @@ class UIKitDatePicker extends HookWidget {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             child: Column(
               children: [
-                Row(children: [
-                  SizedBox(width:60, child: Text("Έτος", style: UIKitTheme.of(context).typography.body2Regular,)),
-
-                  Expanded(
-                    child: UIKitYearSelector(
-                      dateMustBeAfter: dateMustBeAfter,
-                      dateMustBeBefore: dateMustBeBefore,
-                      onChanged: (value) {
-                        year$.value = value!;
-                        availableMonthsMap$.value = availableMonthsMap();
-                      },
-                      trailing: dropdownButtonTrailing,
-                      itemTrailing: dropdownMenuItemTrailing,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 60,
+                      child: Text(
+                        "Έτος",
+                        style: UIKitTheme.of(context).typography.body2Regular,
+                      ),
                     ),
-                  ),
-                ]),
+                    Expanded(
+                      child: UIKitYearSelector(
+                        dateMustBeAfter: dateMustBeAfter,
+                        dateMustBeBefore: dateMustBeBefore,
+                        onChanged: (value) {
+                          year$.value = value!;
+                          availableMonthsMap$.value = availableMonthsMap();
+                        },
+                        trailing: dropdownButtonTrailing,
+                        itemTrailing: dropdownMenuItemTrailing,
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 16),
-                Row(children: [
-                  SizedBox(width: 60, child: Text("Μήνας", style: UIKitTheme.of(context).typography.body2Regular,)),
-                  Expanded(
-                    child: UIKitMonthSelector(
-                      dateMustBeAfter: dateMustBeAfter,
-                      onChanged: (value) => month$.value = value!,
-                      trailing: dropdownButtonTrailing,
-                      itemTrailing: dropdownMenuItemTrailing,
-                      monthsMap: availableMonthsMap$.value,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 60,
+                      child: Text(
+                        "Μήνας",
+                        style: UIKitTheme.of(context).typography.body2Regular,
+                      ),
                     ),
-                  ),
-                ]),
+                    Expanded(
+                      child: UIKitMonthSelector(
+                        initialValue: month$.value,
+                        dateMustBeAfter: dateMustBeAfter,
+                        onChanged: (value) => month$.value = value!,
+                        trailing: dropdownButtonTrailing,
+                        itemTrailing: dropdownMenuItemTrailing,
+                        monthsMap: availableMonthsMap$.value,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -246,7 +263,7 @@ class UIKitDatePicker extends HookWidget {
                       children: List.generate(
                         7,
                         (columnIndex) {
-                          if (!(rowIndex == 0 && columnIndex == 0)) {
+                          if (!(rowIndex == 1 && columnIndex == 0)) {
                             date = date.add(const Duration(days: 1));
                           }
                           return MediaQuery(
