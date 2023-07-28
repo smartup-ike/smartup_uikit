@@ -10,6 +10,7 @@ import 'helpers/uikit_calendar_button.dart';
 import 'helpers/uikit_month_selector.dart';
 import 'helpers/uikit_year_selector.dart';
 import 'uikit_button.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
@@ -222,6 +223,16 @@ class UIKitDatePicker extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
+              // We only want the buttons to be available on web platforms.
+              if (kIsWeb)
+                UIKitIconButton.mediumGhost(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onTap: () {
+                    month$.value > 1
+                        ? month$.value = month$.value - 1
+                        : month$.value = 12;
+                  },
+                ),
               Table(
                 defaultColumnWidth: const FixedColumnWidth(50),
                 border: TableBorder.symmetric(
@@ -257,7 +268,7 @@ class UIKitDatePicker extends HookWidget {
                             ),
                           ),
                         );
-                      }));
+                      },),);
                     }
                     return TableRow(
                       children: List.generate(
@@ -300,6 +311,16 @@ class UIKitDatePicker extends HookWidget {
                   },
                 ),
               ),
+              // We only want the buttons to be available on web platforms.
+              if (kIsWeb)
+                UIKitIconButton.mediumGhost(
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    month$.value < 12
+                        ? month$.value = month$.value + 1
+                        : month$.value = 1;
+                  },
+                ),
             ],
           ),
           if (isRangePicker) ...[
