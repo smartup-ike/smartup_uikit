@@ -8,7 +8,7 @@ class DropDownMenuPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final optionsMap = {
-      1: "Option 1",
+      0000: "Option 0000",
       2: "Option 2",
       3: "Option 3",
       4: "Option 4",
@@ -19,23 +19,23 @@ class DropDownMenuPage extends HookWidget {
       9: "Option 2",
       10: "Option 3",
       11: "Option 4",
-      // 12: "Option 5",
-      // 13: "Option 6",
-      // 14: "Option 7",
-      // 15: "Option 1",
-      // 16: "Option 2",
-      // 17: "Option 3",
-      // 18: "Option 4",
-      // 19: "Option 5",
-      // 20: "Option 6",
-      // 21: "Option 7",
-      // 22: "Option 1",
-      // 23: "Option 2",
-      // 24: "Option 3",
-      // 25: "Option 4",
-      // 26: "Option 5",
-      // 27: "Option 6",
-      // 28: "Option 7",
+      12: "Option 5",
+      13: "Option 6",
+      14: "Option 7",
+      15: "Option 1",
+      16: "Option 2",
+      17: "Option 3",
+      18: "Option 4",
+      19: "Option 5",
+      20: "Option 6",
+      21: "Option 7",
+      22: "Option 1",
+      23: "Option 2",
+      24: "Option 3",
+      25: "Option 4",
+      26: "Option 5",
+      27: "Option 6",
+      9999: "Option 9999",
     };
     final text$ = useState("Please pick an Option");
     final selectedValue$ = useState(1);
@@ -106,6 +106,8 @@ class OptionsSelectorDialog extends HookWidget {
       value: [selectedValue$.value],
       onChange: (newValue) => selectedValue$.value = newValue.first,
       multiselect: false,
+      hasSearchBar: true,
+      searchOnChange: (searchText) {},
       itemTrailing: const Icon(Icons.add_circle),
       actions: [
         UIKitButton.smallOutline(

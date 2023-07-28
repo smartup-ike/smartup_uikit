@@ -30,8 +30,6 @@ class UIKitMonthSelector extends HookWidget {
         ? dateMustBeAfter!.month
         : initialValue;
 
-    print(selectedValue$);
-
     return UIKitDropdownButton.largeFilled(
       input: Text(monthsMap[selectedValue$] ?? ''),
       isDisabled: false,

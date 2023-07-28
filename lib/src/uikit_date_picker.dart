@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
-import 'helpers/uikit_color_scheme.dart';
-import 'helpers/uikit_shadow_scheme.dart';
-import 'helpers/uikit_size_scheme.dart';
-import 'theme/uikit_theme.dart';
 import 'helpers/uikit_calendar_button.dart';
 import 'helpers/uikit_month_selector.dart';
 import 'helpers/uikit_year_selector.dart';
-import 'uikit_button.dart';
+
 
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
