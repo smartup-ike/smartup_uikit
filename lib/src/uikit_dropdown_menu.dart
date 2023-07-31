@@ -85,7 +85,9 @@ class UIKitDropdownMenu<T> extends HookWidget {
                     shrinkWrap: options.length < 20,
                     padding: size$.value.padding,
                     children: [
-                      const SizedBox(height: 30),
+                      (hasSearchBar != null && hasSearchBar == true)
+                          ? const SizedBox(height: 30)
+                          : const SizedBox(),
                       for (int i = 0; i < options.length; i++) ...[
                         UIKitDropdownMenuItem<T>(
                           label: labels[i],
@@ -110,7 +112,9 @@ class UIKitDropdownMenu<T> extends HookWidget {
                         ),
                         const SizedBox(height: 4),
                       ],
-                      const SizedBox(height: 45),
+                      actions.isNotEmpty
+                          ? const SizedBox(height: 45)
+                          : const SizedBox(),
                     ],
                   ),
                   if (hasSearchBar == true)
@@ -123,6 +127,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
                     ),
                 ],
               ),
+              actions.isNotEmpty ?
               SizedBox(
                 height: 55,
                 width: double.infinity,
@@ -141,7 +146,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
                     ),
                   ),
                 ),
-              ),
+              ): const SizedBox(),
             ],
           ),
         ),
