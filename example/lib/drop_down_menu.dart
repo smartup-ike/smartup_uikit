@@ -7,36 +7,36 @@ class DropDownMenuPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final optionsMap = {
-      1: "Option 1",
+    final optionsMap$ = useState({
+      0000: "Option 0000",
       2: "Option 2",
       3: "Option 3",
       4: "Option 4",
       5: "Option 5",
       6: "Option 6",
       7: "Option 7",
-      8: "Option 1",
-      9: "Option 2",
-      10: "Option 3",
-      11: "Option 4",
-      // 12: "Option 5",
-      // 13: "Option 6",
-      // 14: "Option 7",
-      // 15: "Option 1",
-      // 16: "Option 2",
-      // 17: "Option 3",
-      // 18: "Option 4",
-      // 19: "Option 5",
-      // 20: "Option 6",
-      // 21: "Option 7",
-      // 22: "Option 1",
-      // 23: "Option 2",
-      // 24: "Option 3",
-      // 25: "Option 4",
-      // 26: "Option 5",
-      // 27: "Option 6",
-      // 28: "Option 7",
-    };
+      8: "Option 8",
+      9: "Option 9",
+      10: "Option 10",
+      11: "Option 11",
+      12: "Option 12",
+      13: "Option 13",
+      14: "Option 14",
+      15: "Option 15",
+      16: "Option 16",
+      17: "Option 17",
+      18: "Option 18",
+      19: "Option 19",
+      20: "Option 20",
+      21: "Option 21",
+      22: "Option 22",
+      23: "Option 23",
+      24: "Option 24",
+      25: "Option 25",
+      26: "Option 26",
+      27: "Option 27",
+      9999: "Option 9999",
+    });
     final text$ = useState("Please pick an Option");
     final selectedValue$ = useState(1);
 
@@ -66,7 +66,7 @@ class DropDownMenuPage extends HookWidget {
                         UIKitDropdownRoute(
                           child: OptionsSelectorDialog(
                             initialValue: selectedValue$.value,
-                            optionsMap: optionsMap,
+                            optionsMap: optionsMap$.value,
                           ),
                           position: position,
                           size: size,
@@ -88,17 +88,18 @@ class DropDownMenuPage extends HookWidget {
 }
 
 class OptionsSelectorDialog extends HookWidget {
-  const OptionsSelectorDialog({
+  OptionsSelectorDialog({
     super.key,
     this.initialValue,
-    this.optionsMap,
+    required this.optionsMap,
   });
 
   final int? initialValue;
-  final Map<int, String>? optionsMap;
+  Map<int, String>? optionsMap;
 
   @override
   Widget build(BuildContext context) {
+    final optionsToShow$ = useState(optionsMap);
     final selectedValue$ = useState(initialValue);
 
     return UIKitDropdownMenu<int?>(
@@ -106,6 +107,14 @@ class OptionsSelectorDialog extends HookWidget {
       value: [selectedValue$.value],
       onChange: (newValue) => selectedValue$.value = newValue.first,
       multiselect: false,
+      hasSearchBar: true,
+      searchOnChange: (searchText) {
+        Map<int, String>? resultsMap =
+            optionsMap != null ? Map.of(optionsMap!) : {};
+        resultsMap?.removeWhere(
+            (key, value) => !(key.toString().contains(searchText)));
+        optionsToShow$.value = resultsMap;
+      },
       itemTrailing: const Icon(Icons.add_circle),
       actions: [
         UIKitButton.smallOutline(
@@ -118,10 +127,10 @@ class OptionsSelectorDialog extends HookWidget {
           onTap: () => Navigator.of(context).pop(selectedValue$.value),
         ),
       ],
-      options: optionsMap!.keys.toList(),
+      options: optionsToShow$.value!.keys.toList(),
       labels: List.generate(
-        optionsMap!.keys.toList().length,
-        (index) => Text(optionsMap!.values.toList()[index]),
+        optionsToShow$.value!.keys.toList().length,
+        (index) => Text(optionsToShow$.value!.values.toList()[index]),
       ),
     );
   }
