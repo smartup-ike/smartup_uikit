@@ -1046,7 +1046,7 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       ],
     ),
     lineSearchColorScheme: UIKitColorScheme(
-      defaultBackgroundColor: Colors.transparent,
+      defaultBackgroundColor: ExampleColors.secondaryW,
       defaultBorderColor: ExampleColors.secondary200,
       defaultContentColor: ExampleColors.secondaryK,
       defaultSecondaryContentColor: ExampleColors.secondary700,
