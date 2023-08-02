@@ -194,7 +194,9 @@ class UIKitTab extends HookWidget {
                 : Border(
                     bottom: BorderSide(
                       color: colorHelper.borderColor ?? Colors.transparent,
-                      width: size$.value.borderSize ?? 1,
+                      width: isActive==true
+                          ? (size$.value.borderSize ?? 1) * 2
+                          : size$.value.borderSize ?? 1,
                     ),
                   ),
           ),

@@ -63,6 +63,7 @@ class UIKitDropdownMenu<T> extends HookWidget {
     return Material(
       child: SafeArea(
         child: Container(
+          padding: size$.value.padding,
           width: size$.value.width,
           height: size$.value.height,
           decoration: BoxDecoration(
@@ -74,57 +75,78 @@ class UIKitDropdownMenu<T> extends HookWidget {
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             boxShadow: shadows$.value.defaultShadow,
           ),
-          child: ListView(
-            shrinkWrap: options.length < 20,
-            padding: size$.value.padding,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              if (hasSearchBar == true)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: UIKitTextInput.mediumLineSearch(
-                    onChanged: searchOnChange,
-                    controller: searchController,
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  ListView(
+                    shrinkWrap: options.length < 20,
+                    padding: size$.value.padding,
+                    children: [
+                      (hasSearchBar != null && hasSearchBar == true)
+                          ? const SizedBox(height: 30)
+                          : const SizedBox(),
+                      for (int i = 0; i < options.length; i++) ...[
+                        UIKitDropdownMenuItem<T>(
+                          label: labels[i],
+                          value: options[i],
+                          onTap: multiselect
+                              ? () {
+                                  currentValue$.value.contains(options[i])
+                                      ? currentValue$.value.remove(options[i])
+                                      : currentValue$.value.add(options[i]);
+                                  onChange.call(currentValue$.value);
+                                }
+                              : () {
+                                  currentValue$.value.isEmpty
+                                      ? currentValue$.value.add(options[i])
+                                      : currentValue$.value.first = options[i];
+                                  onChange.call(currentValue$.value);
+                                  Navigator.of(context).pop(options[i]);
+                                },
+                          multiselect: multiselect,
+                          isSelected: currentValue$.value.contains(options[i]),
+                          trailing: multiselect ? null : itemTrailing,
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+                      actions.isNotEmpty
+                          ? const SizedBox(height: 45)
+                          : const SizedBox(),
+                    ],
                   ),
-                ),
-              for (int i = 0; i < options.length; i++) ...[
-                UIKitDropdownMenuItem<T>(
-                  label: labels[i],
-                  value: options[i],
-                  onTap: multiselect
-                      ? () {
-                          currentValue$.value.contains(options[i])
-                              ? currentValue$.value.remove(options[i])
-                              : currentValue$.value.add(options[i]);
-                          onChange.call(currentValue$.value);
-                        }
-                      : () {
-                          currentValue$.value.isEmpty
-                              ? currentValue$.value.add(options[i])
-                              : currentValue$.value.first = options[i];
-                          onChange.call(currentValue$.value);
-                          Navigator.of(context).pop(options[i]);
-                        },
-                  multiselect: multiselect,
-                  isSelected: currentValue$.value.contains(options[i]),
-                  trailing: multiselect ? null : itemTrailing,
-                ),
-                const SizedBox(height: 4),
-              ],
-              ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(size$.value.borderRadius ?? 0),
-                child: ColoredBox(
-                  color: colors$.value.defaultBackgroundColor ?? Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: actions,
+                  if (hasSearchBar == true)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: UIKitTextInput.mediumLineSearch(
+                        onChanged: searchOnChange,
+                        controller: searchController,
+                      ),
+                    ),
+                ],
+              ),
+              actions.isNotEmpty ?
+              SizedBox(
+                height: 55,
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.circular(size$.value.borderRadius ?? 0),
+                  child: ColoredBox(
+                    color: colors$.value.defaultBackgroundColor ?? Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: actions,
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ): const SizedBox(),
             ],
           ),
         ),
