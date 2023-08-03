@@ -94,14 +94,13 @@ class OptionsSelectorDialog extends HookWidget {
   Widget build(BuildContext context) {
     final selectedValue$ = useState(initialValue);
 
-    return UIKitDropdownMenu<int?>(
-      initialValue: [initialValue],
-      value: [selectedValue$.value],
+    return UIKitDropdownMenuSingleSelect<int?>(
+      initialValue: initialValue,
+      value: selectedValue$.value,
       onChange: (newValue) {
-        selectedValue$.value = newValue.first;
+        selectedValue$.value = newValue;
         // Navigator.of(context).pop(selectedValue$.value);
       },
-      multiselect: false,
       itemTrailing: const Icon(Icons.add_circle),
       actions: [
         UIKitButton.smallOutline(

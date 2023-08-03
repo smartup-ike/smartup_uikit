@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
+
 class UIKitMonthSelector extends HookWidget {
   const UIKitMonthSelector({
     super.key,
@@ -68,7 +69,7 @@ class MonthDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<List<int?>> selectedValue$ = useState([initialValue]);
+    final ValueNotifier<int?> selectedValue$ = useState(initialValue);
     final values$ = useState(monthsMap.keys.toList());
     final labels$ = useState(
       List.generate(
@@ -77,10 +78,9 @@ class MonthDialog extends HookWidget {
       ),
     );
 
-    return UIKitDropdownMenu(
+    return UIKitDropdownMenuSingleSelect(
       value: selectedValue$.value,
       onChange: (value) => selectedValue$.value = value,
-      multiselect: false,
       itemTrailing: itemTrailing,
       options: values$.value,
       labels: labels$.value,
