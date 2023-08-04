@@ -162,7 +162,7 @@ class RadioToggleAndCheckBox extends HookWidget {
                     const SizedBox(height: 30),
                     Row(
                       children: [
-                        UIKitCheckBoxListTile.withTrailing(
+                        UIKitCheckBoxListTile.mediumWithTrailing(
                           trailing: const Text("UIKitCheckBoxListTile"),
                           isChecked: check$.value,
                           onChanged: (value) {

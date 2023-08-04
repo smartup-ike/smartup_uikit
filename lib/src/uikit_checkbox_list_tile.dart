@@ -11,7 +11,7 @@ import 'helpers/uikit_shadow_scheme.dart';
 import 'theme/uikit_theme.dart';
 
 class UIKitCheckBoxListTile extends HookWidget {
-  const UIKitCheckBoxListTile.withLeading({
+  const UIKitCheckBoxListTile.smallWithLeading({
     super.key,
     this.leading,
     this.onChanged,
@@ -19,10 +19,32 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.checkBoxSize,
-  }) : trailing = null;
+  }) : checkBoxSize = UIKitSizes.small,
+        trailing = null;
 
-  const UIKitCheckBoxListTile.withTrailing({
+  const UIKitCheckBoxListTile.mediumWithLeading({
+    super.key,
+    this.leading,
+    this.onChanged,
+    required this.isChecked,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  }) : checkBoxSize = UIKitSizes.medium,
+        trailing = null;
+
+  const UIKitCheckBoxListTile.largeWithLeading({
+    super.key,
+    this.leading,
+    this.onChanged,
+    required this.isChecked,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  }) : checkBoxSize = UIKitSizes.large,
+        trailing = null;
+
+  const UIKitCheckBoxListTile.smallWithTrailing({
     super.key,
     this.trailing,
     this.onChanged,
@@ -30,8 +52,30 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.checkBoxSize,
-  }) : leading = null;
+  }) : checkBoxSize = UIKitSizes.small,
+        leading = null;
+
+  const UIKitCheckBoxListTile.mediumWithTrailing({
+    super.key,
+    this.trailing,
+    this.onChanged,
+    required this.isChecked,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  }) : checkBoxSize = UIKitSizes.medium,
+        leading = null;
+
+  const UIKitCheckBoxListTile.largeWithTrailing({
+    super.key,
+    this.trailing,
+    this.onChanged,
+    required this.isChecked,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  }) : checkBoxSize = UIKitSizes.large,
+        leading = null;
 
   /// [UIKitCheckBoxListTile] is a checkbox that can have a leading label [Widget] or a trailing label [Widget]
   ///
