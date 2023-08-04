@@ -88,14 +88,14 @@ class DropDownMenuPage extends HookWidget {
 }
 
 class OptionsSelectorDialog extends HookWidget {
-  OptionsSelectorDialog({
+  const OptionsSelectorDialog({
     super.key,
     this.initialValue,
     required this.optionsMap,
   });
 
   final int? initialValue;
-  Map<int, String>? optionsMap;
+  final Map<int, String>? optionsMap;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class OptionsSelectorDialog extends HookWidget {
       searchOnChange: (searchText) {
         Map<int, String>? resultsMap =
             optionsMap != null ? Map.of(optionsMap!) : {};
-        resultsMap?.removeWhere(
+        resultsMap.removeWhere(
             (key, value) => !(key.toString().contains(searchText)));
         optionsToShow$.value = resultsMap;
       },

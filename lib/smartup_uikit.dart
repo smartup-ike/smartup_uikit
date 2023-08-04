@@ -10,6 +10,7 @@ export 'package:smartup_uikit/src/helpers/uikit_shadow_scheme.dart';
 export 'package:smartup_uikit/src/helpers/uikit_icon_theme.dart' show UIKitIcon;
 
 // Themes
+export 'package:smartup_uikit/src/theme/uikit_toggle_switch_list_tile_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_colors.dart';
 export 'package:smartup_uikit/src/theme/uikit_typography.dart';
 export 'package:smartup_uikit/src/theme/uikit_theme.dart';

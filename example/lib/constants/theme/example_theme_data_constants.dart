@@ -220,6 +220,45 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       letterSpacing: -0.02,
     ),
   ),
+  toggleSwitchListTileThemeData: UIKitToggleSwitchListTileThemeData(
+    smallSize: UIKitSizeScheme(
+      //distance between the label and the checkbox
+      spacing: 8,
+      //with of the whole widget
+      width: 90,
+      //height of the whole widget (might include padding?)
+      height: 12,
+      //height of the checkmark
+      iconSize: 12,
+    ),
+    mediumSize: UIKitSizeScheme(
+        //distance between the label and the checkbox
+        spacing: 15,
+        //with of the whole widget
+        width: 180,
+        //height of the whole widget (might include padding?)
+        height: 24,
+        //height of the checkmark
+        iconSize: 24,
+    ),
+    largeSize: UIKitSizeScheme(
+      //distance between the label and the checkbox
+      spacing: 30,
+      //with of the whole widget
+      width: 320,
+      //height of the whole widget (might include padding?)
+      height: 48,
+      //height of the checkmark
+      iconSize: 48,
+    ),
+
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      defaultBorderColor: ExampleColors.secondaryW,
+      defaultSecondaryContentColor: ExampleColors.secondary100,
+    ),
+
+  ),
   buttonThemeData: UIKitButtonThemeData(
     primaryColors: UIKitColorScheme(
       defaultBackgroundColor: ExampleColors.primary700,
