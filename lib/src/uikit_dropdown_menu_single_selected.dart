@@ -18,7 +18,7 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
     required this.onChange,
     options = const [],
     labels = const [],
-    actions = const [],
+    actions = const <Widget> [],
     itemTrailing,
     colorScheme,
     sizeScheme,

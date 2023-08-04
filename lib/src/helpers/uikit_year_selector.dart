@@ -77,16 +77,16 @@ class YearDialog extends HookWidget {
         useState(dateMustBeBefore != null ? dateMustBeBefore!.year + 1 : 2100);
     final difference$ = useState(lastYear$.value - firstYear$.value);
 
-    final selectedValue$ = useState(initialValue);
+    final ValueNotifier<int?> selectedValue$ = useState(initialValue);
 
-    final values$ = useState(
+    final ValueNotifier<List<int>> values$ = useState(
         List.generate(difference$.value, (index) => firstYear$.value + index));
-    final labels$ = useState(List.generate(difference$.value,
+    final ValueNotifier<List<Widget>> labels$ = useState(List.generate(difference$.value,
         (index) => Text((firstYear$.value + index).toString())));
-    final labelsList$ = useState(List.generate(
+    final ValueNotifier<List<String>>labelsList$ = useState(List.generate(
         difference$.value, (index) => (firstYear$.value + index).toString()));
-    final toShowValues$ = useState(values$.value);
-    final toShowLabels$ = useState(labels$.value);
+    final ValueNotifier<List<int>> toShowValues$ = useState(values$.value);
+    final ValueNotifier<List<Widget>> toShowLabels$ = useState(labels$.value);
 
     return UIKitDropdownMenuSingleSelect(
       value: selectedValue$.value,
