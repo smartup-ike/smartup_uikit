@@ -178,7 +178,6 @@ class UIKitToggleListTile extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          alignment: Alignment.center,
           padding: size$.value.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
@@ -193,7 +192,6 @@ class UIKitToggleListTile extends HookWidget {
           height: size$.value.height,
           width: size$.value.width,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [

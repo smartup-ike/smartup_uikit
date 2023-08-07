@@ -190,7 +190,7 @@ class UIKitCheckBoxListTile extends HookWidget {
             borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
             border: Border.all(
               width: size$.value.secondarySpacing ?? 0,
-              color: colorHelper.secondaryContentColor ?? Colors.transparent,
+              color: Colors.transparent,
             ),
             boxShadow: colorHelper.shadows,
           ),
@@ -214,7 +214,7 @@ class UIKitCheckBoxListTile extends HookWidget {
                     width: size$.value.borderSize ?? 1,
                     color: colorHelper.borderColor ?? Colors.black,
                   ),
-                  color: colorHelper.backgroundColor,
+                  color: colorHelper.secondaryContentColor,
                 ),
                 height: size$.value.iconSize,
                 width: size$.value.iconSize,
@@ -225,7 +225,7 @@ class UIKitCheckBoxListTile extends HookWidget {
                           size: size$.value.iconSize,
                           color: colorHelper.contentColor,
                         )
-                      : null,
+                      : SizedBox(height: size$.value.iconSize, width: size$.value.iconSize,),
                 ),
               ),
               if (trailing != null) ...[

@@ -177,7 +177,7 @@ class RadioToggleAndCheckBox extends HookWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        UIKitToggleListTile.mediumWithTrailing(
+                        UIKitToggleListTile.largeWithTrailing(
                           trailing: const Text("UIKitToggleListTile"),
                           onTap: () {
                             toggle3$.value = !toggle3$.value;

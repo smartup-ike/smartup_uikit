@@ -8,6 +8,7 @@ class UIKitCheckBoxListTileThemeData {
   final UIKitSizeScheme mediumSize;
   final UIKitSizeScheme largeSize;
   final UIKitShadowScheme primaryShadows;
+  final UIKitColorScheme secondaryColors;
 
   const UIKitCheckBoxListTileThemeData.raw({
     required this.primaryColors,
@@ -15,10 +16,12 @@ class UIKitCheckBoxListTileThemeData {
     required this.mediumSize,
     required this.largeSize,
     required this.primaryShadows,
+    required this.secondaryColors,
   });
 
   factory UIKitCheckBoxListTileThemeData({
     UIKitColorScheme? primaryColors,
+    UIKitColorScheme? secondaryColors,
     UIKitSizeScheme? smallSize,
     UIKitSizeScheme? mediumSize,
     UIKitSizeScheme? largeSize,
@@ -26,6 +29,7 @@ class UIKitCheckBoxListTileThemeData {
   }) {
     // Sets default color schemes.
     primaryColors ??= UIKitColorScheme.defaultScheme();
+    secondaryColors ??= UIKitColorScheme.defaultScheme();
     smallSize ??= UIKitSizeScheme.defaultScheme();
     mediumSize ??= UIKitSizeScheme.defaultScheme();
     largeSize ??= UIKitSizeScheme.defaultScheme();
@@ -33,6 +37,7 @@ class UIKitCheckBoxListTileThemeData {
 
     return UIKitCheckBoxListTileThemeData.raw(
       primaryColors: primaryColors,
+      secondaryColors: secondaryColors,
       smallSize: smallSize,
       mediumSize: mediumSize,
       largeSize: largeSize,
@@ -42,6 +47,7 @@ class UIKitCheckBoxListTileThemeData {
 
   UIKitCheckBoxListTileThemeData copyWith({
     UIKitColorScheme? primaryColors,
+    UIKitColorScheme? secondaryColors,
     UIKitShadowScheme? primaryShadows,
     UIKitSizeScheme? smallSize,
     UIKitSizeScheme? mediumSize,
@@ -49,6 +55,7 @@ class UIKitCheckBoxListTileThemeData {
   }) {
     return UIKitCheckBoxListTileThemeData.raw(
       primaryColors: primaryColors ?? this.primaryColors,
+      secondaryColors: secondaryColors ?? this.secondaryColors,
       primaryShadows: primaryShadows ?? this.primaryShadows,
       smallSize: smallSize ?? this.smallSize,
       mediumSize: mediumSize ?? this.mediumSize,

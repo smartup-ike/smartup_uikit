@@ -221,43 +221,58 @@ UIKitThemeData kitThemeData = UIKitThemeData(
     ),
   ),
   toggleSwitchListTileThemeData: UIKitToggleSwitchListTileThemeData(
+    colorScheme: UIKitColorScheme(
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      defaultBorderColor: ExampleColors.secondaryW,
+      defaultContentColor: ExampleColors.primary700,
+      defaultSecondaryContentColor: ExampleColors.secondaryW,
+      hoverBackgroundColor: ExampleColors.secondary100,
+      hoverBorderColor: ExampleColors.secondaryW,
+      hoverContentColor: ExampleColors.primary800,
+      hoverSecondaryContentColor: ExampleColors.secondaryW,
+      activeBackgroundColor: ExampleColors.secondary100,
+      activeBorderColor: ExampleColors.secondaryW,
+      activeContentColor: ExampleColors.primary800,
+      activeSecondaryContentColor: ExampleColors.secondaryW,
+      focusedBackgroundColor: ExampleColors.secondary100,
+      focusedBorderColor: ExampleColors.secondaryW,
+      focusedContentColor: ExampleColors.primary800,
+      focusedSecondaryContentColor: ExampleColors.secondaryW,
+      disabledBackgroundColor: ExampleColors.secondary50.withOpacity(0.7),
+      disabledBorderColor: ExampleColors.secondaryW,
+      disabledContentColor: ExampleColors.secondary200.withOpacity(0.7),
+      disabledSecondaryContentColor: ExampleColors.secondaryW.withOpacity(0.7),
+    ),
     smallSize: UIKitSizeScheme(
-      //distance between the label and the checkbox
+      //distance between the label and the toggle
       spacing: 8,
       //with of the whole widget
       width: 90,
       //height of the whole widget (might include padding?)
       height: 12,
-      //height of the checkmark
+      //height of the toggle
       iconSize: 12,
     ),
     mediumSize: UIKitSizeScheme(
-        //distance between the label and the checkbox
-        spacing: 15,
-        //with of the whole widget
-        width: 180,
-        //height of the whole widget (might include padding?)
-        height: 24,
-        //height of the checkmark
-        iconSize: 24,
+      //distance between the label and the checkbox
+      spacing: 15,
+      //with of the whole widget
+      width: 180,
+      //height of the whole widget (might include padding?)
+      height: 24,
+      //height of the checkmark
+      iconSize: 24,
     ),
     largeSize: UIKitSizeScheme(
       //distance between the label and the checkbox
       spacing: 30,
       //with of the whole widget
-      width: 320,
+      width: 300,
       //height of the whole widget (might include padding?)
-      height: 48,
-      //height of the checkmark
+      height: 24,
+      //height of the toggle
       iconSize: 48,
     ),
-
-    colorScheme: UIKitColorScheme(
-      defaultBackgroundColor: ExampleColors.secondaryW,
-      defaultBorderColor: ExampleColors.secondaryW,
-      defaultSecondaryContentColor: ExampleColors.secondary100,
-    ),
-
   ),
   buttonThemeData: UIKitButtonThemeData(
     primaryColors: UIKitColorScheme(
@@ -733,15 +748,21 @@ UIKitThemeData kitThemeData = UIKitThemeData(
   ),
   checkboxListTileThemeData: UIKitCheckBoxListTileThemeData(
     primaryColors: UIKitColorScheme(
-      defaultBackgroundColor: ExampleColors.primary700,
-      defaultBorderColor: ExampleColors.primary700,
-      defaultContentColor: ExampleColors.secondaryW,
+      // background color of the whole widget
+      defaultBackgroundColor: ExampleColors.secondaryW,
+      // background for the checkbox only
+      defaultSecondaryContentColor: ExampleColors.secondary200,
+      // border color of the box
+      defaultBorderColor: ExampleColors.primary800,
+      // color of the checkbox
+      defaultContentColor: ExampleColors.primary800,//ExampleColors.primary800,
+
       hoverBackgroundColor: ExampleColors.primary800,
       hoverBorderColor: ExampleColors.primary800,
       hoverContentColor: ExampleColors.secondaryW,
       activeBackgroundColor: ExampleColors.primary800,
       activeBorderColor: ExampleColors.primary800,
-      activeContentColor: ExampleColors.secondaryW,
+      activeContentColor: ExampleColors.primary800,
       focusedBackgroundColor: ExampleColors.primary800,
       focusedBorderColor: ExampleColors.primary800,
       focusedContentColor: ExampleColors.secondaryW,
@@ -749,15 +770,32 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       disabledBorderColor: ExampleColors.secondary200.withOpacity(0.7),
       disabledContentColor: ExampleColors.secondaryW.withOpacity(0.7),
     ),
-    // smallSize
-    // mediumSize
     largeSize: UIKitSizeScheme(
       width: 20,
       height: 20,
-      iconSize: 16,
+      iconSize: 20,
       padding: const EdgeInsets.all(2),
       borderSize: 1,
       borderRadius: 6,
+      spacing: 12,
+    ),
+    mediumSize: UIKitSizeScheme(
+      width: 20,
+      height: 20,
+      iconSize: 20,
+      padding: const EdgeInsets.all(2),
+      borderSize: 1,
+      borderRadius: 6,
+      spacing: 12,
+    ),
+    smallSize: UIKitSizeScheme(
+      width: 20,
+      height: 20,
+      iconSize: 20,
+      padding: const EdgeInsets.all(2),
+      borderSize: 1,
+      borderRadius: 6,
+      spacing: 12,
     ),
     primaryShadows: UIKitShadowScheme(
       focusedShadow: [
