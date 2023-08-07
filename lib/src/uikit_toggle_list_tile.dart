@@ -15,7 +15,7 @@ class UIKitToggleListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : toggleSize = UIKitSizes.small,
+  })  : toggleSize = UIKitSizes.small,
         trailing = null;
 
   const UIKitToggleListTile.mediumWithLeading({
@@ -25,7 +25,7 @@ class UIKitToggleListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : toggleSize = UIKitSizes.medium,
+  })  : toggleSize = UIKitSizes.medium,
         trailing = null;
 
   const UIKitToggleListTile.largeWithLeading({
@@ -35,7 +35,7 @@ class UIKitToggleListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : toggleSize = UIKitSizes.large,
+  })  : toggleSize = UIKitSizes.large,
         trailing = null;
 
   const UIKitToggleListTile.smallWithTrailing({
@@ -55,7 +55,7 @@ class UIKitToggleListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : toggleSize = UIKitSizes.medium,
+  })  : toggleSize = UIKitSizes.medium,
         leading = null;
 
   const UIKitToggleListTile.largeWithTrailing({
@@ -65,7 +65,7 @@ class UIKitToggleListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : toggleSize = UIKitSizes.large,
+  })  : toggleSize = UIKitSizes.large,
         leading = null;
 
   /// [UIKitToggleListTile] is a toggle that can have a leading label [Widget] or a trailing label [Widget]
@@ -107,7 +107,7 @@ class UIKitToggleListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> toggleIsOn = useState(false);
+    final ValueNotifier<bool> toggleIsOn$ = useState(false);
     final ValueNotifier<bool> isActive = useState(false);
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
@@ -151,9 +151,9 @@ class UIKitToggleListTile extends HookWidget {
       },
       child: GestureDetector(
         onTap: () {
-          toggleIsOn.value = !toggleIsOn.value;
-          isActive.value = !isActive.value;
           if (state$.value != UIKitState.disabled) {
+            toggleIsOn$.value = !toggleIsOn$.value;
+            isActive.value = !isActive.value;
             onTap?.call();
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
@@ -197,47 +197,56 @@ class UIKitToggleListTile extends HookWidget {
             children: [
               if (leading != null) ...[
                 DefaultTextStyle(
-                  style: size$.value.labelStyle
-                          ?.copyWith(color: colorHelper.contentColor) ??
+                  style: toggleIsOn$.value
+                      ? size$.value.focusedLabelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor)
+                      : size$.value.labelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: leading!,
                 ),
                 SizedBox(width: size$.value.spacing),
               ],
               AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    color: colors$.value.activeBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                      size$.value.secondaryRadius ?? 18,
-                    ),
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  color: colors$.value.activeBackgroundColor,
+                  borderRadius: BorderRadius.circular(
+                    size$.value.secondaryRadius ?? 18,
                   ),
-                  height: size$.value.iconSize ?? 30 / 2,
-                  width: size$.value.iconSize,
-                  //color: colorHelper.secondaryContentColor,
+                ),
+                height: size$.value.iconSize ?? 30 / 2,
+                width: size$.value.iconSize,
+                //color: colorHelper.secondaryContentColor,
 
-                  child: Row(
-                    mainAxisAlignment: toggleIsOn.value
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: colors$.value.activeContentColor,
-                          borderRadius: BorderRadius.circular(
-                            size$.value.secondaryRadius ?? 18,
-                          ),
+                child: Row(
+                  mainAxisAlignment: toggleIsOn$.value
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: colors$.value.activeContentColor,
+                        borderRadius: BorderRadius.circular(
+                          size$.value.secondaryRadius ?? 18,
                         ),
-                        height: size$.value.iconSize! / 2,
-                        width: size$.value.iconSize! / 2,
-                      )
-                    ],
-                  )),
+                      ),
+                      height: size$.value.iconSize! / 2,
+                      width: size$.value.iconSize! / 2,
+                    )
+                  ],
+                ),
+              ),
               if (trailing != null) ...[
                 SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
-                  style: size$.value.labelStyle
-                          ?.copyWith(color: colorHelper.contentColor) ??
+                  style: toggleIsOn$.value
+                      ? size$.value.focusedLabelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor)
+                      : size$.value.labelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: trailing!,
                 ),

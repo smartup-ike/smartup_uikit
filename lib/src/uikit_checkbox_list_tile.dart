@@ -19,7 +19,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : checkBoxSize = UIKitSizes.small,
+  })  : checkBoxSize = UIKitSizes.small,
         trailing = null;
 
   const UIKitCheckBoxListTile.mediumWithLeading({
@@ -30,7 +30,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : checkBoxSize = UIKitSizes.medium,
+  })  : checkBoxSize = UIKitSizes.medium,
         trailing = null;
 
   const UIKitCheckBoxListTile.largeWithLeading({
@@ -41,7 +41,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : checkBoxSize = UIKitSizes.large,
+  })  : checkBoxSize = UIKitSizes.large,
         trailing = null;
 
   const UIKitCheckBoxListTile.smallWithTrailing({
@@ -52,7 +52,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : checkBoxSize = UIKitSizes.small,
+  })  : checkBoxSize = UIKitSizes.small,
         leading = null;
 
   const UIKitCheckBoxListTile.mediumWithTrailing({
@@ -63,7 +63,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : checkBoxSize = UIKitSizes.medium,
+  })  : checkBoxSize = UIKitSizes.medium,
         leading = null;
 
   const UIKitCheckBoxListTile.largeWithTrailing({
@@ -74,7 +74,7 @@ class UIKitCheckBoxListTile extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : checkBoxSize = UIKitSizes.large,
+  })  : checkBoxSize = UIKitSizes.large,
         leading = null;
 
   /// [UIKitCheckBoxListTile] is a checkbox that can have a leading label [Widget] or a trailing label [Widget]
@@ -201,9 +201,13 @@ class UIKitCheckBoxListTile extends HookWidget {
             children: [
               if (leading != null) ...[
                 DefaultTextStyle(
-                  style: size$.value.labelStyle
-                          ?.copyWith(color: colorHelper.contentColor) ??
-                      TextStyle(color: colorHelper.contentColor),
+                  style: isActive$.value
+                      ? size$.value.focusedLabelStyle
+                              ?.copyWith(color: colorHelper.contentColor) ??
+                          TextStyle(color: colorHelper.contentColor)
+                      : size$.value.labelStyle
+                              ?.copyWith(color: colorHelper.contentColor) ??
+                          TextStyle(color: colorHelper.contentColor),
                   child: leading!,
                 ),
                 SizedBox(width: size$.value.spacing),
@@ -225,14 +229,21 @@ class UIKitCheckBoxListTile extends HookWidget {
                           size: size$.value.iconSize,
                           color: colorHelper.contentColor,
                         )
-                      : SizedBox(height: size$.value.iconSize, width: size$.value.iconSize,),
+                      : SizedBox(
+                          height: size$.value.iconSize,
+                          width: size$.value.iconSize,
+                        ),
                 ),
               ),
               if (trailing != null) ...[
                 SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
-                  style: size$.value.labelStyle
-                          ?.copyWith(color: colorHelper.contentColor) ??
+                  style: isActive$.value
+                      ? size$.value.focusedLabelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor)
+                      : size$.value.labelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: trailing!,
                 ),

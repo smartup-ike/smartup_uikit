@@ -244,6 +244,8 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       disabledSecondaryContentColor: ExampleColors.secondaryW.withOpacity(0.7),
     ),
     smallSize: UIKitSizeScheme(
+      labelStyle: ExampleTypography.body2Regular,
+      focusedLabelStyle: ExampleTypography.body2Bold,
       //distance between the label and the toggle
       spacing: 8,
       //with of the whole widget
@@ -254,6 +256,8 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       iconSize: 12,
     ),
     mediumSize: UIKitSizeScheme(
+      labelStyle: ExampleTypography.body2Regular,
+      focusedLabelStyle: ExampleTypography.body2Bold,
       //distance between the label and the checkbox
       spacing: 15,
       //with of the whole widget
@@ -264,6 +268,8 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       iconSize: 24,
     ),
     largeSize: UIKitSizeScheme(
+      labelStyle: ExampleTypography.body2Regular,
+      focusedLabelStyle: ExampleTypography.body2Bold,
       //distance between the label and the checkbox
       spacing: 30,
       //with of the whole widget
@@ -754,8 +760,9 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       defaultSecondaryContentColor: ExampleColors.secondary200,
       // border color of the box
       defaultBorderColor: ExampleColors.primary800,
-      // color of the checkbox
-      defaultContentColor: ExampleColors.primary800,//ExampleColors.primary800,
+      // color of the box
+      defaultContentColor: ExampleColors.primary800,
+      //ExampleColors.primary800,
 
       hoverBackgroundColor: ExampleColors.primary800,
       hoverBorderColor: ExampleColors.primary800,
@@ -771,6 +778,8 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       disabledContentColor: ExampleColors.secondaryW.withOpacity(0.7),
     ),
     largeSize: UIKitSizeScheme(
+      labelStyle: ExampleTypography.body2Regular,
+      focusedLabelStyle: ExampleTypography.body2Bold,
       width: 20,
       height: 20,
       iconSize: 20,
@@ -780,6 +789,8 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       spacing: 12,
     ),
     mediumSize: UIKitSizeScheme(
+      labelStyle: ExampleTypography.body2Regular,
+      focusedLabelStyle: ExampleTypography.body2Bold,
       width: 20,
       height: 20,
       iconSize: 20,
@@ -789,6 +800,8 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       spacing: 12,
     ),
     smallSize: UIKitSizeScheme(
+      labelStyle: ExampleTypography.body2Regular,
+      focusedLabelStyle: ExampleTypography.body2Bold,
       width: 20,
       height: 20,
       iconSize: 20,
