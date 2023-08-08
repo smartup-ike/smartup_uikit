@@ -23,10 +23,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  }) : assert(
-          multiselect ^ (trailing != null),
-          'Either \'selectable\' is true and the widget has a checkbox or it has a trailing widget, not both.',
-        );
+  });
 
   final T value;
   final VoidCallback onTap;

@@ -9,23 +9,23 @@ class LeaveTypeSelector extends StatefulWidget {
 }
 
 class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
-  late List<String?> _selectedValue;
+  late String? _selectedValue;
 
   @override
   void initState() {
     super.initState();
-    _selectedValue = [];
+    _selectedValue;
   }
 
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownButton<String?>.mediumLine(
       label: const Text('Selection'),
-      input: Text(_selectedValue.join(', ')),
+      input: Text(_selectedValue ?? ''),
       isDisabled: false,
       trailing: const UIKitIcon.asset('assets/images/url.svg'),
       onTap: (position, size) async {
-        _selectedValue = await Navigator.of(context).push<List<String?>>(
+        _selectedValue = await Navigator.of(context).push<String?>(
               UIKitDropdownRoute(
                 child: SelectionDialog(initialValue: _selectedValue),
                 position: position,
@@ -41,15 +41,15 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
 }
 
 class SelectionDialog extends StatefulWidget {
-  const SelectionDialog({super.key, this.initialValue = const []});
-  final List<String?> initialValue;
+  const SelectionDialog({super.key, this.initialValue});
+  final String? initialValue;
 
   @override
   State<SelectionDialog> createState() => _SelectionDialogState();
 }
 
 class _SelectionDialogState extends State<SelectionDialog> {
-  late List<String?> _value;
+  late String? _value;
 
   @override
   void initState() {
@@ -59,11 +59,10 @@ class _SelectionDialogState extends State<SelectionDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return UIKitDropdownMenu<String?>(
+    return UIKitDropdownMenuSingleSelect<String?>(
       onChange: (value) => setState(() => _value = value),
       value: _value,
       initialValue: widget.initialValue,
-      multiselect: true,
       itemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
       actions: [
         UIKitButton.smallGhost(

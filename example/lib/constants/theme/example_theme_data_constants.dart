@@ -341,7 +341,7 @@ UIKitThemeData kitThemeData = UIKitThemeData(
       disabledContentColor: ExampleColors.secondaryW.withOpacity(0.3),
     ),
     ghostIconColors: UIKitColorScheme(
-      defaultBackgroundColor: Colors.transparent,
+      defaultBackgroundColor: const Color(0xffffffff).withOpacity(0.001),
       hoverBackgroundColor: ExampleColors.primary50,
       focusedBackgroundColor: ExampleColors.primary100,
       activeBackgroundColor: ExampleColors.primary100,

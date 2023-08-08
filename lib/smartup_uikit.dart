@@ -49,6 +49,12 @@ export 'package:smartup_uikit/src/uikit_menu_item.dart' show UIKitMenuItem;
 export 'package:smartup_uikit/src/uikit_dropdown_menu.dart'
     show UIKitDropdownMenu;
 
+export 'package:smartup_uikit/src/uikit_dropdown_menu_single_selected.dart'
+    show UIKitDropdownMenuSingleSelect;
+
+export 'package:smartup_uikit/src/uikit_dropdownmenu_multiselect.dart'
+    show UIKitDropdownMenuMultiSelect;
+
 export 'package:smartup_uikit/src/uikit_dropdown_button.dart'
     show UIKitDropdownButton;
 
