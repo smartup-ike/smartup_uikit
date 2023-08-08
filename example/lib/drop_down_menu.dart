@@ -40,6 +40,8 @@ class DropDownMenuPage extends HookWidget {
     final text$ = useState("Please pick an Option");
     final selectedValue$ = useState(1);
 
+    final selectedValuesForMulti$ = useState<List<int?>>([1]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: UIKitTheme.of(context).colors.primary800,
@@ -64,7 +66,7 @@ class DropDownMenuPage extends HookWidget {
                 onTap: (position, size) async {
                   selectedValue$.value = await Navigator.of(context).push(
                         UIKitDropdownRoute(
-                          child: OptionsSelectorDialog(
+                          child: SingleOptionsSelectorDialog(
                             initialValue: selectedValue$.value,
                             optionsMap: optionsMap$.value,
                           ),
@@ -73,10 +75,32 @@ class DropDownMenuPage extends HookWidget {
                         ),
                       ) ??
                       selectedValue$.value;
-                  // if (selectedValue$.value !=null) {
-                  //   selectedValue$.value = ;
-                  // }
                   text$.value = selectedValue$.value.toString();
+                },
+              ),
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: 400,
+              child: UIKitDropdownButton.largeLine(
+                label: const Text("Pick Many Options"),
+                input: Text(selectedValuesForMulti$.value.toString()),
+                isDisabled: false,
+                trailing: const Icon(Icons.add_circle),
+                onTap: (position, size) async {
+                  selectedValuesForMulti$.value =
+                      await Navigator.of(context).push(
+                            UIKitDropdownRoute(
+                              child: MultiOptionsSelectorDialog(
+                                initialValue: const [],
+                                optionsMap: optionsMap$.value,
+                              ),
+                              position: position,
+                              size: size,
+                            ),
+                          ) ??
+                          selectedValuesForMulti$.value;
+                  text$.value = selectedValuesForMulti$.value.toString();
                 },
               ),
             ),
@@ -87,8 +111,47 @@ class DropDownMenuPage extends HookWidget {
   }
 }
 
-class OptionsSelectorDialog extends HookWidget {
-  const OptionsSelectorDialog({
+class MultiOptionsSelectorDialog extends HookWidget {
+  const MultiOptionsSelectorDialog({
+    super.key,
+    this.initialValue = const [],
+    required this.optionsMap,
+  });
+
+  final List<int?> initialValue;
+  final Map<int, String>? optionsMap;
+
+  @override
+  Widget build(BuildContext context) {
+    final optionsToShow$ = useState(optionsMap);
+    final selectedValue$ = useState(initialValue);
+
+    return UIKitDropdownMenuMultiSelect<int?>(
+      initialValue: initialValue,
+      value: selectedValue$.value,
+      onChange: (newValue) => selectedValue$.value = newValue,
+      actions: [
+        UIKitButton.smallOutline(
+          labelText: const Text('Ακύρωση'),
+          onTap: () => Navigator.of(context).pop(initialValue),
+        ),
+        const SizedBox(width: 8),
+        UIKitButton.smallPrimary(
+          labelText: const Text('Εντάξει'),
+          onTap: () => Navigator.of(context).pop(selectedValue$.value),
+        ),
+      ],
+      options: optionsToShow$.value!.keys.toList(),
+      labels: List.generate(
+        optionsToShow$.value!.keys.toList().length,
+        (index) => Text(optionsToShow$.value!.values.toList()[index]),
+      ),
+    );
+  }
+}
+
+class SingleOptionsSelectorDialog extends HookWidget {
+  const SingleOptionsSelectorDialog({
     super.key,
     this.initialValue,
     required this.optionsMap,
@@ -102,11 +165,10 @@ class OptionsSelectorDialog extends HookWidget {
     final optionsToShow$ = useState(optionsMap);
     final selectedValue$ = useState(initialValue);
 
-    return UIKitDropdownMenu<int?>(
-      initialValue: [initialValue],
-      value: [selectedValue$.value],
-      onChange: (newValue) => selectedValue$.value = newValue.first,
-      multiselect: false,
+    return UIKitDropdownMenuSingleSelect<int?>(
+      initialValue: initialValue,
+      value: selectedValue$.value,
+      onChange: (newValue) => selectedValue$.value = newValue,
       hasSearchBar: true,
       searchOnChange: (searchText) {
         Map<int, String>? resultsMap =

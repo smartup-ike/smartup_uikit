@@ -175,6 +175,4 @@ class UIKitIconButton extends StatelessWidget {
       shadowScheme: shadows,
     );
   }
-
-  // TODO: Find problem with hovering
 }
