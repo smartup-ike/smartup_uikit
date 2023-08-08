@@ -162,33 +162,12 @@ class RadioToggleAndCheckBox extends HookWidget {
                     const SizedBox(height: 30),
                     Row(
                       children: [
-                        UIKitCheckBoxListTile.withTrailing(
+                        UIKitCheckBoxListTile.mediumWithTrailing(
                           trailing: const Text("UIKitCheckBoxListTile"),
                           isChecked: check$.value,
                           onChanged: (value) {
                             check$.value = value;
                           },
-                          sizeScheme: UIKitSizeScheme(
-                            //distance between the label and the checkbox
-                            spacing: 15,
-                            //with of the whole widget
-                            width: 180,
-                            //height of the whole widget (might include padding?)
-                            height: 24,
-                            //height of the checkmark
-                            iconSize: 24,
-                          ),
-                          colorScheme: UIKitColorScheme(
-                            //color of the background of the whole tile
-                            defaultBackgroundColor:
-                                UIKitTheme.of(context).colors.secondaryW,
-                            //color of border
-                            defaultBorderColor:
-                                UIKitTheme.of(context).colors.secondaryW,
-                            //background color of the checkbox only
-                            defaultSecondaryContentColor:
-                                UIKitTheme.of(context).colors.secondary100,
-                          ),
                         ),
                         const SizedBox(width: 30),
                         Text(check$.value.toString()),
@@ -198,35 +177,11 @@ class RadioToggleAndCheckBox extends HookWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        UIKitToggleListTile.withTrailing(
+                        UIKitToggleListTile.largeWithTrailing(
                           trailing: const Text("UIKitToggleListTile"),
                           onTap: () {
                             toggle3$.value = !toggle3$.value;
                           },
-                          sizeScheme: UIKitSizeScheme(
-                            //distance between the label and the toggle
-                            spacing: 15,
-                            //with of the whole widget
-                            width: 190,
-                            //height of the whole widget (might include padding?)
-                            height: 22,
-                            //height of the dot inside the toggle
-                            iconSize: 50,
-                          ),
-                          colorScheme: UIKitColorScheme(
-                            //color of the background of the whole tile
-                            defaultBackgroundColor:
-                                UIKitTheme.of(context).colors.secondaryW,
-                            //color of the background of the toggle only
-                            activeBackgroundColor:
-                                UIKitTheme.of(context).colors.secondary100,
-                            //color of border
-                            defaultBorderColor:
-                                UIKitTheme.of(context).colors.secondaryW,
-                            //color of the dot
-                            activeContentColor:
-                                UIKitTheme.of(context).colors.primary700,
-                          ),
                         ),
                         const SizedBox(width: 30),
                         Text(toggle3$.value.toString()),

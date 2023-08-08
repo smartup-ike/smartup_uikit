@@ -8,25 +8,65 @@ import 'helpers/uikit_sizes.dart';
 import 'helpers/uikit_states.dart';
 
 class UIKitToggleListTile extends HookWidget {
-  const UIKitToggleListTile.withLeading({
+  const UIKitToggleListTile.smallWithLeading({
     super.key,
     this.leading,
     this.onTap,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.toggleSize,
-  }) : trailing = null;
+  })  : toggleSize = UIKitSizes.small,
+        trailing = null;
 
-  const UIKitToggleListTile.withTrailing({
+  const UIKitToggleListTile.mediumWithLeading({
+    super.key,
+    this.leading,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : toggleSize = UIKitSizes.medium,
+        trailing = null;
+
+  const UIKitToggleListTile.largeWithLeading({
+    super.key,
+    this.leading,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : toggleSize = UIKitSizes.large,
+        trailing = null;
+
+  const UIKitToggleListTile.smallWithTrailing({
     super.key,
     this.trailing,
     this.onTap,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.toggleSize,
-  }) : leading = null;
+  })  : toggleSize = UIKitSizes.small,
+        leading = null;
+
+  const UIKitToggleListTile.mediumWithTrailing({
+    super.key,
+    this.trailing,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : toggleSize = UIKitSizes.medium,
+        leading = null;
+
+  const UIKitToggleListTile.largeWithTrailing({
+    super.key,
+    this.trailing,
+    this.onTap,
+    this.colorScheme,
+    this.sizeScheme,
+    this.shadowScheme,
+  })  : toggleSize = UIKitSizes.large,
+        leading = null;
 
   /// [UIKitToggleListTile] is a toggle that can have a leading label [Widget] or a trailing label [Widget]
   ///
@@ -67,13 +107,13 @@ class UIKitToggleListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> toggleIsOn = useState(false);
+    final ValueNotifier<bool> toggleIsOn$ = useState(false);
     final ValueNotifier<bool> isActive = useState(false);
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final theme$ = useState<UIKitToggleListTileThemeData>(
-        UIKitTheme.of(context).toggleListTileThemeData);
+    final theme$ = useState<UIKitToggleSwitchListTileThemeData>(
+        UIKitTheme.of(context).toggleSwitchListTileThemeData);
     final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
     final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
     final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
@@ -111,9 +151,9 @@ class UIKitToggleListTile extends HookWidget {
       },
       child: GestureDetector(
         onTap: () {
-          toggleIsOn.value = !toggleIsOn.value;
-          isActive.value = !isActive.value;
           if (state$.value != UIKitState.disabled) {
+            toggleIsOn$.value = !toggleIsOn$.value;
+            isActive.value = !isActive.value;
             onTap?.call();
             state$.value =
                 isHovered$.value ? UIKitState.hover : UIKitState.defaultState;
@@ -138,7 +178,6 @@ class UIKitToggleListTile extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          alignment: Alignment.center,
           padding: size$.value.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
@@ -153,53 +192,61 @@ class UIKitToggleListTile extends HookWidget {
           height: size$.value.height,
           width: size$.value.width,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               if (leading != null) ...[
                 DefaultTextStyle(
-                  style: size$.value.labelStyle
-                          ?.copyWith(color: colorHelper.contentColor) ??
+                  style: toggleIsOn$.value
+                      ? size$.value.focusedLabelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor)
+                      : size$.value.labelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: leading!,
                 ),
                 SizedBox(width: size$.value.spacing),
               ],
               AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    color: colors$.value.activeBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                      size$.value.secondaryRadius ?? 18,
-                    ),
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  color: colors$.value.activeBackgroundColor,
+                  borderRadius: BorderRadius.circular(
+                    size$.value.secondaryRadius ?? 18,
                   ),
-                  height: size$.value.iconSize ?? 30 / 2,
-                  width: size$.value.iconSize,
-                  //color: colorHelper.secondaryContentColor,
+                ),
+                height: size$.value.iconSize ?? 30 / 2,
+                width: size$.value.iconSize,
+                //color: colorHelper.secondaryContentColor,
 
-                  child: Row(
-                    mainAxisAlignment: toggleIsOn.value
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: colors$.value.activeContentColor,
-                          borderRadius: BorderRadius.circular(
-                            size$.value.secondaryRadius ?? 18,
-                          ),
+                child: Row(
+                  mainAxisAlignment: toggleIsOn$.value
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: colors$.value.activeContentColor,
+                        borderRadius: BorderRadius.circular(
+                          size$.value.secondaryRadius ?? 18,
                         ),
-                        height: size$.value.iconSize! / 2,
-                        width: size$.value.iconSize! / 2,
-                      )
-                    ],
-                  )),
+                      ),
+                      height: size$.value.iconSize! / 2,
+                      width: size$.value.iconSize! / 2,
+                    )
+                  ],
+                ),
+              ),
               if (trailing != null) ...[
                 SizedBox(width: size$.value.spacing),
                 DefaultTextStyle(
-                  style: size$.value.labelStyle
-                          ?.copyWith(color: colorHelper.contentColor) ??
+                  style: toggleIsOn$.value
+                      ? size$.value.focusedLabelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
+                      TextStyle(color: colorHelper.contentColor)
+                      : size$.value.labelStyle
+                      ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: trailing!,
                 ),
@@ -211,27 +258,27 @@ class UIKitToggleListTile extends HookWidget {
     );
   }
 
-  UIKitColorScheme findColors(UIKitToggleListTileThemeData themeData) {
+  UIKitColorScheme findColors(UIKitToggleSwitchListTileThemeData themeData) {
     UIKitColorScheme colorScheme;
     if (this.colorScheme != null) {
       colorScheme = this.colorScheme!;
     } else {
-      colorScheme = themeData.primaryColors;
+      colorScheme = themeData.colorScheme;
     }
     return colorScheme;
   }
 
-  UIKitShadowScheme findShadows(UIKitToggleListTileThemeData themeData) {
+  UIKitShadowScheme findShadows(UIKitToggleSwitchListTileThemeData themeData) {
     UIKitShadowScheme shadowScheme;
     if (this.shadowScheme != null) {
       shadowScheme = this.shadowScheme!;
     } else {
-      shadowScheme = themeData.primaryShadows;
+      shadowScheme = themeData.shadowScheme;
     }
     return shadowScheme;
   }
 
-  UIKitSizeScheme findSize(UIKitToggleListTileThemeData themeData) {
+  UIKitSizeScheme findSize(UIKitToggleSwitchListTileThemeData themeData) {
     UIKitSizeScheme sizeScheme;
     if (this.sizeScheme != null) {
       sizeScheme = this.sizeScheme!;

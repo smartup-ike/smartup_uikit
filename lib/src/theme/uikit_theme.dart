@@ -60,6 +60,7 @@ class UIKitThemeData {
   final UIKitRadioButtonThemeData radioButtonThemeData;
   final UIKitTabThemeData tabThemeData;
   final UIKitToggleSwitchThemeData toggleSwitchThemeData;
+  final UIKitToggleSwitchListTileThemeData toggleSwitchListTileThemeData;
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
@@ -86,6 +87,7 @@ class UIKitThemeData {
     required this.checkboxListTileThemeData,
     required this.checkboxThemeData,
     required this.toggleListTileThemeData,
+    required this.toggleSwitchListTileThemeData,
   });
 
   factory UIKitThemeData({
@@ -104,6 +106,8 @@ class UIKitThemeData {
     UIKitCheckBoxListTileThemeData? checkboxListTileThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
+    UIKitToggleSwitchListTileThemeData? toggleSwitchListTileThemeData,
+
   }) {
     colors ??= const UIKitColors();
     typography ??= const UIKitTypography();
@@ -120,6 +124,7 @@ class UIKitThemeData {
     checkboxListTileThemeData ??= UIKitCheckBoxListTileThemeData();
     checkboxThemeData ??= UIKitCheckboxThemeData();
     toggleListTileThemeData ??= UIKitToggleListTileThemeData();
+    toggleSwitchListTileThemeData ??= UIKitToggleSwitchListTileThemeData();
 
     return UIKitThemeData.raw(
       colors: colors,
@@ -137,6 +142,7 @@ class UIKitThemeData {
       checkboxListTileThemeData: checkboxListTileThemeData,
       checkboxThemeData: checkboxThemeData,
       toggleListTileThemeData: toggleListTileThemeData,
+      toggleSwitchListTileThemeData: toggleSwitchListTileThemeData,
     );
   }
 
@@ -156,6 +162,7 @@ class UIKitThemeData {
     UIKitCheckBoxListTileThemeData? checkboxListTileThemeData,
     UIKitCheckboxThemeData? checkboxThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
+    UIKitToggleSwitchListTileThemeData? toggleSwitchListTileThemeData,
   }) {
     return UIKitThemeData.raw(
       colors: colors ?? this.colors,
@@ -178,6 +185,7 @@ class UIKitThemeData {
       checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
       toggleListTileThemeData:
           toggleListTileThemeData ?? this.toggleListTileThemeData,
+        toggleSwitchListTileThemeData : toggleSwitchListTileThemeData ?? this.toggleSwitchListTileThemeData,
     );
   }
 }
