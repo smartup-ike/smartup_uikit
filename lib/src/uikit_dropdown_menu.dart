@@ -3,11 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../smartup_uikit.dart';
 
-abstract class UIKitDropdownMenu extends HookWidget {
+abstract class UIKitDropdownMenu<T> extends HookWidget {
 
   final List<Widget> labels;
   final List<Widget> actions;
-  final List options;
+  final List<T> options;
   final bool multiselect;
   final Widget? itemTrailing;
   final UIKitColorScheme? colorScheme;

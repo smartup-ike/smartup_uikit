@@ -10,34 +10,34 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
   final T? initialValue;
   final ValueChanged<T?> onChange;
 
-
   const UIKitDropdownMenuSingleSelect({
     super.key,
     required this.value,
     this.initialValue,
     required this.onChange,
-    options = const [],
-    labels = const [],
-    actions = const <Widget> [],
-    itemTrailing,
-    colorScheme,
-    sizeScheme,
-    shadowScheme,
-    hasSearchBar,
-    controller,
-    searchOnChange,
+    List<T> options = const [],
+    List<Widget> labels = const [],
+    List<Widget> actions = const <Widget>[],
+    Widget? itemTrailing,
+    UIKitColorScheme? colorScheme,
+    UIKitSizeScheme? sizeScheme,
+    UIKitShadowScheme? shadowScheme,
+    bool? hasSearchBar,
+    TextEditingController? controller,
+    void Function(String)? searchOnChange,
   }) : super(
-            options: options,
-            multiselect: false,
-            shadowScheme: shadowScheme,
-            searchOnChange: searchOnChange,
-            itemTrailing: itemTrailing,
-            hasSearchBar: hasSearchBar,
-            controller: controller,
-            colorScheme: colorScheme,
-            sizeScheme: sizeScheme,
-            actions: actions,
-            labels: labels);
+          options: options,
+          multiselect: false,
+          shadowScheme: shadowScheme,
+          searchOnChange: searchOnChange,
+          itemTrailing: itemTrailing,
+          hasSearchBar: hasSearchBar,
+          controller: controller,
+          colorScheme: colorScheme,
+          sizeScheme: sizeScheme,
+          actions: actions,
+          labels: labels,
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +111,8 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
                     height: 55,
                     width: double.infinity,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                          size$.value.borderRadius ?? 0),
+                      borderRadius:
+                          BorderRadius.circular(size$.value.borderRadius ?? 0),
                       child: ColoredBox(
                         color: colors$.value.defaultBackgroundColor ??
                             Colors.white,

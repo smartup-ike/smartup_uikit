@@ -119,6 +119,17 @@ class _MyHomePageState extends State<MyHomePage>
                 isActive: true,
                 isExpanded: true,
                 onTap: () {
+                  context.go("/tabBar");
+                },
+                label: const Text("Tab Bar"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: UIKitMenuItem(
+                isActive: true,
+                isExpanded: true,
+                onTap: () {
                   context.go("/playground");
                 },
                 label: const Text("Playground"),

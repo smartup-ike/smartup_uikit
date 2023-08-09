@@ -7,6 +7,7 @@ import '../date_picker.dart';
 import '../main.dart';
 import '../playground.dart';
 import '../radio_toggle_and_checkbox.dart';
+import '../tab_bar.dart';
 import '../text_input.dart';
 
 final GoRouter router = GoRouter(
@@ -47,6 +48,12 @@ final GoRouter router = GoRouter(
           path: "radioToggleAndCheckBox",
           builder: (BuildContext context, GoRouterState state) {
             return const RadioToggleAndCheckBox();
+          },
+        ),
+        GoRoute(
+          path: "tabBar",
+          builder: (BuildContext context, GoRouterState state) {
+            return const UIKitTabBar();
           },
         ),
         GoRoute(
