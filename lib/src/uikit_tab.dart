@@ -50,11 +50,7 @@ class UIKitTab extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  })  : tabType = UIKitTabType.line,
-        assert(
-          (leading == null) ^ (trailing == null),
-          'This can either have a leading or trailing widget, but not both!',
-        );
+  })  : tabType = UIKitTabType.line;
 
   /// [Widget]
   /// Leftmost widget of this tab.

@@ -53,7 +53,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: "tabBar",
           builder: (BuildContext context, GoRouterState state) {
-            return const UIKitTabBar();
+            return const TabBarExample();
           },
         ),
         GoRoute(

@@ -69,3 +69,6 @@ export 'package:smartup_uikit/src/uikit_checkbox_list_tile.dart'
 
 export 'package:smartup_uikit/src/uikit_toggle_list_tile.dart'
     show UIKitToggleListTile;
+
+export 'package:smartup_uikit/src/uikit_tab_bar.dart'
+    show UIKitTabBar;
