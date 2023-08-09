@@ -69,7 +69,6 @@ class MonthDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<int?> selectedValue$ = useState(initialValue);
     final values$ = useState(monthsMap.keys.toList());
     final labels$ = useState(
       List.generate(
@@ -79,8 +78,6 @@ class MonthDialog extends HookWidget {
     );
 
     return UIKitDropdownMenuSingleSelect(
-      value: selectedValue$.value,
-      onChange: (value) => selectedValue$.value = value,
       itemTrailing: itemTrailing,
       options: values$.value,
       labels: labels$.value,

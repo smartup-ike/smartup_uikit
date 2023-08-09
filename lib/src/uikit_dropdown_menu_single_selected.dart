@@ -6,15 +6,11 @@ import '../smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 
 class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
-  final T? value;
   final T? initialValue;
-  final ValueChanged<T?> onChange;
 
   const UIKitDropdownMenuSingleSelect({
     super.key,
-    required this.value,
     this.initialValue,
-    required this.onChange,
     List<T> options = const [],
     List<Widget> labels = const [],
     List<Widget> actions = const <Widget>[],
@@ -41,7 +37,6 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
 
   @override
   Widget build(BuildContext context) {
-    final currentValue$ = useState(initialValue);
     final searchController = controller ?? useTextEditingController();
     final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
@@ -81,12 +76,10 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
                         label: labels[i],
                         value: options[i],
                         onTap: () {
-                          currentValue$.value = options[i];
-                          onChange.call(currentValue$.value);
                           Navigator.of(context).pop(options[i]);
                         },
                         multiselect: false,
-                        isSelected: currentValue$.value == options[i],
+                        isSelected: initialValue == options[i],
                         trailing: null,
                       ),
                       const SizedBox(height: 4),

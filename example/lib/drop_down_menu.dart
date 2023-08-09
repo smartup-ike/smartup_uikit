@@ -167,8 +167,6 @@ class SingleOptionsSelectorDialog extends HookWidget {
 
     return UIKitDropdownMenuSingleSelect<int?>(
       initialValue: initialValue,
-      value: selectedValue$.value,
-      onChange: (newValue) => selectedValue$.value = newValue,
       hasSearchBar: true,
       searchOnChange: (searchText) {
         Map<int, String>? resultsMap =

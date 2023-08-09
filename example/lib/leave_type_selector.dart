@@ -60,8 +60,6 @@ class _SelectionDialogState extends State<SelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return UIKitDropdownMenuSingleSelect<String?>(
-      onChange: (value) => setState(() => _value = value),
-      value: _value,
       initialValue: widget.initialValue,
       itemTrailing: const UIKitIcon.asset('assets/images/url.svg'),
       actions: [
