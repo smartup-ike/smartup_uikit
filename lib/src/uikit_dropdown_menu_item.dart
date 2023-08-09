@@ -88,6 +88,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
             boxShadow: colorHelper.shadows,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (multiselect) ...[
                 IgnorePointer(
@@ -101,11 +102,15 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
                 ),
                 SizedBox(width: size$.value.spacing),
               ],
-              DefaultTextStyle(
-                style: size$.value.labelStyle
-                        ?.copyWith(color: colorHelper.contentColor) ??
-                    const TextStyle(),
-                child: label ?? const Text(''),
+              Expanded(
+                child: DefaultTextStyle(
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: size$.value.labelStyle
+                          ?.copyWith(color: colorHelper.contentColor) ??
+                      const TextStyle(),
+                  child: label ?? const Text(''),
+                ),
               ),
               if (trailing != null) ...[
                 const Spacer(),

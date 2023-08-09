@@ -17,7 +17,7 @@ class DropDownMenuPage extends HookWidget {
       7: "Option 7",
       8: "Option 8",
       9: "Option 9",
-      10: "Option 10",
+      10: "Option 10Option 10Option 10Option 10Option 10Option 10",
       11: "Option 11",
       12: "Option 12",
       13: "Option 13",
