@@ -19,7 +19,6 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
     bool? hasSearchBar,
-    TextEditingController? controller,
     void Function(String)? searchOnChange,
   }) : super(
           options: options,
@@ -28,7 +27,6 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
           searchOnChange: searchOnChange,
           itemTrailing: itemTrailing,
           hasSearchBar: hasSearchBar,
-          controller: controller,
           colorScheme: colorScheme,
           sizeScheme: sizeScheme,
           actions: actions,
@@ -37,7 +35,7 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
 
   @override
   Widget build(BuildContext context) {
-    final searchController = controller ?? useTextEditingController();
+    final searchController = useTextEditingController();
     final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
     final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));

@@ -23,7 +23,6 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
     bool? hasSearchBar,
-    TextEditingController? controller,
     void Function(String)? searchOnChange,
   }) : super(
             options: options,
@@ -32,7 +31,6 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
             searchOnChange: searchOnChange,
             itemTrailing: itemTrailing,
             hasSearchBar: hasSearchBar,
-            controller: controller,
             colorScheme: colorScheme,
             sizeScheme: sizeScheme,
             actions: actions,
@@ -42,7 +40,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
   Widget build(BuildContext context) {
     final currentValue$ =
         useState<List<T?>>(List.from(initialValue ?? <T?>[], growable: true));
-    final searchController = controller ?? useTextEditingController();
+    final searchController = useTextEditingController();
     final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
     final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));

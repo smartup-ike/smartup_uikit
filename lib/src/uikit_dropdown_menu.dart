@@ -14,7 +14,6 @@ abstract class UIKitDropdownMenu<T> extends HookWidget {
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
   final bool? hasSearchBar;
-  final TextEditingController? controller;
   final void Function(String)? searchOnChange;
 
   const UIKitDropdownMenu({
@@ -28,7 +27,6 @@ abstract class UIKitDropdownMenu<T> extends HookWidget {
     this.sizeScheme,
     this.shadowScheme,
     this.hasSearchBar,
-    this.controller,
     this.searchOnChange,
   })  : assert(
   options.length == labels.length,
