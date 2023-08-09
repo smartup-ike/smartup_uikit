@@ -79,7 +79,7 @@ class DropDownMenuPage extends HookWidget {
                 },
               ),
             ),
-            const SizedBox(height: 30),
+            const Spacer(),
             SizedBox(
               width: 400,
               child: UIKitDropdownButton.largeLine(
