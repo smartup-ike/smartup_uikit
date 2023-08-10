@@ -13,36 +13,40 @@ class TabBarExample extends HookWidget {
         title: const Text("UIKit TabBar"),
       ),
       body: UIKitTabBar(
-          labels: const [
-            Text("Red"),
-            Text("Green"),
-            Text("Blue"),
-          ],
-          sizeScheme: UIKitSizeScheme(),
-          children: [
-            UIKitButton.largePrimary(
-              labelText: const Text("Button"),
-              onTap: () {},
+        labels: const [
+          Text("Red"),
+          Text("Green"),
+          Text("Blue"),
+        ],
+        sizeScheme: UIKitSizeScheme(),
+        children: [
+          UIKitButton.largePrimary(
+            labelText: const Text("Button"),
+            onTap: () {},
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              color: Colors.blue,
+              height: 200,
+              width: 400,
             ),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Container(color: Colors.blue,height: 200,width: 400,)),
-            const Column(
-              children: [
-                Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum orci justo, faucibus at volutpat scelerisque, sagittis id sem. Nam porta laoreet ipsum, in condimentum nibh lacinia fringilla. Sed ultrices, tortor vulputate ultricies laoreet."),
-                UIKitButton.mediumOutline(),
-                SizedBox(
-                  height: 200,
-                ),
-                Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum orci justo, faucibus at volutpat scelerisque, sagittis id sem. Nam porta laoreet ipsum, in condimentum nibh lacinia fringilla. Sed ultrices, tortor vulputate ultricies laoreet."),
-                UIKitButton.mediumOutline(),
-              ],
-            )
-          ],
-        ),
-
+          ),
+          const Column(
+            children: [
+              Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum orci justo, faucibus at volutpat scelerisque, sagittis id sem. Nam porta laoreet ipsum, in condimentum nibh lacinia fringilla. Sed ultrices, tortor vulputate ultricies laoreet."),
+              UIKitButton.mediumOutline(),
+              SizedBox(
+                height: 200,
+              ),
+              Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum orci justo, faucibus at volutpat scelerisque, sagittis id sem. Nam porta laoreet ipsum, in condimentum nibh lacinia fringilla. Sed ultrices, tortor vulputate ultricies laoreet."),
+              UIKitButton.mediumOutline(),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

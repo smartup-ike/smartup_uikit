@@ -36,11 +36,17 @@ class UIKitTabBar extends HookWidget {
 
     List<Widget> childrenWithKeys = useMemoized(() {
       List<Widget> childrenWithKeys = [];
+
+      // We wrap every child with a container and we add a key to it.
+      // This is done because AnimatedSwitcher requires keys to distinguish children of the same type.
+      // Otherwise he does not know when to do an animation.
       for (int i = 0; i < children.length; i++) {
-        childrenWithKeys.add(Container(
-          key: ValueKey(i),
-          child: children[i],
-        ));
+        childrenWithKeys.add(
+          Container(
+            key: ValueKey(i),
+            child: children[i],
+          ),
+        );
       }
       return childrenWithKeys;
     }, [children.length]);
@@ -61,10 +67,11 @@ class UIKitTabBar extends HookWidget {
             ],
           ],
         ),
-        //const SizedBox(height: 16),
+        const SizedBox(height: 16),
         Expanded(
           child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+            // This property allows GestureDetector to detect gestures in empty space.
+            behavior: HitTestBehavior.opaque,
             onPanEnd: (details) {
               // We only want swipe to work if we are not on a web platform.
               if (!kIsWeb) {
