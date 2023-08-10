@@ -17,12 +17,12 @@ class UIKitTabBar extends HookWidget {
   /// The second child is for the second tab etc.
   final List<Widget> children;
 
-  const UIKitTabBar(
-      {super.key,
-      required this.labels,
-      required this.sizeScheme,
-      required this.children})
-      : assert(
+  const UIKitTabBar({
+    super.key,
+    required this.labels,
+    required this.sizeScheme,
+    required this.children,
+  }) : assert(
           (children.length == labels.length),
           'The number of children must be equal to the number of labels.',
         );
@@ -34,27 +34,37 @@ class UIKitTabBar extends HookWidget {
     // Direction is used to detect the swipe detection on the calendar.
     String direction = '';
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // For every child we make UIKitTab.
-              for (int i = 0; i < children.length; i++) ...[
-                UIKitTab.line(
-                  key: ValueKey<int>(i),
-                  isActive: tabIndex$.value == i,
-                  onTap: () => tabIndex$.value = i,
-                  label: labels[i],
-                ),
-              ],
+    List<Widget> childrenWithKeys = useMemoized(() {
+      List<Widget> childrenWithKeys = [];
+      for (int i = 0; i < children.length; i++) {
+        childrenWithKeys.add(Container(
+          key: ValueKey(i),
+          child: children[i],
+        ));
+      }
+      return childrenWithKeys;
+    }, [children.length]);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            // For every child we make UIKitTab.
+            for (int i = 0; i < children.length; i++) ...[
+              UIKitTab.line(
+                isActive: tabIndex$.value == i,
+                onTap: () => tabIndex$.value = i,
+                label: labels[i],
+              ),
             ],
-          ),
-          const SizedBox(height: 16),
-          GestureDetector(
+          ],
+        ),
+        //const SizedBox(height: 16),
+        Expanded(
+          child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
             onPanEnd: (details) {
               // We only want swipe to work if we are not on a web platform.
               if (!kIsWeb) {
@@ -85,13 +95,22 @@ class UIKitTabBar extends HookWidget {
               }
             },
             // According to the selected tab we show the correct child.
-            child:
-              AnimatedSwitcher(
-                  duration: const Duration(seconds: 3),
-                  child: children[tabIndex$.value]),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 150),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return SlideTransition(
+                  position: Tween(
+                    begin: const Offset(0.3, 0.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+              child: childrenWithKeys[tabIndex$.value],
             ),
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
