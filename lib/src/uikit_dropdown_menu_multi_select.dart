@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/src/uikit_dropdown_menu_item.dart';
-
 import '../smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 
 class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
   final List<T> value;
   final List<T>? initialValue;
-  final ValueChanged<List<T>?> onChange;
 
   const UIKitDropdownMenuMultiSelect({
     super.key,
     required this.value,
     this.initialValue,
-    required this.onChange,
     List<T> options = const [],
     List<Widget> labels = const [],
     List<Widget> actions = const <Widget>[],
@@ -83,7 +80,6 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                           currentValue$.contains(options[i])
                               ? currentValue$.remove(options[i])
                               : currentValue$.add(options[i]);
-                          onChange.call(currentValue$);
                           pleaseRebuild$.value = !pleaseRebuild$.value;
                         },
                         multiselect: true,
