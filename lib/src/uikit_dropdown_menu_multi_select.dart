@@ -8,7 +8,7 @@ import 'helpers/uikit_helper_functions.dart';
 class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
   final List<T> value;
   final List<T>? initialValue;
-  final ValueChanged<List<T?>> onChange;
+  final ValueChanged<List<T>> onChange;
 
   const UIKitDropdownMenuMultiSelect({
     super.key,
