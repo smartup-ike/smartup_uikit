@@ -19,7 +19,7 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
     bool? hasSearchBar,
-    void Function(String)? searchOnChange,
+    ValueChanged<String>? searchOnChange,
   }) : super(
           options: options,
           multiselect: false,
@@ -73,12 +73,10 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
                       UIKitDropdownMenuItem<T>(
                         label: labels[i],
                         value: options[i],
-                        onTap: () {
-                          Navigator.of(context).pop(options[i]);
-                        },
+                        onTap: () => Navigator.of(context).pop(options[i]),
                         multiselect: false,
                         isSelected: initialValue == options[i],
-                        trailing: null,
+                        trailing: itemTrailing,
                       ),
                       const SizedBox(height: 4),
                     ],

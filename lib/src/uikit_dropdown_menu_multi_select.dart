@@ -8,7 +8,7 @@ import 'helpers/uikit_helper_functions.dart';
 class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
   final List<T> value;
   final List<T>? initialValue;
-  final ValueChanged<List<T>> onChange;
+  final ValueChanged<List<T>?> onChange;
 
   const UIKitDropdownMenuMultiSelect({
     super.key,
@@ -23,7 +23,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
     UIKitSizeScheme? sizeScheme,
     UIKitShadowScheme? shadowScheme,
     bool? hasSearchBar,
-    void Function(String)? searchOnChange,
+    ValueChanged<String>? searchOnChange,
   }) : super(
           options: options,
           multiselect: true,
@@ -88,7 +88,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                         },
                         multiselect: true,
                         isSelected: currentValue$.value.contains(options[i]),
-                        trailing: null,
+                        trailing: itemTrailing,
                       ),
                       const SizedBox(height: 4),
                     ],
