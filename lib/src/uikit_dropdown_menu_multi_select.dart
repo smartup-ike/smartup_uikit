@@ -39,7 +39,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
 
   @override
   Widget build(BuildContext context) {
-    final currentValue$ = useState<List<T>>(initialValue ?? <T>[]);
+    final currentValue$ = initialValue ?? [];
     final searchController = useTextEditingController();
     final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
@@ -80,14 +80,14 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                         label: labels[i],
                         value: options[i],
                         onTap: () {
-                          currentValue$.value.contains(options[i])
-                              ? currentValue$.value.remove(options[i])
-                              : currentValue$.value.add(options[i]);
-                          onChange.call(currentValue$.value);
+                          currentValue$.contains(options[i])
+                              ? currentValue$.remove(options[i])
+                              : currentValue$.add(options[i]);
+                          onChange.call(currentValue$);
                           pleaseRebuild$.value = !pleaseRebuild$.value;
                         },
                         multiselect: true,
-                        isSelected: currentValue$.value.contains(options[i]),
+                        isSelected: currentValue$.contains(options[i]),
                         trailing: itemTrailing,
                       ),
                       const SizedBox(height: 4),
