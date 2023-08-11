@@ -6,8 +6,8 @@ import '../smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 
 class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
-  final List<T?> value;
-  final List<T?>? initialValue;
+  final List<T> value;
+  final List<T>? initialValue;
   final ValueChanged<List<T?>> onChange;
 
   const UIKitDropdownMenuMultiSelect({
@@ -39,8 +39,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
 
   @override
   Widget build(BuildContext context) {
-    final currentValue$ =
-        useState<List<T?>>(List.from(initialValue ?? <T?>[], growable: true));
+    final currentValue$ = useState<List<T>>(initialValue ?? <T>[]);
     final searchController = useTextEditingController();
     final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
