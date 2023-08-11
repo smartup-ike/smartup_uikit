@@ -36,7 +36,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
 
   @override
   Widget build(BuildContext context) {
-    final currentValue$ = initialValue ?? [];
+    final currentValue$ = List.from(initialValue ?? []);
     final searchController = useTextEditingController();
     final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
     final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
