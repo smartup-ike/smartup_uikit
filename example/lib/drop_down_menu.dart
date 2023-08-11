@@ -129,7 +129,7 @@ class MultiOptionsSelectorDialog extends HookWidget {
     return UIKitDropdownMenuMultiSelect<int?>(
       initialValue: initialValue,
       value: selectedValue$.value,
-      onChange: (newValue) => selectedValue$.value = newValue,
+      onChange: (newValue) => selectedValue$.value = newValue ?? [],
       actions: [
         UIKitButton.smallOutline(
           labelText: const Text('Ακύρωση'),

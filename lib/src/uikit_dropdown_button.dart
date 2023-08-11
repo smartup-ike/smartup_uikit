@@ -12,7 +12,7 @@ import 'theme/uikit_text_input_theme_data.dart';
 import 'theme/uikit_theme.dart';
 import 'helpers/uikit_icon_theme.dart';
 
-class UIKitDropdownButton<T> extends HookWidget {
+class UIKitDropdownButton extends HookWidget {
   const UIKitDropdownButton({
     super.key,
     this.onTap,
@@ -111,7 +111,7 @@ class UIKitDropdownButton<T> extends HookWidget {
   })  : styleType = TextInputStyleType.line,
         size = UIKitSizes.small;
 
-  final Future<T?> Function(RelativeRect position, Size size)? onTap;
+  final void Function(RelativeRect position, Size size)? onTap;
   final UIKitColorScheme? colorScheme;
   final UIKitSizeScheme? sizeScheme;
   final UIKitShadowScheme? shadowScheme;
@@ -242,7 +242,9 @@ class UIKitDropdownButton<T> extends HookWidget {
                       DefaultTextStyle(
                         style: size$.value.labelStyle
                                 ?.copyWith(color: colorHelper.contentColor) ??
-                            TextStyle(color: colorHelper.contentColor,),
+                            TextStyle(
+                              color: colorHelper.contentColor,
+                            ),
                         child: label ?? const Text(''),
                       ),
                     DefaultTextStyle(
@@ -269,7 +271,7 @@ class UIKitDropdownButton<T> extends HookWidget {
   UIKitColorScheme findColors(UIKitTextInputThemeData themeData) {
     UIKitColorScheme colorScheme;
 
-    if (this.styleType == TextInputStyleType.filled) {
+    if (styleType == TextInputStyleType.filled) {
       colorScheme = themeData.filledInputColorScheme;
     } else {
       colorScheme = themeData.lineInputColorScheme;

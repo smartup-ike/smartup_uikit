@@ -19,7 +19,7 @@ class _LeaveTypeSelectorState extends State<LeaveTypeSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return UIKitDropdownButton<String?>.mediumLine(
+    return UIKitDropdownButton.mediumLine(
       label: const Text('Selection'),
       input: Text(_selectedValue ?? ''),
       isDisabled: false,
