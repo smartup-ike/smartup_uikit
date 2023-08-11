@@ -50,10 +50,10 @@ export 'package:smartup_uikit/src/uikit_menu_item.dart' show UIKitMenuItem;
 export 'package:smartup_uikit/src/uikit_dropdown_menu.dart'
     show UIKitDropdownMenu;
 
-export 'package:smartup_uikit/src/uikit_dropdown_menu_single_selected.dart'
+export 'package:smartup_uikit/src/uikit_dropdown_menu_single_select.dart'
     show UIKitDropdownMenuSingleSelect;
 
-export 'package:smartup_uikit/src/uikit_dropdownmenu_multiselect.dart'
+export 'package:smartup_uikit/src/uikit_dropdown_menu_multi_select.dart'
     show UIKitDropdownMenuMultiSelect;
 
 export 'package:smartup_uikit/src/uikit_dropdown_button.dart'
@@ -70,5 +70,4 @@ export 'package:smartup_uikit/src/uikit_checkbox_list_tile.dart'
 export 'package:smartup_uikit/src/uikit_toggle_list_tile.dart'
     show UIKitToggleListTile;
 
-export 'package:smartup_uikit/src/uikit_tab_bar.dart'
-    show UIKitTabBar;
+export 'package:smartup_uikit/src/uikit_tab_bar.dart' show UIKitTabBar;
