@@ -7,11 +7,13 @@ import 'helpers/uikit_helper_functions.dart';
 class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
   final List<T> value;
   final List<T>? initialValue;
+  final ValueChanged<List<T>?> onChanged;
 
   const UIKitDropdownMenuMultiSelect({
     super.key,
     required this.value,
     this.initialValue,
+    required this.onChanged,
     List<T> options = const [],
     List<Widget> labels = const [],
     List<Widget> actions = const <Widget>[],
@@ -81,6 +83,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                               ? currentValue$.value.remove(options[i])
                               : currentValue$.value.add(options[i]);
                           pleaseRebuild$.value = !pleaseRebuild$.value;
+                          onChanged.call(currentValue$.value);
                         },
                         multiselect: true,
                         isSelected: currentValue$.value.contains(options[i]),
