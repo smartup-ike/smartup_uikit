@@ -103,15 +103,35 @@ class UIKitTabBar extends HookWidget {
             },
             // According to the selected tab we show the correct child.
             child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 150),
+              switchInCurve: Curves.ease,
+              switchOutCurve: Curves.ease,
+              // This affects how fast the exiting child will move. If it is too slow the two children "Collide"
+              reverseDuration: const Duration(milliseconds: 270),
+              // This affects how fast the entering child will move.
+              duration: const Duration(milliseconds: 600),
               transitionBuilder: (Widget child, Animation<double> animation) {
-                return SlideTransition(
-                  position: Tween(
-                    begin: const Offset(0.3, 0.0),
-                    end: const Offset(0.0, 0.0),
-                  ).animate(animation),
-                  child: child,
-                );
+                // We check to see if the current child is the same with the selected tab.
+                // This is done so we can show separate animations for the entering and exiting children.
+                //Animation for the entering child.
+                if (child.key == childrenWithKeys[tabIndex$.value].key) {
+                  return SlideTransition(
+                    position: Tween(
+                      begin: const Offset(1.0, 0.0),
+                      end: const Offset(0.0, 0.0),
+                    ).animate(animation),
+                    child: child,
+                  );
+                }
+                // Animation for the exiting child.
+                else {
+                  return SlideTransition(
+                    position: Tween(
+                      begin: const Offset(-1.0, 0.0),
+                      end: const Offset(0.0, 0.0),
+                    ).animate(animation),
+                    child: child,
+                  );
+                }
               },
               child: childrenWithKeys[tabIndex$.value],
             ),
