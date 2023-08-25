@@ -75,7 +75,7 @@ class UIKitTabBar extends HookWidget {
             onPanEnd: (details) {
               // We only want swipe to work if we are not on a web platform.
               // details.velocity.pixelsPerSecond.distance is used as an improvised way to set a sensitivity threshold/
-              if (!kIsWeb && details.velocity.pixelsPerSecond.distance > 400) {
+              if (!kIsWeb && details.velocity.pixelsPerSecond.distance > 150) {
                 // We change the tab index to change which child is shown.
                 // We do children.length - 1 because lists start from 0.
                 // If we reach 0 or the end of the list of children, then we cycle to the other end.
@@ -93,14 +93,19 @@ class UIKitTabBar extends HookWidget {
             },
             onPanUpdate: (details) {
               // We need to check if the direction of the swipe is more horizontal than vertical to avoid changing tabs when the user wants to scroll.
-              // Swiping in right direction was detected.
-              if (details.delta.dx > 0) {
-                direction$.value = 'right';
-              }
+              if (details.delta.dy < 3 && details.delta.dy > -3) {
+                // Swiping in right direction was detected.
+                if (details.delta.dx > 0) {
+                  direction$.value = 'right';
+                }
 
-              // Swiping in left direction  was detected.
-              if (details.delta.dx < 0) {
-                direction$.value = 'left';
+                // Swiping in left direction  was detected.
+                if (details.delta.dx < 0) {
+                  direction$.value = 'left';
+                }
+              } else {
+                // If we detected a vertical swipe we ignore it.
+                direction$.value = '';
               }
             },
             // According to the selected tab we show the correct child.
@@ -115,7 +120,7 @@ class UIKitTabBar extends HookWidget {
               transitionBuilder: (Widget child, Animation<double> animation) {
                 // We check to see if the current child is the same with the selected tab.
                 // This is done so we can show separate animations for the entering and exiting children.
-                //Animation for the entering child.
+                // Animation for the entering child.
                 if (child.key == childrenWithKeys[tabIndex$.value].key) {
                   if (direction$.value == "left") {
                     return SlideTransition(

@@ -15,8 +15,8 @@ class TabBarExample extends HookWidget {
       body: UIKitTabBar(
         labels: const [
           Text("Red"),
-          Text("Green"),
           Text("Blue"),
+          Text("Buttons"),
         ],
         sizeScheme: UIKitSizeScheme(),
         children: [
