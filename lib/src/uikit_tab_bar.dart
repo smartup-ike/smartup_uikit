@@ -32,7 +32,7 @@ class UIKitTabBar extends HookWidget {
     // Index for the tabs. It controls which tab will be selected.
     final tabIndex$ = useState(0);
     // Direction is used to detect the swipe detection on the calendar.
-    String direction = '';
+    final direction$ = useState('');
 
     List<Widget> childrenWithKeys = useMemoized(() {
       List<Widget> childrenWithKeys = [];
@@ -74,16 +74,17 @@ class UIKitTabBar extends HookWidget {
             behavior: HitTestBehavior.opaque,
             onPanEnd: (details) {
               // We only want swipe to work if we are not on a web platform.
-              if (!kIsWeb) {
+              // details.velocity.pixelsPerSecond.distance is used as an improvised way to set a sensitivity threshold/
+              if (!kIsWeb && details.velocity.pixelsPerSecond.distance > 400) {
                 // We change the tab index to change which child is shown.
                 // We do children.length - 1 because lists start from 0.
                 // If we reach 0 or the end of the list of children, then we cycle to the other end.
-                if (direction == 'right') {
+                if (direction$.value == 'right') {
                   tabIndex$.value > 0
                       ? tabIndex$.value = tabIndex$.value - 1
                       : tabIndex$.value = children.length - 1;
                 }
-                if (direction == 'left') {
+                if (direction$.value == 'left') {
                   tabIndex$.value < children.length - 1
                       ? tabIndex$.value = tabIndex$.value + 1
                       : tabIndex$.value = 0;
@@ -91,46 +92,68 @@ class UIKitTabBar extends HookWidget {
               }
             },
             onPanUpdate: (details) {
+              // We need to check if the direction of the swipe is more horizontal than vertical to avoid changing tabs when the user wants to scroll.
               // Swiping in right direction was detected.
               if (details.delta.dx > 0) {
-                direction = 'right';
+                direction$.value = 'right';
               }
 
               // Swiping in left direction  was detected.
               if (details.delta.dx < 0) {
-                direction = 'left';
+                direction$.value = 'left';
               }
             },
             // According to the selected tab we show the correct child.
             child: AnimatedSwitcher(
-              switchInCurve: Curves.ease,
-              switchOutCurve: Curves.ease,
+              // Curves control the pace at which the child will speed up or slow down.
+              switchInCurve: Curves.decelerate,
+              switchOutCurve: Curves.linear,
               // This affects how fast the exiting child will move. If it is too slow the two children "Collide"
-              reverseDuration: const Duration(milliseconds: 270),
+              reverseDuration: const Duration(milliseconds: 375),
               // This affects how fast the entering child will move.
-              duration: const Duration(milliseconds: 600),
+              duration: const Duration(milliseconds: 750),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 // We check to see if the current child is the same with the selected tab.
                 // This is done so we can show separate animations for the entering and exiting children.
                 //Animation for the entering child.
                 if (child.key == childrenWithKeys[tabIndex$.value].key) {
-                  return SlideTransition(
-                    position: Tween(
-                      begin: const Offset(1.0, 0.0),
-                      end: const Offset(0.0, 0.0),
-                    ).animate(animation),
-                    child: child,
-                  );
+                  if (direction$.value == "left") {
+                    return SlideTransition(
+                      position: Tween(
+                        begin: const Offset(1.0, 0.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation),
+                      child: child,
+                    );
+                  } else {
+                    return SlideTransition(
+                      position: Tween(
+                        begin: const Offset(-1.0, 0.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation),
+                      child: child,
+                    );
+                  }
                 }
                 // Animation for the exiting child.
                 else {
-                  return SlideTransition(
-                    position: Tween(
-                      begin: const Offset(-1.0, 0.0),
-                      end: const Offset(0.0, 0.0),
-                    ).animate(animation),
-                    child: child,
-                  );
+                  if (direction$.value == "left") {
+                    return SlideTransition(
+                      position: Tween(
+                        begin: const Offset(-1.0, 0.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation),
+                      child: child,
+                    );
+                  } else {
+                    return SlideTransition(
+                      position: Tween(
+                        begin: const Offset(1.0, 0.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation),
+                      child: child,
+                    );
+                  }
                 }
               },
               child: childrenWithKeys[tabIndex$.value],
