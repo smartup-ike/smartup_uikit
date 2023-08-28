@@ -55,17 +55,24 @@ class UIKitTabBar extends HookWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            // For every child we make UIKitTab.
-            for (int i = 0; i < children.length; i++) ...[
-              UIKitTab.line(
-                isActive: tabIndex$.value == i,
-                onTap: () => tabIndex$.value = i,
-                label: labels[i],
-              ),
+        // We need this SizedBox because ListView needs to know the size of it's parent.
+        SizedBox(
+          width: double.infinity,
+          height: 45,
+          child: ListView(
+            // This makes the list scroll horizontally instead of vertically
+            scrollDirection: Axis.horizontal,
+            children: [
+              // For every child we make UIKitTab.
+              for (int i = 0; i < children.length; i++) ...[
+                UIKitTab.line(
+                  isActive: tabIndex$.value == i,
+                  onTap: () => tabIndex$.value = i,
+                  label: labels[i],
+                ),
+              ],
             ],
-          ],
+          ),
         ),
         const SizedBox(height: 16),
         Expanded(
