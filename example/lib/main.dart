@@ -1,4 +1,5 @@
 // ignore_for_file: unused_field
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 
 import 'config/app_router.dart';
@@ -31,24 +32,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends HookWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final activeMenuItemIndex$ = useState(0);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: UIKitTheme.of(context).colors.primary800,
@@ -60,10 +51,12 @@ class _MyHomePageState extends State<MyHomePage>
             const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: UIKitMenuItem(
-                isActive: true,
+              child:
+              UIKitMenuItem(
+                isActive: activeMenuItemIndex$.value == 1,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 1;
                   context.go("/radioToggleAndCheckBox");
                 },
                 label: const Text("Radio, Toggle and CheckBox"),
@@ -72,9 +65,10 @@ class _MyHomePageState extends State<MyHomePage>
             Padding(
               padding: const EdgeInsets.all(10),
               child: UIKitMenuItem(
-                isActive: true,
+                isActive: activeMenuItemIndex$.value == 2,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 2;
                   context.go("/datePicker");
                 },
                 label: const Text("Date Picker"),
@@ -83,9 +77,10 @@ class _MyHomePageState extends State<MyHomePage>
             Padding(
               padding: const EdgeInsets.all(10),
               child: UIKitMenuItem(
-                isActive: true,
+                isActive: activeMenuItemIndex$.value == 3,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 3;
                   context.go("/buttons");
                 },
                 label: const Text("Buttons"),
@@ -94,9 +89,10 @@ class _MyHomePageState extends State<MyHomePage>
             Padding(
               padding: const EdgeInsets.all(10),
               child: UIKitMenuItem(
-                isActive: true,
+                isActive: activeMenuItemIndex$.value == 4,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 4;
                   context.go("/textInput");
                 },
                 label: const Text("Text Input"),
@@ -105,9 +101,10 @@ class _MyHomePageState extends State<MyHomePage>
             Padding(
               padding: const EdgeInsets.all(10),
               child: UIKitMenuItem(
-                isActive: true,
+                isActive: activeMenuItemIndex$.value == 5,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 5;
                   context.go("/dropDownMenuPage");
                 },
                 label: const Text("Drop Down Menu"),
@@ -116,9 +113,10 @@ class _MyHomePageState extends State<MyHomePage>
             Padding(
               padding: const EdgeInsets.all(10),
               child: UIKitMenuItem(
-                isActive: true,
+                isActive: activeMenuItemIndex$.value == 6,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 6;
                   context.go("/tabBar");
                 },
                 label: const Text("Tab Bar"),
@@ -127,9 +125,10 @@ class _MyHomePageState extends State<MyHomePage>
             Padding(
               padding: const EdgeInsets.all(10),
               child: UIKitMenuItem(
-                isActive: true,
+                isActive: activeMenuItemIndex$.value == 7,
                 isExpanded: true,
                 onTap: () {
+                  activeMenuItemIndex$.value = 7;
                   context.go("/playground");
                 },
                 label: const Text("Playground"),
