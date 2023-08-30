@@ -66,8 +66,14 @@ class UIKitTabBar extends HookWidget {
               // For every child we make UIKitTab.
               for (int i = 0; i < children.length; i++) ...[
                 UIKitTab.line(
+                  // If this condition is true the the tab is active.
                   isActive: tabIndex$.value == i,
-                  onTap: () => tabIndex$.value = i,
+                  onTap: () {
+                    // This line is needed so the tab_bar knows the correct side for the animation even if there was no swipe and the user tapped a button.
+                    tabIndex$.value > i ? direction$.value = 'right' : direction$.value = 'left';
+                    // Each tab remembers which i it was assigned to it. The on tap it can use it.
+                    tabIndex$.value = i;
+                  },
                   label: labels[i],
                 ),
               ],
