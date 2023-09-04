@@ -100,6 +100,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: UIKitTextInput.mediumLineSearch(
+                      leading: const Text("Αναζήτηση: "),
                       onChanged: searchOnChange,
                       controller: searchController,
                     ),
