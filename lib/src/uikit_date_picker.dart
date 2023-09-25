@@ -17,8 +17,8 @@ class UIKitDatePicker extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-    this.dateMustBeAfter,
-    this.dateMustBeBefore,
+    this.dateMustBeFrom,
+    this.dateMustBeUntil,
   });
 
   final bool isRangePicker;
@@ -29,18 +29,20 @@ class UIKitDatePicker extends HookWidget {
   final UIKitShadowScheme? shadowScheme;
 
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
-  final DateTime? dateMustBeAfter;
-  final DateTime? dateMustBeBefore;
+  final DateTime? dateMustBeFrom;
+  final DateTime? dateMustBeUntil;
 
   @override
   Widget build(BuildContext context) {
     // If the user gave as limits for the acceptable dates the we change the values of year$ and month$ to the beginning of the limit.
     // This is done so the calendar starts on the first month the user is allowed to select.
     final year$ = useState<int>(
-        dateMustBeAfter != null ? dateMustBeAfter!.year : DateTime.now().year);
-    final month$ = useState<int>(dateMustBeAfter != null
-        ? dateMustBeAfter!.month
+        dateMustBeFrom != null ? dateMustBeFrom!.year : DateTime.now().year);
+
+    final ValueNotifier month$ = useState<int?>(dateMustBeFrom != null
+        ? dateMustBeFrom!.month
         : DateTime.now().month);
+
     final selectedDates$ = useState<List<DateTime?>>(
       List.filled(2, null, growable: true),
     );
@@ -57,9 +59,11 @@ class UIKitDatePicker extends HookWidget {
     void Function(DateTime)? calendarButtonOnTap() {
       // If the user did specify a limit we check to see if the date in question is within limits.
       // This widget is grayed out / disabled if a null onTap is given.
-      return (dateMustBeAfter != null && !date.isAfter(dateMustBeAfter!))
+      //return (dateMustBeFrom != null && !date.isAfter(dateMustBeFrom!))
+      return (dateMustBeFrom != null && date.compareTo(dateMustBeFrom!)<0)
           ? null
-          : (dateMustBeBefore != null && !date.isBefore(dateMustBeBefore!))
+          // : (dateMustBeUntil != null && !date.isBefore(dateMustBeUntil!))
+          : (dateMustBeUntil != null && date.compareTo(dateMustBeUntil!)>0)
               ? null
               : date.month != month$.value
                   ? null
@@ -94,48 +98,48 @@ class UIKitDatePicker extends HookWidget {
         12: 'Δεκέμβριος',
       };
 
-      if (dateMustBeAfter == null && dateMustBeBefore == null) {
+      if (dateMustBeFrom == null && dateMustBeUntil == null) {
         return monthsMap;
       }
-      if (dateMustBeAfter != null && dateMustBeBefore != null) {
-        if (year$.value != dateMustBeAfter!.year &&
-            year$.value != dateMustBeBefore!.year) {
+      if (dateMustBeFrom != null && dateMustBeUntil != null) {
+        if (year$.value != dateMustBeFrom!.year &&
+            year$.value != dateMustBeUntil!.year) {
           return monthsMap;
         }
       }
 
       Map<int, String> temp = {};
-      if (dateMustBeAfter != null && dateMustBeBefore == null) {
+      if (dateMustBeFrom != null && dateMustBeUntil == null) {
         monthsMap.forEach((key, value) {
-          if (key >= dateMustBeAfter!.month) {
+          if (key >= dateMustBeFrom!.month) {
             temp[key] = value;
           }
         });
-      } else if (dateMustBeAfter != null && dateMustBeBefore != null) {
-        if (dateMustBeAfter!.year == dateMustBeBefore!.year &&
-            dateMustBeBefore!.year == year$.value) {
+      } else if (dateMustBeFrom != null && dateMustBeUntil != null) {
+        if (dateMustBeFrom!.year == dateMustBeUntil!.year &&
+            dateMustBeUntil!.year == year$.value) {
           monthsMap.forEach((key, value) {
-            if (key >= dateMustBeAfter!.month &&
-                key <= dateMustBeBefore!.month) {
+            if (key >= dateMustBeFrom!.month &&
+                key <= dateMustBeUntil!.month) {
               temp[key] = value;
             }
           });
-        } else if (dateMustBeAfter!.year == year$.value) {
+        } else if (dateMustBeFrom!.year == year$.value) {
           monthsMap.forEach((key, value) {
-            if (key >= dateMustBeAfter!.month) {
+            if (key >= dateMustBeFrom!.month) {
               temp[key] = value;
             }
           });
         } else {
           monthsMap.forEach((key, value) {
-            if (key <= dateMustBeBefore!.month) {
+            if (key <= dateMustBeUntil!.month) {
               temp[key] = value;
             }
           });
         }
       } else {
         monthsMap.forEach((key, value) {
-          if (key <= dateMustBeBefore!.month) {
+          if (key <= dateMustBeUntil!.month) {
             temp[key] = value;
           }
         });
@@ -177,8 +181,8 @@ class UIKitDatePicker extends HookWidget {
                     ),
                     Expanded(
                       child: UIKitYearSelector(
-                        dateMustBeAfter: dateMustBeAfter,
-                        dateMustBeBefore: dateMustBeBefore,
+                        dateMustBeFrom: dateMustBeFrom,
+                        dateMustBeUntil: dateMustBeUntil,
                         onChanged: (value) {
                           year$.value = value!;
                           availableMonthsMap$.value = availableMonthsMap();
@@ -200,7 +204,7 @@ class UIKitDatePicker extends HookWidget {
                       ),
                     ),
                     // We only want the buttons to be available on web platforms.
-                    if (kIsWeb)
+                    if (kIsWeb && availableMonthsMap$.value.length > 1)
                       UIKitIconButton.mediumGhost(
                         icon: const Icon(Icons.arrow_back_ios),
                         onTap: () {
@@ -212,7 +216,7 @@ class UIKitDatePicker extends HookWidget {
                     Expanded(
                       child: UIKitMonthSelector(
                         initialValue: month$.value,
-                        dateMustBeAfter: dateMustBeAfter,
+                        dateMustBeFrom: dateMustBeFrom,
                         onChanged: (value) => month$.value = value!,
                         trailing: dropdownButtonTrailing,
                         itemTrailing: dropdownMenuItemTrailing,
@@ -220,7 +224,7 @@ class UIKitDatePicker extends HookWidget {
                       ),
                     ),
                     // We only want the buttons to be available on web platforms.
-                    if (kIsWeb)
+                    if (kIsWeb && availableMonthsMap$.value.length > 1)
                       UIKitIconButton.mediumGhost(
                         icon: const Icon(Icons.arrow_forward_ios),
                         onTap: () {

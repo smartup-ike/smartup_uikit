@@ -10,8 +10,8 @@ class UIKitYearSelector extends HookWidget {
     required this.onChanged,
     this.trailing,
     this.itemTrailing,
-    this.dateMustBeAfter,
-    this.dateMustBeBefore,
+    this.dateMustBeFrom,
+    this.dateMustBeUntil,
   });
 
   final ValueChanged<int?> onChanged;
@@ -19,18 +19,18 @@ class UIKitYearSelector extends HookWidget {
   final Widget? itemTrailing;
 
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
-  final DateTime? dateMustBeAfter;
-  final DateTime? dateMustBeBefore;
+  final DateTime? dateMustBeFrom;
+  final DateTime? dateMustBeUntil;
 
   @override
   Widget build(BuildContext context) {
     // If the user specified a limit then we want the years to start at the beginning of the limit.
     final selectedValue$ = useState(
-        dateMustBeAfter != null ? dateMustBeAfter!.year : DateTime.now().year);
+        dateMustBeFrom != null ? dateMustBeFrom!.year : DateTime.now().year);
 
     return UIKitDropdownButton.largeFilled(
       input: Text(selectedValue$.value.toString()),
-      isDisabled: false,
+      isDisabled: dateMustBeFrom?.year == dateMustBeUntil?.year,
       trailing: trailing ?? const SizedBox(),
       onTap: (position, size) async {
         selectedValue$.value = await Navigator.of(context).push<int?>(
@@ -38,8 +38,8 @@ class UIKitYearSelector extends HookWidget {
                 child: YearDialog(
                   initialValue: selectedValue$.value,
                   itemTrailing: itemTrailing,
-                  dateMustBeBefore: dateMustBeBefore,
-                  dateMustBeAfter: dateMustBeAfter,
+                  dateMustBeBefore: dateMustBeUntil,
+                  dateMustBeAfter: dateMustBeFrom,
                 ),
                 position: position,
                 size: size,

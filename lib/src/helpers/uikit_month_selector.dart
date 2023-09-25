@@ -9,7 +9,7 @@ class UIKitMonthSelector extends HookWidget {
     required this.onChanged,
     this.trailing,
     this.itemTrailing,
-    this.dateMustBeAfter,
+    this.dateMustBeFrom,
     required this.monthsMap,
     this.initialValue,
   });
@@ -19,7 +19,7 @@ class UIKitMonthSelector extends HookWidget {
   final Widget? itemTrailing;
 
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
-  final DateTime? dateMustBeAfter;
+  final DateTime? dateMustBeFrom;
   final Map<int, String> monthsMap;
   final int? initialValue;
 
@@ -27,19 +27,18 @@ class UIKitMonthSelector extends HookWidget {
   Widget build(BuildContext context) {
     // If the user specified a limit then we make the calendar start at the month at the beginning of the limit.
     // Otherwise the calendar will start at the current month.
-    int? selectedValue$ = dateMustBeAfter != null
-        ? dateMustBeAfter!.month
-        : initialValue;
+    final selectedValue$ = useState(initialValue);
+    selectedValue$.value = initialValue;
 
     return UIKitDropdownButton.largeFilled(
-      input: Text(monthsMap[selectedValue$] ?? ''),
-      isDisabled: false,
+      input: Text(monthsMap[selectedValue$.value] ?? ''),
+      isDisabled: monthsMap.values.length==1,
       trailing: trailing ?? const SizedBox(),
       onTap: (position, size) async {
-        selectedValue$ = await Navigator.of(context).push<int?>(
+        selectedValue$.value = await Navigator.of(context).push<int?>(
               UIKitDropdownRoute(
                 child: MonthDialog(
-                  initialValue: selectedValue$,
+                  initialValue: selectedValue$.value,
                   itemTrailing: itemTrailing,
                   monthsMap: monthsMap,
                 ),
@@ -47,8 +46,8 @@ class UIKitMonthSelector extends HookWidget {
                 size: size,
               ),
             ) ??
-            selectedValue$;
-        onChanged.call(selectedValue$);
+            selectedValue$.value;
+        onChanged.call(selectedValue$.value);
         return;
       },
     );
