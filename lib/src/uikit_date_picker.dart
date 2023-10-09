@@ -7,7 +7,6 @@ import 'helpers/uikit_month_selector.dart';
 import 'helpers/uikit_year_selector.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-
 class UIKitDatePicker extends HookWidget {
   const UIKitDatePicker({
     super.key,
@@ -39,9 +38,8 @@ class UIKitDatePicker extends HookWidget {
     final year$ = useState<int>(
         dateMustBeFrom != null ? dateMustBeFrom!.year : DateTime.now().year);
 
-    final ValueNotifier month$ = useState<int?>(dateMustBeFrom != null
-        ? dateMustBeFrom!.month
-        : DateTime.now().month);
+    final ValueNotifier month$ = useState<int?>(
+        dateMustBeFrom != null ? dateMustBeFrom!.month : DateTime.now().month);
 
     final selectedDates$ = useState<List<DateTime?>>(
       List.filled(2, null, growable: true),
@@ -60,10 +58,10 @@ class UIKitDatePicker extends HookWidget {
       // If the user did specify a limit we check to see if the date in question is within limits.
       // This widget is grayed out / disabled if a null onTap is given.
       //return (dateMustBeFrom != null && !date.isAfter(dateMustBeFrom!))
-      return (dateMustBeFrom != null && date.compareTo(dateMustBeFrom!)<0)
+      return (dateMustBeFrom != null && date.compareTo(dateMustBeFrom!) < 0)
           ? null
           // : (dateMustBeUntil != null && !date.isBefore(dateMustBeUntil!))
-          : (dateMustBeUntil != null && date.compareTo(dateMustBeUntil!)>0)
+          : (dateMustBeUntil != null && date.compareTo(dateMustBeUntil!) > 0)
               ? null
               : date.month != month$.value
                   ? null
@@ -119,8 +117,7 @@ class UIKitDatePicker extends HookWidget {
         if (dateMustBeFrom!.year == dateMustBeUntil!.year &&
             dateMustBeUntil!.year == year$.value) {
           monthsMap.forEach((key, value) {
-            if (key >= dateMustBeFrom!.month &&
-                key <= dateMustBeUntil!.month) {
+            if (key >= dateMustBeFrom!.month && key <= dateMustBeUntil!.month) {
               temp[key] = value;
             }
           });
@@ -252,6 +249,7 @@ class UIKitDatePicker extends HookWidget {
                 children: List.generate(
                   // For the calendarButtons the dimension needed was 6 : 5. Since i added day labels i changed it to 7 : 6.
                   isSixWeekMonth(year$.value, month$.value) ? 7 : 6,
+
                   (rowIndex) {
                     if (rowIndex == 0) {
                       List<String> days = ["Δ", "Τ", "Τ", "Π", "Π", "Σ", "Κ"];
@@ -285,7 +283,18 @@ class UIKitDatePicker extends HookWidget {
                         7,
                         (columnIndex) {
                           if (!(rowIndex == 1 && columnIndex == 0)) {
-                            date = date.add(const Duration(days: 1));
+                            final newDate = date.add(
+                              const Duration(days: 1),
+                            );
+                            // If the time changed (it happens in October and March)
+                            if (newDate.hour != date.hour) {
+                              // Set the time again to midnight so the day does not change.
+                              date = DateTime(
+                                  date.year, date.month, date.day + 1, 0);
+                              // Else add a day as we normally do.
+                            } else {
+                              date = date.add(const Duration(days: 1));
+                            }
                           }
                           return MediaQuery(
                             data: MediaQuery.of(context).copyWith(
