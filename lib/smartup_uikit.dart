@@ -64,6 +64,9 @@ export 'package:smartup_uikit/src/uikit_dropdown_route.dart'
 
 export 'package:smartup_uikit/src/uikit_date_picker.dart' show UIKitDatePicker;
 
+export 'package:smartup_uikit/src/uikit_calendar_button.dart'
+    show UIKitCalendarButton;
+
 export 'package:smartup_uikit/src/uikit_checkbox_list_tile.dart'
     show UIKitCheckBoxListTile;
 
