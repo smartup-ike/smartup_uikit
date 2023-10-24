@@ -30,7 +30,9 @@ class UIKitYearSelector extends HookWidget {
 
     return UIKitDropdownButton.largeFilled(
       input: Text(selectedValue$.value.toString()),
-      isDisabled: dateMustBeFrom?.year == dateMustBeUntil?.year,
+      isDisabled: dateMustBeFrom?.year != null &&
+          dateMustBeUntil?.year != null &&
+          dateMustBeFrom?.year == dateMustBeUntil?.year,
       trailing: trailing ?? const SizedBox(),
       onTap: (position, size) async {
         selectedValue$.value = await Navigator.of(context).push<int?>(

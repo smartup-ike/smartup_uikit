@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 class DateSelector extends StatefulWidget {
-  const DateSelector({this.dateMustBeFrom, this.dateMustBeUntil, super.key, required this.onChanged,});
+  const DateSelector({
+    this.dateMustBeFrom,
+    this.dateMustBeUntil,
+    super.key,
+    required this.onChanged,
+  });
 
   // dateMustBeAfter and dateMustBeBefore are set by the user if he wants to set a range of acceptable date.
   final DateTime? dateMustBeFrom;
@@ -26,7 +31,9 @@ class _DateSelectorState extends State<DateSelector> {
   Widget build(BuildContext context) {
     return UIKitDropdownButton.largeLine(
       label: const Text('Επιλεγμένες Ημερομηνίες'),
-      input: Text(selectedValue.map((e) => e?.toLocal().toString().substring(0, 10)).join(', ')),
+      input: Text(selectedValue
+          .map((e) => e?.toLocal().toString().substring(0, 10))
+          .join(', ')),
       isDisabled: false,
       trailing: const UIKitIcon.asset('assets/images/url.svg'),
       onTap: (position, size) async {
@@ -34,14 +41,16 @@ class _DateSelectorState extends State<DateSelector> {
               DialogRoute(
                 builder: (context) => Dialog(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 500, maxHeight: 600),
+                    constraints:
+                        const BoxConstraints(maxWidth: 500, maxHeight: 600),
                     child: DatePickerDialog(
                       dateMustBeUntil: widget.dateMustBeUntil,
                       dateMustBeFrom: widget.dateMustBeFrom,
                       initialValue: selectedValue,
                     ),
                   ),
-                ), context: context,
+                ),
+                context: context,
               ),
             ) ??
             [];
@@ -82,6 +91,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
   @override
   Widget build(BuildContext context) {
     return UIKitDatePicker(
+      //isRangePicker: false,
       dateMustBeFrom: widget.dateMustBeFrom,
       dateMustBeUntil: widget.dateMustBeUntil,
       dropdownButtonTrailing: const UIKitIcon.asset('assets/images/url.svg'),
