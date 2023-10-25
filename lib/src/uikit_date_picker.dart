@@ -44,12 +44,10 @@ class UIKitDatePicker extends HookWidget {
       List.filled(2, null, growable: true),
     );
     final selectFirst$ = useState(true);
-    final themeData$ = useState(UIKitTheme.of(context).datePickerThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
-    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
-    final shadows$ = useState(
-      define(shadowScheme, themeData$.value.shadowScheme),
-    );
+    final themeData$ = UIKitTheme.of(context).datePickerThemeData;
+    final colors = define(colorScheme, themeData$.colorScheme);
+    final size = define(sizeScheme, themeData$.sizeScheme);
+    final shadows = define(shadowScheme, themeData$.shadowScheme);
     DateTime date = findDate(DateTime(year$.value, month$.value, 1), 1);
 
     // This function returns the onTap function of each calendar button.
@@ -147,15 +145,15 @@ class UIKitDatePicker extends HookWidget {
     return AnimatedContainer(
       //height: 250,
       duration: const Duration(milliseconds: 200),
-      padding: size$.value.padding,
+      padding: size.padding,
       decoration: BoxDecoration(
-        color: colors$.value.defaultBackgroundColor,
-        borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+        color: colors.defaultBackgroundColor,
+        borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
         border: Border.all(
-          color: colors$.value.defaultBorderColor ?? Colors.transparent,
-          width: size$.value.borderSize ?? 0,
+          color: colors.defaultBorderColor ?? Colors.transparent,
+          width: size.borderSize ?? 0,
         ),
-        boxShadow: shadows$.value.defaultShadow,
+        boxShadow: shadows.defaultShadow,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -338,15 +336,15 @@ class UIKitDatePicker extends HookWidget {
                 if (selectFirst$.value)
                   Icon(
                     Icons.arrow_right,
-                    color: colors$.value.defaultContentColor,
+                    color: colors.defaultContentColor,
                   ),
                 const SizedBox(width: 4),
                 Text(
                   'Από: ${(selectedDates$.value[0] ?? '').toString().split(' ')[0]}',
-                  style: size$.value.labelStyle?.copyWith(
+                  style: size.labelStyle?.copyWith(
                     color: selectFirst$.value
-                        ? colors$.value.defaultContentColor
-                        : colors$.value.defaultContentColor?.withOpacity(0.7),
+                        ? colors.defaultContentColor
+                        : colors.defaultContentColor?.withOpacity(0.7),
                   ),
                 ),
               ],
@@ -357,15 +355,15 @@ class UIKitDatePicker extends HookWidget {
                 if (!selectFirst$.value)
                   Icon(
                     Icons.arrow_right,
-                    color: colors$.value.defaultContentColor,
+                    color: colors.defaultContentColor,
                   ),
                 const SizedBox(width: 4),
                 Text(
                   'Έως: ${(selectedDates$.value[1] ?? '').toString().split(' ')[0]}',
-                  style: size$.value.labelStyle?.copyWith(
+                  style: size.labelStyle?.copyWith(
                     color: selectFirst$.value
-                        ? colors$.value.defaultContentColor?.withOpacity(0.7)
-                        : colors$.value.defaultContentColor,
+                        ? colors.defaultContentColor?.withOpacity(0.7)
+                        : colors.defaultContentColor,
                   ),
                 ),
               ],

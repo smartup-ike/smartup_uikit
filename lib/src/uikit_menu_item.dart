@@ -59,11 +59,11 @@ class UIKitMenuItem extends HookWidget {
     final state$ =
         useState(isActive ? UIKitState.active : UIKitState.defaultState);
 
-    final themeData = UIKitTheme.of(context).menuItemThemeData;
-    final colors = define(colorScheme, themeData.colorScheme);
-    final size = define(sizeScheme, themeData.sizeScheme);
+    final themeData$ = UIKitTheme.of(context).menuItemThemeData;
+    final colors = define(colorScheme, themeData$.colorScheme);
+    final size = define(sizeScheme, themeData$.sizeScheme);
     final shadows =
-        define(shadowScheme, themeData.shadowScheme);
+        define(shadowScheme, themeData$.shadowScheme);
 
     useEffect(() {
       state$.value = isActive ? UIKitState.active : UIKitState.defaultState;

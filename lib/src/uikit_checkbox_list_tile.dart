@@ -119,11 +119,11 @@ class UIKitCheckBoxListTile extends HookWidget {
     final state$ = useState<UIKitState>(
         onChanged == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final theme$ = useState<UIKitCheckBoxListTileThemeData>(
-        UIKitTheme.of(context).checkboxListTileThemeData);
-    final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
-    final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
-    final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
+    final theme$ = 
+        UIKitTheme.of(context).checkboxListTileThemeData;
+    final colors = findColors(theme$);
+    final size = findSize(theme$);
+    final shadows = findShadows(theme$);
 
     useEffect(() {
       if (onChanged == null) {
@@ -135,8 +135,8 @@ class UIKitCheckBoxListTile extends HookWidget {
     }, [onChanged == null]);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -184,12 +184,12 @@ class UIKitCheckBoxListTile extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: size$.value.padding,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
-            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+            borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
             border: Border.all(
-              width: size$.value.secondarySpacing ?? 0,
+              width: size.secondarySpacing ?? 0,
               color: Colors.transparent,
             ),
             boxShadow: colorHelper.shadows,
@@ -202,47 +202,47 @@ class UIKitCheckBoxListTile extends HookWidget {
               if (leading != null) ...[
                 DefaultTextStyle(
                   style: isActive$.value
-                      ? size$.value.focusedLabelStyle
+                      ? size.focusedLabelStyle
                               ?.copyWith(color: colorHelper.contentColor) ??
                           TextStyle(color: colorHelper.contentColor)
-                      : size$.value.labelStyle
+                      : size.labelStyle
                               ?.copyWith(color: colorHelper.contentColor) ??
                           TextStyle(color: colorHelper.contentColor),
                   child: leading!,
                 ),
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
               ],
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    width: size$.value.borderSize ?? 1,
+                    width: size.borderSize ?? 1,
                     color: colorHelper.borderColor ?? Colors.black,
                   ),
                   color: colorHelper.secondaryContentColor,
                 ),
-                height: size$.value.iconSize,
-                width: size$.value.iconSize,
+                height: size.iconSize,
+                width: size.iconSize,
                 child: Center(
                   child: isActive$.value
                       ? Icon(
                           Icons.check,
-                          size: size$.value.iconSize,
+                          size: size.iconSize,
                           color: colorHelper.contentColor,
                         )
                       : SizedBox(
-                          height: size$.value.iconSize,
-                          width: size$.value.iconSize,
+                          height: size.iconSize,
+                          width: size.iconSize,
                         ),
                 ),
               ),
               if (trailing != null) ...[
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
                 DefaultTextStyle(
                   style: isActive$.value
-                      ? size$.value.focusedLabelStyle
+                      ? size.focusedLabelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor)
-                      : size$.value.labelStyle
+                      : size.labelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: trailing!,

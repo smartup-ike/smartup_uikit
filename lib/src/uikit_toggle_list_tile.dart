@@ -112,11 +112,11 @@ class UIKitToggleListTile extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final theme$ = useState<UIKitToggleSwitchListTileThemeData>(
-        UIKitTheme.of(context).toggleSwitchListTileThemeData);
-    final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
-    final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
-    final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
+    final theme$ = 
+        UIKitTheme.of(context).toggleSwitchListTileThemeData;
+    final colors = findColors(theme$);
+    final size = findSize(theme$);
+    final shadows = findShadows(theme$);
 
     useEffect(() {
       if (onTap == null) {
@@ -128,8 +128,8 @@ class UIKitToggleListTile extends HookWidget {
     }, [onTap == null]);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -178,19 +178,19 @@ class UIKitToggleListTile extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: size$.value.padding,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
-            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+            borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
             border: Border.all(
               strokeAlign: BorderSide.strokeAlignInside,
-              width: size$.value.borderSize ?? 0,
+              width: size.borderSize ?? 0,
               color: colorHelper.borderColor ?? Colors.transparent,
             ),
             boxShadow: colorHelper.shadows,
           ),
-          height: size$.value.height,
-          width: size$.value.width,
+          height: size.height,
+          width: size.width,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -198,26 +198,26 @@ class UIKitToggleListTile extends HookWidget {
               if (leading != null) ...[
                 DefaultTextStyle(
                   style: toggleIsOn$.value
-                      ? size$.value.focusedLabelStyle
+                      ? size.focusedLabelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor)
-                      : size$.value.labelStyle
+                      : size.labelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: leading!,
                 ),
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
               ],
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 decoration: BoxDecoration(
-                  color: colors$.value.activeBackgroundColor,
+                  color: colors.activeBackgroundColor,
                   borderRadius: BorderRadius.circular(
-                    size$.value.secondaryRadius ?? 18,
+                    size.secondaryRadius ?? 18,
                   ),
                 ),
-                height: size$.value.iconSize ?? 30 / 2,
-                width: size$.value.iconSize,
+                height: size.iconSize ?? 30 / 2,
+                width: size.iconSize,
                 //color: colorHelper.secondaryContentColor,
 
                 child: Row(
@@ -227,25 +227,25 @@ class UIKitToggleListTile extends HookWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: colors$.value.activeContentColor,
+                        color: colors.activeContentColor,
                         borderRadius: BorderRadius.circular(
-                          size$.value.secondaryRadius ?? 18,
+                          size.secondaryRadius ?? 18,
                         ),
                       ),
-                      height: size$.value.iconSize! / 2,
-                      width: size$.value.iconSize! / 2,
+                      height: size.iconSize! / 2,
+                      width: size.iconSize! / 2,
                     )
                   ],
                 ),
               ),
               if (trailing != null) ...[
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
                 DefaultTextStyle(
                   style: toggleIsOn$.value
-                      ? size$.value.focusedLabelStyle
+                      ? size.focusedLabelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor)
-                      : size$.value.labelStyle
+                      : size.labelStyle
                       ?.copyWith(color: colorHelper.contentColor) ??
                       TextStyle(color: colorHelper.contentColor),
                   child: trailing!,

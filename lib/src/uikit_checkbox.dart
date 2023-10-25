@@ -50,16 +50,16 @@ class UIKitCheckbox extends HookWidget {
               : UIKitState.defaultState,
     );
     final isHovered$ = useState(false);
-    final themeData$ = useState(UIKitTheme.of(context).checkboxThemeData);
-    final colors$ =
-        useState(define(colorScheme, themeData$.value.checkedColorScheme));
-    final shadows$ =
-        useState(define(shadowScheme, themeData$.value.shadowScheme));
-    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
+    final themeData$ = UIKitTheme.of(context).checkboxThemeData;
+    final colors =
+        define(colorScheme, themeData$.checkedColorScheme);
+    final shadows =
+        define(shadowScheme, themeData$.shadowScheme);
+    final size = define(sizeScheme, themeData$.sizeScheme);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -99,24 +99,24 @@ class UIKitCheckbox extends HookWidget {
           }
         },
         child: SizedBox(
-          height: size$.value.height,
-          width: size$.value.width,
+          height: size.height,
+          width: size.width,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
               color: colorHelper.backgroundColor,
               borderRadius:
-                  BorderRadius.circular(size$.value.borderRadius ?? 4),
+                  BorderRadius.circular(size.borderRadius ?? 4),
               border: Border.all(
-                width: size$.value.borderSize ?? 1,
+                width: size.borderSize ?? 1,
                 color: colorHelper.borderColor ?? Colors.transparent,
               ),
               boxShadow: colorHelper.shadows,
             ),
-            padding: size$.value.padding,
+            padding: size.padding,
             child: isChecked
                 ? UIKitIconTheme(
-                    size: size$.value.iconSize,
+                    size: size.iconSize,
                     color: colorHelper.contentColor,
                     child: icon,
                   )

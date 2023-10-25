@@ -316,11 +316,11 @@ class UIKitButton extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final theme$ =
-        useState<UIKitButtonThemeData>(UIKitTheme.of(context).buttonThemeData);
-    final colors$ = useState<UIKitColorScheme>(findColors(theme$.value));
-    final size$ = useState<UIKitSizeScheme>(findSize(theme$.value));
-    final shadows$ = useState<UIKitShadowScheme>(findShadows(theme$.value));
+    final theme =
+        UIKitTheme.of(context).buttonThemeData;
+    final colors = findColors(theme);
+    final size = findSize(theme);
+    final shadows = findShadows(theme);
 
     // Handles button colors according to buttonType.
 
@@ -334,8 +334,8 @@ class UIKitButton extends HookWidget {
     }, [onTap == null]);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -383,19 +383,19 @@ class UIKitButton extends HookWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
-          padding: size$.value.padding,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
-            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+            borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
             border: Border.all(
               strokeAlign: BorderSide.strokeAlignInside,
-              width: size$.value.borderSize ?? 0,
+              width: size.borderSize ?? 0,
               color: colorHelper.borderColor ?? Colors.transparent,
             ),
             boxShadow: colorHelper.shadows,
           ),
-          height: size$.value.height,
-          width: size$.value.width,
+          height: size.height,
+          width: size.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -404,22 +404,22 @@ class UIKitButton extends HookWidget {
               if (leading != null) ...[
                 UIKitIconTheme(
                   color: colorHelper.contentColor,
-                  size: size$.value.leadingSize,
+                  size: size.leadingSize,
                   child: leading!,
                 ),
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
               ],
               DefaultTextStyle(
-                style: size$.value.labelStyle
+                style: size.labelStyle
                         ?.copyWith(color: colorHelper.contentColor) ??
                     TextStyle(color: colorHelper.contentColor),
                 child: labelText ?? const Text('Button'),
               ),
               if (trailing != null) ...[
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
                 UIKitIconTheme(
                   color: colorHelper.contentColor,
-                  size: size$.value.trailingSize,
+                  size: size.trailingSize,
                   child: trailing!,
                 ),
               ],

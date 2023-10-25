@@ -41,12 +41,10 @@ class UIKitCalendarButton extends HookWidget {
               : UIKitState.defaultState,
     );
     final isHovered$ = useState(false);
-    final themeData$ = useState(UIKitTheme.of(context).calendarButtonThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
-    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
-    final shadows$ = useState(
-      define(shadowScheme, themeData$.value.shadowScheme),
-    );
+    final themeData = UIKitTheme.of(context).calendarButtonThemeData;
+    final colors = define(colorScheme, themeData.colorScheme);
+    final size = define(sizeScheme, themeData.sizeScheme);
+    final shadows = define(shadowScheme, themeData.shadowScheme);
     useEffect(
       () {
         state$.value = isSelected || isBetweenSelected
@@ -59,8 +57,8 @@ class UIKitCalendarButton extends HookWidget {
       [isSelected, isBetweenSelected, onTap == null],
     );
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -111,25 +109,25 @@ class UIKitCalendarButton extends HookWidget {
           }
         },
         child: AnimatedContainer(
-          width: size$.value.width,
-          height: size$.value.height,
+          width: size.width,
+          height: size.height,
           duration: const Duration(milliseconds: 200),
-          padding: size$.value.padding,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: isBetweenSelected
                 ? colorHelper.secondaryContentColor
                 : colorHelper.backgroundColor,
             border: Border.all(
               color: colorHelper.borderColor ?? Colors.transparent,
-              width: size$.value.borderSize ?? 0,
+              width: size.borderSize ?? 0,
             ),
-            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 12),
+            borderRadius: BorderRadius.circular(size.borderRadius ?? 12),
             boxShadow: colorHelper.shadows,
           ),
           child: Center(
             child: Text(
               date.day.toString(),
-              style: size$.value.labelStyle?.copyWith(
+              style: size.labelStyle?.copyWith(
                 color: colorHelper.contentColor,
               ),
             ),
