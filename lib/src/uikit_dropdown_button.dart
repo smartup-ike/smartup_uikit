@@ -130,26 +130,20 @@ class UIKitDropdownButton extends HookWidget {
     );
     final isHovered$ = useState(false);
 
-    final themeData$ = useState(UIKitTheme.of(context).textInputThemeData);
+    final themeData = UIKitTheme.of(context).textInputThemeData;
 
     useEffect(() {
       state$.value = isDisabled ? UIKitState.disabled : UIKitState.defaultState;
       return;
     }, [isDisabled]);
 
-    final colors$ = useState(
-      define(colorScheme, findColors(themeData$.value)),
-    );
-    final size$ = useState(
-      define(sizeScheme, findSize(themeData$.value)),
-    );
-    final shadows$ = useState(
-      define(shadowScheme, findShadows(themeData$.value)),
-    );
+    final colors = define(colorScheme, findColors(themeData));
+    final size = define(sizeScheme, findSize(themeData));
+    final shadows = define(shadowScheme, findShadows(themeData));
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -211,23 +205,23 @@ class UIKitDropdownButton extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          height: size$.value.height,
-          width: size$.value.width,
-          padding: size$.value.padding,
+          height: size.height,
+          width: size.width,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
             borderRadius: styleType == TextInputStyleType.filled
-                ? BorderRadius.circular(size$.value.borderRadius ?? 8)
+                ? BorderRadius.circular(size.borderRadius ?? 8)
                 : null,
             border: styleType == TextInputStyleType.filled
                 ? Border.all(
                     color: colorHelper.borderColor ?? Colors.transparent,
-                    width: size$.value.borderSize ?? 1,
+                    width: size.borderSize ?? 1,
                   )
                 : Border(
                     bottom: BorderSide(
                       color: colorHelper.borderColor ?? Colors.transparent,
-                      width: size$.value.borderSize ?? 1,
+                      width: size.borderSize ?? 1,
                     ),
                   ),
             boxShadow: colorHelper.shadows,
@@ -240,7 +234,7 @@ class UIKitDropdownButton extends HookWidget {
                   children: [
                     if (label != null)
                       DefaultTextStyle(
-                        style: size$.value.labelStyle
+                        style: size.labelStyle
                                 ?.copyWith(color: colorHelper.contentColor) ??
                             TextStyle(
                               color: colorHelper.contentColor,
@@ -248,7 +242,7 @@ class UIKitDropdownButton extends HookWidget {
                         child: label ?? const Text(''),
                       ),
                     DefaultTextStyle(
-                      style: size$.value.inputStyle
+                      style: size.inputStyle
                               ?.copyWith(color: colorHelper.contentColor) ??
                           TextStyle(color: colorHelper.contentColor),
                       child: input ?? const Text(''),
@@ -258,7 +252,7 @@ class UIKitDropdownButton extends HookWidget {
               ),
               UIKitIconTheme(
                 color: colorHelper.secondaryContentColor,
-                size: size$.value.trailingSize,
+                size: size.trailingSize,
                 child: trailing,
               ),
             ],

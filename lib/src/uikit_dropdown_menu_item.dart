@@ -42,11 +42,10 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
       isSelected ? UIKitState.active : UIKitState.defaultState,
     );
     final isHovered$ = useState(false);
-    final themeData$ = useState(UIKitTheme.of(context).menuItemThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
-    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
-    final shadows$ =
-        useState(define(shadowScheme, themeData$.value.shadowScheme));
+    final themeData = UIKitTheme.of(context).menuItemThemeData;
+    final colors = define(colorScheme, themeData.colorScheme);
+    final size = define(sizeScheme, themeData.sizeScheme);
+    final shadows = define(shadowScheme, themeData.shadowScheme);
 
     useEffect(() {
       state$.value = isSelected ? UIKitState.active : UIKitState.defaultState;
@@ -54,8 +53,8 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     }, [isSelected]);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -77,13 +76,13 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: size$.value.padding,
+          padding: size.padding,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor ?? Colors.transparent,
-            borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
+            borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
             border: Border.all(
               color: colorHelper.borderColor ?? Colors.transparent,
-              width: size$.value.borderSize ?? 0,
+              width: size.borderSize ?? 0,
             ),
             boxShadow: colorHelper.shadows,
           ),
@@ -100,13 +99,13 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
               ],
               Expanded(
                 child: DefaultTextStyle(
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: size$.value.labelStyle
+                  style: size.labelStyle
                           ?.copyWith(color: colorHelper.contentColor) ??
                       const TextStyle(),
                   child: label ?? const Text(''),
@@ -115,7 +114,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
               if (trailing != null) ...[
                 const Spacer(),
                 UIKitIconTheme(
-                  size: size$.value.trailingSize,
+                  size: size.trailingSize,
                   color: colorHelper.secondaryContentColor,
                   child: trailing!,
                 ),

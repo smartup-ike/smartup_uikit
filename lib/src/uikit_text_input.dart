@@ -448,16 +448,15 @@ class UIKitTextInput extends HookWidget {
       return;
     }, [isFocused$.value]);
 
-    final themeData$ = useState(UIKitTheme.of(context).textInputThemeData);
+    final themeData = UIKitTheme.of(context).textInputThemeData;
 
-    final colors$ = useState(define(colorScheme, findColors(themeData$.value)));
-    final size$ = useState(define(sizeScheme, findSize(themeData$.value)));
-    final shadows$ =
-        useState(define(shadowScheme, findShadows(themeData$.value)));
+    final colors = define(colorScheme, findColors(themeData));
+    final size = define(sizeScheme, findSize(themeData));
+    final shadows = define(shadowScheme, findShadows(themeData));
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -528,23 +527,23 @@ class UIKitTextInput extends HookWidget {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: size$.value.height,
-              width: size$.value.width,
-              padding: size$.value.padding,
+              height: size.height,
+              width: size.width,
+              padding: size.padding,
               decoration: BoxDecoration(
                 color: colorHelper.backgroundColor,
                 borderRadius: styleType == TextInputStyleType.filled
-                    ? BorderRadius.circular(size$.value.borderRadius ?? 8)
+                    ? BorderRadius.circular(size.borderRadius ?? 8)
                     : null,
                 border: styleType == TextInputStyleType.filled
                     ? Border.all(
                         color: colorHelper.borderColor ?? Colors.transparent,
-                        width: size$.value.borderSize ?? 1,
+                        width: size.borderSize ?? 1,
                       )
                     : Border(
                         bottom: BorderSide(
                           color: colorHelper.borderColor ?? Colors.transparent,
-                          width: size$.value.borderSize ?? 1,
+                          width: size.borderSize ?? 1,
                         ),
                       ),
                 boxShadow: colorHelper.shadows,
@@ -554,10 +553,10 @@ class UIKitTextInput extends HookWidget {
                   if (leading != null) ...[
                     UIKitIconTheme(
                       color: colorHelper.contentColor,
-                      size: size$.value.leadingSize,
+                      size: size.leadingSize,
                       child: leading!,
                     ),
-                    SizedBox(width: size$.value.spacing),
+                    SizedBox(width: size.spacing),
                   ],
                   Expanded(
                     child: Column(
@@ -569,13 +568,13 @@ class UIKitTextInput extends HookWidget {
                             style: state$.value == UIKitState.active ||
                                     state$.value == UIKitState.focused ||
                                     state$.value == UIKitState.error
-                                ? size$.value.focusedLabelStyle?.copyWith(
+                                ? size.focusedLabelStyle?.copyWith(
                                       color: colorHelper.secondaryContentColor,
                                     ) ??
                                     TextStyle(
                                         color:
                                             colorHelper.secondaryContentColor)
-                                : size$.value.labelStyle?.copyWith(
+                                : size.labelStyle?.copyWith(
                                       color: colorHelper.secondaryContentColor,
                                     ) ??
                                     TextStyle(
@@ -587,8 +586,8 @@ class UIKitTextInput extends HookWidget {
                               state$.value == UIKitState.focused ||
                               state$.value == UIKitState.error)
                             SizedBox(
-                              height: (size$.value.labelStyle?.fontSize ?? 0) -
-                                  (size$.value.focusedLabelStyle?.fontSize ??
+                              height: (size.labelStyle?.fontSize ?? 0) -
+                                  (size.focusedLabelStyle?.fontSize ??
                                       0) +
                                   findMissingSize(),
                             ),
@@ -616,7 +615,7 @@ class UIKitTextInput extends HookWidget {
                               ? SystemMouseCursors.basic
                               : SystemMouseCursors.text,
                           // selectionColor: Colors.white,
-                          style: size$.value.inputStyle?.copyWith(
+                          style: size.inputStyle?.copyWith(
                                 color: colorHelper.contentColor,
                               ) ??
                               TextStyle(color: colorHelper.contentColor),
@@ -627,15 +626,15 @@ class UIKitTextInput extends HookWidget {
                   if (errorIcon != null) ...[
                     UIKitIconTheme(
                       color: colorHelper.contentColor,
-                      size: size$.value.leadingSize,
+                      size: size.leadingSize,
                       child: errorIcon!,
                     ),
-                    SizedBox(width: size$.value.secondarySpacing),
+                    SizedBox(width: size.secondarySpacing),
                   ],
                   if (trailing != null) ...[
                     UIKitIconTheme(
                       color: colorHelper.contentColor,
-                      size: size$.value.trailingSize,
+                      size: size.trailingSize,
                       child: trailing!,
                     ),
                   ],
@@ -645,9 +644,9 @@ class UIKitTextInput extends HookWidget {
           ),
         ),
         if (assistiveText != null) ...[
-          SizedBox(height: size$.value.spacing),
+          SizedBox(height: size.spacing),
           DefaultTextStyle(
-            style: size$.value.assistiveStyle
+            style: size.assistiveStyle
                     ?.copyWith(color: colorHelper.secondaryContentColor) ??
                 TextStyle(color: colorHelper.secondaryContentColor),
             child: assistiveText!,

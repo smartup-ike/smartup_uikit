@@ -36,25 +36,24 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
   @override
   Widget build(BuildContext context) {
     final searchController = useTextEditingController();
-    final themeData$ = useState(UIKitTheme.of(context).dropdownMenuThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
-    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
-    final shadows$ =
-        useState(define(shadowScheme, themeData$.value.shadowScheme));
+    final themeData = UIKitTheme.of(context).dropdownMenuThemeData;
+    final colors = define(colorScheme, themeData.colorScheme);
+    final size = define(sizeScheme, themeData.sizeScheme);
+    final shadows = define(shadowScheme, themeData.shadowScheme);
 
     return Material(
       child: Container(
-        padding: size$.value.padding,
-        width: size$.value.width,
-        height: size$.value.height,
+        padding: size.padding,
+        width: size.width,
+        height: size.height,
         decoration: BoxDecoration(
-          color: colors$.value.defaultBackgroundColor,
+          color: colors.defaultBackgroundColor,
           border: Border.all(
-            color: colors$.value.defaultBorderColor ?? Colors.transparent,
-            width: size$.value.borderSize ?? 1,
+            color: colors.defaultBorderColor ?? Colors.transparent,
+            width: size.borderSize ?? 1,
           ),
-          borderRadius: BorderRadius.circular(size$.value.borderRadius ?? 8),
-          boxShadow: shadows$.value.defaultShadow,
+          borderRadius: BorderRadius.circular(size.borderRadius ?? 8),
+          boxShadow: shadows.defaultShadow,
         ),
         child: Stack(
           alignment: Alignment.bottomCenter,
@@ -64,7 +63,7 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
               children: [
                 ListView(
                   shrinkWrap: options.length < 20,
-                  padding: size$.value.padding,
+                  padding: size.padding,
                   children: [
                     (hasSearchBar != null && hasSearchBar == true)
                         ? const SizedBox(height: 30)
@@ -102,10 +101,9 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
                     width: double.infinity,
                     child: ClipRRect(
                       borderRadius:
-                          BorderRadius.circular(size$.value.borderRadius ?? 0),
+                          BorderRadius.circular(size.borderRadius ?? 0),
                       child: ColoredBox(
-                        color: colors$.value.defaultBackgroundColor ??
-                            Colors.white,
+                        color: colors.defaultBackgroundColor ?? Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(

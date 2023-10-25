@@ -50,7 +50,7 @@ class UIKitTab extends HookWidget {
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
-  })  : tabType = UIKitTabType.line;
+  }) : tabType = UIKitTabType.line;
 
   /// [Widget]
   /// Leftmost widget of this tab.
@@ -98,22 +98,16 @@ class UIKitTab extends HookWidget {
               : UIKitState.defaultState,
     );
     final isHovered$ = useState(false);
-    final themeData$ = useState(UIKitTheme.of(context).tabThemeData);
-    final colors$ = useState(
-      tabType == UIKitTabType.line
-          ? define(colorScheme, themeData$.value.lineTabColorScheme)
-          : define(colorScheme, themeData$.value.pageTabColorScheme),
-    );
-    final size$ = useState(
-      tabType == UIKitTabType.line
-          ? define(sizeScheme, themeData$.value.lineTabSizeScheme)
-          : define(sizeScheme, themeData$.value.pageTabSizeScheme),
-    );
-    final shadows$ = useState(
-      tabType == UIKitTabType.line
-          ? define(shadowScheme, themeData$.value.lineTabShadowScheme)
-          : define(shadowScheme, themeData$.value.pageTabShadowScheme),
-    );
+    final themeData = UIKitTheme.of(context).tabThemeData;
+    final colors = tabType == UIKitTabType.line
+        ? define(colorScheme, themeData.lineTabColorScheme)
+        : define(colorScheme, themeData.pageTabColorScheme);
+    final size = tabType == UIKitTabType.line
+        ? define(sizeScheme, themeData.lineTabSizeScheme)
+        : define(sizeScheme, themeData.pageTabSizeScheme);
+    final shadows = tabType == UIKitTabType.line
+        ? define(shadowScheme, themeData.lineTabShadowScheme)
+        : define(shadowScheme, themeData.pageTabShadowScheme);
 
     useEffect(() {
       state$.value = onTap == null
@@ -125,8 +119,8 @@ class UIKitTab extends HookWidget {
     }, [isActive]);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -173,26 +167,26 @@ class UIKitTab extends HookWidget {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: size$.value.padding,
-          height: size$.value.height,
-          width: size$.value.width,
+          padding: size.padding,
+          height: size.height,
+          width: size.width,
           decoration: BoxDecoration(
             color: colorHelper.backgroundColor,
             borderRadius: tabType == UIKitTabType.page
-                ? BorderRadius.circular(size$.value.borderRadius ?? 8)
+                ? BorderRadius.circular(size.borderRadius ?? 8)
                 : null,
             boxShadow: colorHelper.shadows,
             border: tabType == UIKitTabType.page
                 ? Border.all(
                     color: colorHelper.borderColor ?? Colors.transparent,
-                    width: size$.value.borderSize ?? 1,
+                    width: size.borderSize ?? 1,
                   )
                 : Border(
                     bottom: BorderSide(
                       color: colorHelper.borderColor ?? Colors.transparent,
-                      width: isActive==true
-                          ? (size$.value.borderSize ?? 1) * 2
-                          : size$.value.borderSize ?? 1,
+                      width: isActive == true
+                          ? (size.borderSize ?? 1) * 2
+                          : size.borderSize ?? 1,
                     ),
                   ),
           ),
@@ -202,23 +196,23 @@ class UIKitTab extends HookWidget {
               if (leading != null) ...[
                 UIKitIconTheme(
                   color: colorHelper.secondaryContentColor,
-                  size: size$.value.leadingSize,
+                  size: size.leadingSize,
                   child: leading!,
                 ),
-                SizedBox(width: size$.value.spacing),
+                SizedBox(width: size.spacing),
               ],
               DefaultTextStyle(
                 style: state$.value == UIKitState.active
-                    ? size$.value.focusedLabelStyle
+                    ? size.focusedLabelStyle
                             ?.copyWith(color: colorHelper.contentColor) ??
                         TextStyle(color: colorHelper.contentColor)
-                    : size$.value.labelStyle
+                    : size.labelStyle
                             ?.copyWith(color: colorHelper.contentColor) ??
                         TextStyle(color: colorHelper.contentColor),
                 child: label ?? const SizedBox(),
               ),
               if (trailing != null) ...[
-                SizedBox(width: size$.value.secondarySpacing),
+                SizedBox(width: size.secondarySpacing),
                 trailing!,
               ],
             ],

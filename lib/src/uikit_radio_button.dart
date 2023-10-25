@@ -41,11 +41,10 @@ class UIKitRadioButton extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final themeData$ = useState(UIKitTheme.of(context).radioButtonThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
-    final size$ = useState(define(sizeScheme, themeData$.value.sizeScheme));
-    final shadows$ =
-        useState(define(shadowScheme, themeData$.value.shadowScheme));
+    final themeData = UIKitTheme.of(context).radioButtonThemeData;
+    final colors = define(colorScheme, themeData.colorScheme);
+    final size = define(sizeScheme, themeData.sizeScheme);
+    final shadows = define(shadowScheme, themeData.shadowScheme);
 
     useEffect(() {
       if (onTap == null) {
@@ -57,8 +56,8 @@ class UIKitRadioButton extends HookWidget {
     }, [onTap == null]);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -98,16 +97,16 @@ class UIKitRadioButton extends HookWidget {
           }
         },
         child: SizedBox(
-          width: size$.value.width,
-          height: size$.value.height,
+          width: size.width,
+          height: size.height,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            width: size$.value.spacing,
-            height: size$.value.spacing,
-            padding: size$.value.padding ?? const EdgeInsets.all(2),
+            width: size.spacing,
+            height: size.spacing,
+            padding: size.padding ?? const EdgeInsets.all(2),
             decoration: BoxDecoration(
               border: Border.all(
-                width: size$.value.borderSize ?? 1,
+                width: size.borderSize ?? 1,
                 color: colorHelper.borderColor ?? Colors.transparent,
               ),
               color: colorHelper.backgroundColor ?? Colors.transparent,
@@ -116,8 +115,8 @@ class UIKitRadioButton extends HookWidget {
             ),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: size$.value.secondarySpacing,
-              height: size$.value.secondarySpacing,
+              width: size.secondarySpacing,
+              height: size.secondarySpacing,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color:

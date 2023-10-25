@@ -133,16 +133,15 @@ class UIKitRadioGroup extends HookWidget {
             ? UIKitState.error
             : UIKitState.defaultState);
     final selectedIndex$ = useState<int?>(initialSelectedIndex);
-    final themeData$ = useState(UIKitTheme.of(context).radioGroupThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
+    final themeData = UIKitTheme.of(context).radioGroupThemeData;
+    final colors = define(colorScheme, themeData.colorScheme);
     // ignore: unused_local_variable
-    final shadows$ =
-        useState(define(shadowScheme, themeData$.value.shadowScheme));
-    final size$ = useState(findSize(themeData$.value));
+    final shadows = define(shadowScheme, themeData.shadowScheme);
+    final size = findSize(themeData);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -152,20 +151,20 @@ class UIKitRadioGroup extends HookWidget {
       children: [
         if (label != null) ...[
           DefaultTextStyle(
-            style: size$.value.labelStyle
+            style: size.labelStyle
                     ?.copyWith(color: colorHelper.backgroundColor) ??
                 TextStyle(color: colorHelper.backgroundColor),
             child: label!,
           ),
-          SizedBox(height: size$.value.spacing),
+          SizedBox(height: size.spacing),
         ],
         DefaultTextStyle(
-          style: size$.value.inputStyle
+          style: size.inputStyle
                   ?.copyWith(color: colorHelper.contentColor) ??
               TextStyle(color: colorHelper.contentColor),
           child: Wrap(
-            spacing: size$.value.secondarySpacing ?? 16,
-            runSpacing: size$.value.height ?? 12,
+            spacing: size.secondarySpacing ?? 16,
+            runSpacing: size.height ?? 12,
             children: [
               for (Widget element in optionLabels ?? []) ...[
                 Row(
@@ -183,7 +182,7 @@ class UIKitRadioGroup extends HookWidget {
                               onTap?.call(selectedIndex$.value);
                             },
                     ),
-                    SizedBox(width: size$.value.width),
+                    SizedBox(width: size.width),
                     element,
                   ],
                 ),
@@ -192,21 +191,21 @@ class UIKitRadioGroup extends HookWidget {
           ),
         ),
         if (assistiveText != null) ...[
-          SizedBox(height: size$.value.spacing),
+          SizedBox(height: size.spacing),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               DefaultTextStyle(
-                style: size$.value.assistiveStyle
+                style: size.assistiveStyle
                         ?.copyWith(color: colorHelper.secondaryContentColor) ??
                     TextStyle(color: colorHelper.secondaryContentColor),
                 child: assistiveText!,
               ),
-              SizedBox(width: size$.value.spacing),
+              SizedBox(width: size.spacing),
               if (errorIcon != null && state$.value == UIKitState.error)
                 UIKitIconTheme(
                   color: colorHelper.secondaryContentColor,
-                  size: size$.value.iconSize,
+                  size: size.iconSize,
                   child: errorIcon!,
                 ),
             ],

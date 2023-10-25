@@ -76,15 +76,15 @@ class UIKitToggleSwitch extends HookWidget {
     final state$ = useState<UIKitState>(
         onTap == null ? UIKitState.disabled : UIKitState.defaultState);
     final isHovered$ = useState(false);
-    final themeData$ = useState(UIKitTheme.of(context).toggleSwitchThemeData);
-    final colors$ = useState(define(colorScheme, themeData$.value.colorScheme));
-    final shadows$ =
-        useState(define(shadowScheme, themeData$.value.shadowScheme));
-    final size$ = useState(findSize(themeData$.value));
+    final themeData$ = UIKitTheme.of(context).toggleSwitchThemeData;
+    final colors = define(colorScheme, themeData$.colorScheme);
+    final shadows =
+        define(shadowScheme, themeData$.shadowScheme);
+    final size = findSize(themeData$);
 
     final colorHelper = findStateAttributes(
-      colors$.value,
-      shadows$.value,
+      colors,
+      shadows,
       state$.value,
     );
 
@@ -125,20 +125,20 @@ class UIKitToggleSwitch extends HookWidget {
             }
           },
           child: SizedBox(
-            height: size$.value.height,
-            width: size$.value.width,
+            height: size.height,
+            width: size.width,
             child: Stack(
               children: [
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(
-                      size$.value.borderRadius ?? 8,
+                      size.borderRadius ?? 8,
                     ),
                     child: ColoredBox(
                       color: colorHelper.backgroundColor ?? Colors.grey,
                       child: SizedBox(
-                        width: size$.value.width,
-                        height: size$.value.spacing,
+                        width: size.width,
+                        height: size.spacing,
                       ),
                     ),
                   ),
@@ -148,14 +148,14 @@ class UIKitToggleSwitch extends HookWidget {
                   left: isActive ? null : 0,
                   right: isActive ? 0 : null,
                   child: Container(
-                    width: size$.value.height,
-                    height: size$.value.height,
+                    width: size.height,
+                    height: size.height,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: colorHelper.contentColor,
                       border: Border.all(
                         color: colorHelper.borderColor ?? Colors.transparent,
-                        width: size$.value.borderSize ?? 1,
+                        width: size.borderSize ?? 1,
                       ),
                       boxShadow: colorHelper.shadows,
                     ),
@@ -163,7 +163,7 @@ class UIKitToggleSwitch extends HookWidget {
                         ? Center(
                             child: UIKitIconTheme(
                               color: colorHelper.secondaryContentColor,
-                              size: size$.value.iconSize,
+                              size: size.iconSize,
                               child: icon!,
                             ),
                           )
