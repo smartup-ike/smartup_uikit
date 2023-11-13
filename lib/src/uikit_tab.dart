@@ -129,10 +129,13 @@ class UIKitTab extends HookWidget {
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
       onHover: (e) {
-        if (onTap != null && e.kind != PointerDeviceKind.touch) {
-          state$.value = UIKitState.hover;
-          isHovered$.value = true;
-        }
+        if(!isActive)
+          {
+            if (onTap != null && e.kind != PointerDeviceKind.touch) {
+              state$.value = UIKitState.hover;
+              isHovered$.value = true;
+            }
+          }
       },
       onExit: (_) {
         if (onTap != null) {
