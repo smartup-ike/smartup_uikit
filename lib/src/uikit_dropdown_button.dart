@@ -280,21 +280,21 @@ class UIKitDropdownButton extends HookWidget {
     switch (size) {
       case UIKitSizes.small:
         if (styleType == TextInputStyleType.filled) {
-          sizeScheme = themeData.smallFilledInputSizeScheme;
+          sizeScheme = themeData.smallFilledDropDownSizeScheme;
         } else {
           sizeScheme = themeData.smallLineInputSizeScheme;
         }
         break;
       case UIKitSizes.medium:
         if (styleType == TextInputStyleType.filled) {
-          sizeScheme = themeData.mediumFilledInputSizeScheme;
+          sizeScheme = themeData.mediumFilledDropDownSizeScheme;
         } else {
-          sizeScheme = themeData.mediumFilledInputSizeScheme;
+          sizeScheme = themeData.mediumLineInputSizeScheme;
         }
         break;
       default:
         if (styleType == TextInputStyleType.filled) {
-          sizeScheme = themeData.largeFilledInputSizeScheme;
+          sizeScheme = themeData.largeFilledDropDownSizeScheme;
         } else {
           sizeScheme = themeData.largeLineInputSizeScheme;
         }

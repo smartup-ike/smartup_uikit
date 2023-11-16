@@ -10,14 +10,17 @@ class UIKitTextInputThemeData {
   final UIKitColorScheme filledSearchColorScheme;
   final UIKitColorScheme lineSearchColorScheme;
   final UIKitSizeScheme smallFilledInputSizeScheme;
+  final UIKitSizeScheme smallFilledDropDownSizeScheme;
   final UIKitSizeScheme smallLineInputSizeScheme;
   final UIKitSizeScheme smallFilledSearchSizeScheme;
   final UIKitSizeScheme smallLineSearchSizeScheme;
   final UIKitSizeScheme mediumFilledInputSizeScheme;
+  final UIKitSizeScheme mediumFilledDropDownSizeScheme;
   final UIKitSizeScheme mediumLineInputSizeScheme;
   final UIKitSizeScheme mediumFilledSearchSizeScheme;
   final UIKitSizeScheme mediumLineSearchSizeScheme;
   final UIKitSizeScheme largeFilledInputSizeScheme;
+  final UIKitSizeScheme largeFilledDropDownSizeScheme;
   final UIKitSizeScheme largeLineInputSizeScheme;
   final UIKitSizeScheme largeFilledSearchSizeScheme;
   final UIKitSizeScheme largeLineSearchSizeScheme;
@@ -47,6 +50,9 @@ class UIKitTextInputThemeData {
     required this.lineInputShadowScheme,
     required this.filledSearchShadowScheme,
     required this.lineSearchShadowScheme,
+    required this.largeFilledDropDownSizeScheme,
+    required this.mediumFilledDropDownSizeScheme,
+    required this.smallFilledDropDownSizeScheme,
   });
 
   factory UIKitTextInputThemeData({
@@ -55,14 +61,17 @@ class UIKitTextInputThemeData {
     UIKitColorScheme? filledSearchColorScheme,
     UIKitColorScheme? lineSearchColorScheme,
     UIKitSizeScheme? smallFilledInputSizeScheme,
+    UIKitSizeScheme? smallFilledDropDownSizeScheme,
     UIKitSizeScheme? smallLineInputSizeScheme,
     UIKitSizeScheme? smallFilledSearchSizeScheme,
     UIKitSizeScheme? smallLineSearchSizeScheme,
     UIKitSizeScheme? mediumFilledInputSizeScheme,
+    UIKitSizeScheme? mediumFilledDropDownSizeScheme,
     UIKitSizeScheme? mediumLineInputSizeScheme,
     UIKitSizeScheme? mediumFilledSearchSizeScheme,
     UIKitSizeScheme? mediumLineSearchSizeScheme,
     UIKitSizeScheme? largeFilledInputSizeScheme,
+    UIKitSizeScheme? largeFilledDropDownSizeScheme,
     UIKitSizeScheme? largeLineInputSizeScheme,
     UIKitSizeScheme? largeFilledSearchSizeScheme,
     UIKitSizeScheme? largeLineSearchSizeScheme,
@@ -76,14 +85,17 @@ class UIKitTextInputThemeData {
     filledSearchColorScheme ??= UIKitColorScheme.defaultScheme();
     lineSearchColorScheme ??= UIKitColorScheme.defaultScheme();
     smallFilledInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
+    smallFilledDropDownSizeScheme ??= UIKitSizeScheme.defaultScheme();
     smallLineInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
     smallFilledSearchSizeScheme ??= UIKitSizeScheme.defaultScheme();
     smallLineSearchSizeScheme ??= UIKitSizeScheme.defaultScheme();
     mediumFilledInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
+    mediumFilledDropDownSizeScheme ??= UIKitSizeScheme.defaultScheme();
     mediumLineInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
     mediumFilledSearchSizeScheme ??= UIKitSizeScheme.defaultScheme();
     mediumLineSearchSizeScheme ??= UIKitSizeScheme.defaultScheme();
     largeFilledInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
+    largeFilledDropDownSizeScheme ??= UIKitSizeScheme.defaultScheme();
     largeLineInputSizeScheme ??= UIKitSizeScheme.defaultScheme();
     largeFilledSearchSizeScheme ??= UIKitSizeScheme.defaultScheme();
     largeLineSearchSizeScheme ??= UIKitSizeScheme.defaultScheme();
@@ -98,14 +110,17 @@ class UIKitTextInputThemeData {
       filledSearchColorScheme: filledSearchColorScheme,
       lineSearchColorScheme: lineSearchColorScheme,
       smallFilledInputSizeScheme: smallFilledInputSizeScheme,
+      smallFilledDropDownSizeScheme: smallFilledDropDownSizeScheme,
       smallLineInputSizeScheme: smallLineInputSizeScheme,
       smallFilledSearchSizeScheme: smallFilledSearchSizeScheme,
       smallLineSearchSizeScheme: smallLineSearchSizeScheme,
       mediumFilledInputSizeScheme: mediumFilledInputSizeScheme,
+      mediumFilledDropDownSizeScheme: mediumFilledDropDownSizeScheme,
       mediumLineInputSizeScheme: mediumLineInputSizeScheme,
       mediumFilledSearchSizeScheme: mediumFilledSearchSizeScheme,
       mediumLineSearchSizeScheme: mediumLineSearchSizeScheme,
       largeFilledInputSizeScheme: largeFilledInputSizeScheme,
+      largeFilledDropDownSizeScheme: largeFilledDropDownSizeScheme,
       largeLineInputSizeScheme: largeLineInputSizeScheme,
       largeFilledSearchSizeScheme: largeFilledSearchSizeScheme,
       largeLineSearchSizeScheme: largeLineSearchSizeScheme,
@@ -148,6 +163,8 @@ class UIKitTextInputThemeData {
           lineSearchColorScheme ?? this.lineSearchColorScheme,
       smallFilledInputSizeScheme:
           smallFilledInputSizeScheme ?? this.smallFilledInputSizeScheme,
+      smallFilledDropDownSizeScheme:
+      smallFilledDropDownSizeScheme ?? this.smallFilledDropDownSizeScheme,
       smallLineInputSizeScheme:
           smallLineInputSizeScheme ?? this.smallLineInputSizeScheme,
       smallFilledSearchSizeScheme:
@@ -156,6 +173,8 @@ class UIKitTextInputThemeData {
           smallLineSearchSizeScheme ?? this.smallLineSearchSizeScheme,
       mediumFilledInputSizeScheme:
           mediumFilledInputSizeScheme ?? this.mediumFilledInputSizeScheme,
+      mediumFilledDropDownSizeScheme:
+      mediumFilledDropDownSizeScheme ?? this.mediumFilledDropDownSizeScheme,
       mediumLineInputSizeScheme:
           mediumLineInputSizeScheme ?? this.mediumLineInputSizeScheme,
       mediumFilledSearchSizeScheme:
@@ -164,6 +183,8 @@ class UIKitTextInputThemeData {
           mediumLineSearchSizeScheme ?? this.mediumLineSearchSizeScheme,
       largeFilledInputSizeScheme:
           largeFilledInputSizeScheme ?? this.largeFilledInputSizeScheme,
+      largeFilledDropDownSizeScheme:
+      largeFilledDropDownSizeScheme ?? this.largeFilledDropDownSizeScheme,
       largeLineInputSizeScheme:
           largeLineInputSizeScheme ?? this.largeLineInputSizeScheme,
       largeFilledSearchSizeScheme:
@@ -178,6 +199,7 @@ class UIKitTextInputThemeData {
           filledSearchShadowScheme ?? this.filledSearchShadowScheme,
       lineSearchShadowScheme:
           lineSearchShadowScheme ?? this.lineSearchShadowScheme,
+
     );
   }
 }
