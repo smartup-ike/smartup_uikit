@@ -104,6 +104,25 @@ class DropDownMenuPage extends HookWidget {
                 },
               ),
             ),
+            SizedBox(width: 400,child:
+            UIKitDropdownButton.largeFilled(
+              label: const Text("Επιλέξτε έτος"),
+              input: Text("Επιλέξτε έτος"),
+              isDisabled: false,
+              trailing: const Icon(Icons.add_circle),
+              onTap: (position, size) async {
+                await Navigator.of(context).push(
+                  UIKitDropdownRoute(
+
+
+                    child: const SizedBox.square(),
+                    position: position,
+                    size: size,
+                  ),
+                );
+
+              },
+            ),)
           ],
         ),
       ),
