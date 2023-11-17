@@ -137,14 +137,17 @@ class UIKitTextInputThemeData {
     UIKitColorScheme? filledSearchColorScheme,
     UIKitColorScheme? lineSearchColorScheme,
     UIKitSizeScheme? smallFilledInputSizeScheme,
+    UIKitSizeScheme? smallFilledDropDownSizeScheme,
     UIKitSizeScheme? smallLineInputSizeScheme,
     UIKitSizeScheme? smallFilledSearchSizeScheme,
     UIKitSizeScheme? smallLineSearchSizeScheme,
     UIKitSizeScheme? mediumFilledInputSizeScheme,
+    UIKitSizeScheme? mediumFilledDropDownSizeScheme,
     UIKitSizeScheme? mediumLineInputSizeScheme,
     UIKitSizeScheme? mediumFilledSearchSizeScheme,
     UIKitSizeScheme? mediumLineSearchSizeScheme,
     UIKitSizeScheme? largeFilledInputSizeScheme,
+    UIKitSizeScheme? largeFilledDropDownSizeScheme,
     UIKitSizeScheme? largeLineInputSizeScheme,
     UIKitSizeScheme? largeFilledSearchSizeScheme,
     UIKitSizeScheme? largeLineSearchSizeScheme,
@@ -164,7 +167,7 @@ class UIKitTextInputThemeData {
       smallFilledInputSizeScheme:
           smallFilledInputSizeScheme ?? this.smallFilledInputSizeScheme,
       smallFilledDropDownSizeScheme:
-      smallFilledDropDownSizeScheme ?? this.smallFilledDropDownSizeScheme,
+          smallFilledDropDownSizeScheme ?? this.smallFilledDropDownSizeScheme,
       smallLineInputSizeScheme:
           smallLineInputSizeScheme ?? this.smallLineInputSizeScheme,
       smallFilledSearchSizeScheme:
@@ -174,7 +177,7 @@ class UIKitTextInputThemeData {
       mediumFilledInputSizeScheme:
           mediumFilledInputSizeScheme ?? this.mediumFilledInputSizeScheme,
       mediumFilledDropDownSizeScheme:
-      mediumFilledDropDownSizeScheme ?? this.mediumFilledDropDownSizeScheme,
+          mediumFilledDropDownSizeScheme ?? this.mediumFilledDropDownSizeScheme,
       mediumLineInputSizeScheme:
           mediumLineInputSizeScheme ?? this.mediumLineInputSizeScheme,
       mediumFilledSearchSizeScheme:
@@ -184,7 +187,7 @@ class UIKitTextInputThemeData {
       largeFilledInputSizeScheme:
           largeFilledInputSizeScheme ?? this.largeFilledInputSizeScheme,
       largeFilledDropDownSizeScheme:
-      largeFilledDropDownSizeScheme ?? this.largeFilledDropDownSizeScheme,
+          largeFilledDropDownSizeScheme ?? this.largeFilledDropDownSizeScheme,
       largeLineInputSizeScheme:
           largeLineInputSizeScheme ?? this.largeLineInputSizeScheme,
       largeFilledSearchSizeScheme:
@@ -199,7 +202,6 @@ class UIKitTextInputThemeData {
           filledSearchShadowScheme ?? this.filledSearchShadowScheme,
       lineSearchShadowScheme:
           lineSearchShadowScheme ?? this.lineSearchShadowScheme,
-
     );
   }
 }
