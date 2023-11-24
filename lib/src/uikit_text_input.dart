@@ -587,8 +587,7 @@ class UIKitTextInput extends HookWidget {
                               state$.value == UIKitState.error)
                             SizedBox(
                               height: (size.labelStyle?.fontSize ?? 0) -
-                                  (size.focusedLabelStyle?.fontSize ??
-                                      0) +
+                                  (size.focusedLabelStyle?.fontSize ?? 0) +
                                   findMissingSize(),
                             ),
                         ],
@@ -600,16 +599,14 @@ class UIKitTextInput extends HookWidget {
                           keyboardType: keyboardType,
                           textInputAction: textInputAction,
                           autofillHints: autofillHints,
+                          showCursor: true,
                           inputFormatters: inputFormatters,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
                             isCollapsed: true,
                           ),
-                          cursorColor: Colors.transparent,
-                          // backgroundCursorColor: Colors.transparent,
-                          // rendererIgnoresPointer: true,
-
+                          cursorColor: colorHelper.contentColor,
                           maxLines: maxLines,
                           mouseCursor: state$.value == UIKitState.disabled
                               ? SystemMouseCursors.basic
