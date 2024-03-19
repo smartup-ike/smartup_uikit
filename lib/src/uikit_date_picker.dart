@@ -254,7 +254,7 @@ class UIKitDatePicker extends HookWidget {
                           children: List.generate(7, (index) {
                         return MediaQuery(
                           data: MediaQuery.of(context).copyWith(
-                            textScaleFactor: 1,
+                            textScaler: const TextScaler.linear(1),
                           ),
                           child: TableCell(
                             child: Padding(
@@ -295,7 +295,7 @@ class UIKitDatePicker extends HookWidget {
                           }
                           return MediaQuery(
                             data: MediaQuery.of(context).copyWith(
-                              textScaleFactor: 1,
+                              textScaler: const TextScaler.linear(1),
                             ),
                             child: TableCell(
                               verticalAlignment:
