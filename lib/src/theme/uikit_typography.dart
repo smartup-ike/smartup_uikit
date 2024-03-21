@@ -32,8 +32,14 @@ class UIKitTypography {
     this.buttonsMedium,
     this.buttonsSmall,
   });
+  final TextStyle? headings1Light;
+  final TextStyle? headings1Medium;
+  final TextStyle? headings1SemiBold;
   final TextStyle? headings1Bold;
   final TextStyle? headings1Regular;
+  final TextStyle? headings2Light;
+  final TextStyle? headings2Medium;
+  final TextStyle? headings2SemiBold;
   final TextStyle? headings2Bold;
   final TextStyle? headings2Regular;
   final TextStyle? headings3Bold;
@@ -42,12 +48,18 @@ class UIKitTypography {
   final TextStyle? headings4Regular;
   final TextStyle? headings5Bold;
   final TextStyle? headings5Regular;
+  final TextStyle? body1Light;
+  final TextStyle? body1Medium;
   final TextStyle? body1Bold;
   final TextStyle? body1SemiBold;
   final TextStyle? body1Regular;
+  final TextStyle? body2Light;
+  final TextStyle? body2Medium;
   final TextStyle? body2Bold;
   final TextStyle? body2SemiBold;
   final TextStyle? body2Regular;
+  final TextStyle? body3Light;
+  final TextStyle? body3Medium;
   final TextStyle? body3Bold;
   final TextStyle? body3SemiBold;
   final TextStyle? body3Regular;
