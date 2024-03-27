@@ -26,6 +26,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     this.focusNode,
+    this.hintText,
     this.onSubmitted,
     this.onChanged,
     this.maxLines,
@@ -58,6 +59,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     this.focusNode,
+    this.hintText,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -82,6 +84,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     this.focusNode,
+    this.hintText,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -104,6 +107,7 @@ class UIKitTextInput extends HookWidget {
     required this.controller,
     this.focusNode,
     this.onSubmitted,
+    this.hintText,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -129,6 +133,7 @@ class UIKitTextInput extends HookWidget {
     this.focusNode,
     this.onSubmitted,
     this.onChanged,
+    this.hintText,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -151,6 +156,7 @@ class UIKitTextInput extends HookWidget {
     this.errorIcon,
     this.label,
     this.assistiveText,
+    this.hintText,
     this.isDisabled,
     required this.controller,
     this.focusNode,
@@ -178,6 +184,7 @@ class UIKitTextInput extends HookWidget {
     this.isDisabled,
     required this.controller,
     this.focusNode,
+    this.hintText,
     this.onChanged,
     this.maxLines,
     this.colorScheme,
@@ -201,6 +208,7 @@ class UIKitTextInput extends HookWidget {
     this.focusNode,
     this.onSubmitted,
     this.onChanged,
+    this.hintText,
     this.maxLines,
     this.colorScheme,
     this.sizeScheme,
@@ -226,6 +234,7 @@ class UIKitTextInput extends HookWidget {
     this.onSubmitted,
     this.onChanged,
     this.maxLines,
+    this.hintText,
     this.colorScheme,
     this.sizeScheme,
     this.shadowScheme,
@@ -246,6 +255,7 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.errorIcon,
     this.label,
+    this.hintText,
     this.assistiveText,
     this.isDisabled,
     required this.controller,
@@ -272,6 +282,7 @@ class UIKitTextInput extends HookWidget {
     this.label,
     this.assistiveText,
     this.isDisabled,
+    this.hintText,
     required this.controller,
     this.focusNode,
     this.onChanged,
@@ -294,6 +305,7 @@ class UIKitTextInput extends HookWidget {
     this.trailing,
     this.isDisabled,
     required this.controller,
+    this.hintText,
     this.focusNode,
     this.onSubmitted,
     this.onChanged,
@@ -315,6 +327,7 @@ class UIKitTextInput extends HookWidget {
   const UIKitTextInput.largeLineSearch({
     super.key,
     this.leading,
+    this.hintText,
     this.trailing,
     this.isDisabled,
     required this.controller,
@@ -347,6 +360,8 @@ class UIKitTextInput extends HookWidget {
 
   /// [Widget] that appears right after [leading].
   final Widget? label;
+
+  final String? hintText;
 
   /// [Widget] that is on the bottom of this widget, under the input text field.
   final Widget? assistiveText;
@@ -591,32 +606,38 @@ class UIKitTextInput extends HookWidget {
                                   findMissingSize(),
                             ),
                         ],
-                        TextField(
-                          controller: controller,
-                          focusNode: focusNode,
-                          onSubmitted: onSubmitted,
-                          onChanged: onChanged,
-                          keyboardType: keyboardType,
-                          textInputAction: textInputAction,
-                          autofillHints: autofillHints,
-                          showCursor: true,
-                          inputFormatters: inputFormatters,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
-                            isCollapsed: true,
+                        if (hintText != null && controller.text.isEmpty)
+                          Text(
+                            hintText!,
+                            style: size.inputStyle,
+                          )
+                        else
+                          TextField(
+                            controller: controller,
+                            focusNode: focusNode,
+                            onSubmitted: onSubmitted,
+                            onChanged: onChanged,
+                            keyboardType: keyboardType,
+                            textInputAction: textInputAction,
+                            autofillHints: autofillHints,
+                            showCursor: true,
+                            inputFormatters: inputFormatters,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.zero,
+                              isCollapsed: true,
+                            ),
+                            cursorColor: colorHelper.contentColor,
+                            maxLines: maxLines,
+                            mouseCursor: state$.value == UIKitState.disabled
+                                ? SystemMouseCursors.basic
+                                : SystemMouseCursors.text,
+                            // selectionColor: Colors.white,
+                            style: size.inputStyle?.copyWith(
+                                  color: colorHelper.contentColor,
+                                ) ??
+                                TextStyle(color: colorHelper.contentColor),
                           ),
-                          cursorColor: colorHelper.contentColor,
-                          maxLines: maxLines,
-                          mouseCursor: state$.value == UIKitState.disabled
-                              ? SystemMouseCursors.basic
-                              : SystemMouseCursors.text,
-                          // selectionColor: Colors.white,
-                          style: size.inputStyle?.copyWith(
-                                color: colorHelper.contentColor,
-                              ) ??
-                              TextStyle(color: colorHelper.contentColor),
-                        ),
                       ],
                     ),
                   ),
