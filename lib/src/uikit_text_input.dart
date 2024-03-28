@@ -361,6 +361,7 @@ class UIKitTextInput extends HookWidget {
   /// [Widget] that appears right after [leading].
   final Widget? label;
 
+  /// [String] that appears as hint
   final String? hintText;
 
   /// [Widget] that is on the bottom of this widget, under the input text field.
@@ -606,38 +607,34 @@ class UIKitTextInput extends HookWidget {
                                   findMissingSize(),
                             ),
                         ],
-                        if (hintText != null && controller.text.isEmpty)
-                          Text(
-                            hintText!,
-                            style: size.inputStyle,
-                          )
-                        else
-                          TextField(
-                            controller: controller,
-                            focusNode: focusNode,
-                            onSubmitted: onSubmitted,
-                            onChanged: onChanged,
-                            keyboardType: keyboardType,
-                            textInputAction: textInputAction,
-                            autofillHints: autofillHints,
-                            showCursor: true,
-                            inputFormatters: inputFormatters,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.zero,
-                              isCollapsed: true,
-                            ),
-                            cursorColor: colorHelper.contentColor,
-                            maxLines: maxLines,
-                            mouseCursor: state$.value == UIKitState.disabled
-                                ? SystemMouseCursors.basic
-                                : SystemMouseCursors.text,
-                            // selectionColor: Colors.white,
-                            style: size.inputStyle?.copyWith(
-                                  color: colorHelper.contentColor,
-                                ) ??
-                                TextStyle(color: colorHelper.contentColor),
+                        TextField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          onSubmitted: onSubmitted,
+                          onChanged: onChanged,
+                          keyboardType: keyboardType,
+                          textInputAction: textInputAction,
+                          autofillHints: autofillHints,
+                          showCursor: true,
+                          inputFormatters: inputFormatters,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.zero,
+                            isCollapsed: true,
+                            hintText: hintText,
+                            hintStyle: size.hintStyle,
                           ),
+                          cursorColor: colorHelper.contentColor,
+                          maxLines: maxLines,
+                          mouseCursor: state$.value == UIKitState.disabled
+                              ? SystemMouseCursors.basic
+                              : SystemMouseCursors.text,
+                          // selectionColor: Colors.white,
+                          style: size.inputStyle?.copyWith(
+                                color: colorHelper.contentColor,
+                              ) ??
+                              TextStyle(color: colorHelper.contentColor),
+                        ),
                       ],
                     ),
                   ),

@@ -15,6 +15,7 @@ class UIKitSizeScheme {
   EdgeInsetsGeometry? padding;
   TextStyle? labelStyle;
   TextStyle? focusedLabelStyle;
+  TextStyle? hintStyle;
   TextStyle? inputStyle;
   TextStyle? assistiveStyle;
 
@@ -32,6 +33,7 @@ class UIKitSizeScheme {
     EdgeInsets? padding,
     TextStyle? labelStyle,
     TextStyle? focusedLabelStyle,
+    TextStyle? hintStyle,
     TextStyle? inputStyle,
     TextStyle? assistiveStyle,
   }) {
@@ -49,6 +51,7 @@ class UIKitSizeScheme {
       padding: padding,
       labelStyle: labelStyle,
       focusedLabelStyle: focusedLabelStyle,
+      hintStyle: hintStyle,
       inputStyle: inputStyle,
       assistiveStyle: assistiveStyle,
     );
@@ -68,6 +71,7 @@ class UIKitSizeScheme {
     this.padding,
     this.labelStyle,
     this.focusedLabelStyle,
+    this.hintStyle,
     this.inputStyle,
     this.assistiveStyle,
   });
@@ -102,6 +106,7 @@ class UIKitSizeScheme {
     EdgeInsets? padding,
     TextStyle? labelStyle,
     TextStyle? focusedLabelStyle,
+    TextStyle? hintStyle,
     TextStyle? inputStyle,
     TextStyle? assistiveStyle,
   }) {
@@ -118,9 +123,10 @@ class UIKitSizeScheme {
       padding: padding ?? this.padding,
       labelStyle: labelStyle ?? this.labelStyle,
       focusedLabelStyle: focusedLabelStyle ?? this.focusedLabelStyle,
+      hintStyle: hintStyle ?? this.hintStyle,
       inputStyle: inputStyle ?? this.inputStyle,
       assistiveStyle: assistiveStyle ?? this.assistiveStyle,
-        secondaryRadius: secondaryRadius ?? this.secondaryRadius,
+      secondaryRadius: secondaryRadius ?? this.secondaryRadius,
     );
   }
 }

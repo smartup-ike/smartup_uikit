@@ -68,6 +68,7 @@ class TextInput extends HookWidget {
                         const SizedBox(height: 20),
                         UIKitTextInput.largeFilledInput(
                           controller: textControl0,
+                          hintText: 'Ela',
                           onChanged: (value) => text$.value = value,
                           label: const Text("largeFilledInput"),
                         ),
