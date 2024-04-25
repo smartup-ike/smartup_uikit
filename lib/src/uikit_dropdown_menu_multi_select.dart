@@ -4,7 +4,7 @@ import 'package:smartup_uikit/src/uikit_dropdown_menu_item.dart';
 import '../smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 
-class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
+class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu<T> {
   final List<T> value;
   final List<T>? initialValue;
   final ValueChanged<List<T>?> onChanged;
@@ -14,7 +14,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
     required this.value,
     this.initialValue,
     required this.onChanged,
-    List<T> super.options,
+    super.options,
     super.labels,
     super.actions,
     super.itemTrailing,

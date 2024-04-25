@@ -5,13 +5,13 @@ import 'package:smartup_uikit/src/uikit_dropdown_menu_item.dart';
 import '../smartup_uikit.dart';
 import 'helpers/uikit_helper_functions.dart';
 
-class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu {
+class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu<T> {
   final T? initialValue;
 
   const UIKitDropdownMenuSingleSelect({
     super.key,
     this.initialValue,
-    List<T> super.options,
+    super.options,
     super.labels,
     super.actions,
     super.itemTrailing,
