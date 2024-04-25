@@ -17,6 +17,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     required this.onTap,
     this.label,
     this.trailing,
+    this.trailingOnTap,
     this.children,
     required this.multiselect,
     required this.isSelected,
@@ -29,6 +30,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
   final VoidCallback onTap;
   final Widget? label;
   final Widget? trailing;
+  final void Function(T)? trailingOnTap;
   final List<UIKitDropdownMenuItem<T>>? children;
   final bool multiselect;
   final bool isSelected;
@@ -113,10 +115,15 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
               ),
               if (trailing != null) ...[
                 const Spacer(),
-                UIKitIconTheme(
-                  size: size.trailingSize,
-                  color: colorHelper.secondaryContentColor,
-                  child: trailing!,
+                GestureDetector(
+                  onTap: trailingOnTap == null
+                      ? null
+                      : () => trailingOnTap!(value),
+                  child: UIKitIconTheme(
+                    size: size.trailingSize,
+                    color: colorHelper.secondaryContentColor,
+                    child: trailing!,
+                  ),
                 ),
               ],
             ],
