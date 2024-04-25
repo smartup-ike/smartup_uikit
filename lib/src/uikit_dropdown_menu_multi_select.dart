@@ -14,26 +14,18 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
     required this.value,
     this.initialValue,
     required this.onChanged,
-    List<T> options = const [],
-    List<Widget> labels = const [],
-    List<Widget> actions = const <Widget>[],
-    Widget? itemTrailing,
-    UIKitColorScheme? colorScheme,
-    UIKitSizeScheme? sizeScheme,
-    UIKitShadowScheme? shadowScheme,
-    bool? hasSearchBar,
-    ValueChanged<String>? searchOnChange,
+    List<T> super.options,
+    super.labels,
+    super.actions,
+    super.itemTrailing,
+    super.trailingOnTap,
+    super.colorScheme,
+    super.sizeScheme,
+    super.shadowScheme,
+    super.hasSearchBar,
+    super.searchOnChange,
   }) : super(
-          options: options,
           multiselect: true,
-          shadowScheme: shadowScheme,
-          searchOnChange: searchOnChange,
-          itemTrailing: itemTrailing,
-          hasSearchBar: hasSearchBar,
-          colorScheme: colorScheme,
-          sizeScheme: sizeScheme,
-          actions: actions,
-          labels: labels,
         );
 
   @override
@@ -87,6 +79,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                         multiselect: true,
                         isSelected: currentValue$.value.contains(options[i]),
                         trailing: itemTrailing,
+                        trailingOnTap: trailingOnTap,
                       ),
                       const SizedBox(height: 4),
                     ],
@@ -114,8 +107,7 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu {
                       borderRadius:
                           BorderRadius.circular(size.borderRadius ?? 0),
                       child: ColoredBox(
-                        color: colors.defaultBackgroundColor ??
-                            Colors.white,
+                        color: colors.defaultBackgroundColor ?? Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
