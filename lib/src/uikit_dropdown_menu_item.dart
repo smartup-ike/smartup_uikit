@@ -52,7 +52,7 @@ class UIKitDropdownMenuItem<T> extends HookWidget {
     useEffect(() {
       state$.value = isSelected ? UIKitState.active : UIKitState.defaultState;
       return;
-    }, [isSelected, label]);
+    }, [isSelected]);
 
     final colorHelper = findStateAttributes(
       colors,

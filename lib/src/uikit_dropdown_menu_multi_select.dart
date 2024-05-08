@@ -38,8 +38,6 @@ class UIKitDropdownMenuMultiSelect<T> extends UIKitDropdownMenu<T> {
     final shadows = define(shadowScheme, themeData.shadowScheme);
     final pleaseRebuild$ = useState(false);
 
-    useEffect(() => null, [options, labels]);
-
     return Material(
       child: Container(
         padding: size.padding,
