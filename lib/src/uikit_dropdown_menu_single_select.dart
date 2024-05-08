@@ -33,6 +33,8 @@ class UIKitDropdownMenuSingleSelect<T> extends UIKitDropdownMenu<T> {
     final size = define(sizeScheme, themeData.sizeScheme);
     final shadows = define(shadowScheme, themeData.shadowScheme);
 
+    useEffect(() => null, [options, labels]);
+
     return Material(
       child: Container(
         padding: size.padding,

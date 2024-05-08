@@ -8,7 +8,7 @@ import 'uikit_button.dart';
 
 class UIKitIconButton extends StatelessWidget {
   const UIKitIconButton({
-    Key? key,
+    super.key,
     required this.icon,
     this.onTap,
     this.sizeScheme,
@@ -17,7 +17,7 @@ class UIKitIconButton extends StatelessWidget {
     this.buttonType,
     this.buttonSize,
     this.isCircle = false,
-  }) : super(key: key);
+  });
 
   const UIKitIconButton.smallSolid({
     super.key,

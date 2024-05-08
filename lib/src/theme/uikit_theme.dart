@@ -3,10 +3,10 @@ import '../../smartup_uikit.dart';
 
 class UIKitTheme extends StatelessWidget {
   const UIKitTheme({
-    Key? key,
+    super.key,
     required this.theme,
     required this.child,
-  }) : super(key: key);
+  });
 
   /// Specifies the color and typography values for descendant widgets.
   final UIKitThemeData theme;
@@ -35,10 +35,9 @@ class UIKitTheme extends StatelessWidget {
 
 class _UIKitTheme extends InheritedTheme {
   const _UIKitTheme({
-    Key? key,
     required this.data,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final UIKitThemeData data;
 
@@ -107,7 +106,6 @@ class UIKitThemeData {
     UIKitCheckboxThemeData? checkboxThemeData,
     UIKitToggleListTileThemeData? toggleListTileThemeData,
     UIKitToggleSwitchListTileThemeData? toggleSwitchListTileThemeData,
-
   }) {
     colors ??= const UIKitColors();
     typography ??= const UIKitTypography();
@@ -185,7 +183,8 @@ class UIKitThemeData {
       checkboxThemeData: checkboxThemeData ?? this.checkboxThemeData,
       toggleListTileThemeData:
           toggleListTileThemeData ?? this.toggleListTileThemeData,
-        toggleSwitchListTileThemeData : toggleSwitchListTileThemeData ?? this.toggleSwitchListTileThemeData,
+      toggleSwitchListTileThemeData:
+          toggleSwitchListTileThemeData ?? this.toggleSwitchListTileThemeData,
     );
   }
 }
