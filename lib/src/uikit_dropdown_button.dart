@@ -21,6 +21,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -35,6 +36,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -49,6 +51,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -63,6 +66,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -77,6 +81,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -91,6 +96,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -105,6 +111,7 @@ class UIKitDropdownButton extends HookWidget {
     this.shadowScheme,
     required this.isDisabled,
     required this.trailing,
+    this.leading,
     this.label,
     this.input,
     this.childSize,
@@ -117,6 +124,7 @@ class UIKitDropdownButton extends HookWidget {
   final UIKitShadowScheme? shadowScheme;
   final bool isDisabled;
   final Widget trailing;
+  final Widget? leading;
   final Widget? label;
   final Widget? input;
   final Size? childSize;
@@ -228,9 +236,15 @@ class UIKitDropdownButton extends HookWidget {
           ),
           child: Row(
             children: [
+              if (leading != null)
+                UIKitIconTheme(
+                  color: colorHelper.contentColor,
+                  size: size.leadingSize,
+                  child: leading!,
+                ),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (label != null)
                       DefaultTextStyle(
