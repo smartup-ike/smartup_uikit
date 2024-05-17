@@ -244,7 +244,8 @@ class UIKitDropdownButton extends HookWidget {
                 ),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (label != null)
                       DefaultTextStyle(
