@@ -242,6 +242,7 @@ class UIKitDropdownButton extends HookWidget {
                   size: size.leadingSize,
                   child: leading!,
                 ),
+              SizedBox(width: size.spacing),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
