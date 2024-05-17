@@ -239,7 +239,7 @@ class UIKitDatePicker extends HookWidget {
             children: [
               Table(
                 defaultColumnWidth: const FixedColumnWidth(50),
-                border: TableBorder.symmetric(
+                border: const TableBorder.symmetric(
                   inside: BorderSide.none,
                   outside: BorderSide.none,
                 ),

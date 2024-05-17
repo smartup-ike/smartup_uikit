@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartup_uikit/src/theme/uikit_dropdown_button_theme_data.dart';
 import '../../smartup_uikit.dart';
 
 class UIKitTheme extends StatelessWidget {
@@ -62,6 +63,7 @@ class UIKitThemeData {
   final UIKitToggleSwitchListTileThemeData toggleSwitchListTileThemeData;
   final UIKitRadioGroupThemeData radioGroupThemeData;
   final UIKitTextInputThemeData textInputThemeData;
+  final UIKitDropdownButtonThemeData dropdownButtonThemeData;
   final UIKitMenuItemThemeData menuItemThemeData;
   final UIKitDropdownMenuThemeData dropdownMenuThemeData;
   final UIKitCalendarButtonThemeData calendarButtonThemeData;
@@ -79,6 +81,7 @@ class UIKitThemeData {
     required this.toggleSwitchThemeData,
     required this.radioGroupThemeData,
     required this.textInputThemeData,
+    required this.dropdownButtonThemeData,
     required this.menuItemThemeData,
     required this.dropdownMenuThemeData,
     required this.calendarButtonThemeData,
@@ -98,6 +101,7 @@ class UIKitThemeData {
     UIKitToggleSwitchThemeData? toggleSwitchThemeData,
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
+    UIKitDropdownButtonThemeData? dropdownButtonThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
@@ -115,6 +119,7 @@ class UIKitThemeData {
     toggleSwitchThemeData ??= UIKitToggleSwitchThemeData();
     radioGroupThemeData ??= UIKitRadioGroupThemeData();
     textInputThemeData ??= UIKitTextInputThemeData();
+    dropdownButtonThemeData ??= UIKitDropdownButtonThemeData();
     menuItemThemeData ??= UIKitMenuItemThemeData();
     dropdownMenuThemeData ??= UIKitDropdownMenuThemeData();
     calendarButtonThemeData ??= UIKitCalendarButtonThemeData();
@@ -133,6 +138,7 @@ class UIKitThemeData {
       toggleSwitchThemeData: toggleSwitchThemeData,
       radioGroupThemeData: radioGroupThemeData,
       textInputThemeData: textInputThemeData,
+      dropdownButtonThemeData: dropdownButtonThemeData,
       menuItemThemeData: menuItemThemeData,
       dropdownMenuThemeData: dropdownMenuThemeData,
       calendarButtonThemeData: calendarButtonThemeData,
@@ -153,6 +159,7 @@ class UIKitThemeData {
     UIKitToggleSwitchThemeData? toggleSwitchThemeData,
     UIKitRadioGroupThemeData? radioGroupThemeData,
     UIKitTextInputThemeData? textInputThemeData,
+    UIKitDropdownButtonThemeData? dropdownButtonThemeData,
     UIKitMenuItemThemeData? menuItemThemeData,
     UIKitDropdownMenuThemeData? dropdownMenuThemeData,
     UIKitCalendarButtonThemeData? calendarButtonThemeData,
@@ -172,6 +179,8 @@ class UIKitThemeData {
           toggleSwitchThemeData ?? this.toggleSwitchThemeData,
       radioGroupThemeData: radioGroupThemeData ?? this.radioGroupThemeData,
       textInputThemeData: textInputThemeData ?? this.textInputThemeData,
+      dropdownButtonThemeData:
+          dropdownButtonThemeData ?? this.dropdownButtonThemeData,
       menuItemThemeData: menuItemThemeData ?? this.menuItemThemeData,
       dropdownMenuThemeData:
           dropdownMenuThemeData ?? this.dropdownMenuThemeData,
