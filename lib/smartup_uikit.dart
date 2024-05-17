@@ -18,6 +18,7 @@ export 'package:smartup_uikit/src/theme/uikit_button_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_radio_button_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_radio_group_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_text_input_theme_data.dart';
+export 'package:smartup_uikit/src/theme/uikit_dropdown_button_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_menu_item_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_toggle_switch_theme_data.dart';
 export 'package:smartup_uikit/src/theme/uikit_tab_theme_data.dart';
