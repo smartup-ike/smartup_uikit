@@ -37,6 +37,7 @@ class UIKitTextInput extends HookWidget {
     this.inputType,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : assert(
@@ -67,6 +68,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
@@ -92,6 +94,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
@@ -115,6 +118,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
@@ -140,6 +144,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
@@ -167,6 +172,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
@@ -192,6 +198,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
@@ -215,6 +222,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
@@ -240,6 +248,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
@@ -267,6 +276,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
@@ -292,6 +302,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
@@ -315,6 +326,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.filled,
@@ -340,6 +352,7 @@ class UIKitTextInput extends HookWidget {
     this.shadowScheme,
     this.textInputAction,
     this.autofillHints,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
   })  : styleType = TextInputStyleType.line,
@@ -419,6 +432,9 @@ class UIKitTextInput extends HookWidget {
 
   /// Hints for the user.
   final List<String>? autofillHints;
+
+  /// Obscures text. Typically used for password fields.
+  final bool? obscureText;
 
   /// Provides as-you-type validation and formatting of the text being edited.
   final List<TextInputFormatter>? inputFormatters;
@@ -615,6 +631,7 @@ class UIKitTextInput extends HookWidget {
                           keyboardType: keyboardType,
                           textInputAction: textInputAction,
                           autofillHints: autofillHints,
+                          obscureText: obscureText ?? false,
                           showCursor: true,
                           inputFormatters: inputFormatters,
                           decoration: InputDecoration(
