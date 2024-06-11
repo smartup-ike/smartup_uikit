@@ -129,13 +129,12 @@ class UIKitTab extends HookWidget {
           ? SystemMouseCursors.basic
           : SystemMouseCursors.click,
       onHover: (e) {
-        if(!isActive)
-          {
-            if (onTap != null && e.kind != PointerDeviceKind.touch) {
-              state$.value = UIKitState.hover;
-              isHovered$.value = true;
-            }
+        if (!isActive) {
+          if (onTap != null && e.kind != PointerDeviceKind.touch) {
+            state$.value = UIKitState.hover;
+            isHovered$.value = true;
           }
+        }
       },
       onExit: (_) {
         if (onTap != null) {
@@ -194,7 +193,7 @@ class UIKitTab extends HookWidget {
                   ),
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: [
               if (leading != null) ...[
                 UIKitIconTheme(
