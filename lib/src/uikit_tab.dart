@@ -205,6 +205,7 @@ class UIKitTab extends HookWidget {
               ],
               Expanded(
                 child: DefaultTextStyle(
+                  textAlign: TextAlign.center,
                   style: state$.value == UIKitState.active
                       ? size.focusedLabelStyle
                               ?.copyWith(color: colorHelper.contentColor) ??
