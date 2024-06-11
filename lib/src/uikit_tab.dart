@@ -203,15 +203,17 @@ class UIKitTab extends HookWidget {
                 ),
                 SizedBox(width: size.spacing),
               ],
-              DefaultTextStyle(
-                style: state$.value == UIKitState.active
-                    ? size.focusedLabelStyle
-                            ?.copyWith(color: colorHelper.contentColor) ??
-                        TextStyle(color: colorHelper.contentColor)
-                    : size.labelStyle
-                            ?.copyWith(color: colorHelper.contentColor) ??
-                        TextStyle(color: colorHelper.contentColor),
-                child: label ?? const SizedBox(),
+              Expanded(
+                child: DefaultTextStyle(
+                  style: state$.value == UIKitState.active
+                      ? size.focusedLabelStyle
+                              ?.copyWith(color: colorHelper.contentColor) ??
+                          TextStyle(color: colorHelper.contentColor)
+                      : size.labelStyle
+                              ?.copyWith(color: colorHelper.contentColor) ??
+                          TextStyle(color: colorHelper.contentColor),
+                  child: label ?? const SizedBox(),
+                ),
               ),
               if (trailing != null) ...[
                 SizedBox(width: size.secondarySpacing),
