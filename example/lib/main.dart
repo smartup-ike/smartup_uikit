@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         routerConfig: router,
         //home: const MyHomePage(title: 'Smartup UI kit example'),
         debugShowCheckedModeBanner: false,
+        darkTheme: ThemeData(useMaterial3: false),
       ),
     );
   }
@@ -51,8 +52,7 @@ class MyHomePage extends HookWidget {
             const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.all(10),
-              child:
-              UIKitMenuItem(
+              child: UIKitMenuItem(
                 isActive: activeMenuItemIndex$.value == 1,
                 isExpanded: true,
                 onTap: () {

@@ -4,9 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartup_uikit/smartup_uikit.dart';
 
 class UIKitTabBar extends HookWidget {
-  /// UIKit sizeScheme for the Tab Bar
-  final UIKitSizeScheme sizeScheme;
-
   /// A list of widgets to use as labels for each tab.
   /// The first on this list will be the first label to be shown,
   /// the second label will be shown second etc.
@@ -20,7 +17,6 @@ class UIKitTabBar extends HookWidget {
   const UIKitTabBar({
     super.key,
     required this.labels,
-    required this.sizeScheme,
     required this.children,
   }) : assert(
           (children.length == labels.length),
@@ -56,32 +52,30 @@ class UIKitTabBar extends HookWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // We need this SizedBox because ListView needs to know the size of it's parent.
-        Expanded(
-          child: SizedBox(
-            width: double.infinity,
-            height: 45,
-            child: ListView(
-              // This makes the list scroll horizontally instead of vertically
-              scrollDirection: Axis.horizontal,
-              children: [
-                // For every child we make UIKitTab.
-                for (int i = 0; i < children.length; i++) ...[
-                  UIKitTab.line(
-                    // If this condition is true the the tab is active.
-                    isActive: tabIndex$.value == i,
-                    onTap: () {
-                      // This line is needed so the tab_bar knows the correct side for the animation even if there was no swipe and the user tapped a button.
-                      tabIndex$.value > i
-                          ? direction$.value = 'right'
-                          : direction$.value = 'left';
-                      // Each tab remembers which i it was assigned to it. The on tap it can use it.
-                      tabIndex$.value = i;
-                    },
-                    label: labels[i],
-                  ),
-                ],
+        SizedBox(
+          width: double.infinity,
+          height: 45,
+          child: ListView(
+            // This makes the list scroll horizontally instead of vertically
+            scrollDirection: Axis.horizontal,
+            children: [
+              // For every child we make UIKitTab.
+              for (int i = 0; i < children.length; i++) ...[
+                UIKitTab.line(
+                  // If this condition is true the the tab is active.
+                  isActive: tabIndex$.value == i,
+                  onTap: () {
+                    // This line is needed so the tab_bar knows the correct side for the animation even if there was no swipe and the user tapped a button.
+                    tabIndex$.value > i
+                        ? direction$.value = 'right'
+                        : direction$.value = 'left';
+                    // Each tab remembers which i it was assigned to it. The on tap it can use it.
+                    tabIndex$.value = i;
+                  },
+                  label: labels[i],
+                ),
               ],
-            ),
+            ],
           ),
         ),
         const SizedBox(height: 16),

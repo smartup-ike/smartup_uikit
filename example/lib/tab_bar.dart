@@ -33,21 +33,41 @@ class TabBarExample extends HookWidget {
                 Text("12ButtonsButton"),
                 Text("13ButtonsButton"),
                 Text("14ButtonsButton"),
-
               ],
-              sizeScheme: UIKitSizeScheme(),
               children: [
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
-                const Center(child: Text("Button"),),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
+                const Center(
+                  child: Text("Button"),
+                ),
                 UIKitButton.largePrimary(
                   labelText: const Text("Button"),
                   onTap: () {},
@@ -85,7 +105,6 @@ class TabBarExample extends HookWidget {
                 Text("Blue"),
                 Text("Buttons"),
               ],
-              sizeScheme: UIKitSizeScheme(),
               children: [
                 UIKitButton.largePrimary(
                   labelText: const Text("Button"),
@@ -124,7 +143,6 @@ class TabBarExample extends HookWidget {
                 Text("Blue"),
                 Text("Buttons"),
               ],
-              sizeScheme: UIKitSizeScheme(),
               children: [
                 UIKitButton.largePrimary(
                   labelText: const Text("Button"),

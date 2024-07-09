@@ -940,6 +940,7 @@ UIKitThemeData kitThemeData = UIKitThemeData(
     ),
     lineTabSizeScheme: UIKitSizeScheme(
       height: 40,
+      width: 150,
       spacing: 4,
       borderSize: 1,
       borderRadius: 8,
