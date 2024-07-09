@@ -57,7 +57,7 @@ class UIKitTabBar extends HookWidget {
       children: [
         // We need this SizedBox because ListView needs to know the size of it's parent.
         SizedBox(
-          width: double.infinity,
+          width: 500,
           height: 45,
           child: ListView(
             // This makes the list scroll horizontally instead of vertically
@@ -70,7 +70,9 @@ class UIKitTabBar extends HookWidget {
                   isActive: tabIndex$.value == i,
                   onTap: () {
                     // This line is needed so the tab_bar knows the correct side for the animation even if there was no swipe and the user tapped a button.
-                    tabIndex$.value > i ? direction$.value = 'right' : direction$.value = 'left';
+                    tabIndex$.value > i
+                        ? direction$.value = 'right'
+                        : direction$.value = 'left';
                     // Each tab remembers which i it was assigned to it. The on tap it can use it.
                     tabIndex$.value = i;
                   },
