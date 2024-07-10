@@ -14,10 +14,14 @@ class UIKitTabBar extends HookWidget {
   /// The second child is for the second tab etc.
   final List<Widget> children;
 
+  /// Width of the tab
+  final double tabWidth;
+
   const UIKitTabBar({
     super.key,
     required this.labels,
     required this.children,
+    required this.tabWidth,
   }) : assert(
           (children.length == labels.length),
           'The number of children must be equal to the number of labels.',
@@ -62,6 +66,10 @@ class UIKitTabBar extends HookWidget {
               // For every child we make UIKitTab.
               for (int i = 0; i < children.length; i++) ...[
                 UIKitTab.line(
+                  sizeScheme: UIKitTheme.of(context)
+                      .tabThemeData
+                      .lineTabSizeScheme
+                      .copyWith(width: tabWidth),
                   // If this condition is true the the tab is active.
                   isActive: tabIndex$.value == i,
                   onTap: () {

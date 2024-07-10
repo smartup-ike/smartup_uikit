@@ -18,6 +18,7 @@ class TabBarExample extends HookWidget {
             height: 500,
             width: 500,
             child: UIKitTabBar(
+              tabWidth: 100,
               labels: const [
                 Text("1Red"),
                 Text("2Blue"),
@@ -100,6 +101,7 @@ class TabBarExample extends HookWidget {
             height: 500,
             width: 500,
             child: UIKitTabBar(
+              tabWidth: 100,
               labels: const [
                 Text("Red"),
                 Text("Blue"),
@@ -138,6 +140,7 @@ class TabBarExample extends HookWidget {
             height: 500,
             width: 500,
             child: UIKitTabBar(
+              tabWidth: 100,
               labels: const [
                 Text("Red"),
                 Text("Blue"),
