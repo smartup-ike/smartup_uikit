@@ -134,6 +134,18 @@ class MyHomePage extends HookWidget {
                 label: const Text("Playground"),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: UIKitMenuItem(
+                isActive: activeMenuItemIndex$.value == 8,
+                isExpanded: true,
+                onTap: () {
+                  activeMenuItemIndex$.value = 8;
+                  context.go("/tree");
+                },
+                label: const Text("Tree"),
+              ),
+            ),
           ],
         ),
       ),

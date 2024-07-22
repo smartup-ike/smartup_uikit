@@ -75,3 +75,7 @@ export 'package:smartup_uikit/src/uikit_toggle_list_tile.dart'
     show UIKitToggleListTile;
 
 export 'package:smartup_uikit/src/uikit_tab_bar.dart' show UIKitTabBar;
+
+export 'package:smartup_uikit/src/uikit_tree_view.dart' show UIKitTreeView;
+export 'package:smartup_uikit/src/helpers/uikit_tree_node.dart'
+    show UIKitTreeNode;

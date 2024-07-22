@@ -1,4 +1,5 @@
 import 'package:example/drop_down_menu.dart';
+import 'package:example/tree.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,13 @@ final GoRouter router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             return const Playground();
           },
-        )
+        ),
+        GoRoute(
+          path: "tree",
+          builder: (BuildContext context, GoRouterState state) {
+            return const Tree();
+          },
+        ),
       ],
     ),
   ],
