@@ -53,6 +53,9 @@ class UIKitColors {
     this.warning800,
     this.warning900,
     this.warningK,
+    this.backgroundDownloadFrame,
+    this.textDownloadFrame,
+    this.titleTextDownloadFrame
   });
   final Color? primary30;
   final Color? primary50;
@@ -105,4 +108,7 @@ class UIKitColors {
   final Color? warning800;
   final Color? warning900;
   final Color? warningK;
+  final Color? backgroundDownloadFrame;
+  final Color? textDownloadFrame;
+  final Color? titleTextDownloadFrame;
 }
